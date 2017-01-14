@@ -19,7 +19,10 @@ $IMPLEMENTED_PAGES = array(
     'szemelyes-beallitasok',
     'export-megrendelok',
     'naplo',
-    'main'
+    'main',
+    'error'
 );
+
+$CATEGORIES = array('alapanyag', 'gyartas', 'megrendeles', 'szallitas', 'kimutatas', 'adminisztracio');
 
 ?>

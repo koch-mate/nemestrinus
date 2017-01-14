@@ -1,8 +1,12 @@
 <?php
 session_start();
+// FIXME for debug
 error_reporting(E_ALL);
 
 require("config.php");
+require("lib/utility.php");
+require("lib/db.php");
+require("core/auth.php");
 
 $_mode = $_GET['mode'];
 
@@ -15,7 +19,7 @@ if($_mode == 'logout'){
     session_destroy();
     $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=login';
     header('Location: ' . $loginUrl);
-    die();
+    die('logout redirecion failed');
 }
 
 // has the user logged in?
@@ -26,23 +30,42 @@ if(empty($_SESSION['activeLogin'])){
     {
         $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
         header('Location: ' . $loginUrl);
-        die('<a href="' . $loginUrl . '">Belépés</a>');
+        die('login redirection failed');
     }
     else
     {
         if(!empty($_POST['user'])){
-            // TODO do proper authentication
-            $_SESSION['activeLogin'] = True;
-            // TODO reject if incorrect credentials, set $loginError
-            $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
+            // login with username and password
+            
+            if($_POST['user'] == 'mate'){
+                // TODO do proper authentication
+                $_SESSION['activeLogin'] = True;
+                $_SESSION['lastActivity'] = time();
+                $_SESSION['userName'] = $_POST['user']; // FIXME
+                // TODO reject if incorrect credentials, set $loginError
+                $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
+            }
+            else {
+                $loginError = True;
+                $_SESSION['activeLogin'] = False;
+                $_mode = 'login';
+            }
         }
     }
 }
 if($_SESSION['activeLogin']) {
+    // get user data
+    $_SESSION['realName'] = $_POST['user'].' Kalman'; // FIXME - get from DB
+    $_SESSION['lastActivity'] = time();
+    $_SESSION['userRights'] = getUserRights($_SESSION['userName'], 'db connector'); // FIXME - db connector
     if(in_array($_mode, $IMPLEMENTED_PAGES))
     {
         $mode = $_mode;
         // TODO check for privileges 
+    }
+    else {
+        $mode = 'error';
+        $errorMessage = '"'.$_mode.'" is not implemented';
     }
 }
 else {

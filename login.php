@@ -8,10 +8,10 @@
     <fieldset>
         <legend>Bejelentkezés</legend>
 
-        <?php if($loginError){ ?>
+        <?php if(!empty($loginError)){ ?>
             <div class="alert alert-danger" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">HIBA:</span> Hibás felhasználónév vagy jelszó
+                <span class="sr-only">HIBA</span> Hibás felhasználónév vagy jelszó
             </div>
             <?php } ?>
 

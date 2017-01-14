@@ -24,3 +24,7 @@ img:hover {
     transition: all 200ms ease-in;
     transform: scale(4);
 }
+
+div.paddingTop {
+    height: 5em;
+}

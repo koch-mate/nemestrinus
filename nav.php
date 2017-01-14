@@ -7,11 +7,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">NEMESTRINUS <small style="color:#bbb;">v<?php include("version.php");?></small></a>
+            <a class="navbar-brand" href="/main">NEMESTRINUS <small style="color:#bbb;">v<?php include("version.php");?></small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alapanyag <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -54,8 +54,8 @@
                         <li><a href="/uj-export-megrendeles">Új megrendelés</a></li>
                     </ul>
                 </li>
-                
-                
+
+
                 <li><a href="/szallitas">Szállítás</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kimutatás <span class="caret"></span></a>
@@ -79,7 +79,10 @@
                 <li>
                     <p class="navbar-text">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        <a href="/szemelyes-beallitasok">Példa Géza</a></p>
+                        <a href="/szemelyes-beallitasok">
+                            <?=$_SESSION['realName']?>
+                        </a>
+                    </p>
                 </li>
                 <li><a href="/?mode=logout">Kilépés</a></li>
             </ul>
