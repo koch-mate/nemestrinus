@@ -1,9 +1,9 @@
 <?php
 session_start();
-// FIXME for debug
+// FIXME - for debug
 error_reporting(E_ALL);
 
-require("config.php");
+require("lib/config.php");
 require("lib/utility.php");
 require("lib/db.php");
 require("core/auth.php");
@@ -12,12 +12,12 @@ $_mode = $_GET['mode'];
 
 $mode = '';
 
-// TODO has the session expired? 
+// TODO - has the session expired? 
 
 // is there a logout attempt?
 if($_mode == 'logout'){
     session_destroy();
-    $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=login';
+    $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login';
     header('Location: ' . $loginUrl);
     die('logout redirecion failed');
 }
@@ -28,7 +28,7 @@ if(empty($_SESSION['activeLogin'])){
     // not logged in, redirect to login
     if($_mode != 'login')
     {
-        $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
+        $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
         header('Location: ' . $loginUrl);
         die('login redirection failed');
     }
@@ -38,11 +38,11 @@ if(empty($_SESSION['activeLogin'])){
             // login with username and password
             
             if($_POST['user'] == 'mate'){
-                // TODO do proper authentication
+                // TODO - do proper authentication
                 $_SESSION['activeLogin'] = True;
                 $_SESSION['lastActivity'] = time();
-                $_SESSION['userName'] = $_POST['user']; // FIXME
-                // TODO reject if incorrect credentials, set $loginError
+                $_SESSION['userName'] = $_POST['user']; // FIXME - protect, check, etc.
+                // TODO - reject if incorrect credentials, set $loginError
                 $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
             }
             else {
@@ -53,15 +53,18 @@ if(empty($_SESSION['activeLogin'])){
         }
     }
 }
-if($_SESSION['activeLogin']) {
+if(!empty($_SESSION['activeLogin'])) {
     // get user data
-    $_SESSION['realName'] = $_POST['user'].' Kalman'; // FIXME - get from DB
+    $_SESSION['realName'] = $_SESSION['userName'].' Kalman'; // FIXME - get from DB
     $_SESSION['lastActivity'] = time();
     $_SESSION['userRights'] = getUserRights($_SESSION['userName'], 'db connector'); // FIXME - db connector
-    if(in_array($_mode, $IMPLEMENTED_PAGES))
+    if(empty($_mode) || $_mode == 'login'){
+        $_mode = 'main';
+    }
+    if(in_array($_mode, IMPLEMENTED_PAGES))
     {
         $mode = $_mode;
-        // TODO check for privileges 
+        // TODO - check for privileges 
     }
     else {
         $mode = 'error';
@@ -84,7 +87,9 @@ else {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Nemestrinus</title>
+        <title>Nemestrinus -
+            <?=MENU_NAMES[$mode]  //FIXME ?>
+        </title>
         <link rel="shortcut icon" type="image/png" href="/img/logo.png" />
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -99,24 +104,30 @@ else {
 
     <body>
 
-        <?php if($mode != 'login') include('nav.php'); ?>
-            <div class="container">
+        <?php if($mode != 'login'){ 
+            require('pages/nav.php');
+        ?>
+            <div style='height:6em;'>&nbsp;</div>
+            <?php
+        }
+        ?>
+                <div class="container">
+                    <div class="bodyContainer">
 
-                <div class="starter-template">
-                    <?php 
-                    require($mode.'.php');
-                    ?>
+                        <div class="starter-template">
+                            <?php 
+                            require('pages/'.$mode.'.php');
+                            ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- /.container -->
-            <script>
-                $(document).ready(function () {
-                    $('.datepicker').datepicker({
-                        format: "yyyy-mm-dd",
+                <script>
+                    $(document).ready(function () {
+                        $('.datepicker').datepicker({
+                            format: "yyyy-mm-dd",
+                        });
                     });
-                });
-            </script>
+                </script>
     </body>
-
 
     </html>
