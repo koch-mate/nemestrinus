@@ -7,12 +7,39 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">NEMESTRINUS</a>
+            <a class="navbar-brand" href="/">NEMESTRINUS <small style="color:#bbb;">v<?php include("version.php");?></small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/fakitermeles">Alapanyag beszállítás</a></li>
-                <li><a href="/fakitermeles">Csomgagolóanyag</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alapanyag <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Faanyag</li>
+                        <li><a href="/lakossagi-megrendeles-osszesites">Készlet</a></li>
+                        <li><a href="/lakossagi-megrendeles-attekintes">Bevétel</a></li>
+                        <li><a href="/uj-lakossagi-megrendeles">Korrekció</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Csomagolóanyag</li>
+                        <li><a href="/export-megrendeles-osszesites">Készlet</a></li>
+                        <li><a href="/export-megrendeles-attekintes">Bevétel</a></li>
+                        <li><a href="/uj-export-megrendeles">Korrekció</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gyártás <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Csomagolóanyag</li>
+                        <li><a href="/lakossagi-megrendeles-osszesites">Összesítés</a></li>
+                        <li><a href="/lakossagi-megrendeles-attekintes">Áttekintés</a></li>
+                        <li><a href="/uj-lakossagi-megrendeles">Új megrendelés</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Export</li>
+                        <li><a href="/export-megrendeles-osszesites">Összesítés</a></li>
+                        <li><a href="/export-megrendeles-attekintes">Áttekintés</a></li>
+                        <li><a href="/uj-export-megrendeles">Új megrendelés</a></li>
+                    </ul>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Megrendelés <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -27,7 +54,8 @@
                         <li><a href="/uj-export-megrendeles">Új megrendelés</a></li>
                     </ul>
                 </li>
-                <li><a href="/gyartas">Gyártás</a></li>
+                
+                
                 <li><a href="/szallitas">Szállítás</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kimutatás <span class="caret"></span></a>
@@ -53,7 +81,7 @@
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <a href="/szemelyes-beallitasok">Példa Géza</a></p>
                 </li>
-                <li><a href="-kilepes">Kilépés</a></li>
+                <li><a href="/?mode=logout">Kilépés</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

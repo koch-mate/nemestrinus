@@ -4,32 +4,36 @@
     <p>Tűzifa megrendelés, gyártás és szállítás nyilvántartó program</p>
 </div>
 
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action="?mode=login&redirect=<?=$_GET['redirect']?>">
     <fieldset>
-
         <legend>Bejelentkezés</legend>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">Felhasználónév</label>
-            <div class="col-md-5">
-                <input id="textinput" name="textinput" type="text" placeholder="Felhasználónév" class="form-control input-md" required="">
-
+        <?php if($loginError){ ?>
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">HIBA:</span> Hibás felhasználónév vagy jelszó
             </div>
-        </div>
+            <?php } ?>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="passwordinput">Jelszó</label>
-            <div class="col-md-5">
-                <input id="passwordinput" name="passwordinput" type="password" placeholder="Jelszó" class="form-control input-md" required="">
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="user">Felhasználónév</label>
+                    <div class="col-md-5">
+                        <input id="user" name="user" type="text" placeholder="Felhasználónév" class="form-control input-md" required="">
+                    </div>
+                </div>
 
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton"></label>
-            <div class="col-md-4">
-                <button id="singlebutton" name="singlebutton" class="btn btn-success">Bejelentkezés</button>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="passsword">Jelszó</label>
+                    <div class="col-md-5">
+                        <input id="passsword" name="passsword" type="password" placeholder="Jelszó" class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="submit"></label>
+                    <div class="col-md-4">
+                        <button id="submit" name="submit" class="btn btn-success">Bejelentkezés</button>
+                    </div>
+                </div>
 
     </fieldset>
 </form>

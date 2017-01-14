@@ -1,31 +1,56 @@
 <?php
+session_start();
 error_reporting(E_ALL);
+
+require("config.php");
 
 $_mode = $_GET['mode'];
 
-$implemented_pages = array(
-    'uj-lakossagi-megrendeles',
-    'uj-export-megrendeles',
-    'lakossagi-megrendeles-attekintes',
-    'export-megrendeles-attekintes',
-    'lakossagi-megrendeles-osszesites',
-    'export-megrendeles-osszesites',
-    'login',
-    'felhasznalok',
-    'gyartas',
-    'szallitas',
-    'fakitermeles',
-    'szemelyes-beallitasok',
-    'export-megrendelok',
-    'naplo'
-);
+$mode = '';
 
-$mode = 'login';
+// TODO has the session expired? 
 
-if(in_array($_mode, $implemented_pages))
-{
-    $mode = $_mode;
+// is there a logout attempt?
+if($_mode == 'logout'){
+    session_destroy();
+    $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=login';
+    header('Location: ' . $loginUrl);
+    die();
 }
+
+// has the user logged in?
+$mode = 'login';
+if(empty($_SESSION['activeLogin'])){
+    // not logged in, redirect to login
+    if($_mode != 'login')
+    {
+        $loginUrl = $SERVER_PROTOCOL . $SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
+        header('Location: ' . $loginUrl);
+        die('<a href="' . $loginUrl . '">Belépés</a>');
+    }
+    else
+    {
+        if(!empty($_POST['user'])){
+            // TODO do proper authentication
+            $_SESSION['activeLogin'] = True;
+            // TODO reject if incorrect credentials, set $loginError
+            $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
+        }
+    }
+}
+if($_SESSION['activeLogin']) {
+    if(in_array($_mode, $IMPLEMENTED_PAGES))
+    {
+        $mode = $_mode;
+        // TODO check for privileges 
+    }
+}
+else {
+    // back to login
+    $mode = 'login';
+}
+
+
 
 
 ?>
@@ -41,35 +66,7 @@ if(in_array($_mode, $implemented_pages))
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="css/datepicker.css" rel="stylesheet">
-        <style type="text/css">
-            html,
-            body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            
-            body {
-                padding-top: 70px;
-            }
-            
-            .btn {
-                margin-bottom: 2px;
-            }
-        </style>
-        <style>
-            img:hover {
-                z-index: 2;
-                -webkit-transition: all 200ms ease-in;
-                -webkit-transform: scale(4);
-                -ms-transition: all 200ms ease-in;
-                -ms-transform: scale(4);
-                -moz-transition: all 200ms ease-in;
-                -moz-transform: scale(4);
-                transition: all 200ms ease-in;
-                transform: scale(4);
-            }
-        </style>
+        <link href="css/style.css" rel="stylesheet">
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -78,13 +75,14 @@ if(in_array($_mode, $implemented_pages))
     </head>
 
     <body>
-        <?php include('nav.php');?>
+
+        <?php if($mode != 'login') include('nav.php'); ?>
             <div class="container">
 
                 <div class="starter-template">
                     <?php 
-                include($mode.'.php');
-                ?>
+                    require($mode.'.php');
+                    ?>
                 </div>
             </div>
             <!-- /.container -->
