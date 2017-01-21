@@ -6,7 +6,12 @@
 function getUserRights($user, $db = 0){
     // TODO - implement
     $r = [
-        'alapanyag', 'gyartas', 'megrendeles', 'kimutatas', 'adminisztracio'
+        'alapanyag', 
+        'gyartas', 
+        'megrendeles', 
+        'kimutatas', 
+        'szallitas',
+        'adminisztracio'
     ];
     return $r;
 }

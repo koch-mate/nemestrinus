@@ -55,7 +55,7 @@ if(empty($_SESSION['activeLogin'])){
 }
 if(!empty($_SESSION['activeLogin'])) {
     // get user data
-    $_SESSION['realName'] = $_SESSION['userName'].' Kalman'; // FIXME - get from DB
+    $_SESSION['realName'] = $_SESSION['userName'].' '; // FIXME - get from DB
     $_SESSION['lastActivity'] = time();
     $_SESSION['userRights'] = getUserRights($_SESSION['userName'], 'db connector'); // FIXME - db connector
     if(empty($_mode) || $_mode == 'login'){
@@ -63,6 +63,9 @@ if(!empty($_SESSION['activeLogin'])) {
     }
     if(in_array($_mode, IMPLEMENTED_PAGES))
     {
+        // find rootNode
+        
+        if(!in_array('', $_SESSION['userRights'])) {}  //TODO!!!!!
         $mode = $_mode;
         // TODO - check for privileges 
     }
@@ -108,7 +111,10 @@ else {
             require('pages/nav.php');
         ?>
             <div style='height:6em;'>&nbsp;</div>
-            <?php
+            <?php 
+            if(DEBUG){ 
+                require_once('debug.php');
+            }
         }
         ?>
                 <div class="container">

@@ -40,3 +40,26 @@ img.zoom:hover {
 div.paddingTop {
     height: 5em;
 }
+
+div.debug {
+    font-size: 80%;
+    background: rgba(230, 230, 230, 0.5);
+    position: fixed;
+    z-index: 999999;
+    width: 20em;
+    padding: 1em;
+    box-shadow: 5px 5px 15px #bbb;
+    border-radius: 0 4px 4px 0;
+}
+
+div.debug:hover {
+    background: rgba(230, 230, 230, 0.9);
+}
+
+div.debug table td {
+    padding: 3px;
+}
+
+div.debug table tr:hover {
+    background: #fff;
+}

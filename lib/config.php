@@ -1,8 +1,13 @@
 <?php
 
+const DEBUG = True;
+
+
 const SERVER_URL = "localhost/";
 const SERVER_PROTOCOL = "http://";
 
+// logout after SESSION_TIMEOUT seconds of inactivity
+const SESSION_TIMEOUT = 10;
 
 const IMPLEMENTED_PAGES = [
     'uj-lakossagi-megrendeles',
@@ -23,20 +28,17 @@ const IMPLEMENTED_PAGES = [
     'error'
 ];
 
-// const CATEGORIES = ['alapanyag', 'gyartas', 'megrendeles', 'szallitas', 'kimutatas', 'adminisztracio'];
-
-
 const MENU_STRUCT = [
     'alapanyag'         => [ 
-        'faanyag' => [ 'faanyag_keszlet', 'faanyag_bevitel', 'faanyag_korrekcio'], 
-        'csomagoloanyag' => [ 'csomagoloanyag_keszlet', 'csomagoloanyag_bevitel', 'csomagoloanyag_korrekcio'] 
+        'faanyag' => [ 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-korrekcio'], 
+        'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-korrekcio'] 
     ],
     'gyartas'           => [
         'termekgyartas',
     ],
     'megrendeles'       => [
-        'lakossagi' => ['lakossagi_osszesites', 'lakossagi_megrendelesek', 'lakossagi_uj_megrendeles'],
-        'export' => ['export_osszesites', 'export_megrendelesek', 'export_uj_megrendeles'],
+        'lakossagi' => ['lakossagi-osszesites', 'lakossagi-megrendelesek', 'lakossagi-uj-megrendeles'],
+        'export' => ['export-osszesites', 'export-megrendelesek', 'export-uj-megrendeles'],
     ],
     'szallitas'         => [
         'kiszallitas',
@@ -47,31 +49,66 @@ const MENU_STRUCT = [
     ],
     'adminisztracio'    => [
         'felhasznalok',
-        'export_megrendelok',
+        'export-megrendelok',
         'naplo',
-        'sajat_profil',
+        'sajat-profil',
     ],
 ];
 
-const  MENU_NAMES = [
+const PAGE_RIGHTS = [
+    'alapanyag' => 'alapanyag',
+    'faanyag' => 'alapanyag',
+    'csomagoloanyag' => 'alapanyag',
+    'faanyag-keszlet' => 'alapanyag', 
+    'faanyag-bevitel' => 'alapanyag', 
+    'faanyag-korrekcio' => 'alapanyag', 
+    'csomagoloanyag-keszlet' => 'alapanyag', 
+    'csomagoloanyag-bevitel' => 'alapanyag', 
+    'csomagoloanyag-korrekcio' => 'alapanyag', 
+    'gyartas' => 'gyartas',
+    'termekgyartas' => 'gyartas', 
+    'megrendeles' => 'megrendeles',
+    'lakossagi-osszesites' => 'megrendeles', 
+    'lakossagi-megrendelesek' => 'megrendeles',
+    'lakossagi-uj-megrendeles' => 'megrendeles',
+    'export-osszesites' => 'megrendeles',
+    'export-megrendelesek' => 'megrendeles',
+    'export-uj-megrendeles' => 'megrendeles',
+    'szallitas' => 'szallitas',
+    'kiszallitas' => 'szallitas',
+    'kimutatas' => 'kimutatas',
+    'leltar' => 'kimutatas',
+    'fizetesek' => 'kimutatas',
+    'adminisztracio' => 'adminisztracio',
+    'felhasznalok' => 'adminisztracio',
+    'export-megrendelok' => 'adminisztracio',
+    'naplo' => 'adminisztracio',
+    'sajat-profil' => 'adminisztracio',
+    'main' => 'main',
+    'lakossagi' => 'megrendeles',
+    'export' => 'megrendeles',
+    'szemelyes-beallitasok' => 'adminisztracio',
+];
+
+const MENU_NAMES = [
     'alapanyag' => 'Alapanyag',
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
-    'faanyag_keszlet' => 'Készlet', 
-    'faanyag_bevitel' => 'Bevitel', 
-    'faanyag_korrekcio' => 'Korrekció', 
-    'csomagoloanyag_keszlet' => 'Készlet', 
-    'csomagoloanyag_bevitel' => 'Bevitel', 
-    'csomagoloanyag_korrekcio' => 'Korrekció', 
+    'faanyag-keszlet' => 'Készlet', 
+    'faanyag-bevitel' => 'Bevitel', 
+    'faanyag-korrekcio' => 'Korrekció', 
+    'csomagoloanyag-keszlet' => 'Készlet', 
+    'csomagoloanyag-bevitel' => 'Bevitel', 
+    'csomagoloanyag-korrekcio' => 'Korrekció', 
     'gyartas' => 'Gyártás',
     'termekgyartas' => 'Gyártás', 
     'megrendeles' => 'Megrendelés',
-    'lakossagi_osszesites' => 'Összesítés', 
-    'lakossagi_megrendelesek' => 'Megrendelések',
-    'lakossagi_uj_megrendeles' => 'Új megrendelés',
-    'export_osszesites' => 'Összesítés',
-    'export_megrendelesek' => 'Megrendelések',
-    'export_uj_megrendeles' => 'Új megrendelés',
+    'lakossagi-osszesites' => 'Összesítés', 
+    'lakossagi-megrendelesek' => 'Megrendelések',
+    'lakossagi-uj-megrendeles' => 'Új megrendelés',
+    'export-osszesites' => 'Összesítés',
+    'export-megrendelesek' => 'Megrendelések',
+    'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',
     'kiszallitas' => 'Szállítás',
     'kimutatas' => 'Kimutatás',
@@ -79,12 +116,13 @@ const  MENU_NAMES = [
     'fizetesek' => 'Kifizetések',
     'adminisztracio' => 'Adminisztráció',
     'felhasznalok' => 'Felhasználók',
-    'export_megrendelok' => 'Export megrendelők',
+    'export-megrendelok' => 'Export megrendelők',
     'naplo' => 'Napló',
-    'sajat_profil' => 'Saját profil',
+    'sajat-profil' => 'Saját profil',
     'main' => 'Nyitólap',
     'lakossagi' => 'Lakossági',
     'export' => 'Export',
+    'szemelyes-beallitasok' => 'Személyes beállítások',
 ];
 
 ?>

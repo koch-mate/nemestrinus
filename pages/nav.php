@@ -13,6 +13,9 @@
             <ul class="nav navbar-nav">
                 <?php 
                 foreach(array_keys(MENU_STRUCT) as $topMenu) {
+                    if(!in_array($topMenu, $_SESSION['userRights'])){
+                        continue;
+                    }
                 ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
