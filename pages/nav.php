@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav">
                 <?php 
                 foreach(array_keys(MENU_STRUCT) as $topMenu) {
-                    if(!in_array($topMenu, $_SESSION['userRights'])){
+                    if(!in_array(PAGE_RIGHTS[$topMenu], $_SESSION['userRights'])){
                         continue;
                     }
                 ?>
@@ -23,12 +23,16 @@
                         <ul class="dropdown-menu">
                             <?php 
                             foreach(array_keys(MENU_STRUCT[$topMenu]) as $separator){
-                                if(!is_numeric($separator)){?>
+
+                                if(!is_numeric($separator) && in_array(PAGE_RIGHTS[$separator], $_SESSION['userRights'])){?>
                                 <li class="dropdown-header">
                                     <?=MENU_NAMES[$separator]?>
                                 </li>
                                 <?php }
                                 foreach((is_numeric($separator) ? MENU_STRUCT[$topMenu] : MENU_STRUCT[$topMenu][$separator]) as $menuItem){
+                                    if(!in_array(PAGE_RIGHTS[$menuItem], $_SESSION['userRights'])){
+                                        continue;
+                                    }
                                     ?>
                                     <li>
                                         <a href="/<?=$menuItem?>">

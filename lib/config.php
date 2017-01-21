@@ -7,7 +7,7 @@ const SERVER_URL = "localhost/";
 const SERVER_PROTOCOL = "http://";
 
 // logout after SESSION_TIMEOUT seconds of inactivity
-const SESSION_TIMEOUT = 10;
+const SESSION_TIMEOUT = 300;
 
 const IMPLEMENTED_PAGES = [
     'uj-lakossagi-megrendeles',

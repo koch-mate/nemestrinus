@@ -12,10 +12,10 @@ $_mode = $_GET['mode'];
 
 $mode = '';
 
-// TODO - has the session expired? 
-
 // is there a logout attempt?
-if($_mode == 'logout'){
+// has the session timeout'ed?
+
+if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && (time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT)){
     session_destroy();
     $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login';
     header('Location: ' . $loginUrl);
@@ -78,10 +78,6 @@ else {
     // back to login
     $mode = 'login';
 }
-
-
-
-
 ?>
     <!DOCTYPE html>
     <html>
