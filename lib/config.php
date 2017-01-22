@@ -40,7 +40,7 @@ const IMPLEMENTED_PAGES = [
     'gyartas',
     'szallitas',
     'fakitermeles',
-    'szemelyes-beallitasok',
+    'sajat-profil',
     'export-megrendelok',
     'naplo',
     'main',

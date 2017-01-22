@@ -53,7 +53,7 @@
                             <li>
                                 <p class="navbar-text">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                    <a href="/szemelyes-beallitasok">
+                                    <a href="/sajat-profil">
                                         <?=$_SESSION['realName']?>
                                     </a>
                                 </p>
