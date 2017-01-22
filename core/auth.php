@@ -29,9 +29,20 @@ function getUserLastLogin($user){
     return getUserData($user, 'LastLogin');
 }
 
-
 function getUserRights($user){
     $r = getUserData($user, 'Jogok');
     return unserialize($r);
+}
+
+function userUpdatePassword($old, $new, $user = ''){
+    if(empty($user)){
+        $user = $_SESSION['userName'];
+    }
+    global $db;
+    if( $db->has('user', ['AND' => ['UserName' => $user, 'Password' => $old, 'Aktiv' => 1]])){
+        $db->update('user',['Password'=>$new],['UserName'=>$user]);
+        return True;
+    }
+    return False;
 }
 ?>

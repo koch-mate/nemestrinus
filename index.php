@@ -99,6 +99,8 @@ else {
         <link href="css/style.css" rel="stylesheet">
 
         <script src="js/jquery.js"></script>
+        <script src="js/jquery.validate.js"></script>
+        <script src="js/messages_hu.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
