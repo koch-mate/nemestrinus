@@ -1,18 +1,37 @@
 <?php
 
 // authentication
+function authenticate($user, $pw){
+    global $db;
+    if($db->has('user', ['AND' => ['UserName' => $user, 'Password' => $pw, 'Aktiv' => 1]])) {
+        $db->update('user', ['LastLogin' => date('Y-m-d H:i:s')], ['UserName' => $user]);
+        return True;
+    }
+    else {
+        return False;
+    }
+}
+
+function getUserData($user, $data){
+    global $db;
+    return $db->get('user', $data, ['UserName'=>$user]);    
+}
+
+function getUserFullName($user){
+    return getUserData($user, 'TeljesNev');
+}
+
+function getUserEmail($user){
+    return getUserData($user, 'Email');
+}
+
+function getUserLastLogin($user){
+    return getUserData($user, 'LastLogin');
+}
 
 
-function getUserRights($user, $db = 0){
-    // TODO - implement
-    $r = [
-        'alapanyag', 
-        'gyartas', 
-        'megrendeles', 
-        'kimutatas', 
-        'szallitas',
-        'adminisztracio'
-    ];
-    return $r;
+function getUserRights($user){
+    $r = getUserData($user, 'Jogok');
+    return unserialize($r);
 }
 ?>

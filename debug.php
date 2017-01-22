@@ -27,4 +27,8 @@
             <?php }
             ?>
     </table>
+    <div>
+        <?php var_dump($db->log());?>
+            <?php // print_r($db->info());?>
+    </div>
 </div>

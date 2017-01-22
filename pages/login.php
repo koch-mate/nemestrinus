@@ -23,9 +23,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="passsword">Jelszó</label>
+                    <label class="col-md-4 control-label" for="password">Jelszó</label>
                     <div class="col-md-5">
-                        <input id="passsword" name="passsword" type="password" placeholder="Jelszó" class="form-control input-md" required="">
+                        <input id="password" name="password" type="password" placeholder="Jelszó" class="form-control input-md" required="">
                     </div>
                 </div>
                 <div class="form-group">

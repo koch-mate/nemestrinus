@@ -2,6 +2,25 @@
 
 const DEBUG = True;
 
+const LOCAL_DB = [
+    'database_type' => 'mysql',
+    'database_name' => 'nemestrinus',
+    'server' => 'localhost',
+    'username' => 'root',
+    'password' => 'root',
+    'charset' => 'utf8'
+];
+
+const DEPLOY_DB = [
+    'database_type' => 'mysql',
+    'database_name' => 'nemestrinus',
+    'server' => 'localhost',
+    'username' => 'root',
+    'password' => 'root',
+    'charset' => 'utf8'
+];
+
+const DB_DATA = (DEBUG ? LOCAL_DB : DEPLOY_DB);
 
 const SERVER_URL = "localhost/";
 const SERVER_PROTOCOL = "http://";

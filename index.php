@@ -1,12 +1,16 @@
 <?php
 session_start();
-// FIXME - for debug
-error_reporting(E_ALL);
 
-require("lib/config.php");
-require("lib/utility.php");
-require("lib/db.php");
-require("core/auth.php");
+require_once("lib/config.php");
+
+if(DEBUG){
+    error_reporting(E_ALL);
+}
+
+require_once("vendor/medoo.php");
+require_once("lib/utility.php");
+require_once("lib/db.php");
+require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
 
@@ -14,7 +18,6 @@ $mode = '';
 
 // is there a logout attempt?
 // has the session timeout'ed?
-
 if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && (time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT)){
     session_destroy();
     $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login';
@@ -37,7 +40,7 @@ if(empty($_SESSION['activeLogin'])){
         if(!empty($_POST['user'])){
             // login with username and password
             
-            if($_POST['user'] == 'mate'){
+            if(authenticate($_POST['user'], $_POST['password'])){
                 // TODO - do proper authentication
                 $_SESSION['activeLogin'] = True;
                 $_SESSION['lastActivity'] = time();
@@ -55,9 +58,9 @@ if(empty($_SESSION['activeLogin'])){
 }
 if(!empty($_SESSION['activeLogin'])) {
     // get user data
-    $_SESSION['realName'] = $_SESSION['userName'].' '; // FIXME - get from DB
+    $_SESSION['realName'] = getUserFullName($_SESSION['userName']); 
     $_SESSION['lastActivity'] = time();
-    $_SESSION['userRights'] = getUserRights($_SESSION['userName'], 'db connector'); // FIXME - db connector
+    $_SESSION['userRights'] = getUserRights($_SESSION['userName']); 
     if(empty($_mode) || $_mode == 'login'){
         $_mode = 'main';
     }
@@ -90,14 +93,14 @@ else {
             <?=MENU_NAMES[$mode]  //FIXME ?>
         </title>
         <link rel="shortcut icon" type="image/png" href="/img/logo.png" />
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="css/datepicker.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
     </head>
 
@@ -108,10 +111,11 @@ else {
         ?>
             <div style='height:6em;'>&nbsp;</div>
             <?php 
-            if(DEBUG){ 
-                require_once('debug.php');
-            }
         }
+        if(DEBUG){ 
+            require_once('debug.php');
+        }
+
         ?>
                 <div class="container">
                     <div class="bodyContainer">
