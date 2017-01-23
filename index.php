@@ -94,7 +94,7 @@ else {
         </title>
         <link rel="shortcut icon" type="image/png" href="/img/logo.png" />
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="css/datatables.min.css" rel="stylesheet">
         <link href="css/datepicker.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
 
@@ -102,7 +102,7 @@ else {
         <script src="js/jquery.validate.js"></script>
         <script src="js/messages_hu.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/datatables.min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
     </head>
 
@@ -114,10 +114,6 @@ else {
             <div style='height:6em;'>&nbsp;</div>
             <?php 
         }
-        if(DEBUG){ 
-            require_once('debug.php');
-        }
-
         ?>
                 <div class="container">
                     <div class="bodyContainer">
@@ -136,6 +132,12 @@ else {
                         });
                     });
                 </script>
+                <?php
+        if(DEBUG){ 
+            require_once('debug.php');
+        }
+
+?>
     </body>
 
     </html>

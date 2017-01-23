@@ -4,7 +4,8 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Név</th>
+            <th>Felhasználó</th>
+            <th>Teljes név</th>
             <th>Jogosultság</th>
             <th>Jelszó</th>
             <th>E-mail cím</th>
@@ -13,74 +14,47 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td scope="row">1</td>
-            <td>Példa Pál</td>
-            <td>
-                <span class="label label-primary" title="Megrendelés">M</span>
-                <span class="label label-primary" title="Fakitermelés">F</span>
-                <span class="label label-primary" title="Gyártás">Gy</span>
-                <span class="label label-primary" title="Szállítás">Sz</span>
-                <span class="label label-default" title="Kimutatás">K</span>
-                <span class="label label-default" title="Adminisztráció">A</span>
-            </td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
-            </td>
-            <td>pp@ihartu.hu</td>
-            <td>2016-01-12</td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Szerkesztés</button>
-                <button type="button" class="btn btn-xs btn-warning">Felfüggesztés</button>
-                <button type="button" class="btn btn-xs btn-danger">Törlés</button>
-            </td>
-        </tr>
-        <tr style="color:#bbb;">
-            <td scope="row">2</td>
-            <td>Telepvezető János <span class="label label-default">INAKTÍV</span></td>
-            <td>
-                <span class="label label-default" title="Megrendelés">M</span>
-                <span class="label label-primary" title="Fakitermelés">F</span>
-                <span class="label label-primary" title="Gyártás">Gy</span>
-                <span class="label label-default" title="Szállítás">Sz</span>
-                <span class="label label-default" title="Kimutatás">K</span>
-                <span class="label label-default" title="Adminisztráció">A</span>
-            </td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
-            </td>
-            <td>tv@ihartu.hu</td>
-            <td>2016-09-24</td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Szerkesztés</button>
-                <button type="button" class="btn btn-xs btn-warning">Engedélyezés</button>
-                <button type="button" class="btn btn-xs btn-danger">Törlés</button>
-            </td>
-        </tr>
-        <tr>
-            <td scope="row">3</td>
-            <td>Admin Péter</td>
-            <td>
-                <span class="label label-primary" title="Megrendelés">M</span>
-                <span class="label label-primary" title="Fakitermelés">F</span>
-                <span class="label label-primary" title="Gyártás">Gy</span>
-                <span class="label label-primary" title="Szállítás">Sz</span>
-                <span class="label label-primary" title="Kimutatás">K</span>
-                <span class="label label-primary" title="Adminisztráció">A</span>
-            </td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
-            </td>
-            <td>ap@ihartu.hu</td>
-            <td>2016-05-01</td>
-            <td>
-                <button type="button" class="btn btn-xs btn-primary">Szerkesztés</button>
-                <button type="button" class="btn btn-xs btn-warning">Felfüggesztés</button>
-                <button type="button" class="btn btn-xs btn-danger">Törlés</button>
-            </td>
-        </tr>
+        <?php foreach(getUsersWithData() as $i){ ?>
+            <tr <?=($i[ 'Aktiv'] ? '' : 'style="color:#bbb;"')?>>
+                <td scope="row">
+                    <?=$i['ID']?>
+                </td>
+                <td>
+                    <?=$i['UserName']?>
+                </td>
+                <td>
+                    <?=$i['TeljesNev']?>
+                </td>
+                <td>
+                    <?php
+    foreach(array_keys(RIGHTS) as $rk){
+    ?>
+                        <span class="label label-<?=(in_array($rk,unserialize($i['Jogok'])) ? 'primary' : 'default')?>" title="<?=RIGHTS[$rk][1]?>"><?=RIGHTS[$rk][0]?></span>
+                        <?php    }?>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
+                </td>
+                <td>
+                    <?=$i['Email']?>
+                </td>
+                <td>
+                    <?=$i['LastLogin']?>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-xs btn-primary" onclick="window.location.href='?mode=felhasznalok&szerk=<?=$i['ID']?>#szerkesztes'">Szerkesztés</button>
+                    <?php if($i['Aktiv']){ ?>
+                        <button type="button" class="btn btn-xs btn-warning">Felfüggesztés</button>
+                        <?php } else { ?>
+                            <button type="button" class="btn btn-xs btn-warning">Engedélyezés</button>
+                            <?php } ?>
+                                <button type="button" class="btn btn-xs btn-danger">Törlés</button>
+                </td>
+            </tr>
+            <?php } ?>
     </tbody>
 </table>
+
 <script>
     $(document).ready(function () {
         $('#users').DataTable({
@@ -113,108 +87,149 @@
             "columns": [
                 {
                     "searchable": false
-                },
-                null,
+            },
+            null,
+            null,
                 {
                     "searchable": false,
                     "orderable": false
-                },
+            },
                 {
                     "searchable": false,
                     "orderable": false
-                },
-                null,
+            },
+            null,
                 {
                     "searchable": false
-                },
+            },
                 {
                     "searchable": false,
                     "orderable": false,
-                }
-            ]
+            }
+        ]
 
 
         });
     });
 </script>
-<div class="jumbotron" style="margin-top:2em;">
-    <form class="form-horizontal">
-        <fieldset>
 
-            <legend>Új felhasználó felvétele</legend>
+<?php
 
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Név</label>
-                <div class="col-md-5">
-                    <input id="textinput" name="textinput" type="text" placeholder="név" class="form-control input-md">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Jelszó</label>
-                <div class="col-md-5">
-                    <input id="textinput" name="textinput" type="password" placeholder="" class="form-control input-md">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-4"></div>
-                <div class="col-md-8">
-                    <div class="alert alert-info">A regisztráció után az új felhasználó e-mail értesítést kap a bejelentkezési adatairól.</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">E-mail cím</label>
-                <div class="col-md-5">
-                    <input id="textinput" name="textinput" type="text" placeholder="asdf@ihartu.hu" class="form-control input-md">
-                </div>
-            </div>
+if(!empty($_POST['user'])){
+    // TODO update user
+    if(userExists($_POST['user'])){
+        $failMessage = "Már van ilyen nevű felhasználó a rendszerben.";
+    }
+    else {
+        $user = $_POST['user'];
+        $tn = $_POST['teljes'];
+        $pass = $_POST['pass'];
+        $email = $_POST['email'];
+        $r = [];
+        foreach(array_keys(RIGHTS) as $rk){
+            if(!empty($_POST['r_'.$rk])){
+                array_push($r, $rk);
+            }
+        }
+        $akt = !empty($_POST['aktiv']) ? 1 : 0;
+        userAdd($user, $tn, $pass, $email, $r, $akt);
+        $succMessage = "Az új felhasználó rögzítésre került.";
+    }
+    
+    
+}
 
-            <!-- Multiple Checkboxes -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="checkboxes">Jogosultság</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="checkboxes-1">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1"><span class="label label-primary">M</span> Megrendelés</label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="checkboxes-1">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-1" value="1"><span class="label label-primary">F</span> Fakitermelés</label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="checkboxes-2" class="checkbox-custom">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-2" value="1"><span class="label label-primary">Gy</span> Gyártás</label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="checkboxes-3">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-3" value="1"><span class="label label-primary">Sz</span> Szállítás</label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="checkboxes-4">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-4" value="1"><span class="label label-primary">K</span> Kimutatások</label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="checkboxes-5">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-5" value="1"><span class="label label-primary">A</span> Adminisztráció</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="checkboxes">Státusz</label>
-                <div class="col-md-4">
-                    <div class="checkbox">
-                        <label for="checkboxes-0">
-                            <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1" checked="checked">Engedélyezett</label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="button1id"></label>
-                <div class="col-md-8">
-                    <button id="button1id" name="button1id" class="btn btn-success">Rögzítés</button>
-                    <button id="button2id" name="button2id" class="btn btn-danger">Alaphelyzet</button>
-                </div>
-            </div>
+?>
+    <div class="jumbotron" style="margin-top:2em;">
+        <form class="form-horizontal" id="userform" name="userform" method="post" action="/felhasznalok">
+            <fieldset>
+                <a name="szerkesztes"></a>
+                <legend>Új felhasználó felvétele</legend>
+                <?php 
+                // if "szerkesztes" mode
+                $ud = getUserDataById($_GET['szerk'])[0];
+                if(!empty($ud)){?>
+                    <input name="ID" id="id" type="hidden" value="<?=$_GET['szerk']?>">
+                    <?php }
+                
+                include('lib/messages.php');
+                ?>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Felhasználónév</label>
+                            <div class="col-md-5">
+                                <input id="user" name="user" <?=(!empty($ud) ? ' value="'.$ud[ 'UserName']. '"': '')?> type="text" placeholder="jancsi" class="form-control input-md" required minlength="4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Teljes név</label>
+                            <div class="col-md-5">
+                                <input id="teljes" name="teljes" type="text" <?=(!empty($ud) ? ' value="'.$ud[ 'TeljesNev']. '"': '')?> placeholder="Kovács János" class="form-control input-md" required minlength="6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Jelszó</label>
+                            <div class="col-md-5">
+                                <input id="pass" name="pass" required minlength="6" type="password" placeholder="" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">
+                                <div class="alert alert-info">
+                                    <?=(!empty($ud) ? 'A mezőt üresen hagyva nem változik meg a felhasználó jelszava. A mező kitöltése esetén a jelszó megváltozik, a felhasználó pedig e-mail értesítést kap.':'Regisztráció után az új felhasználó e-mail értesítést kap a bejelentkezési adatairól.')?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">E-mail cím</label>
+                            <div class="col-md-5">
+                                <input id="email" name="email" type="text" <?=(!empty($ud) ? ' value="'.$ud[ 'Email']. '"': '')?> placeholder="kjanos@ihartu.hu" class="form-control input-md" type="email" required>
+                            </div>
+                        </div>
 
-        </fieldset>
-    </form>
-</div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="checkboxes">Jogosultság</label>
+                            <div class="col-md-4">
+                                <?php
+                foreach(array_keys(RIGHTS) as $rk){
+?>
+                                    <div class="checkbox">
+                                        <label for="r_<?=$rk?>">
+                                            <input type="checkbox" name="r_<?=$rk?>" id="r_<?=$rk?>" value="1" <?=(!empty($ud) ? (in_array($rk, unserialize($ud[ 'Jogok']))? ' checked="checked" ': ''): '')?>><span class="label label-primary"><?=RIGHTS[$rk][0]?></span>
+                                            <?=RIGHTS[$rk][1]?>
+                                        </label>
+                                    </div>
+                                    <?php
+                }
+?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="checkboxes">Státusz</label>
+                            <div class="col-md-4">
+                                <div class="checkbox">
+                                    <label for="aktiv">
+                                        <input type="checkbox" name="aktiv" id="aktiv" value="1" <?=(empty($ud) || intval($ud[ 'Aktiv'])==1 ? ' checked="checked"': '')?>>Aktív</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="button1id"></label>
+                            <div class="col-md-8">
+                                <input type="submit" id="button1id" name="button1id" class="btn btn-success" value="Rögzítés">
+                            </div>
+                        </div>
+
+            </fieldset>
+        </form>
+        <script>
+            $('#userform').validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    }
+                }
+            });
+        </script>
+    </div>

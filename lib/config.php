@@ -26,25 +26,27 @@ const SERVER_URL = "localhost/";
 const SERVER_PROTOCOL = "http://";
 
 // logout after SESSION_TIMEOUT seconds of inactivity
-const SESSION_TIMEOUT = 300;
+const SESSION_TIMEOUT = DEBUG ? 3000 : 300;
 
 const IMPLEMENTED_PAGES = [
+    'sajat-profil',
+    'main',
+    'login',
+    'error',
+
+// TODO
     'uj-lakossagi-megrendeles',
     'uj-export-megrendeles',
     'lakossagi-megrendeles-attekintes',
     'export-megrendeles-attekintes',
     'lakossagi-megrendeles-osszesites',
     'export-megrendeles-osszesites',
-    'login',
     'felhasznalok',
     'gyartas',
     'szallitas',
     'fakitermeles',
-    'sajat-profil',
     'export-megrendelok',
-    'naplo',
-    'main',
-    'error'
+    'naplo'
 ];
 
 const MENU_STRUCT = [
@@ -74,39 +76,56 @@ const MENU_STRUCT = [
     ],
 ];
 
+// jogosultsagok
+const R_MAIN            = 'main';
+const R_ALAPANYAG       = 'alapanyag';
+const R_GYARTAS         = 'gyartas';
+const R_MEGRENDELES     = 'megrendeles';
+const R_SZALLITAS       = 'szallitas';
+const R_KIMUTATAS       = 'kimutatas';
+const R_ADMINISZTRACIO  = 'adminisztracio';
+
+const RIGHTS = [ 
+    R_ALAPANYAG     => ['Al', 'Alapanyag'],
+    R_GYARTAS       => ['Gy', 'Gyártás'],
+    R_MEGRENDELES   => ['M', 'Megrendelés'],
+    R_SZALLITAS     => ['Sz', 'Szállītás'],
+    R_KIMUTATAS     => ['K', 'Kimutatás'],
+    R_ADMINISZTRACIO=> ['Ad', 'Adminisztráció']
+];
+
 const PAGE_RIGHTS = [
-    'alapanyag' => 'alapanyag',
-    'faanyag' => 'alapanyag',
-    'csomagoloanyag' => 'alapanyag',
-    'faanyag-keszlet' => 'alapanyag', 
-    'faanyag-bevitel' => 'alapanyag', 
-    'faanyag-korrekcio' => 'alapanyag', 
-    'csomagoloanyag-keszlet' => 'alapanyag', 
-    'csomagoloanyag-bevitel' => 'alapanyag', 
-    'csomagoloanyag-korrekcio' => 'alapanyag', 
-    'gyartas' => 'gyartas',
-    'termekgyartas' => 'gyartas', 
-    'megrendeles' => 'megrendeles',
-    'lakossagi-osszesites' => 'megrendeles', 
-    'lakossagi-megrendelesek' => 'megrendeles',
-    'lakossagi-uj-megrendeles' => 'megrendeles',
-    'export-osszesites' => 'megrendeles',
-    'export-megrendelesek' => 'megrendeles',
-    'export-uj-megrendeles' => 'megrendeles',
-    'szallitas' => 'szallitas',
-    'kiszallitas' => 'szallitas',
-    'kimutatas' => 'kimutatas',
-    'leltar' => 'kimutatas',
-    'fizetesek' => 'kimutatas',
-    'adminisztracio' => 'adminisztracio',
-    'felhasznalok' => 'adminisztracio',
-    'export-megrendelok' => 'adminisztracio',
-    'naplo' => 'adminisztracio',
-    'sajat-profil' => 'adminisztracio',
-    'main' => 'main',
-    'lakossagi' => 'megrendeles',
-    'export' => 'megrendeles',
-    'szemelyes-beallitasok' => 'adminisztracio',
+    'alapanyag'                 => R_ALAPANYAG,
+    'faanyag'                   => R_ALAPANYAG,
+    'csomagoloanyag'            => R_ALAPANYAG,
+    'faanyag-keszlet'           => R_ALAPANYAG, 
+    'faanyag-bevitel'           => R_ALAPANYAG, 
+    'faanyag-korrekcio'         => R_ALAPANYAG, 
+    'csomagoloanyag-keszlet'    => R_ALAPANYAG, 
+    'csomagoloanyag-bevitel'    => R_ALAPANYAG, 
+    'csomagoloanyag-korrekcio'  => R_ALAPANYAG, 
+    'gyartas'                   => R_GYARTAS,
+    'termekgyartas'             => R_GYARTAS, 
+    'megrendeles'               => R_MEGRENDELES,
+    'lakossagi-osszesites'      => R_MEGRENDELES, 
+    'lakossagi-megrendelesek'   => R_MEGRENDELES,
+    'lakossagi-uj-megrendeles'  => R_MEGRENDELES,
+    'export-osszesites'         => R_MEGRENDELES,
+    'export-megrendelesek'      => R_MEGRENDELES,
+    'export-uj-megrendeles'     => R_MEGRENDELES,
+    'szallitas'                 => R_SZALLITAS,
+    'kiszallitas'               => R_SZALLITAS,
+    'kimutatas'                 => R_KIMUTATAS,
+    'leltar'                    => R_KIMUTATAS,
+    'fizetesek'                 => R_KIMUTATAS,
+    'adminisztracio'            => R_ADMINISZTRACIO,
+    'felhasznalok'              => R_ADMINISZTRACIO,
+    'export-megrendelok'        => R_ADMINISZTRACIO,
+    'naplo'                     => R_ADMINISZTRACIO,
+    'sajat-profil'              => R_ADMINISZTRACIO,
+    'main'                      => R_MAIN,
+    'lakossagi'                 => R_MEGRENDELES,
+    'export'                    => R_MEGRENDELES,
 ];
 
 const MENU_NAMES = [
