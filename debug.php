@@ -1,4 +1,4 @@
-<div class="debug" id="debug_div">
+<div class="debug" id="debug_div" style="display:none;">
     <div style="text-align:right;"><a href="#" onclick="$('#debug_div').fadeOut();">X</a></div>
     <table>
         <tr>
