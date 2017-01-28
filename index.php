@@ -13,6 +13,7 @@ require_once("lib/log.php");
 require_once("lib/utility.php");
 require_once("lib/users.php");
 require_once("lib/export_customers.php");
+require_once("lib/packaging.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
@@ -108,6 +109,25 @@ else {
         <script src="js/bootstrap.min.js"></script>
         <script src="js/datatables.min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
+        <script>
+            $.validator.setDefaults({
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function (error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        </script>
     </head>
 
     <body>

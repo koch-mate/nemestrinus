@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/main">NEMESTRINUS <small style="color:#bbb;">v<?php include("lib/version.php");?></small></a>
+            <a class="navbar-brand" href="/?mode=main">NEMESTRINUS <small style="color:#bbb;">v<?php include("lib/version.php");?></small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -53,7 +53,7 @@
                             <li>
                                 <p class="navbar-text">
                                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                    <a href="/sajat-profil">
+                                    <a href="/?mode=sajat-profil">
                                         <?=$_SESSION['realName']?>
                                     </a>
                                 </p>

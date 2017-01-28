@@ -42,9 +42,14 @@ const IMPLEMENTED_PAGES = [
     'main',
     'login',
     'error',
-
+    'export-megrendelok',
+    'naplo',
+    
+// TODO - in progress
+    'csomagoloanyag-bevitel',
+    
 // TODO
-    'uj-lakossagi-megrendeles',
+    'lakossagi-uj-megrendeles',
     'uj-export-megrendeles',
     'lakossagi-megrendeles-attekintes',
     'export-megrendeles-attekintes',
@@ -54,21 +59,24 @@ const IMPLEMENTED_PAGES = [
     'gyartas',
     'szallitas',
     'fakitermeles',
-    'export-megrendelok',
-    'naplo'
 ];
 
 const MENU_STRUCT = [
     'alapanyag'         => [ 
-        'faanyag' => [ 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-korrekcio'], 
-        'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-korrekcio'] 
+        'faanyag' => [ 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'], 
+        'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio'] 
     ],
     'gyartas'           => [
         'termekgyartas',
     ],
     'megrendeles'       => [
         'lakossagi' => ['lakossagi-osszesites', 'lakossagi-megrendelesek', 'lakossagi-uj-megrendeles'],
-        'export' => ['export-osszesites', 'export-megrendelesek', 'export-uj-megrendeles'],
+        'export' => [
+            'export-osszesites', 
+            'export-megrendelesek', 
+            'export-uj-megrendeles',
+            'export-megrendelok',
+        ],
     ],
     'szallitas'         => [
         'kiszallitas',
@@ -79,7 +87,6 @@ const MENU_STRUCT = [
     ],
     'adminisztracio'    => [
         'felhasznalok',
-        'export-megrendelok',
         'naplo',
         'sajat-profil',
     ],
@@ -109,9 +116,11 @@ const PAGE_RIGHTS = [
     'csomagoloanyag'            => R_ALAPANYAG,
     'faanyag-keszlet'           => R_ALAPANYAG, 
     'faanyag-bevitel'           => R_ALAPANYAG, 
+    'faanyag-kiadas'            => R_ALAPANYAG, 
     'faanyag-korrekcio'         => R_ALAPANYAG, 
     'csomagoloanyag-keszlet'    => R_ALAPANYAG, 
     'csomagoloanyag-bevitel'    => R_ALAPANYAG, 
+    'csomagoloanyag-kiadas'     => R_ALAPANYAG, 
     'csomagoloanyag-korrekcio'  => R_ALAPANYAG, 
     'gyartas'                   => R_GYARTAS,
     'termekgyartas'             => R_GYARTAS, 
@@ -129,7 +138,7 @@ const PAGE_RIGHTS = [
     'fizetesek'                 => R_KIMUTATAS,
     'adminisztracio'            => R_ADMINISZTRACIO,
     'felhasznalok'              => R_ADMINISZTRACIO,
-    'export-megrendelok'        => R_ADMINISZTRACIO,
+    'export-megrendelok'        => R_MEGRENDELES,
     'naplo'                     => R_ADMINISZTRACIO,
     'sajat-profil'              => R_ADMINISZTRACIO,
     'main'                      => R_MAIN,
@@ -142,10 +151,12 @@ const MENU_NAMES = [
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
     'faanyag-keszlet' => 'Készlet', 
-    'faanyag-bevitel' => 'Bevitel', 
+    'faanyag-bevitel' => 'Beszállítás', 
+    'faanyag-bevitel' => 'Kiadás', 
     'faanyag-korrekcio' => 'Korrekció', 
     'csomagoloanyag-keszlet' => 'Készlet', 
-    'csomagoloanyag-bevitel' => 'Bevitel', 
+    'csomagoloanyag-bevitel' => 'Bevételezés', 
+    'csomagoloanyag-kiadas' => 'Kiadás', 
     'csomagoloanyag-korrekcio' => 'Korrekció', 
     'gyartas' => 'Gyártás',
     'termekgyartas' => 'Gyártás', 
@@ -172,5 +183,12 @@ const MENU_NAMES = [
     'szemelyes-beallitasok' => 'Személyes beállítások',
 ];
 
+
+const CSOMAGOLOANYAGOK = [
+    'takaro'    =>  ['Takarófólia','m<sup>2</sup>'],
+    'sztreccs'  =>  ['Sztreccsfólia','m'],
+    'halo'      =>  ['Háló','m'],
+    'raklap'    =>  ['Raklap','db']
+];
 
 ?>
