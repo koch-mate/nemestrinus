@@ -1,2 +1,12 @@
 RewriteEngine on
-RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?mode=$1 [NC]
+
+#RewriteCond %{QUERY_STRING} ^(.*&)?mode=([^&]+)(?:&(.*))?$ [NC]
+#RewriteRule ^/?$ /%2/?%1%3 [L,R=302,NE]
+
+#RewriteCond %{QUERY_STRING} .
+#RewriteRule ^/?$ app_mode/ [L]
+
+#RewriteCond %{QUERY_STRING} .
+#RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?mode=$1 [NC]
+
+

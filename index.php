@@ -8,8 +8,10 @@ if(DEBUG){
 }
 
 require_once("vendor/medoo.php");
-require_once("lib/utility.php");
 require_once("lib/db.php");
+require_once("lib/utility.php");
+require_once("lib/users.php");
+require_once("lib/export_customers.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];

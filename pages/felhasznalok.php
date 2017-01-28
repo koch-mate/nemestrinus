@@ -1,11 +1,14 @@
 <?php
-if(!empty($_GET['deluser'])){
+
+// TODO send notification mail
+
+if(isset($_GET['deluser'])){
     // delete user
     $user = $_GET['deluser'];
     userDelete($user);
     $succMessage = 'A(z) <em>'.$user.'</em> felhasználó törölve.';
 }
-if(!empty($_GET['actuser'])){
+if(isset($_GET['actuser'])){
     // activate/deactivate user
     $user = $_GET['actuser'];
     userStatusToggle($user);
@@ -78,6 +81,7 @@ include('lib/messages.php');
                     </td>
                     <td>
                         <?=$i['UserName']?>
+                            <?=($i['Aktiv']?'':' <span class="label label-default">INAKTÍV</span>')?>
                     </td>
                     <td>
                         <?=$i['TeljesNev']?>
@@ -93,19 +97,19 @@ include('lib/messages.php');
                         <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
                     </td>
                     <td>
-                        <?=$i['Email']?>
+                        <a href="mailto:<?=$i['Email']?>">
+                            <?=$i['Email']?>
+                        </a>
                     </td>
                     <td>
                         <?=$i['LastLogin']?>
                     </td>
                     <td>
                         <button type="button" class="btn btn-xs btn-primary" onclick="window.location.href='?mode=felhasznalok&szerk=<?=$i['ID']?>#szerkesztes'">Szerkesztés</button>
-                        <?php if($i['Aktiv']){ ?>
-                            <button type="button" class="btn btn-xs btn-warning" onclick="if(confirm('Biztosan módosítani akarja a(z) <?=$i['UserName']?> felhasználó státuszát?')){window.location.href='?mode=felhasznalok&actuser=<?=$i['UserName']?>';}">Felfüggesztés</button>
-                            <?php } else { ?>
-                                <button type="button" class="btn btn-xs btn-warning">Engedélyezés</button>
-                                <?php } ?>
-                                    <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja a(z) <?=$i['UserName']?> felhasználót?')){window.location.href='?mode=felhasznalok&deluser=<?=$i['UserName']?>';}">Törlés</button>
+                        <button type="button" class="btn btn-xs btn-warning" onclick="if(confirm('Biztosan módosítani akarja a(z) <?=$i['UserName']?> felhasználó státuszát?')){window.location.href='?mode=felhasznalok&actuser=<?=$i['UserName']?>';}">
+                            <?=($i['Aktiv']?'Felfüggesztés':'Engedélyezés')?>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja a(z) <?=$i['UserName']?> felhasználót?')){window.location.href='?mode=felhasznalok&deluser=<?=$i['UserName']?>';}">Törlés</button>
                     </td>
                 </tr>
                 <?php } ?>
@@ -115,6 +119,7 @@ include('lib/messages.php');
     <script>
         $(document).ready(function () {
             $('#users').DataTable({
+                "scrollX": true,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Nincs adat",
@@ -128,16 +133,6 @@ include('lib/messages.php');
                     "processing": "Feldolgozás...",
                     "search": "Keresés:",
                     "zeroRecords": "Nincs találat",
-                    "paginate": {
-                        "first": "First",
-                        "last": "Last",
-                        "next": "Next",
-                        "previous": "Previous"
-                    },
-                    "aria": {
-                        "sortAscending": ": activate to sort column ascending",
-                        "sortDescending": ": activate to sort column descending"
-                    }
                 },
                 "paging": false,
                 "info": true,
@@ -172,7 +167,7 @@ include('lib/messages.php');
 
     <?php 
 // check if we are in edit mode
-if(!empty($_GET['szerk'])){
+if(isset($_GET['szerk'])){
     $ud = getUserDataById($_GET['szerk'])[0];
 }
 $EDIT_MODE = False;

@@ -35,7 +35,7 @@
                                     }
                                     ?>
                                     <li>
-                                        <a href="/<?=$menuItem?>">
+                                        <a href="/?mode=<?=$menuItem?>">
                                             <?=MENU_NAMES[$menuItem]?>
                                         </a>
                                     </li>
