@@ -25,6 +25,10 @@ function getUserEmail($user){
     return getUserData($user, 'Email');
 }
 
+function getUserID($user){
+    return getUserData($user, 'ID');
+}
+
 function getUserLastLogin($user){
     return getUserData($user, 'LastLogin');
 }

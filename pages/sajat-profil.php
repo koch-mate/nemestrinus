@@ -3,6 +3,7 @@
 if(!empty($_POST['curr_pass'])){
     if(userUpdatePassword($_POST['curr_pass'], $_POST['new_pass1'])) {
         $succMessage = 'A jelszó frissítésre került.';
+        logEv(LOG_EVENT['password_update']);
     }
     else {
         $failMessage = 'Hibás jelszó.';
@@ -14,7 +15,7 @@ if(!empty($_POST['curr_pass'])){
 
     <?php include('lib/messages.php');?>
         <div class="jumbotron">
-            <form class="form-horizontal" name="passwordform" id="passwordform" method="post" action="?mode=szemelyes-beallitasok">
+            <form class="form-horizontal" name="passwordform" id="passwordform" method="post" action="?mode=sajat-profil">
                 <fieldset>
 
                     <legend>Adatok</legend>

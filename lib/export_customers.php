@@ -88,7 +88,7 @@ function getExportCustomerDataById($uid){
     return $db->select('megrendelo', ['ID', 'MegrendeloNev', 'Kepviselo', 'Adoszam', 'Telefonszam', 'Fax', 'Email', 'SzamlazasiCim','SzallitasiCim','Jelszo','Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);    
 }
 
-function exportCustomerGetBameById($id){
+function exportCustomerGetNameById($id){
     global $db;
     return $db->get('megrendelo', 'MegrendeloNev', ['ID'=>$id]);
 }
@@ -98,9 +98,14 @@ function exportCustomerDelete($u){
     $db->update('megrendelo', ['Deleted'=>1], ['ID'=>$u]);
 }
 
+function exportCustomerGetStatus($u){
+    global $db;
+    return intval($db->get('megrendelo', 'Aktiv', ['ID'=>$u]));
+}
+
 function exportCustomerStatusToggle($u){
     global $db;
-    $s = intval($db->get('megrendelo', 'Aktiv', ['ID'=>$u]));
+    $s = exportCustomerGetStatus($u);
     $db->update('megrendelo', ['Aktiv'=>(1-$s)], ['ID'=>$u]);
 }
 

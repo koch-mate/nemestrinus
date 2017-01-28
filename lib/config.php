@@ -2,6 +2,13 @@
 
 const DEBUG = True;
 
+const L_INFO    = 'log-info';
+const L_DEBUG   = 'log-debug';
+const L_WARNING = 'log-warning';
+const L_ERROR   = 'log-error';
+
+const LOGLEVEL = L_INFO;
+
 const LOCAL_DB = [
     'database_type' => 'mysql',
     'database_name' => 'nemestrinus',
@@ -10,6 +17,8 @@ const LOCAL_DB = [
     'password' => 'root',
     'charset' => 'utf8'
 ];
+require_once('lib/log_events.php');
+
 
 const DEPLOY_DB = [
     'database_type' => 'mysql',
@@ -162,5 +171,6 @@ const MENU_NAMES = [
     'export' => 'Export',
     'szemelyes-beallitasok' => 'Személyes beállítások',
 ];
+
 
 ?>

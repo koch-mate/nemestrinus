@@ -56,7 +56,7 @@ function getUsersWithData() {
 
 function getUserDataById($uid){
     global $db;
-    return $db->select('user', ['ID', 'UserName', 'TeljesNev', 'Password', 'Email', 'LastLogin', 'Jogok', 'Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);    
+    return $db->get('user', ['ID', 'UserName', 'TeljesNev', 'Password', 'Email', 'LastLogin', 'Jogok', 'Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);    
 }
 
 
@@ -65,9 +65,15 @@ function userDelete($u){
     $db->update('user', ['Deleted'=>1], ['UserName'=>$u]);
 }
 
+function userGetStatus($u){
+    global $db;
+    return intval($db->get('user', 'Aktiv', ['UserName'=>$u]));
+
+}
+
 function userStatusToggle($u){
     global $db;
-    $s = intval($db->get('user', 'Aktiv', ['UserName'=>$u]));
+    $s = userGetStatus($u);
     $db->update('user', ['Aktiv'=>(1-$s)], ['UserName'=>$u]);
 }
 ?>

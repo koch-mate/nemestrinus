@@ -2,14 +2,16 @@
 
 if(isset($_GET['deluser'])){
     // delete user
-    $user = exportCustomerGetBameById($_GET['deluser']);
+    $user = exportCustomerGetNameById($_GET['deluser']);
     exportCustomerDelete($_GET['deluser']);
+    logEv(LOG_EVENT['del_export_customer'].' ('.$user.')', null, null);    
     $succMessage = 'A(z) <em>'.$user.'</em> megrendelő törölve.';
 }
 if(isset($_GET['actuser'])){
     // activate/deactivate user
-    $user = exportCustomerGetBameById($_GET['actuser']);
+    $user = exportCustomerGetNameById($_GET['actuser']);
     exportCustomerStatusToggle($_GET['actuser']);
+    logEv(LOG_EVENT['status_export_customer'].' ('.$user.'):', null, (exportCustomerGetStatus($user) ? 'aktív':'inaktív'));
     $succMessage = 'A(z) <em>'.$user.'</em> megrendelő státusza módosult.';    
 }
 
@@ -29,6 +31,15 @@ if(!empty($_POST['cegnev'])){
             $_POST['ship_address'],
             (!empty($_POST['state']) ? 1 : 0)
         );
+        logEv(LOG_EVENT['update_export_customer'].' ('.$_POST['cegnev'].'):', null, implode(', ',[$_POST['cegnev'],
+            $_POST['kepviselo'],
+            $_POST['adoszam'],
+            $_POST['tel'],
+            $_POST['fax'],
+            $_POST['email'],
+            $_POST['pass'],
+            $_POST['bill_address'],
+            $_POST['ship_address'],($_POST['state'] ? 'aktív':'inaktív')]));
         $succMessage = "A(z) <em>".$user."</em> megrendelő adatai frissültek.";
     }
     else {
@@ -45,6 +56,15 @@ if(!empty($_POST['cegnev'])){
             (!empty($_POST['state']) ? 1 : 0)
         );
         $succMessage = "Az új megrendelő rögzítésre került.";
+        logEv(LOG_EVENT['new_export_customer'].' ('.$_POST['cegnev'].'):', null, implode(', ',[$_POST['cegnev'],
+            $_POST['kepviselo'],
+            $_POST['adoszam'],
+            $_POST['tel'],
+            $_POST['fax'],
+            $_POST['email'],
+            $_POST['pass'],
+            $_POST['bill_address'],
+            $_POST['ship_address'],($_POST['state'] ? 'aktív':'inaktív')]));
         
     }
     
@@ -74,7 +94,7 @@ if(!empty($_POST['cegnev'])){
         </thead>
         <tbody>
             <?php foreach(getExportCustomersWithData() as $i){ ?>
-                <tr>
+                <tr <?=($i[ 'Aktiv'] ? '' : 'style="color:#bbb;"')?>>
                     <td scope="row">
                         <?=$i['ID']?>
                     </td>

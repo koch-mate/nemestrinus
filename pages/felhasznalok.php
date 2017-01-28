@@ -6,12 +6,14 @@ if(isset($_GET['deluser'])){
     // delete user
     $user = $_GET['deluser'];
     userDelete($user);
+    logEv(LOG_EVENT['del_user'].' ('.$user.')', null, null);    
     $succMessage = 'A(z) <em>'.$user.'</em> felhasználó törölve.';
 }
 if(isset($_GET['actuser'])){
     // activate/deactivate user
     $user = $_GET['actuser'];
     userStatusToggle($user);
+    logEv(LOG_EVENT['status_user'].' ('.$user.'):', null, (userGetStatus($user) ? 'aktív':'inaktív'));
     $succMessage = 'A(z) <em>'.$user.'</em> felhasználó státusza módosult.';    
 }
 if(!empty($_POST['user'])){
@@ -29,6 +31,7 @@ if(!empty($_POST['user'])){
             }
             $akt = !empty($_POST['aktiv']) ? 1 : 0;
             userUpdate($user, $tn, $pass, $email, $r, $akt);
+            logEv(LOG_EVENT['update_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
             $succMessage = "A(z) <em>".$user."</em> felhasználó adatai frissültek.";
     }
     else {
@@ -49,6 +52,7 @@ if(!empty($_POST['user'])){
             $akt = !empty($_POST['aktiv']) ? 1 : 0;
             userAdd($user, $tn, $pass, $email, $r, $akt);
             $succMessage = "Az új felhasználó rögzítésre került.";
+            logEv(LOG_EVENT['new_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
         }
     }
 }
@@ -168,7 +172,7 @@ include('lib/messages.php');
     <?php 
 // check if we are in edit mode
 if(isset($_GET['szerk'])){
-    $ud = getUserDataById($_GET['szerk'])[0];
+    $ud = getUserDataById($_GET['szerk']);
 }
 $EDIT_MODE = False;
 

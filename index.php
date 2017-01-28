@@ -9,6 +9,7 @@ if(DEBUG){
 
 require_once("vendor/medoo.php");
 require_once("lib/db.php");
+require_once("lib/log.php");
 require_once("lib/utility.php");
 require_once("lib/users.php");
 require_once("lib/export_customers.php");
@@ -63,6 +64,7 @@ if(!empty($_SESSION['activeLogin'])) {
     $_SESSION['realName'] = getUserFullName($_SESSION['userName']); 
     $_SESSION['lastActivity'] = time();
     $_SESSION['userRights'] = getUserRights($_SESSION['userName']); 
+    $_SESSION['userID'] = getUserID($_SESSION['userName']);
     if(empty($_mode) || $_mode == 'login'){
         $_mode = 'main';
     }

@@ -1,6 +1,5 @@
 <h1>Eseménynapló</h1>
-
-<table class="table table-striped table-hover display" id="users">
+<table class="table table-striped table-hover display" id="events">
     <thead>
         <tr>
             <th>#</th>
@@ -10,42 +9,36 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td scope="row">1</td>
-            <td>2016-09-12 12:23:34</td>
-            <td>Példa Pál</td>
-            <td>Új megrendelés felvétele (adatok: ...)</td>
-        </tr>
-        <tr>
-            <td scope="row">2</td>
-            <td>2016-09-12 12:12:43</td>
-            <td>Példa Pál</td>
-            <td>Megrendelés módosítása (adatok: ...)</td>
-        </tr>
-        <tr>
-            <td scope="row">3</td>
-            <td>2016-09-12 12:01:11</td>
-            <td>Példa Pál</td>
-            <td>Bejelentkezés</td>
-        </tr>
-        <tr>
-            <td scope="row">4</td>
-            <td>2016-09-11 07:23:34</td>
-            <td>Admin</td>
-            <td>Új felhasználó felvétele (adatok: ...)</td>
-        </tr>
-        <tr>
-            <td scope="row">5</td>
-            <td>2016-09-11 07:11:01</td>
-            <td>Admin</td>
-            <td>Bejelentkezés</td>
-        </tr>
+        <?php
+foreach(getEvents() as $e){
+?>
+            <tr>
+                <td scope="row">
+                    <?=$e['ID']?>
+                </td>
+                <td>
+                    <?=$e['Timestamp']?>
+                </td>
+                <td>
+                    <?=getUserDataById($e['UserID'])['TeljesNev']?>
+                </td>
+                <td>
+                    <?=$e['Action'].(substr($e['Action'],-1) == ':' ? 
+                       ($e['OldValue']=='' ? ' '.$e['NewValue'] :' '.$e['OldValue'].' => '.$e['NewValue'])
+                            :
+                       '')?>
+                </td>
+            </tr>
+            <?php
+}
+?>
     </tbody>
 </table>
 
 <script>
     $(document).ready(function () {
-        $('#users').DataTable({
+        $('#events').DataTable({
+            "scrollX": true,
             "lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "minden"]],
             "language": {
                 "decimal": "",
@@ -55,7 +48,7 @@
                 "infoFiltered": "(_MAX_ adatsorból szűrve)",
                 "infoPostFix": "",
                 "thousands": ".",
-                "lengthMenu": "Mutass _MENU_ elemet",
+                "lengthMenu": "Mutass _MENU_ eseményt",
                 "loadingRecords": "Betöltés...",
                 "processing": "Feldolgozás...",
                 "search": "Keresés:",
@@ -66,16 +59,12 @@
                     "next": "Következő",
                     "previous": "Előző"
                 },
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                }
             },
             "paging": true,
             "info": true,
             "columns": [
                 {
-                    "searchable": false
+                    "searchable": false,
                 },
                 null,
                 null,
