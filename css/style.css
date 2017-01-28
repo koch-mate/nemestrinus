@@ -27,14 +27,14 @@ div.bodyContainer {
 
 img.zoom:hover {
     z-index: 2;
-    -webkit-transition: all 200ms ease-in;
-    -webkit-transform: scale(4);
-    -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(4);
-    -moz-transition: all 200ms ease-in;
-    -moz-transform: scale(4);
-    transition: all 200ms ease-in;
-    transform: scale(6);
+    -webkit-transition: all 100ms ease-in;
+    -webkit-transform: scale(3);
+    -ms-transition: all 100ms ease-in;
+    -ms-transform: scale(3);
+    -moz-transition: all 100ms ease-in;
+    -moz-transform: scale(3);
+    transition: all 100ms ease-in;
+    transform: scale(3);
 }
 
 div.paddingTop {

@@ -1,6 +1,15 @@
 <?php
 
+if(isset($_GET['del'])){
+    packagingDel($_GET['del']);
+    logEv(LOG_EVENT['packaging_del'].':',null,' ID: '.$_GET['del']);
+
+    $succMessage = "Az ID = ".$_GET['del']." sor törölve.";
+    
+}
+include("lib/messages.php");
 ?>
+
 
     <h2>Csomagolóanyag készlet</h2>
 
@@ -35,6 +44,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                             <td>Dátum</td>
                             <td>Számlaszám</td>
                             <td>Megjegyzés</td>
+                            <td>Művelet</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +55,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                 <td>
                                     <?=$ip['ID']?>
                                 </td>
-                                <td>
+                                <td data-order="<?=$ip['Forgalom']?>">
                                     <span class="glyphicon <?=CS_FORGALOM_ICON[$ip['Forgalom']]?>" title="<?=CS_FORGALOM_DICT[$ip['Forgalom']]?>"></span>
                                 </td>
                                 <td style="min-width:10em;" data-order="<?=$ip['Mennyiseg']?>">
@@ -65,6 +75,9 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                     <div style="max-height:4em; overflow:auto;">
                                         <?=$ip['Megjegyzes']?>
                                     </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszlet&del=<?=$ip['ID']?>';}">Törlés</button>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -104,6 +117,10 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                 {
                                     "orderable": false
                                 },
+                                {
+                                    "orderable": false,
+                                    "searchable": false
+                                }
         ]
 
 

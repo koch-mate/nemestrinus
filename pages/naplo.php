@@ -16,10 +16,10 @@ foreach(getEvents() as $e){
                 <td scope="row">
                     <?=$e['ID']?>
                 </td>
-                <td>
+                <td style="white-space:nowrap;">
                     <?=$e['Timestamp']?>
                 </td>
-                <td>
+                <td style="white-space:nowrap;">
                     <?=getUserDataById($e['UserID'])['TeljesNev']?>
                 </td>
                 <td>
@@ -39,7 +39,7 @@ foreach(getEvents() as $e){
     $(document).ready(function () {
         $('#events').DataTable({
             "scrollX": true,
-            "lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "minden"]],
+            "lengthMenu": [[10, 100, 250, 500, -1], [10, 100, 250, 500, "minden"]],
             "language": {
                 "decimal": "",
                 "emptyTable": "Nincs adat",

@@ -7,17 +7,17 @@ function packagingAdd($tipus,$menny,$szlsz,$datum,$megj,$forg){
 
 function packagingGetSumByType($type){
     global $db;
-    return $db->sum('csomagoloanyag', 'Mennyiseg', ['Tipus'=>$type]);
+    return $db->sum('csomagoloanyag', 'Mennyiseg', ["AND"=> ['Tipus'=>$type, 'Deleted'=>0]]);
 }
 
 function packagingGetDetailsByType($type){
     global $db;
-    return $db->select('csomagoloanyag', ['ID', 'Mennyiseg', 'Szamlaszam', 'Datum', 'Megjegyzes','Forgalom'], ['Tipus'=>$type]);
+    return $db->select('csomagoloanyag', ['ID', 'Mennyiseg', 'Szamlaszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>['Tipus'=>$type, 'Deleted'=>0]]);
 }
 
 function packagingGetMaxQty($type){
     global $db;
-    return max([$db->max('csomagoloanyag','Mennyiseg', ['Tipus'=>$type]), -1.0*$db->min('csomagoloanyag','Mennyiseg', ['Tipus'=>$type])]);
+    return max([$db->max('csomagoloanyag','Mennyiseg', ['Tipus'=>$type]), -1.0*$db->min('csomagoloanyag','Mennyiseg', ["AND"=>['Tipus'=>$type, 'Deleted'=>0]])]);
 }
 
 function packagingRadioButtons(){
@@ -32,6 +32,11 @@ function packagingRadioButtons(){
         </label>
     </div>
     <?php
-                }
+    }
+}
+
+function packagingDel($id){
+    global $db;
+    $db->update('csomagoloanyag',['Deleted'=>1],['ID'=>$id]);
 }
 ?>

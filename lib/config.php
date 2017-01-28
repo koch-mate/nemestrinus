@@ -45,11 +45,12 @@ const IMPLEMENTED_PAGES = [
     'export-megrendelok',
     'naplo',
     'csomagoloanyag-bevitel',
-    
-// TODO - in progress
     'csomagoloanyag-keszlet',
     'csomagoloanyag-kiadas',
     'csomagoloanyag-korrekcio',
+    
+// TODO - in progress
+    'fatipus',
     
 // TODO
     'lakossagi-uj-megrendeles',
@@ -90,6 +91,7 @@ const MENU_STRUCT = [
     ],
     'adminisztracio'    => [
         'felhasznalok',
+        'fatipus',
         'naplo',
         'sajat-profil',
     ],
@@ -147,6 +149,19 @@ const PAGE_RIGHTS = [
     'main'                      => R_MAIN,
     'lakossagi'                 => R_MEGRENDELES,
     'export'                    => R_MEGRENDELES,
+    'fatipus'                   => R_ADMINISZTRACIO,
+];
+
+const MENU_ICONS = [
+    'csomagoloanyag-keszlet' => 'glyphicon-tasks', 
+    'csomagoloanyag-bevitel' => 'glyphicon-log-in', 
+    'csomagoloanyag-kiadas' => 'glyphicon-log-out', 
+    'csomagoloanyag-korrekcio' => 'glyphicon-transfer',     
+
+    'faanyag-keszlet' => 'glyphicon-tasks', 
+    'faanyag-bevitel' => 'glyphicon-log-in', 
+    'faanyag-kiadas' => 'glyphicon-log-out', 
+    'faanyag-korrekcio' => 'glyphicon-transfer', 
 ];
 
 const MENU_NAMES = [
@@ -154,8 +169,8 @@ const MENU_NAMES = [
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
     'faanyag-keszlet' => 'Készlet', 
-    'faanyag-bevitel' => 'Beszállítás', 
-    'faanyag-kiadas' => 'Kiadás', 
+    'faanyag-bevitel' => 'Bevételezés', 
+    'faanyag-kiadas' => 'Eladás', 
     'faanyag-korrekcio' => 'Korrekció', 
     'csomagoloanyag-keszlet' => 'Készlet', 
     'csomagoloanyag-bevitel' => 'Bevételezés', 
@@ -184,6 +199,7 @@ const MENU_NAMES = [
     'lakossagi' => 'Lakossági',
     'export' => 'Export',
     'szemelyes-beallitasok' => 'Személyes beállítások',
+    'fatipus'   => 'Fatípusok',
 ];
 
 
@@ -191,7 +207,8 @@ const CSOMAGOLOANYAGOK = [
     'takaro'    =>  ['Takarófólia','m<sup>2</sup>'],
     'sztreccs'  =>  ['Sztreccsfólia','m'],
     'halo'      =>  ['Háló','m'],
-    'raklap'    =>  ['Raklap','db']
+    'raklap'    =>  ['Raklap','db'],
+    'kaloda'    =>  ['Kaloda elem','db'],
 ];
 
 const CS_FORGALOM_BEVETEL = 'bevetel';
@@ -212,4 +229,30 @@ const CS_FORGALOM_ICON = [
     CS_FORGALOM_KIADAS => 'glyphicon-log-out',
     CS_FORGALOM_FELHASZNALAS => 'glyphicon-compressed',
 ];
+
+const F_KEMENY      = 'kemény lombos';
+const F_LAGY        = 'lágy lombos';
+const F_FENYOFELE   = 'fenyő';
+
+const F_AKAC            = 'akac';
+const F_BUKK            = 'bukk';
+const F_CSER            = 'cser';
+const F_GYERTYAN        = 'gyertyan';
+const F_KORIS           = 'koris';
+const F_TOLGY           = 'tolgy';
+const F_FENYO           = 'fenyo';
+const F_EGYEB_KEMENY    = 'egyeb_kemeny';
+const F_EGYEB_LAGY      = 'egyeb_lagy';
+    
+const FATIPUSOK = [
+    F_AKAC => ['akác',F_KEMENY],
+    F_BUKK => ['bükk',F_KEMENY],
+    F_CSER => ['cser',F_KEMENY],
+    F_GYERTYAN => ['gyertyán',F_KEMENY],
+    F_KORIS => ['kőris',F_KEMENY],
+    F_TOLGY => ['tölgy',F_KEMENY],
+    F_FENYO => ['fenyő',F_FENYOFELE],
+    F_EGYEB_KEMENY => ['egyéb kemény lombos',F_KEMENY],
+    F_EGYEB_LAGY => ['egyéb lágy lombos',F_LAGY],
+]
 ?>

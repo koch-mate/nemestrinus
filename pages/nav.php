@@ -36,6 +36,7 @@
                                     ?>
                                     <li>
                                         <a href="/?mode=<?=$menuItem?>">
+                                            <?=(in_array($menuItem,array_keys(MENU_ICONS))?'<span class="glyphicon '.MENU_ICONS[$menuItem].'" aria-hidden="true"></span> ':'')?>
                                             <?=MENU_NAMES[$menuItem]?>
                                         </a>
                                     </li>

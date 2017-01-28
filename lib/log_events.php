@@ -19,6 +19,7 @@ const LOG_EVENT = [
     'packaging_add'        => 'Csomagolóanyag felvétele',
     'packaging_sell'       => 'Csomagolóanyag eladása',
     'packaging_correction' => 'Csomagolóanyag korrekció',
+    'packaging_del'        => 'Csomagolóanyag törlés',
     
     
 ];
