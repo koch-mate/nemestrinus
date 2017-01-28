@@ -16,7 +16,11 @@ const LOG_EVENT = [
     
     'password_update'   => 'Jelszó módosítása',
 
-    'packaging_add'     => 'Csomagolóanyag felvétele',
+    'packaging_add'        => 'Csomagolóanyag felvétele',
+    'packaging_sell'       => 'Csomagolóanyag eladása',
+    'packaging_correction' => 'Csomagolóanyag korrekció',
+    
+    
 ];
 
 

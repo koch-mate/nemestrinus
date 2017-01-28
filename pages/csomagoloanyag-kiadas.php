@@ -1,24 +1,26 @@
 <?php
 
 if(isset($_POST['r_cs'])){
-    packagingAdd( $_POST['r_cs'], $_POST['mennyiseg'], $_POST['szlaszam'], $_POST['datum'], $_POST['megj'], CS_FORGALOM_BEVETEL );
-    logEv(LOG_EVENT['packaging_add'].':',null,implode(', ',[CSOMAGOLOANYAGOK[$_POST['r_cs']][0], $_POST['mennyiseg'].CSOMAGOLOANYAGOK[$_POST['r_cs']][1], $_POST['szlaszam'], $_POST['datum']]));
+    packagingAdd( $_POST['r_cs'], -1.0*$_POST['mennyiseg'], $_POST['szlaszam'], $_POST['datum'], $_POST['megj'], CS_FORGALOM_KIADAS );
+    logEv(LOG_EVENT['packaging_sell'].':',null,implode(', ',[CSOMAGOLOANYAGOK[$_POST['r_cs']][0], $_POST['mennyiseg'].CSOMAGOLOANYAGOK[$_POST['r_cs']][1], $_POST['szlaszam'], $_POST['datum']]));
     $succMessage = "Rögzítve.";
 }
 
 include('lib/messages.php');
 ?>
-    <h2>Csomagoló alapanyagok bevételezése</h2>
+    <h2>Csomagoló alapanyagok eladása</h2>
     <div class="jumbotron">
 
-
-        <form class="form-horizontal" id="csom" name="csom" method="post" action="/?mode=csomagoloanyag-bevitel">
+        <form class="form-horizontal" id="csom" name="csom" method="post" action="/?mode=csomagoloanyag-kiadas">
             <fieldset>
+                <div class="alert alert-info" role="alert">Csomagolóanyag egyedi értékesítése esetén használandó. A gyártás során történő felhasználást a gyártás menü alatt kell rögzíteni.</div>
+
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="checkboxes">Csomagolóanyag</label>
                     <div class="col-md-4">
                         <?php
-                packagingRadioButtons();
+                               packagingRadioButtons();
+
 ?>
                     </div>
                 </div>
@@ -33,7 +35,7 @@ include('lib/messages.php');
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="szlaszam">Bevételi számlaszám</label>
+                    <label class="col-md-4 control-label" for="szlaszam">Számlaszám</label>
                     <div class="col-md-5">
                         <input id="szlaszam" name="szlaszam" type="text" placeholder="2017/12345" class="form-control input-md">
                     </div>

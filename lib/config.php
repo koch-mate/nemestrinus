@@ -44,9 +44,12 @@ const IMPLEMENTED_PAGES = [
     'error',
     'export-megrendelok',
     'naplo',
+    'csomagoloanyag-bevitel',
     
 // TODO - in progress
-    'csomagoloanyag-bevitel',
+    'csomagoloanyag-keszlet',
+    'csomagoloanyag-kiadas',
+    'csomagoloanyag-korrekcio',
     
 // TODO
     'lakossagi-uj-megrendeles',
@@ -152,11 +155,11 @@ const MENU_NAMES = [
     'csomagoloanyag' => 'Csomagolóanyag',
     'faanyag-keszlet' => 'Készlet', 
     'faanyag-bevitel' => 'Beszállítás', 
-    'faanyag-bevitel' => 'Kiadás', 
+    'faanyag-kiadas' => 'Kiadás', 
     'faanyag-korrekcio' => 'Korrekció', 
     'csomagoloanyag-keszlet' => 'Készlet', 
     'csomagoloanyag-bevitel' => 'Bevételezés', 
-    'csomagoloanyag-kiadas' => 'Kiadás', 
+    'csomagoloanyag-kiadas' => 'Eladás', 
     'csomagoloanyag-korrekcio' => 'Korrekció', 
     'gyartas' => 'Gyártás',
     'termekgyartas' => 'Gyártás', 
@@ -191,4 +194,22 @@ const CSOMAGOLOANYAGOK = [
     'raklap'    =>  ['Raklap','db']
 ];
 
+const CS_FORGALOM_BEVETEL = 'bevetel';
+const CS_FORGALOM_KORREKCIO = 'korrekcio';
+const CS_FORGALOM_KIADAS = 'kiadas';
+const CS_FORGALOM_FELHASZNALAS = 'felhasznalas';
+
+const CS_FORGALOM_DICT = [
+    CS_FORGALOM_BEVETEL => 'bevételezés',
+    CS_FORGALOM_KORREKCIO => 'korrekció',
+    CS_FORGALOM_KIADAS => 'kiadás',
+    CS_FORGALOM_FELHASZNALAS => 'felhasználás',
+];
+
+const CS_FORGALOM_ICON = [
+    CS_FORGALOM_BEVETEL => 'glyphicon-log-in',
+    CS_FORGALOM_KORREKCIO => 'glyphicon-transfer',
+    CS_FORGALOM_KIADAS => 'glyphicon-log-out',
+    CS_FORGALOM_FELHASZNALAS => 'glyphicon-compressed',
+];
 ?>
