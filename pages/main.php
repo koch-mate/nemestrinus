@@ -5,5 +5,6 @@
 </div>
 <div>
     <h3>Változtatások</h3>
+    <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modulok</span> Csomagolóanyag <a href="?mode=csomagoloanyag-bevitel">bevétel</a></p>
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modulok</span> <a href="?mode=naplo">Napló</a>, <a href="?mode=export-megrendelok">Export megrendelők kezelése</a></p>
 </div>
