@@ -28,5 +28,10 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
     
 }
 
+function woodGetSuppliers(){
+    global $db;
+    return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);
+    
+}
 
 ?>

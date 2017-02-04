@@ -94,9 +94,14 @@ include('lib/messages.php');
                         <optgroup label="Saját kitermelés">
                             <option value="Ihartü">Ihartü</option> 
                         </optgroup>
-                        <optgroup label="Külső cég">  <?php // FIXME - get list of real names ?>
-                            <option value="Lenti">Lenti</option>
-                            <option value="Nagykanizsa">Nagykanizsa</option>
+                        <optgroup label="Külső cég"> 
+                            <?php
+                            foreach(woodGetSuppliers() as $b){
+                                ?>
+                            <option value="<?=$b?>"><?=$b?></option>
+                            <?php
+                            }
+                            ?>
                             <option data-content="<em>&lt;Új beszállító&gt;</em>" value="__uj__">&lt;Új beszállító&gt;</option>
                         </optgroup>
                     </select>
