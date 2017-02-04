@@ -39,7 +39,7 @@ foreach(getEvents() as $e){
     $(document).ready(function () {
         $('#events').DataTable({
             "scrollX": true,
-            "lengthMenu": [[10, 100, 250, 500, -1], [10, 100, 250, 500, "minden"]],
+            "lengthMenu": [[30, 100, 250, 500, -1], [30, 100, 250, 500, "minden"]],
             "language": {
                 "decimal": "",
                 "emptyTable": "Nincs adat",
@@ -69,7 +69,8 @@ foreach(getEvents() as $e){
                 null,
                 null,
                 null
-            ]
+            ],
+            "order": [[1, "desc"]]
         });
     });
 </script>

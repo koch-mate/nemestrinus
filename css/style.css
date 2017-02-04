@@ -26,15 +26,16 @@ div.bodyContainer {
 }
 
 img.zoom:hover {
-    z-index: 2;
+    z-index: 9999;
+    position: relative;
     -webkit-transition: all 100ms ease-in;
-    -webkit-transform: scale(3);
+    -webkit-transform: scale(2);
     -ms-transition: all 100ms ease-in;
-    -ms-transform: scale(3);
+    -ms-transform: scale(2);
     -moz-transition: all 100ms ease-in;
-    -moz-transform: scale(3);
+    -moz-transform: scale(2);
     transition: all 100ms ease-in;
-    transform: scale(3);
+    transform: scale(2);
 }
 
 div.paddingTop {

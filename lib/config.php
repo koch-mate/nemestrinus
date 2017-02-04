@@ -48,9 +48,10 @@ const IMPLEMENTED_PAGES = [
     'csomagoloanyag-keszlet',
     'csomagoloanyag-kiadas',
     'csomagoloanyag-korrekcio',
+    'fatipus',
     
 // TODO - in progress
-    'fatipus',
+    'faanyag-bevitel',
     
 // TODO
     'lakossagi-uj-megrendeles',

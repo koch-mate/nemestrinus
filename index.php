@@ -14,6 +14,8 @@ require_once("lib/utility.php");
 require_once("lib/users.php");
 require_once("lib/export_customers.php");
 require_once("lib/packaging.php");
+require_once("lib/wood.php");
+require_once("lib/units.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
@@ -97,18 +99,24 @@ else {
         <title>Nemestrinus -
             <?=MENU_NAMES[$mode]  //FIXME ?>
         </title>
-        <link rel="shortcut icon" type="image/png" href="/img/logo.png" />
+        <link rel="shortcut icon" type="image/png" href="/img/logo.png">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/datatables.min.css" rel="stylesheet">
-        <link href="css/datepicker.css" rel="stylesheet">
+        <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
+        <link href="css/bootstrap-select.css" rel="stylesheet">
+
         <link href="css/style.css" rel="stylesheet">
+
 
         <script src="js/jquery.js"></script>
         <script src="js/jquery.validate.js"></script>
         <script src="js/messages_hu.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/datatables.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <script src="js/bootstrap-datepicker.hu.min.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+
         <script>
             $.validator.setDefaults({
                 highlight: function (element) {
@@ -127,6 +135,9 @@ else {
                     }
                 }
             });
+            $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+            $.fn.datepicker.defaults.language = "hu";
+            $.fn.datepicker.defaults.todayHighlight = true;
         </script>
     </head>
 
