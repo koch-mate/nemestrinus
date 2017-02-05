@@ -52,6 +52,9 @@ const IMPLEMENTED_PAGES = [
     
 // TODO - in progress
     'faanyag-bevitel',
+    'faanyag-keszlet',
+    'faanyag-kiadas',
+    'faanyag-korrekcio',
     
 // TODO
     'lakossagi-uj-megrendeles',
@@ -212,23 +215,23 @@ const CSOMAGOLOANYAGOK = [
     'kaloda'    =>  ['Kaloda elem','db'],
 ];
 
-const CS_FORGALOM_BEVETEL = 'bevetel';
-const CS_FORGALOM_KORREKCIO = 'korrekcio';
-const CS_FORGALOM_KIADAS = 'kiadas';
-const CS_FORGALOM_FELHASZNALAS = 'felhasznalas';
+const FORGALOM_BEVETEL = 'bevetel';
+const FORGALOM_KORREKCIO = 'korrekcio';
+const FORGALOM_KIADAS = 'kiadas';
+const FORGALOM_FELHASZNALAS = 'felhasznalas';
 
-const CS_FORGALOM_DICT = [
-    CS_FORGALOM_BEVETEL => 'bevételezés',
-    CS_FORGALOM_KORREKCIO => 'korrekció',
-    CS_FORGALOM_KIADAS => 'kiadás',
-    CS_FORGALOM_FELHASZNALAS => 'felhasználás',
+const FORGALOM_DICT = [
+    FORGALOM_BEVETEL => 'bevételezés',
+    FORGALOM_KORREKCIO => 'korrekció',
+    FORGALOM_KIADAS => 'kiadás',
+    FORGALOM_FELHASZNALAS => 'felhasználás',
 ];
 
-const CS_FORGALOM_ICON = [
-    CS_FORGALOM_BEVETEL => 'glyphicon-log-in',
-    CS_FORGALOM_KORREKCIO => 'glyphicon-transfer',
-    CS_FORGALOM_KIADAS => 'glyphicon-log-out',
-    CS_FORGALOM_FELHASZNALAS => 'glyphicon-compressed',
+const FORGALOM_ICON = [
+    FORGALOM_BEVETEL => 'glyphicon-log-in',
+    FORGALOM_KORREKCIO => 'glyphicon-transfer',
+    FORGALOM_KIADAS => 'glyphicon-log-out',
+    FORGALOM_FELHASZNALAS => 'glyphicon-compressed',
 ];
 
 const F_KEMENY      = 'kemény lombos';

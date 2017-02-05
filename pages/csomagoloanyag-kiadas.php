@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST['r_cs'])){
-    packagingAdd( $_POST['r_cs'], -1.0*$_POST['mennyiseg'], $_POST['szlaszam'], $_POST['datum'], $_POST['megj'], CS_FORGALOM_KIADAS );
+    packagingAdd( $_POST['r_cs'], -1.0*$_POST['mennyiseg'], $_POST['szlaszam'], $_POST['datum'], $_POST['megj'], FORGALOM_KIADAS );
     logEv(LOG_EVENT['packaging_sell'].':',null,implode(', ',[CSOMAGOLOANYAGOK[$_POST['r_cs']][0], $_POST['mennyiseg'].CSOMAGOLOANYAGOK[$_POST['r_cs']][1], $_POST['szlaszam'], $_POST['datum']]));
     $succMessage = "Rögzítve.";
 }

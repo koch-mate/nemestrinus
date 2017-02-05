@@ -65,3 +65,12 @@ div.debug table td {
 div.debug table tr:hover {
     background: #fff;
 }
+
+.nav-tabs.two-lines>li {
+  height:8em;
+}
+.nav-tabs.two-lines>li>a, .nav-tabs>li>a>div {
+    height:100%;
+    vertical-align:bottom;
+    display:table;
+}

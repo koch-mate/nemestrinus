@@ -27,5 +27,10 @@ function unitChange($form, $to, $x){
     return $x * U_FACT[$to]; 
 }
 
+const ROUND_DIGITS = 2;
+
+function rnd($x){
+    return round($x * (10 ** ROUND_DIGITS))/(10 ** ROUND_DIGITS);
+}
 
 ?>

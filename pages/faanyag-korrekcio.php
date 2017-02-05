@@ -1,31 +1,34 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_BEVETEL);
-    logEv(LOG_EVENT['wood_add'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum']]));  
+    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], null, null, null, $_POST['datum'], $_POST['megj'], FORGALOM_KORREKCIO);
+    logEv(LOG_EVENT['wood_correction'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['datum']]));  
     $succMessage = "Rögzítve.";
 }
 
 include('lib/messages.php');
 
 woodJsUnitConversion();
-
 ?>
 
-<h2>Alapanyag bevételezése</h2>
 
-<div class="jumbotron">
+    <h2>Alapanyag készlet korrekció</h2>
+    <div class="jumbotron">
 
-    <form class="form-horizontal" id="alapanyag" name="alapanyag" method="post" action="/?mode=faanyag-bevitel">
-        <fieldset>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="checkboxes">Fafaj</label>
-                <div class="col-md-4">
-                    <?php
-                woodTypesRadioButtons();
+        <form class="form-horizontal" id="csom" name="alapanyag" method="post" action="/?mode=faanyag-korrekcio">
+            <fieldset>
+                <div class="alert alert-info" role="alert">Csomagolóanyag készlet korrekciójához. Ha a tényleges készlet nem egyezik a rendszerben tárolttal, de a különbség oka nem megrendelés, eladás vagy gyártás során történő felhasználás.</div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="checkboxes">Fafaj</label>
+                    <div class="col-md-4">
+                        <?php
+                               woodTypesRadioButtons();
+
 ?>
+                    </div>
                 </div>
-            </div>
+
             <input type="hidden" id="cmennyiseg" name="cmennyiseg" value="0">
             <div class="form-group">
                 <label class="col-md-4 control-label" for="mennyiseg">Mennyiség</label>
@@ -39,6 +42,7 @@ woodJsUnitConversion();
                     </div>
                 </div>
             </div>
+                
             <div class="form-group">
                 <label class="col-md-4 control-label" for="">&nbsp;</label>
                 <div class="col-md-5">
@@ -56,42 +60,15 @@ woodJsUnitConversion();
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="szlaszam">Számlaszám</label>
-                <div class="col-md-5">
-                    <input id="szlaszam" name="szlaszam" type="text" placeholder="2017/12345" class="form-control input-md">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="szallitolevel">Szállítólevél szám</label>
-                <div class="col-md-5">
-                    <input id="szallitolevel" name="szallitolevel" type="text" placeholder="12345678" class="form-control input-md">
-                </div>
-            </div>
-            <div class="form-group" id="beszform">
-                <label class="col-md-4 control-label" for="beszallito">Beszállító</label>
-                <div class="col-md-5">
-                    <select name="beszallito" class="selectpicker" id="besz" data-live-search="true" onchange="if($('#besz').val()=='__uj__'){$('#besz').parent().hide();$('#beszUj').show();}">
-                        <optgroup label="Saját kitermelés">
-                            <option value="Ihartü">Ihartü</option> 
-                        </optgroup>
-                        <optgroup label="Külső cég"> 
-                            <?php
-                            foreach(woodGetSuppliers() as $b){
-                                ?>
-                            <option value="<?=$b?>"><?=$b?></option>
-                            <?php
-                            }
-                            ?>
-                            <option data-content="<em>&lt;Új beszállító&gt;</em>" value="__uj__">&lt;Új beszállító&gt;</option>
-                        </optgroup>
-                    </select>
-                    <div class="input-group" id="beszUj" style="display:none;">
-                        <input type="text" class="form-control" name="ujbeszallito" placeholder="új beszállító" required>
-                        <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="$('#besz').parent().show();$('#beszUj').hide();$('#besz').selectpicker('val', 'Ihartü');$('#besz').selectpicker('toggle');$('#beszform').removeClass('has-error');$('#ujbeszallito-error').hide()">Mégsem</button></span>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for=""></label>
+                    <div class="col-md-5">
+                        <div class="alert alert-info" role="alert">Pozitív és negatív előjellel is lehet korrekciót rögzíteni, attól függően, hogy milyen irányú az eltérés a valós és a programban szereplő készlet között.</div>
                     </div>
                 </div>
-            </div>
+                
+
             <div class="form-group">
                 <label class="col-md-4 control-label" for="datum">Dátum</label>
                 <div class="col-md-4">
