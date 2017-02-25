@@ -67,10 +67,33 @@ div.debug table tr:hover {
 }
 
 .nav-tabs.two-lines>li {
-  height:8em;
+    height: 8em;
 }
-.nav-tabs.two-lines>li>a, .nav-tabs>li>a>div {
-    height:100%;
-    vertical-align:bottom;
-    display:table;
+
+.nav-tabs.two-lines>li>a,
+.nav-tabs>li>a>div {
+    height: 100%;
+    vertical-align: bottom;
+    display: table;
+}
+
+
+/* data slider */
+
+.slider-selection {
+    background: #BABABA;
+}
+
+
+/* fix for slider tooltips */
+
+.navbar-default {
+    z-index: 9000;
+}
+
+
+/* keep modal above navbar */
+
+.modal {
+    z-index: 9900;
 }

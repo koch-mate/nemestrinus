@@ -1,9 +1,5 @@
 <?php
 
-const U_ERDESZETI_KOBMETER = 'ekob';
-const U_TOMOR_KOBMETER = 'tkob';
-const U_SZORT_URMETER = 'szur';
-const U_RAKOTT_URMETER = 'rur';
 
 const U_NAMES = [
     U_TOMOR_KOBMETER => ['tömör köbméter','t. m<sup>3</sup>'],

@@ -49,15 +49,15 @@ const IMPLEMENTED_PAGES = [
     'csomagoloanyag-kiadas',
     'csomagoloanyag-korrekcio',
     'fatipus',
-    
-// TODO - in progress
     'faanyag-bevitel',
     'faanyag-keszlet',
     'faanyag-kiadas',
     'faanyag-korrekcio',
     
-// TODO
+// TODO - in progress
     'lakossagi-uj-megrendeles',
+
+// TODO
     'uj-export-megrendeles',
     'lakossagi-megrendeles-attekintes',
     'export-megrendeles-attekintes',
@@ -166,6 +166,9 @@ const MENU_ICONS = [
     'faanyag-bevitel' => 'glyphicon-log-in', 
     'faanyag-kiadas' => 'glyphicon-log-out', 
     'faanyag-korrekcio' => 'glyphicon-transfer', 
+    
+    'lakossagi-uj-megrendeles' => 'glyphicon-edit',
+    
 ];
 
 const MENU_NAMES = [
@@ -205,6 +208,12 @@ const MENU_NAMES = [
     'szemelyes-beallitasok' => 'Személyes beállítások',
     'fatipus'   => 'Fatípusok',
 ];
+
+
+const U_ERDESZETI_KOBMETER = 'ekob';
+const U_TOMOR_KOBMETER = 'tkob';
+const U_SZORT_URMETER = 'szur';
+const U_RAKOTT_URMETER = 'rur';
 
 
 const CSOMAGOLOANYAGOK = [
@@ -258,5 +267,41 @@ const FATIPUSOK = [
     F_FENYO => ['fenyő',F_FENYOFELE],
     F_EGYEB_KEMENY => ['egyéb kemény lombos',F_KEMENY],
     F_EGYEB_LAGY => ['egyéb lágy lombos',F_LAGY],
-]
+];
+
+const EGYUTAS_KALODA_KICSI = 'egyutas_kicsi';
+const EGYUTAS_KALODA_NAGY = 'egyutas_nagy';
+const VISSZAVALTHATO_KALODA_KICSI = 'vv_kicsi';
+const VISSZAVALTHATO_KALODA_NAGY = 'vv_nagy';
+const POSCH_HALOS = 'posch_halos';
+const POSCH_HALOS_FOLIAS = 'posch_halos_folias';
+const OMLESZTETT = 'omlesztett';
+
+
+const CSOMAGOLASTIPUSOK = [
+    EGYUTAS_KALODA_KICSI        => ['egyutas kaloda (kicsi)', 'db', 0.9, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NAGY         => ['egyutas kaloda (nagy)', 'db', 1.165, U_RAKOTT_URMETER ],
+    VISSZAVALTHATO_KALODA_KICSI => ['visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
+    VISSZAVALTHATO_KALODA_NAGY  => ['visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
+    POSCH_HALOS                 => ['Posch hálós', 'db', 2.1, U_SZORT_URMETER],
+    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.1, U_SZORT_URMETER],
+    OMLESZTETT                  => ['Ömlesztett', 'm<sup>3</sup>', 1, U_SZORT_URMETER]
+]; 
+
+// megrendelesek
+
+const M_LAKOSSAGI = 'lakossagi';
+const M_EXPORT = 'export';
+
+const M_S_FELDOLGOZAS_ALATT     = 'feldolgozás alatt';
+const M_S_ELFOGADVA             = 'elfogadva';
+const M_S_TELJESITVE            = 'teljesítve';
+const M_S_VISSZAUTASITVA        = 'visszautasítva';
+const M_S_VARAKOZIK             = 'várakozik';
+const M_S_VISSZAMONDOTT         = 'visszamondott';
+
+// penznemek
+const P_FORINT = 'HUF';
+const P_EURO = 'EUR';
+
 ?>

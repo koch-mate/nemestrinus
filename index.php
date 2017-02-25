@@ -16,6 +16,7 @@ require_once("lib/export_customers.php");
 require_once("lib/packaging.php");
 require_once("lib/wood.php");
 require_once("lib/units.php");
+require_once("lib/order.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
@@ -104,6 +105,7 @@ else {
         <link href="css/datatables.min.css" rel="stylesheet">
         <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
         <link href="css/bootstrap-select.css" rel="stylesheet">
+        <link href="css/bootstrap-slider.min.css" rel="stylesheet">
 
         <link href="css/style.css" rel="stylesheet">
 
@@ -116,6 +118,8 @@ else {
         <script src="js/bootstrap-datepicker.min.js"></script>
         <script src="js/bootstrap-datepicker.hu.min.js"></script>
         <script src="js/bootstrap-select.min.js"></script>
+        <script src="js/bootstrap-slider.min.js"></script>
+
 
         <script>
             $.validator.setDefaults({
@@ -138,6 +142,7 @@ else {
             $.fn.datepicker.defaults.format = "yyyy-mm-dd";
             $.fn.datepicker.defaults.language = "hu";
             $.fn.datepicker.defaults.todayHighlight = true;
+            $.fn.datepicker.defaults.autoclose = true;
         </script>
     </head>
 

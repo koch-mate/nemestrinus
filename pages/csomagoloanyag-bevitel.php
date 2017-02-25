@@ -38,12 +38,17 @@ include('lib/messages.php');
                         <input id="szlaszam" name="szlaszam" type="text" placeholder="2017/12345" class="form-control input-md">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="datum">Dátum</label>
-                    <div class="col-md-5">
-                        <input id="datum" name="datum" type="dateISO" required placeholder="éééé-hh-nn" class="form-control input-md" value="<?=date('Y-m-d')?>">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="datum">Dátum</label>
+                <div class="col-md-4">
+                    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                        <input class="form-control" name="datum" id="datum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d')?>">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
                     </div>
                 </div>
+            </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="megj">Megjegyzés</label>
                     <div class="col-md-5">
