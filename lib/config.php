@@ -56,6 +56,7 @@ const IMPLEMENTED_PAGES = [
     
 // TODO - in progress
     'lakossagi-uj-megrendeles',
+    'export-uj-megrendeles',
 
 // TODO
     'uj-export-megrendeles',
@@ -169,6 +170,9 @@ const MENU_ICONS = [
     
     'lakossagi-uj-megrendeles' => 'glyphicon-edit',
     
+    
+    'export-uj-megrendeles' => 'glyphicon-edit',
+    'export-megrendelok' => 'glyphicon-user',
 ];
 
 const MENU_NAMES = [
@@ -301,7 +305,7 @@ const M_S_VARAKOZIK             = 'várakozik';
 const M_S_VISSZAMONDOTT         = 'visszamondott';
 
 // penznemek
-const P_FORINT = 'HUF';
+const P_FORINT = 'Ft';
 const P_EURO = 'EUR';
 
 ?>

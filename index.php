@@ -82,7 +82,7 @@ if(!empty($_SESSION['activeLogin'])) {
     }
     else {
         $mode = 'error';
-        $errorMessage = '"'.$_mode.'" is not implemented';
+        $errorMessage = 'a "'.$_mode.'" modul nem létezik!';
     }
 }
 else {
@@ -104,7 +104,7 @@ else {
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/datatables.min.css" rel="stylesheet">
         <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
-        <link href="css/bootstrap-select.css" rel="stylesheet">
+        <link href="css/bootstrap-select.min.css" rel="stylesheet">
         <link href="css/bootstrap-slider.min.css" rel="stylesheet">
 
         <link href="css/style.css" rel="stylesheet">
@@ -118,6 +118,7 @@ else {
         <script src="js/bootstrap-datepicker.min.js"></script>
         <script src="js/bootstrap-datepicker.hu.min.js"></script>
         <script src="js/bootstrap-select.min.js"></script>
+        <script src="js/i18n/defaults-hu_HU.min.js"></script>
         <script src="js/bootstrap-slider.min.js"></script>
 
 

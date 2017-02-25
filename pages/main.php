@@ -5,6 +5,7 @@
 </div>
 <div>
     <h3>Változtatások</h3>
+    <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Export rendelés <a href="?mode=export-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Lakossági rendelés <a href="?mode=lakossagi-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 4.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-kiadas">eladás</a></p>
     <p><span class="label label-default">2017. 02. 4.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-keszlet">készlet</a></p>

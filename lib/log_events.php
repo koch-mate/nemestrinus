@@ -26,7 +26,9 @@ const LOG_EVENT = [
     'wood_correction' => 'Alapanyag korrekció',
     'wood_del'        => 'Alapanyag törlés',
     
-    'order_residental_add' => 'Lakossági megrendelés felvitele',
+    'order_residental_add' => 'Lakossági megrendelés felvétele',
+    
+    'order_export_add' => 'Export megrendelés felvétele',
 ];
 
 

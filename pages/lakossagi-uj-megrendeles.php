@@ -3,9 +3,9 @@
 
 if(!empty($_POST['datum'])){
     // store order
-    $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
+    $oid = orderExportAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
 
-    logEv(LOG_EVENT['order_residental_add'].':',null,"ID: ".$oid);  
+    logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);  
 
     $succMessage = "A megrendelés rögzítésre került.";
 }
