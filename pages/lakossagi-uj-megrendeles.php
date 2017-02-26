@@ -13,6 +13,7 @@ if(!empty($_POST['datum'])){
 
 include('lib/messages.php');
 
+//TODO - megrendeles statusza
 ?>
 
     <script>

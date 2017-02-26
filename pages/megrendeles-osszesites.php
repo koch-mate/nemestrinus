@@ -1,4 +1,17 @@
 <?php ?>
+<style>
+    div.dataTables_scrollBody {
+        padding-bottom: 18em;
+    }
+    .highlight {
+        text-shadow: 1px 1px 1px #bbb;
+    }
+    td.gyartasStatusz {
+        max-width:0.5em;
+        min-width:0.5em;
+        padding: 3px;
+    }
+</style>
     <h2>Megrendelések</h2>
     <table class="table table-striped table-hover display" id="megrendelt_tetelek" style="min-width:100%;font-size:90%;">
         <thead style="font-weight:bold">
@@ -18,7 +31,7 @@
         </thead>
         <tbody>
             <?php foreach(ordersGetAllData() as $og){?>
-                <tr>
+                <tr id="tr_<?=$og['ID']?>">
                     <td>
                         <?=$og['ID']?>
                     </td>
@@ -30,7 +43,7 @@
                         <?=str_repeat('<span class="glyphicon glyphicon-star"></span><br>', $og['Prioritas'])?>
                     </td>
                     <td>
-                        <a tabindex="0" data-toggle="popover" data-trigger="focus" title="" data-content="<?php if($og['Tipus']==M_LAKOSSAGI){?><table class='table table-striped table-hover' style='font-size:80%'>
+                        <a tabindex="0" data-toggle="popover" title="Adatok" data-content="<?php if($og['Tipus']==M_LAKOSSAGI){?><table class='table table-striped table-hover' style='font-size:80%'>
                             <tbody>
                                 <tr>
                                     <th>Megrendelő neve</th>
@@ -131,15 +144,41 @@
                         <?=$og['KertDatum']?>
                     </td>
                     <td>
-                        <?=$og['Statusz']?>
+                        <div id="div_po_<?=$og['ID']?>" style="display:none">
+                            <?php
+                            foreach(M_S_STATUSZOK as $ms){
+                                ?>
+                                <p>
+                                    <button type='button' class='btn btn-xs btn-primary' style='background:<?=M_S_SZINEK[$ms][0]?>;border-color:<?=M_S_SZINEK[$ms][0]?>;font-weight:bold;width:100%;' onclick='if(confirm("Státusz módosítása")){};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>
+                                        <?=$ms?>
+                                    </button>
+                                </p>
+                                <?php
+                            }                                                                                                                        
+                            ?>
+                        </div>
+                        <a tabindex="1" data-toggle="popover" id="po_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="Sátusz módosítása" style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$og['Statusz']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
+                            <?=$og['Statusz']?>
+                        </a>
+                        <script>
+                            $("#po_<?=$og['ID']?>").popover({
+                                html: true,
+                                placement: 'bottom',
+                                trigger: 'focus',
+                                content: function () {
+                                    return $('#div_po_<?=$og['ID']?>').html()
+                                }
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");});
+                        </script>
                     </td>
                     <td>
-                        <table style="font-size:80%;white-space: nowrap;">
+                        <table  style="font-size:80%;white-space: nowrap;width:100%;">
                             <?php foreach(ordersGetItemsByID($og['ID']) as $oi){
-                            //'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg'
+                                
                             ?>
-                                <tr>
-                                    <td style="padding-right:0.8em;">
+                                <tr style="background-color:<?=colourBrightness(GY_S_SZINEK[$oi['GyartasStatusza']][0],0.2)?>;" >
+                                    <td class="gyartasStatusz" title="<?=$oi['GyartasStatusza']?>" style="background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"></td>
+                                    <td style="padding:0 0.8em 0 0.8em;">
                                         <img src="img/<?=$oi['Fafaj']?>.png" class="zoom" style="height:1em;">
                                         <?=FATIPUSOK[$oi['Fafaj']][0]?>
                                     </td>
@@ -162,7 +201,9 @@
                                     <td style="padding-right:0.8em;">
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
-
+                                    <td></td>
+                                    <td><?=$oi['GyartasVarhatoDatuma']?></td>
+                                    <td><?=$oi['GyartasDatuma']?></td>
                                 </tr>
                                 <?php } ?>
                         </table>
@@ -227,14 +268,13 @@
                     },
             ],
             });
-
-
-            $('a').popover({
+            $('[data-toggle="popover"]').popover({
                 'html': true,
                 'placement': 'bottom',
-                'container': 'body',
+                //                'container': 'body',
                 'trigger': 'focus'
             });
+
             // ugly hack to fix column headers
             setTimeout(function () {
                 $("#megrendelt_tetelek").dataTable().fnAdjustColumnSizing();

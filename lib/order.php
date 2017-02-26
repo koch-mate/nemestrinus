@@ -63,7 +63,10 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
             'Csomagolas' => $o->csom,
             'Mennyiseg' => $o->menny,
             'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$o->csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$o->csom][2]),
-            'Nedvesseg' => $o->nedv
+            'Nedvesseg' => $o->nedv,
+            'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
+            'GyartasDatuma' => null,
+            'GyartasVarhatoDatuma' => null
         ]);
     }
     return $new_id;
@@ -76,7 +79,7 @@ function ordersGetAllData(){
 
 function ordersGetItemsByID($id){
     global $db;
-    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
+    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasVarhatoDatuma'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
 }
 
 ?>

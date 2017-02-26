@@ -53,22 +53,15 @@ const IMPLEMENTED_PAGES = [
     'faanyag-keszlet',
     'faanyag-kiadas',
     'faanyag-korrekcio',
+    'felhasznalok',
     
 // TODO - in progress
     'lakossagi-uj-megrendeles',
     'export-uj-megrendeles',
     'megrendeles-osszesites',
+    'termekgyartas',
 
 // TODO
-    'uj-export-megrendeles',
-    'lakossagi-megrendeles-attekintes',
-    'export-megrendeles-attekintes',
-    'lakossagi-megrendeles-osszesites',
-    'export-megrendeles-osszesites',
-    'felhasznalok',
-    'gyartas',
-    'szallitas',
-    'fakitermeles',
 ];
 
 const MENU_STRUCT = [
@@ -173,6 +166,12 @@ const MENU_ICONS = [
     'export-megrendelok' => 'glyphicon-user',
     
     'megrendeles-osszesites' => 'glyphicon-shopping-cart',
+    
+    'felhasznalok' => 'glyphicon-user',
+    'fatipus' => 'glyphicon-tree-deciduous',
+    'naplo' => 'glyphicon-book',
+    'sajat-profil' => 'glyphicon-user',
+    
 ];
 
 const MENU_NAMES = [
@@ -302,15 +301,37 @@ const M_S_VISSZAUTASITVA        = 'visszautasítva';
 const M_S_VARAKOZIK             = 'várakozik';
 const M_S_VISSZAMONDOTT         = 'visszamondott';
 
+const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VARAKOZIK, M_S_VISSZAMONDOTT];
+
 const M_S_SZINEK = [
     M_S_FELDOLGOZAS_ALATT     => ['#FFB03B'],
-    M_S_ELFOGADVA             => ['#FFF0A5'],
-    M_S_TELJESITVE            => ['#468966'],
+    M_S_ELFOGADVA             => ['#82BF4B'],
+    M_S_TELJESITVE            => ['#164C20'],
     M_S_VISSZAUTASITVA        => ['#8E2800'],
     M_S_VARAKOZIK             => ['#B64926'],
     M_S_VISSZAMONDOTT         => ['#473F39'],
 ];
 
+// gyartas statusza
+const GY_S_VISSZAIGAZOLASRA_VAR = 'visszaigazolásra vár';
+const GY_S_GYARTASRA_VAR = 'gyártásra vár';
+const GY_S_LEGYARTVA = 'legyártva';
+const GY_S_VISSZAUTASITVA = 'visszautasítva';
+
+const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
+
+const GY_S_SZINEK = [
+    GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139'],
+    GY_S_GYARTASRA_VAR          => ['#F7D52F'],
+    GY_S_LEGYARTVA              => ['#0B630E'],
+    GY_S_VISSZAUTASITVA         => ['#B63620'],
+];
+
+// szallitas statusza
+const SZ_S_GYARTAS_ALATT = 'gyártás alatt';
+const SZ_S_SZALLITASRA_VAR = 'szállításra vár';
+const SZ_S_LESZALLITVA = 'leszállítva';
+    
 // penznemek
 const P_FORINT = 'Ft';
 const P_EURO = 'EUR';
