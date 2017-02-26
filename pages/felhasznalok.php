@@ -90,7 +90,7 @@ include('lib/messages.php');
                     <td>
                         <?=$i['TeljesNev']?>
                     </td>
-                    <td>
+                    <td style="white-space: nowrap;">
                         <?php
     foreach(array_keys(RIGHTS) as $rk){
     ?>
@@ -98,7 +98,8 @@ include('lib/messages.php');
                             <?php    }?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-xs btn-primary">Emlékeztető küldése</button>
+                        <button type="button" class="btn btn-xs btn-primary">Emlékeztető
+                            <br>küldése</button>
                     </td>
                     <td>
                         <a href="mailto:<?=$i['Email']?>">

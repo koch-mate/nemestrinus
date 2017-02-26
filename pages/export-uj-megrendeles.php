@@ -147,7 +147,7 @@ include('lib/messages.php');
                 <div class="col-md-4">
                     <div class="radio">
                         <label for="prio-0">
-                            <input type="radio" name="prio" id="prio-0" value="1"> <span style="display:inline-block;width: 5em;">Magas</span> <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
+                            <input type="radio" name="prio" id="prio-0" value="3"> <span style="display:inline-block;width: 5em;">Magas</span> <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>
                         </label>
                     </div>
                     <div class="radio">
@@ -157,7 +157,7 @@ include('lib/messages.php');
                     </div>
                     <div class="radio">
                         <label for="prio-2">
-                            <input type="radio" name="prio" id="prio-2" value="3"> <span style="display:inline-block;width: 5em;">Alacsony</span> <span class="glyphicon glyphicon-star"></span>
+                            <input type="radio" name="prio" id="prio-2" value="1"> <span style="display:inline-block;width: 5em;">Alacsony</span> <span class="glyphicon glyphicon-star"></span>
                         </label>
                     </div>
                 </div>
@@ -272,10 +272,12 @@ include('lib/messages.php');
                         <div class="col-md-5">
                             <div class="input-group">
                                 <span class="input-group-addon" onclick="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
-                                    <?=ucfirst(CSOMAGOLASTIPUSOK[$i][0])?> <input type="radio" value="<?=$i?>" name="csomagolas_r" id='rad_<?=$i?>' onchange="<?=$recalc?>">
-                                </span>
-                                <input type="number" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
-                                <span class="input-group-addon" id="menny_me_<?=$i?>"><?=(CSOMAGOLASTIPUSOK[$i][1])?></span>
+                                <span style="display:inline-block;width:1.5em;"><img src="/img/<?=$i?>.png" style="height:1em;"></span>
+                                <?=ucfirst(CSOMAGOLASTIPUSOK[$i][0])?>
+                                    <input type="radio" value="<?=$i?>" name="csomagolas_r" id='rad_<?=$i?>' onchange="<?=$recalc?>">
+                                    </span>
+                                    <input type="number" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
+                                    <span class="input-group-addon" id="menny_me_<?=$i?>"><?=(CSOMAGOLASTIPUSOK[$i][1])?></span>
                             </div>
                         </div>
                     </div>

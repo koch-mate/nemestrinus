@@ -69,4 +69,14 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
     return $new_id;
 }
 
+function ordersGetAllData(){
+    global $db;
+    return    $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['Deleted'=>0]);
+}
+
+function ordersGetItemsByID($id){
+    global $db;
+    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
+}
+
 ?>

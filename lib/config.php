@@ -57,6 +57,7 @@ const IMPLEMENTED_PAGES = [
 // TODO - in progress
     'lakossagi-uj-megrendeles',
     'export-uj-megrendeles',
+    'megrendeles-osszesites',
 
 // TODO
     'uj-export-megrendeles',
@@ -79,10 +80,9 @@ const MENU_STRUCT = [
         'termekgyartas',
     ],
     'megrendeles'       => [
-        'lakossagi' => ['lakossagi-osszesites', 'lakossagi-megrendelesek', 'lakossagi-uj-megrendeles'],
+        'megrendelesek' => ['megrendeles-osszesites'],
+        'lakossagi' => ['lakossagi-uj-megrendeles'],
         'export' => [
-            'export-osszesites', 
-            'export-megrendelesek', 
             'export-uj-megrendeles',
             'export-megrendelok',
         ],
@@ -135,11 +135,9 @@ const PAGE_RIGHTS = [
     'gyartas'                   => R_GYARTAS,
     'termekgyartas'             => R_GYARTAS, 
     'megrendeles'               => R_MEGRENDELES,
-    'lakossagi-osszesites'      => R_MEGRENDELES, 
-    'lakossagi-megrendelesek'   => R_MEGRENDELES,
+    'megrendelesek'             => R_MEGRENDELES,
+    'megrendeles-osszesites'    => R_MEGRENDELES, 
     'lakossagi-uj-megrendeles'  => R_MEGRENDELES,
-    'export-osszesites'         => R_MEGRENDELES,
-    'export-megrendelesek'      => R_MEGRENDELES,
     'export-uj-megrendeles'     => R_MEGRENDELES,
     'szallitas'                 => R_SZALLITAS,
     'kiszallitas'               => R_SZALLITAS,
@@ -173,6 +171,8 @@ const MENU_ICONS = [
     
     'export-uj-megrendeles' => 'glyphicon-edit',
     'export-megrendelok' => 'glyphicon-user',
+    
+    'megrendeles-osszesites' => 'glyphicon-shopping-cart',
 ];
 
 const MENU_NAMES = [
@@ -190,11 +190,9 @@ const MENU_NAMES = [
     'gyartas' => 'Gyártás',
     'termekgyartas' => 'Gyártás', 
     'megrendeles' => 'Megrendelés',
-    'lakossagi-osszesites' => 'Összesítés', 
-    'lakossagi-megrendelesek' => 'Megrendelések',
+    'megrendelesek'=> 'Összesítés',
+    'megrendeles-osszesites' => 'Megrendelések', 
     'lakossagi-uj-megrendeles' => 'Új megrendelés',
-    'export-osszesites' => 'Összesítés',
-    'export-megrendelesek' => 'Megrendelések',
     'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',
     'kiszallitas' => 'Szállítás',
@@ -304,8 +302,21 @@ const M_S_VISSZAUTASITVA        = 'visszautasítva';
 const M_S_VARAKOZIK             = 'várakozik';
 const M_S_VISSZAMONDOTT         = 'visszamondott';
 
+const M_S_SZINEK = [
+    M_S_FELDOLGOZAS_ALATT     => ['#FFB03B'],
+    M_S_ELFOGADVA             => ['#FFF0A5'],
+    M_S_TELJESITVE            => ['#468966'],
+    M_S_VISSZAUTASITVA        => ['#8E2800'],
+    M_S_VARAKOZIK             => ['#B64926'],
+    M_S_VISSZAMONDOTT         => ['#473F39'],
+];
+
 // penznemek
 const P_FORINT = 'Ft';
 const P_EURO = 'EUR';
 
+
+// nedvesseg
+
+const NEDVESSEG = ['szaraz' => [1, 'száraz'], 'felszaraz'=>[2,'félszáraz'], 'nedves'=>[3,'nedves']];
 ?>
