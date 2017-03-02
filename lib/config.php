@@ -190,7 +190,7 @@ const MENU_NAMES = [
     'termekgyartas' => 'Gyártás', 
     'megrendeles' => 'Megrendelés',
     'megrendelesek'=> 'Összesítés',
-    'megrendeles-osszesites' => 'Megrendelések', 
+    'megrendeles-osszesites' => 'Összes megrendelés', 
     'lakossagi-uj-megrendeles' => 'Új megrendelés',
     'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',
@@ -304,12 +304,18 @@ const M_S_VISSZAMONDOTT         = 'visszamondott';
 const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VARAKOZIK, M_S_VISSZAMONDOTT];
 
 const M_S_SZINEK = [
-    M_S_FELDOLGOZAS_ALATT     => ['#FFB03B'],
-    M_S_ELFOGADVA             => ['#82BF4B'],
-    M_S_TELJESITVE            => ['#164C20'],
-    M_S_VISSZAUTASITVA        => ['#8E2800'],
-    M_S_VARAKOZIK             => ['#B64926'],
-    M_S_VISSZAMONDOTT         => ['#473F39'],
+    M_S_FELDOLGOZAS_ALATT     => ['#FFB03B', 'question' ],
+    M_S_ELFOGADVA             => ['#82BF4B', 'cog'],
+    M_S_TELJESITVE            => ['#164C20', 'check'],
+    M_S_VISSZAUTASITVA        => ['#8E2800', 'close'],
+    M_S_VARAKOZIK             => ['#B64926', 'hourglass-half'],
+    M_S_VISSZAMONDOTT         => ['#473F39', 'user-times'],
+];
+
+const M_S_AKTIV = [
+    M_S_FELDOLGOZAS_ALATT,
+    M_S_ELFOGADVA,
+    M_S_VARAKOZIK,
 ];
 
 // gyartas statusza
@@ -321,17 +327,33 @@ const GY_S_VISSZAUTASITVA = 'visszautasítva';
 const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
 
 const GY_S_SZINEK = [
-    GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139'],
-    GY_S_GYARTASRA_VAR          => ['#F7D52F'],
-    GY_S_LEGYARTVA              => ['#0B630E'],
-    GY_S_VISSZAUTASITVA         => ['#B63620'],
+    GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139', 'question'],
+    GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog'],
+    GY_S_LEGYARTVA              => ['#0B630E', 'check'],
+    GY_S_VISSZAUTASITVA         => ['#B63620', 'close'],
 ];
 
 // szallitas statusza
 const SZ_S_GYARTAS_ALATT = 'gyártás alatt';
 const SZ_S_SZALLITASRA_VAR = 'szállításra vár';
 const SZ_S_LESZALLITVA = 'leszállítva';
+   
+const SZ_S_SZINEK = [
+    SZ_S_GYARTAS_ALATT  => ['#FF8139', 'hourglass-start'],
+    SZ_S_SZALLITASRA_VAR=> ['#F7D52F', 'truck'],
+    SZ_S_LESZALLITVA    => ['#0B630E', 'check'],
     
+];
+
+// fizetes statusza
+const F_S_FIZETESRE_VAR = 'fizetésre vár';
+const F_S_FIZETVE = 'fizetve';
+
+const F_S_SZINEK = [
+    F_S_FIZETESRE_VAR => ['#B63620', 'close'],
+    F_S_FIZETVE => ['#0B630E', 'check'],
+];
+
 // penznemek
 const P_FORINT = 'Ft';
 const P_EURO = 'EUR';

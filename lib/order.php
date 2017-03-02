@@ -31,7 +31,11 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
             'Csomagolas' => $o->csom,
             'Mennyiseg' => $o->menny,
             'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$o->csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$o->csom][2]),
-            'Nedvesseg' => $o->nedv
+            'Nedvesseg' => $o->nedv,
+            'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
+            'GyartasDatuma' => null,
+            'GyartasVarhatoDatuma' => null
+
         ]);
     }
     return $new_id;
@@ -74,7 +78,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
 
 function ordersGetAllData(){
     global $db;
-    return    $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['Deleted'=>0]);
+    return    $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['Deleted'=>0]);
 }
 
 function ordersGetItemsByID($id){

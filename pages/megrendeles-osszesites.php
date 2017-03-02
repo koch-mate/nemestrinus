@@ -7,9 +7,16 @@
         text-shadow: 1px 1px 1px #bbb;
     }
     td.gyartasStatusz {
-        max-width:0.5em;
-        min-width:0.5em;
-        padding: 3px;
+        color:#fff;
+        padding:3px;
+        text-align: center;
+    }
+    table.orderItems tr:hover {
+        background: #fff;
+    }
+    table.orderItems {
+        font-size:80%;
+        white-space: nowrap;
     }
 </style>
     <h2>Megrendelések</h2>
@@ -25,6 +32,9 @@
                 <th style="vertical-align:bottom;">Ígért teljesítés dátuma</th>
                 <th style="vertical-align:bottom;">Megrendelés státusza</th>
                 <th style="vertical-align:bottom;">Tétel(ek)</th>
+                <th style="vertical-align:bottom;">Szállítás</th>
+                <th style="vertical-align:bottom;">Ár</th>
+                <th style="vertical-align:bottom;">Fizetés</th>
                 <th style="vertical-align:bottom;">Megjegyzés</th>
                 <th style="vertical-align:bottom;">Művelet</th>
             </tr>
@@ -35,7 +45,7 @@
                     <td>
                         <?=$og['ID']?>
                     </td>
-                    <td style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;"></td>
+                    <td style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;color:#fff;vertical-align:middle;text-align:center;font-size:1.5em;"><i class="fa  fa-<?=M_S_SZINEK[$og['Statusz']][1]?>" aria-hidden="true"></i></td>
                     <td>
                         <span class="glyphicon glyphicon-<?=($og['Tipus']==M_LAKOSSAGI ? 'home" title="lakossági':'globe" title="export')?>" aria-hidden="true"></span>
                     </td>
@@ -141,7 +151,7 @@
                         <?=$og['RogzitesDatum']?>
                     </td>
                     <td>
-                        <?=$og['KertDatum']?>
+                        <?=($og['KertDatum'] <= date('Y-m-d') && in_array($og['Statusz'], M_S_AKTIV) ? '<span style="color:red;"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span>').$og['KertDatum']?></span>
                     </td>
                     <td>
                         <div id="div_po_<?=$og['ID']?>" style="display:none">
@@ -172,12 +182,13 @@
                         </script>
                     </td>
                     <td>
-                        <table  style="font-size:80%;white-space: nowrap;width:100%;">
+                        <table class="orderItems"  >
                             <?php foreach(ordersGetItemsByID($og['ID']) as $oi){
                                 
                             ?>
-                                <tr style="background-color:<?=colourBrightness(GY_S_SZINEK[$oi['GyartasStatusza']][0],0.2)?>;" >
-                                    <td class="gyartasStatusz" title="<?=$oi['GyartasStatusza']?>" style="background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"></td>
+                                <tr >
+                                    <td class="gyartasStatusz">
+                                        <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i></span> </td>
                                     <td style="padding:0 0.8em 0 0.8em;">
                                         <img src="img/<?=$oi['Fafaj']?>.png" class="zoom" style="height:1em;">
                                         <?=FATIPUSOK[$oi['Fafaj']][0]?>
@@ -202,13 +213,20 @@
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
                                     <td></td>
-                                    <td><?=$oi['GyartasVarhatoDatuma']?></td>
-                                    <td><?=$oi['GyartasDatuma']?></td>
+                                    <td><b>V:</b> <?=$oi['GyartasVarhatoDatuma']?></td>
+                                    <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
                                 </tr>
                                 <?php } ?>
                         </table>
                     </td>
-                    <td>
+                    <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <b><?=($og['Vegosszeg'])?>&nbsp;<?=$og['Penznem']?></b><br>
+                        <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
+                    </td>
+                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['FizetesStatusza']?>" style="font-size:100%;background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;"><i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i></span>
+                    </td>                    <td>
                         <div style="overflow:auto; font-size:80%; display:none;" class="megj">
                             <?=$og['Megjegyzes']?>
                         </div>
@@ -259,6 +277,12 @@
                     {
                         'orderable': false,
                     },
+                    null,
+                    {
+                        'orderable': false,
+                    },
+                    null,
+
                     {
                         'orderable': false,
                     },
