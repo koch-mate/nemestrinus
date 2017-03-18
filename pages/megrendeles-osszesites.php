@@ -313,6 +313,9 @@
                                             <?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][1]?>
                                     </td>
                                     <td style="padding-right:0.8em;">
+                                        <?=$oi['Ar']."&nbsp;".$og['Penznem']?>
+                                    </td>
+                                    <td style="padding-right:0.8em;">
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
                                     <td></td>
@@ -325,7 +328,7 @@
                     <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
                     </td>
                     <td style="white-space: nowrap;">
-                        <b><?=($og['Vegosszeg'])?>&nbsp;<?=$og['Penznem']?></b><br>
+                        <b><?=(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
                         <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
                     </td>
                     <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['FizetesStatusza']?>" style="font-size:100%;background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;"><i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i></span>
@@ -334,7 +337,7 @@
                             <?=$og['Megjegyzes']?>
                         </div>
                     </td>
-                    <td><a href="#" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span></a></td>
+                    <td><?php // TODO - Edit mode?><a href="#" class="btn btn-lg" role="button"><span class="glyphicon glyphicon-menu-hamburger"></span></a></td>
                 </tr>
                 <?php } ?>
         </tbody>

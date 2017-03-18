@@ -32,6 +32,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
             'Mennyiseg' => $o->menny,
             'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$o->csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$o->csom][2]),
             'Nedvesseg' => $o->nedv,
+            'Ar' => $o->ar,
             'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
             'GyartasDatuma' => null,
             'GyartasVarhatoDatuma' => null
@@ -68,6 +69,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
             'Mennyiseg' => $o->menny,
             'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$o->csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$o->csom][2]),
             'Nedvesseg' => $o->nedv,
+            'Ar' => $o->ar,
             'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
             'GyartasDatuma' => null,
             'GyartasVarhatoDatuma' => null
@@ -86,7 +88,7 @@ function ordersGetAllData($filters = []){
         $where[ 'KertDatum[<>]' ] = $filters['KertDatum'];
     }
     if(array_key_exists('Tipus', $filters)){
-        if($filters['Tipus'] == [M_LAKOSSAGI, M_EXPORT]){
+        /*if($filters['Tipus'] == [M_LAKOSSAGI, M_EXPORT]){
             // select all, no need for action
         }
         else if(in_array(M_LAKOSSAGI, $filters['Tipus'])){
@@ -97,7 +99,8 @@ function ordersGetAllData($filters = []){
         }
         else{
             $where['Tipus'] = '';
-        }
+        }*/
+        $where['Tipus'] = $filters['Tipus'];
     }
     
     return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
@@ -105,7 +108,13 @@ function ordersGetAllData($filters = []){
 
 function ordersGetItemsByID($id){
     global $db;
-    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasVarhatoDatuma'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
+    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasVarhatoDatuma', 'Ar'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
 }
 
+function orderFullPrice($id){
+    // without shipping fee!!
+    global $db;
+    $s = $db->sum('megrendeles_tetel', 'Ar', ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
+    return $s;
+}
 ?>

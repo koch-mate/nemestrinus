@@ -47,6 +47,11 @@ include('lib/messages.php');
                 alert('Válasszon csomagolás típust!');
                 return;
             }
+            if (!$.isNumeric($("#ar").val())) {
+                alert('Adjon meg egy árat!');
+                return;
+            }
+
             var order = {
                 'id': document.order_db_id,
                 'fafaj': $("input[name=r_cs]:checked").val(),
@@ -57,11 +62,27 @@ include('lib/messages.php');
                 'mennyme': $("#menny_me_" + $("input[name=csomagolas_r]:checked").val()).html(),
                 'nedv': $("input[name=nedvesseg]:checked").val(),
                 'nedvszam': document.nedvesseg[$("input[name=nedvesseg]:checked").val()],
+                'ar': $("#ar").val(),
             };
             document.order_db[document.order_db_id++] = order;
-            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
+            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;<span class='penznem'>Ft</span>", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
 
+            updateVegosszeg();
+            penznemUpd();
+        }
+        
+        function updateVegosszeg(){
+            s = 0;
+            $.each(document.order_db, function(i,val){
+                s += parseFloat( val.ar);
+            });
+            sz = parseFloat($("#szallitasiktsg").val());
+            if(!isNaN(sz)){
+                s += sz;
+            }
+            $("#vegosszeg").html('Végösszeg:&nbsp;'+s+'&nbsp;<span class="penznem">Ft</span>');
+            penznemUpd();
         }
 
         function torles(id) {
@@ -73,7 +94,7 @@ include('lib/messages.php');
 
         <fieldset>
 
-            <legend>Új export megrendelés felvétele</legend>
+            <legend>Új export megrendelés felvétele <span class="glyphicon glyphicon-globe"></span></legend>
 
             <div class="form-group">
                 <label class="col-md-4 control-label" for="rogzitette">Rendelést rögzítette</label>
@@ -323,6 +344,19 @@ include('lib/messages.php');
                                 </div>
                             </div>
                         </div>
+                
+                        <div class="form-group" style="padding-top:1em;">
+                            <label class="col-md-4 control-label" for="ar">Ár</label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input id="ar" name="ar" class="form-control" placeholder="-" type="number" value="" required>
+                                    <span class="input-group-addon" id="ar-penznem">Ft</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+
 
                         <div class="form-group">
                             <div class="col-md-4"></div>
@@ -342,6 +376,7 @@ include('lib/messages.php');
                                     <td>Csomagolás</td>
                                     <td>Mennyiség</td>
                                     <td>Nedvesség</td>
+                                    <td>Ár</td>
                                     <td>Művelet</td>
                                 </tr>
                             </thead>
@@ -374,29 +409,30 @@ include('lib/messages.php');
                     var sp = $("input[name=penznem]:checked").val();
                     $("#ar-penznem").html(sp);
                     $("#szk-penznem").html(sp);
+                    $("span.penznem").html(sp);
                 }
             </script>
-            <div class="form-group" style="padding-top:1em;">
-                <label class="col-md-4 control-label" for="ar">Ár</label>
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <input id="ar" name="ar" class="form-control" placeholder="-" type="number" value="" required>
-                        <span class="input-group-addon" id="ar-penznem">Ft</span>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="form-group" style="padding-top:1em;">
                 <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási költség</label>
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" value="" required>
+                        <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" value="" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  required>
                         <span class="input-group-addon" id="szk-penznem">Ft</span>
                     </div>
 
                 </div>
             </div>
+            
+                <div class="form-group" style="padding-top:1em;">
+                    <label class="col-md-4 control-label" for="vegosszeg"></label>
+                    <div class="col-md-4">
+                        <div>
+                            <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - <span class="penznem">Ft</span> </span>
+                        </div>
+                    </div>
+                </div>
+
 
             <div class="form-group" style="padding-top:1em;">
                 <label class="col-md-4 control-label" for="huratmero">Megjegyzés</label>

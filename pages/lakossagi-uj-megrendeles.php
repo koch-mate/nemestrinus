@@ -41,8 +41,12 @@ include('lib/messages.php');
         }
 
         function addOrder() {
-            if (($("input[name=csomagolas_r]:checked")).length == 0) {
+            if (($("input[name=csomagolas_r]:checked")).length == 0 ) {
                 alert('Válasszon csomagolás típust!');
+                return;
+            }
+            if (!$.isNumeric($("#ar").val())) {
+                alert('Adjon meg egy árat!');
                 return;
             }
             var order = {
@@ -55,11 +59,25 @@ include('lib/messages.php');
                 'mennyme': $("#menny_me_" + $("input[name=csomagolas_r]:checked").val()).html(),
                 'nedv': $("input[name=nedvesseg]:checked").val(),
                 'nedvszam': document.nedvesseg[$("input[name=nedvesseg]:checked").val()],
+                'ar': $("#ar").val(),
             };
             document.order_db[document.order_db_id++] = order;
-            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
+            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;Ft", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
-
+            
+            updateVegosszeg();
+        }
+        
+        function updateVegosszeg(){
+            s = 0;
+            $.each(document.order_db, function(i,val){
+                s += parseFloat( val.ar);
+            });
+            sz = parseFloat($("#szallitasiktsg").val());
+            if(!isNaN(sz)){
+                s += sz;
+            }
+            $("#vegosszeg").html('Végösszeg:&nbsp;'+s+'&nbsp;Ft');
         }
 
         function torles(id) {
@@ -70,7 +88,7 @@ include('lib/messages.php');
     <form class="form-horizontal" id="megr" name="megr" action="/?mode=lakossagi-uj-megrendeles" method="post">
         <fieldset>
 
-            <legend>Új lakossági megrendelés felvétele</legend>
+            <legend>Új lakossági megrendelés felvétele <span class="glyphicon glyphicon-home"></span></legend>
 
             <div class="form-group">
                 <label class="col-md-4 control-label" for="rogzitette">Rendelést rögzítette</label>
@@ -271,7 +289,6 @@ include('lib/messages.php');
                                     formatter: function (v1) {
                                         return ('' + v1 + ' cm').replace(',', '-');
                                     }
-
                                 });
                             </script>
                         </div>
@@ -336,6 +353,16 @@ include('lib/messages.php');
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="form-group" style="padding-top:1em;">
+                                <label class="col-md-4 control-label" for="ar">Ár</label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input id="ar" name="ar" class="form-control" placeholder="-" type="number" value="" required>
+                                        <span class="input-group-addon">Ft</span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <div class="col-md-4"></div>
@@ -355,6 +382,7 @@ include('lib/messages.php');
                                         <td>Csomagolás</td>
                                         <td>Mennyiség</td>
                                         <td>Nedvesség</td>
+                                        <td>Ár</td>
                                         <td>Művelet</td>
                                     </tr>
                                 </thead>
@@ -364,25 +392,24 @@ include('lib/messages.php');
                 </div>
 
 
-                <div class="form-group" style="padding-top:1em;">
-                    <label class="col-md-4 control-label" for="ar">Ár</label>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input id="ar" name="ar" class="form-control" placeholder="-" type="number" value="" required>
-                            <span class="input-group-addon">Ft</span>
-                        </div>
 
-                    </div>
-                </div>
 
                 <div class="form-group" style="padding-top:1em;">
                     <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási költség</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" value="" required>
+                            <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()" type="number" value="" required>
                             <span class="input-group-addon">Ft</span>
                         </div>
 
+                    </div>
+                </div>
+                <div class="form-group" style="padding-top:1em;">
+                    <label class="col-md-4 control-label" for="vegosszeg"></label>
+                    <div class="col-md-4">
+                        <div>
+                            <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - Ft </span>
+                        </div>
                     </div>
                 </div>
 
