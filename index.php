@@ -106,7 +106,8 @@ else {
         <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
         <link href="css/bootstrap-select.min.css" rel="stylesheet">
         <link href="css/bootstrap-slider.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link href="css/bootstrap-toggle.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
 
 
@@ -120,6 +121,7 @@ else {
         <script src="js/bootstrap-select.min.js"></script>
         <script src="js/i18n/defaults-hu_HU.min.js"></script>
         <script src="js/bootstrap-slider.min.js"></script>
+        <script src="js/bootstrap-toggle.min.js"></script>
 
 
         <script>

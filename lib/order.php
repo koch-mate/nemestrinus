@@ -76,9 +76,31 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
     return $new_id;
 }
 
-function ordersGetAllData(){
+function ordersGetAllData($filters = []){
     global $db;
-    return    $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['Deleted'=>0]);
+    $where =  ['Deleted'=>0];
+    if(array_key_exists('RogzitesDatum', $filters)){
+        $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];
+    }
+    if(array_key_exists('KertDatum', $filters)){
+        $where[ 'KertDatum[<>]' ] = $filters['KertDatum'];
+    }
+    if(array_key_exists('Tipus', $filters)){
+        if($filters['Tipus'] == [M_LAKOSSAGI, M_EXPORT]){
+            // select all, no need for action
+        }
+        else if(in_array(M_LAKOSSAGI, $filters['Tipus'])){
+            $where['Tipus'] = M_LAKOSSAGI;
+        }
+        else if(in_array(M_EXPORT, $filters['Tipus'])){
+            $where['Tipus'] = M_EXPORT;
+        }
+        else{
+            $where['Tipus'] = '';
+        }
+    }
+    
+    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
 }
 
 function ordersGetItemsByID($id){

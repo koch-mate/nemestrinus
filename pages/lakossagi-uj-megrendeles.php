@@ -241,7 +241,7 @@ include('lib/messages.php');
                     <div class="form-group" style="padding-top:1em;">
                         <label class="col-md-4 control-label" for="hossz">Hossz</label>
                         <div class="col-md-8">
-                            <input id="hossz" name="hossz" type="text" data-provide="slider" class="span2" value="" data-slider-step="1" data-slider-value="[25,33]" data-slider-ticks="[10, 25, 33, 50, 75]" data-slider-ticks-labels="['10', 25','33','50', '75']" style="width:100%;" />
+                            <input id="hossz" name="hossz" type="text" data-provide="slider" class="span" value="" data-slider-step="1" data-slider-value="25" data-slider-ticks="[10, 25, 33, 50, 75]" data-slider-ticks-labels="['10', 25','33','50', '75']" style="width:100%;" /><? // FIXME - one value!!!  ?>
                             <script>
                                 $("#hossz").slider({
                                     tooltip: 'always',
@@ -250,7 +250,7 @@ include('lib/messages.php');
                                     ticks_labels: ['10 cm', '25 cm', '33 cm', '50 cm', '75 cm'],
                                     ticks_snap_bounds: 4,
                                     formatter: function (v1) {
-                                        return ('' + v1 + ' cm').replace(',', '-');
+                                        return ('' + v1 + ' cm');
                                     }
 
                                 });

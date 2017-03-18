@@ -37,6 +37,21 @@ const SERVER_PROTOCOL = "http://";
 // logout after SESSION_TIMEOUT seconds of inactivity
 const SESSION_TIMEOUT = DEBUG ? 3000 : 300;
 
+const MONTHS = [
+    1 => 'január',
+    2 => 'február',
+    3 => 'március',
+    4 => 'április',
+    5 => 'május',
+    6 => 'június',
+    7 => 'július',
+    8 => 'augusztus',
+    9 => 'szeptember',
+    10 => 'október',
+    11 => 'november',
+    12 => 'december',
+];
+
 const IMPLEMENTED_PAGES = [
     'sajat-profil',
     'main',
@@ -331,6 +346,11 @@ const GY_S_SZINEK = [
     GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog'],
     GY_S_LEGYARTVA              => ['#0B630E', 'check'],
     GY_S_VISSZAUTASITVA         => ['#B63620', 'close'],
+];
+
+const GY_S_AKTIV = [
+    GY_S_VISSZAIGAZOLASRA_VAR,
+    GY_S_GYARTASRA_VAR,
 ];
 
 // szallitas statusza
