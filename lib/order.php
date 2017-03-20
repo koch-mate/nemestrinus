@@ -81,6 +81,11 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
 function ordersGetAllData($filters = []){
     global $db;
     $where =  ['Deleted'=>0];
+    if(array_key_exists('Statuszok', $filters)){
+        if($filters['Statuszok'] == 'aktiv'){
+            $where['Statusz'] = M_S_AKTIV;
+        }
+    }
     if(array_key_exists('RogzitesDatum', $filters)){
         $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];
     }
@@ -106,6 +111,13 @@ function ordersGetAllData($filters = []){
     return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
 }
 
+function orderGetByID($id){
+    global $db;
+    $o = [];
+    $o['data'] = $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' => ['Deleted'=>0, 'ID'=>$id]])[0];
+    $o['items'] = ordersGetItemsByID($id);
+    return $o;
+}
 function ordersGetItemsByID($id){
     global $db;
     return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasVarhatoDatuma', 'Ar'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);

@@ -88,7 +88,7 @@ div.debug table tr:hover {
 /* fix for slider tooltips */
 
 .navbar-default {
-    z-index: 9000;
+    z-index: 1000;
 }
 
 
@@ -101,4 +101,15 @@ div.debug table tr:hover {
 /* table row selection */
 tr.selectedRow {
     background-color: #FFE4AF;
+}
+
+
+li.smallpills a {
+    padding-top:2px;
+    padding-bottom:2px;
+}
+
+li.newsel.active>a, 
+li.newsel.active>a:hover {
+    background: #900;
 }

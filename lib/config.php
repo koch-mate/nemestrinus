@@ -17,7 +17,6 @@ const LOCAL_DB = [
     'password' => 'root',
     'charset' => 'utf8'
 ];
-require_once('lib/log_events.php');
 
 
 const DEPLOY_DB = [
@@ -75,6 +74,8 @@ const IMPLEMENTED_PAGES = [
     'export-uj-megrendeles',
     'megrendeles-osszesites',
     'termekgyartas',
+    'gyartas-fuggo',
+    'gyartas-lezart',
 
 // TODO
 ];
@@ -85,7 +86,7 @@ const MENU_STRUCT = [
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio'] 
     ],
     'gyartas'           => [
-        'termekgyartas',
+        'gyartas-fuggo', 'gyartas-lezart', 'termekgyartas',
     ],
     'megrendeles'       => [
         'megrendelesek' => ['megrendeles-osszesites'],
@@ -142,6 +143,8 @@ const PAGE_RIGHTS = [
     'csomagoloanyag-korrekcio'  => R_ALAPANYAG, 
     'gyartas'                   => R_GYARTAS,
     'termekgyartas'             => R_GYARTAS, 
+    'gyartas-fuggo'             => R_GYARTAS,
+    'gyartas-lezart'            => R_GYARTAS,
     'megrendeles'               => R_MEGRENDELES,
     'megrendelesek'             => R_MEGRENDELES,
     'megrendeles-osszesites'    => R_MEGRENDELES, 
@@ -187,6 +190,8 @@ const MENU_ICONS = [
     'naplo' => 'glyphicon-book',
     'sajat-profil' => 'glyphicon-user',
     
+    'gyartas-fuggo' => 'glyphicon-cog',
+    'gyartas-lezart' => 'glyphicon-check',
 ];
 
 const MENU_NAMES = [
@@ -202,6 +207,8 @@ const MENU_NAMES = [
     'csomagoloanyag-kiadas' => 'Eladás', 
     'csomagoloanyag-korrekcio' => 'Korrekció', 
     'gyartas' => 'Gyártás',
+    'gyartas-fuggo' => 'Függő megrendelések',
+    'gyartas-lezart' => 'Lezárult megrendelések',
     'termekgyartas' => 'Gyártás', 
     'megrendeles' => 'Megrendelés',
     'megrendelesek'=> 'Összesítés',
@@ -342,10 +349,10 @@ const GY_S_VISSZAUTASITVA = 'visszautasítva';
 const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
 
 const GY_S_SZINEK = [
-    GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139', 'question'],
-    GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog'],
-    GY_S_LEGYARTVA              => ['#0B630E', 'check'],
-    GY_S_VISSZAUTASITVA         => ['#B63620', 'close'],
+    GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139', 'question', 'vv'],
+    GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog', 'gyv'],
+    GY_S_LEGYARTVA              => ['#0B630E', 'check', 'l'],
+    GY_S_VISSZAUTASITVA         => ['#B63620', 'close', 'v'],
 ];
 
 const GY_S_AKTIV = [

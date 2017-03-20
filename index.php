@@ -10,6 +10,7 @@ if(DEBUG){
 require_once("vendor/medoo.php");
 require_once("lib/db.php");
 require_once("lib/log.php");
+require_once('lib/log_events.php');
 require_once("lib/utility.php");
 require_once("lib/users.php");
 require_once("lib/export_customers.php");
@@ -181,6 +182,7 @@ else {
         }
 
 ?>
+        
     </body>
 
     </html>
