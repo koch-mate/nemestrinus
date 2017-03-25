@@ -86,7 +86,7 @@ const MENU_STRUCT = [
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio'] 
     ],
     'gyartas'           => [
-        'gyartas-fuggo', 'gyartas-lezart', 'termekgyartas',
+        'gyartas-fuggo', 'gyartas-lezart', // 'termekgyartas',
     ],
     'megrendeles'       => [
         'megrendelesek' => ['megrendeles-osszesites'],

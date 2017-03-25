@@ -111,5 +111,9 @@ li.smallpills a {
 
 li.newsel.active>a, 
 li.newsel.active>a:hover {
-    background: #900;
+    background: #f0ad4e;
+}
+
+table.orderItems tr:hover {
+    background-color: #eee;
 }

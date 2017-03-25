@@ -1,5 +1,5 @@
 <?php
-function orderTable($filters=[], $customerON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false){
+function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false){
 ?>
 <style>
     div.dataTables_scrollBody {
@@ -58,7 +58,7 @@ function orderTable($filters=[], $customerON = false, $globStatusEditON = false,
                         <?=$og['ID']?>
                     </td>
                     <td style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;color:#fff;vertical-align:middle;text-align:center;font-size:1.5em;"><i class="fa  fa-<?=M_S_SZINEK[$og['Statusz']][1]?>" aria-hidden="true"></i></td>
-                    <td>
+                    <td data-order="<?=$og['Tipus']?>">
                         <span class="glyphicon glyphicon-<?=($og['Tipus']==M_LAKOSSAGI ? 'home" title="lakossági':'globe" title="export')?>" aria-hidden="true"></span>
                     </td>
                     <td style="font-size:80%;" data-order="<?=$og['Prioritas']?>">
@@ -66,6 +66,7 @@ function orderTable($filters=[], $customerON = false, $globStatusEditON = false,
                     </td>
 <?php if($customerON){ ?>
                     <td>
+<?php if($customerDetailsON){?>                    
                         <a tabindex="0" data-toggle="popover" title="Adatok" data-content="<?php if($og['Tipus']==M_LAKOSSAGI){?><table class='table table-striped table-hover' style='font-size:80%'>
                             <tbody>
                                 <tr>
@@ -159,6 +160,9 @@ function orderTable($filters=[], $customerON = false, $globStatusEditON = false,
                         </table><?php }?>" style="cursor:pointer;">
                             <?=($og['Tipus']==M_LAKOSSAGI ? $og['MegrendeloNev'] : exportCustomerGetNameById($og['MegrendeloID']))?>
                         </a>
+<?php } else { // customerDetailsON ?> 
+            <?=($og['Tipus']==M_LAKOSSAGI ? $og['MegrendeloNev'] : exportCustomerGetNameById($og['MegrendeloID']))?>
+<?php } ?>
                     </td>
 <?php } ?>                    
                     <td>
@@ -268,7 +272,7 @@ function orderTable($filters=[], $customerON = false, $globStatusEditON = false,
                         </div>
                     </td>
                     <td>
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorWin" data-id="<?=$og['ID']?>">
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editorWin" data-id="<?=$og['ID']?>">
   <span class="glyphicon glyphicon-menu-hamburger"></span>
 </button>
                     </td>
@@ -302,6 +306,7 @@ function orderTable($filters=[], $customerON = false, $globStatusEditON = false,
                     },
                 },
                 "info": true,
+                "stateSave": true,
                 "columns": [
                     null,   // ID
                     {

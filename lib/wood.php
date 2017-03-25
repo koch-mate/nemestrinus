@@ -17,7 +17,7 @@ function woodTypesRadioButtons($supply=true){
     }
 }
 
-function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom){
+function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom, $refID=0){
     global $db;
     $db->insert('faanyag', [
         'Fatipus' => $fatipus,
@@ -27,7 +27,8 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
         'Szallitolevelszam' =>$szallitolevelszam,
         'Datum' => $datum,
         'Megjegyzes' => $megjegyzes,
-        'Forgalom' => $forgalom
+        'Forgalom' => $forgalom,
+        'RefID' => $refID
     ]);
     
 }
@@ -47,6 +48,12 @@ function woodGetSumByType($type){
 function woodGetDetailsByType($type){
     global $db;
     return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);
+}
+
+function woodGetStock(){
+    global $db;
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
+    //FIXME - le kell vonni a felhasznalast
 }
 
 function woodGetMaxQty($type){

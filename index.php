@@ -123,6 +123,7 @@ else {
         <script src="js/i18n/defaults-hu_HU.min.js"></script>
         <script src="js/bootstrap-slider.min.js"></script>
         <script src="js/bootstrap-toggle.min.js"></script>
+        <script src="js/jquery.showandtell.js"></script>
 
 
         <script>
