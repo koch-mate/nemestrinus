@@ -117,3 +117,8 @@ li.newsel.active>a:hover {
 table.orderItems tr:hover {
     background-color: #eee;
 }
+
+
+.selectedEditRow {
+    background: #999;
+}

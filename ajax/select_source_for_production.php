@@ -43,14 +43,21 @@ $(document).ready(function () {
     
 </script>
 <div class="form-group">
+    <label class="col-md-4 control-label">ID: </label>
+    <div class="col-md-4" >
+        <span class="label label-default"><?=$_POST['ID']?></span>
+    </div>
+</div>
+
+<div class="form-group">
     <label class="col-md-4 control-label">Rendelt mennyiség: </label>
-    <div class="col-md-4" id="">
+    <div class="col-md-4">
         <span class="label label-default"><?=$_POST['RendeltMennyiseg']?>&nbsp<?=U_NAMES[U_STD][0]?></span>
     </div>
 </div>
 <div class="form-group">
     <label class="col-md-4 control-label">Kiválasztott mennyiség: </label>
-    <div class="col-md-4" id="">
+    <div class="col-md-4" >
         <span class="label label-primary" id="sumSzam">0&nbsp<?=U_NAMES[U_STD][0]?></span>
     </div>
 </div>
@@ -74,7 +81,7 @@ $(document).ready(function () {
         <tr>
             <td><?=$w['ID']?></td>
             <td data-filter="<?=$w['Fatipus']?>"><?=FATIPUSOK[$w['Fatipus']][0]?></td>
-            <td><?=$w['Mennyiseg']?></td>
+            <td><?=$w['Mennyiseg']?>&nbsp;<?=U_NAMES[U_STD][1]?></td>
             <td><?=$w['Datum']?></td>
             <td><?=$w['Beszallito']?></td>
             <td><input name="menny_<?=$w['ID']?>" data-id="<?=$w['ID']?>" class="form-control mennySum" value="0" style="width:5em;" onkeyup="$(this).change()" onchange="updateSum();" required type="number"></td>
@@ -87,19 +94,38 @@ $(document).ready(function () {
 </form>
 <script>
     $("#selectForm").validate();
-    $("#selectSubmit").click( function(){
+    $("#selectSubmit").unbind();
+    $("#selectSubmit").click(function(){
         if( $("#selectForm" )
            .valid()
           ){
             var vals = {};
+            var ni = 0;
             $(".mennySum").each(function () {
                 if($(this).val() > 0 ){
                     vals[$(this).data('id')] = $(this).val();
+                    ni++;
                 }
             } );
-            // ajax send vals to store
-            // close this window
-            // refresh table on window below
+            if(ni == 0){
+                alert('Nincs megadva pozitív érték.')
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_sources_for_production.php",
+                    data: ({'ID':<?=$_POST['ID']?>, 'data':vals}),
+                    success: function(data){
+                        alert("Rögzítve!");
+                        $('#editorSmWin').modal('hide');
+                        loadTabla(<?=$_POST['ID']?>);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Hiba a rögzítés során!");
+                    }
+                });
+            }
         }
     }
                             );

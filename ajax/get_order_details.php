@@ -8,6 +8,7 @@ require_once("../lib/db.php");
 require_once("../lib/order.php");
 require_once("../lib/export_customers.php");
 require_once("../lib/units.php");
+require_once("../lib/wood.php");
 
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['ID'])){
@@ -62,10 +63,13 @@ else {
                       <table class="orderItems" style="font-size:100%; " >
                             <?php foreach($dat['items'] as $oi){ ?>
                                 <tr onclick="showRow('<?=$oi['ID']?>');" style="height:4em; cursor:pointer;">
-                                    <td>                                        
-                                        <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i>&nbsp<?=$oi['GyartasStatusza']?></span> 
+                                    <td rowspan="3" class="selectCell" id="selectCell_<?=$oi['ID']?>" style="padding:0 0.8em 0 0;"></td>
+                                    <td rowspan="3" style="padding:0 0.8em 0 0;"></td>
+                                    <td colspan="8">                                        
+                                        <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><b>ID</b>-<?=$oi['ID']?>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i>&nbsp<?=$oi['GyartasStatusza']?></span> 
                                     </td>
-</td>
+                                </tr>
+                                <tr  >
                                     <td style="padding:0 0.8em 0 0.8em;">
                                         <img src="img/<?=$oi['Fafaj']?>.png" class="zoom" style="height:1em;">
                                         <?=FATIPUSOK[$oi['Fafaj']][0]?>
@@ -93,12 +97,12 @@ else {
                                     <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
                                 </tr>
                                 <tr id="editSor<?=$oi['ID']?>" class="editSor" style="display:none;">
-                                    <td colspan="9" >
+                                    <td colspan="8" style="padding-top:1em;" >
                                         <ul class="nav nav-pills" role="tablist">
                                             <?php
                                             foreach(GY_S_STATUSZOK as $gys){
                                                 ?>
-                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':'newsel'?>" role="presentation" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" <?=$gys == $oi['GyartasStatusza'] ? '' : ' onclick="edited=true;"'?> ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
+                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':'newsel'?>" role="presentation" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" <?=$gys == $oi['GyartasStatusza'] ? '' : ' onclick="edited=true;loadTabla('.$oi['ID'].');"'?> ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
                                             
                                             <?php
                                             }
@@ -126,7 +130,7 @@ else {
                                           </div>
                                             
                                           <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_LEGYARTVA ? ' in active':''?>"  id="tab_l_<?=$oi['ID']?>">
-                                          <div class="form-group">
+                                          <div class="form-group" >
                                                 <label class="col-md-4 control-label" >Gyártás tényleges dátuma: </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group date" style="width:50%" data-provide="datepicker" data-date-format="yyyy-mm-dd">
@@ -142,36 +146,8 @@ else {
                                                 <div class="col-md-8">
                                                     <p>Megrendelt mennyiség: <span class="label label-default"><?=$oi['Mennyiseg']?>&nbsp;<?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][1]?>&nbsp;<?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][0]?> = <?=rnd(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']).'&nbsp'.U_NAMES[CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3]][0]?></span></p>
                                                     <p>Átszámított mennyiség: <span class="label label-primary"><?=rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg'])).'&nbsp'.U_NAMES[U_STD][0]?></span></p>
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Alapanyag ID</th>
-                                                                <th>Típus</th>
-                                                                <th>Beérkezési dátum</th>
-                                                                <th>Mennyiség</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>21</td>
-                                                                <td>Fenyo</td>
-                                                                <td>3245-23-24</td>
-                                                                <td>13234 t.m3</td>
-                                                                <td></td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th>Összesen:</th>
-                                                                <th></th>
-                                                                <th></th>
-                                                                <th>12345</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorSmWin" data-id="<?=$oi['ID']?>" data-fatipus="<?=$oi['Fafaj']?>" data-rendeltmennyiseg="<?=rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']))?>">Hozzáadás</button>
+                                                    <div id="felhasznaltTabla_<?=$oi['ID']?>"><?=woodUsageTable($oi['ID'])?></div>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorSmWin" data-id="<?=$oi['ID']?>" data-keyboard="false"  data-fatipus="<?=$oi['Fafaj']?>" data-rendeltmennyiseg="<?=rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']))?>">Hozzáadás</button>
                                               </div>
 
                                         </div>
@@ -188,7 +164,7 @@ else {
                                     </td>
                                 </tr>
                                 <tr onclick="showRow('<?=$oi['ID']?>');">
-                                    <td style="height:1em;vertical-align:bottom;" colspan="9"><hr style="margin:0;"></td>
+                                    <td style="height:1em;vertical-align:bottom;" colspan="8"><hr style="margin:0;"></td>
                                 </tr>
                                 <?php } ?>
                         </table>
@@ -203,13 +179,34 @@ else {
         if(actId == rowId){
             return;
         }
-        actId = rowId;
         if(!(edited && !confirm('Másik rendelési tétel szerkesztése esetén a nem mentett módosítások elvesznek. Biztosan másik tételt kíván szerkeszteni?'))){
             // FIXME - az elozoleg editalt valtoztatasokat resetelni kell
             edited = false;
+            actId = rowId;
+            $('.selectCell').removeClass('selectedEditRow');
             $('.editSor').hide();
             $('#editSor'+rowId).show();
+            $('#selectCell_'+rowId).addClass('selectedEditRow');
         }
+    }
+    function loadTabla(tid){
+        var divTabla = $('#felhasznaltTabla_'+tid);
+        divTabla.load('<?=SERVER_PROTOCOL.SERVER_URL?>ajax/wood_usage_table.php?ID='+tid);
+    }
+    function deleteWoodLine(wid,tid){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_wood_usage_line.php",
+            data: ({'ID':wid}),
+            success: function(data){
+                loadTabla(tid);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+
     }
 </script>
 

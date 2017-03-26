@@ -17,7 +17,7 @@ function woodTypesRadioButtons($supply=true){
     }
 }
 
-function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom, $refID=0){
+function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom, $faanyagID=null, $megrendelesTetelID=null){
     global $db;
     $db->insert('faanyag', [
         'Fatipus' => $fatipus,
@@ -28,9 +28,9 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
         'Datum' => $datum,
         'Megjegyzes' => $megjegyzes,
         'Forgalom' => $forgalom,
-        'RefID' => $refID
+        'FaanyagID' => $faanyagID,
+        'MegrendelesTetelID' => $megrendelesTetelID
     ]);
-    
 }
 
 function woodGetSuppliers(){
@@ -47,12 +47,22 @@ function woodGetSumByType($type){
 
 function woodGetDetailsByType($type){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);
+}
+
+function woodGetDataById($id){
+    global $db;
+    return $db->get('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['ID'=>$id, 'Deleted'=>0]]);
+}
+
+function woodGetUsedForOrder($id){
+    global $db;
+    return $db->select('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['MegrendelesTetelID'=>$id, 'Deleted'=>0]]);
 }
 
 function woodGetStock(){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
     //FIXME - le kell vonni a felhasznalast
 }
 
@@ -92,5 +102,61 @@ function woodJsUnitConversion(){
         </script>
         <?php
 }
+
+function woodUsageTable($wid){
+
+    $dat = woodGetUsedForOrder($wid);
+    $sum = 0;
+?>  
+<table class="table">
+    <thead>
+        <tr>
+            <th>Alapanyag ID</th>
+            <th>Fafaj</th>
+            <th>Beérkezési dátum</th>
+            <th>Mennyiség</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach($dat as $d){
+        $sum += $d["Mennyiseg"];?>
+        <tr>
+            <td><?=$d['FaanyagID']?></td>
+            <td><?=FATIPUSOK[$d['Fatipus']][0]?></td>
+            <td><?=woodGetDataById($d['FaanyagID'])['Datum']?></td>
+            <td><?=-rnd($d['Mennyiseg']).'&nbsp;'.U_NAMES[U_STD][1]?></td>
+            <td><button class="btn btn-danger btn-sm" type="button" title="Törlés" onclick="if(confirm('Biztosan törli a sort?')){deleteWoodLine(<?=$d['ID']?>, <?=$wid?>)}"><span class="glyphicon glyphicon-trash"></span></button></td>
+        </tr>
+<?php }
+if(!sizeof($dat)){
+    ?>
+       <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+ 
+<?php
+}        
+?>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Összesen:</th>
+            <th><?=rnd(-$sum).'&nbsp;'.U_NAMES[U_STD][1]?></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+<?php    
+    
+}
+
 
 ?>

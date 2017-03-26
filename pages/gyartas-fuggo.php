@@ -19,7 +19,7 @@ orderTable($filters = ['Statuszok'=>'aktiv'], $orderStatusEdit = true );
         <h4 class="modal-title" id="modalLabel">Megrendelés</h4>
       </div>
       <div class="modal-body" id="modalCont" style="overflow-x:auto;">
-          Betöltés...
+          <i class="fa fa-cog fa-spin fa-fw"></i> Betöltés...
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
@@ -38,7 +38,7 @@ orderTable($filters = ['Statuszok'=>'aktiv'], $orderStatusEdit = true );
         <h4 class="modal-title" id="modalLabel2">Felhasználás</h4>
       </div>
       <div class="modal-body" id="modalSmCont" style="overflow-x:auto;">
-          Betöltés...
+          <i class="fa fa-cog fa-spin fa-fw"></i> Betöltés...
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
@@ -48,8 +48,10 @@ orderTable($filters = ['Statuszok'=>'aktiv'], $orderStatusEdit = true );
   </div>
 </div>
 <script>
+var loadCnt = $('#modalSmCont').html();
+    
 $('#editorWin').on('shown.bs.modal', function (event) {
-    $('#modalCont').html('Betöltés...')
+    $('#modalCont').html(loadCnt)
     var button = $(event.relatedTarget);
     var orderId = button.data('id');
     var modal = $(this);
@@ -71,7 +73,7 @@ $('#editorWin').on('shown.bs.modal', function (event) {
 
     
 $('#editorSmWin').on('shown.bs.modal', function (event) {
-    $('#modalSmCont').html('Betöltés!');
+    $('#modalSmCont').html(loadCnt);
     $('.modal-backdrop').last().css('z-index',9990);
     
     var button = $(event.relatedTarget);
