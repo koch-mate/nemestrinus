@@ -6,7 +6,7 @@ if(!empty($_POST['cmennyiseg'])){
     $succMessage = "Rögzítve.";
 }
 
-include('lib/messages.php');
+include('lib/popups.php');
 
 woodJsUnitConversion();
 

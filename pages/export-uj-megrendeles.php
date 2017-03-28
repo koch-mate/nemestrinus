@@ -11,7 +11,7 @@ if(!empty($_POST['datum'])){
 }
 
 
-include('lib/messages.php');
+include('lib/popups.php');
 
 
 //TODO - megrendeles statusza
@@ -249,7 +249,7 @@ include('lib/messages.php');
                 <div class="form-group" style="padding-top:1em;">
                     <label class="col-md-4 control-label" for="hossz">Hossz</label>
                     <div class="col-md-8">
-                        <input id="hossz" name="hossz" type="text" data-provide="slider" class="span2" value="" data-slider-step="1" data-slider-value="[25,33]" data-slider-ticks="[10, 25, 33, 50, 75]" data-slider-ticks-labels="['10', 25','33','50', '75']" style="width:100%;" />
+                        <input id="hossz" name="hossz" type="text" data-provide="slider" class="span2" value="" data-slider-step="1" data-slider-value="25" data-slider-ticks="[10, 25, 33, 50, 75]" data-slider-ticks-labels="['10', 25','33','50', '75']" style="width:100%;" />
                         <script>
                             $("#hossz").slider({
                                 tooltip: 'always',
@@ -327,21 +327,15 @@ include('lib/messages.php');
                         <div class="form-group" style="padding-top:1em;">
                             <label class="col-md-4 control-label" for="huratmero">Nedvesség</label>
                             <div class="col-md-4">
+                                <?php 
+                                $ni = 0;
+                                foreach(array_keys(NEDVESSEG) as $nedv){?>
                                 <div class="radio">
-                                    <label for="nedvesseg-0">
-                                        <input type="radio" name="nedvesseg" id="nedvesseg-0" value="szaraz" checked="checked"> <span style="display:inline-block;width: 5em;">Száraz</span> <span class="glyphicon glyphicon-tint"></span>
+                                    <label for="nedvesseg-<?=$ni?>">
+                                        <input type="radio" name="nedvesseg" id="nedvesseg-<?=$ni?>" value="<?=$nedv?>" <?=$ni == 0?'checked="checked"' : ''?></input> <span style="display:inline-block;width: 5em;"><?=NEDVESSEG[$nedv][1]?></span> <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>', NEDVESSEG[$nedv][0])?>
                                     </label>
                                 </div>
-                                <div class="radio">
-                                    <label for="nedvesseg-1">
-                                        <input type="radio" name="nedvesseg" id="nedvesseg-1" value="felszaraz"> <span style="display:inline-block;width: 5em;">Félszáraz</span> <span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span>
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label for="nedvesseg-2">
-                                        <input type="radio" name="nedvesseg" id="nedvesseg-2" value="nedves"> <span style="display:inline-block;width: 5em;">Nedves</span> <span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span>
-                                    </label>
-                                </div>
+                                <?php $ni++; }?>
                             </div>
                         </div>
                 

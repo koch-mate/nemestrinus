@@ -13,7 +13,7 @@ if(!empty($_POST['curr_pass'])){
 ?>
     <h1>Személyes beállítások</h1>
 
-    <?php include('lib/messages.php');?>
+    <?php include('lib/popups.php');?>
         <div class="jumbotron">
             <form class="form-horizontal" name="passwordform" id="passwordform" method="post" action="?mode=sajat-profil">
                 <fieldset>

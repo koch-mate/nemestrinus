@@ -6,7 +6,7 @@ if(isset($_POST['r_cs'])){
     $succMessage = "Rögzítve.";
 }
 
-include('lib/messages.php');
+include('lib/popups.php');
 ?>
     <h2>Csomagoló alapanyagok bevételezése</h2>
     <div class="jumbotron">

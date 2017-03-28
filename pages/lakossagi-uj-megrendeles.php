@@ -11,7 +11,7 @@ if(!empty($_POST['datum'])){
 }
 
 
-include('lib/messages.php');
+include('lib/popups.php');
 
 //TODO - megrendeles statusza
 ?>
@@ -294,13 +294,39 @@ include('lib/messages.php');
                         </div>
                     </div>
 
-                    <?php foreach(array_keys(CSOMAGOLASTIPUSOK) as $i){
+                    <?php foreach([POSCH_HALOS, POSCH_HALOS_FOLIAS, OMLESZTETT] as $i){
                         $u_std_convert = unitChange(CSOMAGOLASTIPUSOK[$i][3], U_STD, CSOMAGOLASTIPUSOK[$i][2]);
                         $recalc = "recalc($u_std_convert, '$i');";
                         ?>
                         <div class="form-group" style="padding-top:1em;">
                             <label class="col-md-4 control-label">
-                                <?=($i==array_keys(CSOMAGOLASTIPUSOK)[0]?'Csomagolás':'')?>
+                                <?=($i==POSCH_HALOS?'Csomagolás':'')?>
+                            </label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon" onclick="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
+                                    <span style="display:inline-block;width:1.5em;"><img src="/img/<?=$i?>.png" style="height:1em;"></span>
+                                    <?=ucfirst(CSOMAGOLASTIPUSOK[$i][0])?>
+                                        <input type="radio" value="<?=$i?>" name="csomagolas_r" id='rad_<?=$i?>' onchange="<?=$recalc?>">
+                                        </span>
+                                        <input type="number" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
+                                        <span class="input-group-addon" id="menny_me_<?=$i?>"><?=(CSOMAGOLASTIPUSOK[$i][1])?></span>
+                                </div>
+                                <?php if($i == OMLESZTETT){?>                            
+                                <div style="padding-top:2em;">
+                                    <button type="button" class="btn btn-default btn-sm" onclick="$(this).hide();$('#egyebTipusok').slideDown();">Egyéb típusok <span class="glyphicon glyphicon-chevron-down"></span></button>
+                                </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <?php }?>
+                    <div id='egyebTipusok' style='display:none; background:#f5f5f5;border-radius:4px;padding:1em;margin-bottom:1em;'>
+                    <?php foreach([EGYUTAS_KALODA_KICSI, EGYUTAS_KALODA_NAGY, VISSZAVALTHATO_KALODA_KICSI, VISSZAVALTHATO_KALODA_NAGY] as $i){
+                        $u_std_convert = unitChange(CSOMAGOLASTIPUSOK[$i][3], U_STD, CSOMAGOLASTIPUSOK[$i][2]);
+                        $recalc = "recalc($u_std_convert, '$i');";
+                        ?>
+                        <div class="form-group" style="padding-top:1em;">
+                            <label class="col-md-4 control-label">
                             </label>
                             <div class="col-md-5">
                                 <div class="input-group">
@@ -315,6 +341,7 @@ include('lib/messages.php');
                             </div>
                         </div>
                         <?php }?>
+                        </div>
                             <script>
                                 var i = 1;
 
@@ -336,21 +363,15 @@ include('lib/messages.php');
                             <div class="form-group" style="padding-top:1em;">
                                 <label class="col-md-4 control-label" for="huratmero">Nedvesség</label>
                                 <div class="col-md-4">
+                                    <?php 
+                                    $ni = 0;
+                                    foreach(array_keys(NEDVESSEG) as $nedv){?>
                                     <div class="radio">
-                                        <label for="nedvesseg-0">
-                                            <input type="radio" name="nedvesseg" id="nedvesseg-0" value="szaraz" checked="checked"> <span style="display:inline-block;width: 5em;">Száraz</span> <span class="glyphicon glyphicon-tint"></span>
+                                        <label for="nedvesseg-<?=$ni?>">
+                                            <input type="radio" name="nedvesseg" id="nedvesseg-<?=$ni?>" value="<?=$nedv?>" <?=$ni == 0?'checked="checked"' : ''?></input> <span style="display:inline-block;width: 5em;"><?=NEDVESSEG[$nedv][1]?></span> <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>', NEDVESSEG[$nedv][0])?>
                                         </label>
                                     </div>
-                                    <div class="radio">
-                                        <label for="nedvesseg-1">
-                                            <input type="radio" name="nedvesseg" id="nedvesseg-1" value="felszaraz"> <span style="display:inline-block;width: 5em;">Félszáraz</span> <span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span>
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label for="nedvesseg-2">
-                                            <input type="radio" name="nedvesseg" id="nedvesseg-2" value="nedves"> <span style="display:inline-block;width: 5em;">Nedves</span> <span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span>
-                                        </label>
-                                    </div>
+                                    <?php $ni++; }?>
                                 </div>
                             </div>
                             

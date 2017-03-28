@@ -57,7 +57,7 @@ if(!empty($_POST['user'])){
     }
 }
 
-include('lib/messages.php');
+include('lib/popups.php');
 
 ?>
 

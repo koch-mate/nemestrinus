@@ -7,7 +7,7 @@ if(isset($_GET['del'])){
     $succMessage = "Az ID = ".$_GET['del']." sor törölve.";
     
 }
-include("lib/messages.php");
+include("lib/popups.php");
 ?>
 
 

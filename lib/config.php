@@ -388,5 +388,5 @@ const P_EURO = 'EUR';
 
 // nedvesseg
 
-const NEDVESSEG = ['szaraz' => [1, 'száraz'], 'felszaraz'=>[2,'félszáraz'], 'nedves'=>[3,'nedves']];
+const NEDVESSEG = ['szaraz' => [1, 'száraz'], 'felszaraz'=>[2,'félszáraz'], 'nedves'=>[3,'friss']];
 ?>
