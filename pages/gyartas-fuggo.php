@@ -23,7 +23,6 @@ orderTable($filters = ['Statuszok'=>'aktiv'], $orderStatusEdit = true );
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
-        <button type="button" class="btn btn-primary">Mentés</button>
       </div>
     </div>
   </div>
@@ -71,6 +70,9 @@ $('#editorWin').on('shown.bs.modal', function (event) {
 
 });
 
+$('#editorWin').on('hidden.bs.modal', function(event) {
+    window.location.href = '?mode=<?=$_GET['mode']?>';      // FIXME - do in a more elegant way, reload only if meaningful change has happened, or even do it via AJAX
+});
     
 $('#editorSmWin').on('shown.bs.modal', function (event) {
     $('#modalSmCont').html(loadCnt);

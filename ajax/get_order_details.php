@@ -102,7 +102,7 @@ else {
                                             <?php
                                             foreach(GY_S_STATUSZOK as $gys){
                                                 ?>
-                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':'newsel'?>" role="presentation" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" <?=$gys == $oi['GyartasStatusza'] ? '' : ' onclick="edited=true;loadTabla('.$oi['ID'].');"'?> ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
+                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':''?>" role="presentation" onclick="saveNewState(<?=$oi['ID']?>, '<?=$gys?>');<?=$gys == GY_S_LEGYARTVA ? 'loadTabla('.$oi['ID'].');' : ''?>" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
                                             
                                             <?php
                                             }
@@ -119,7 +119,7 @@ else {
                                                 <label class="col-md-4 control-label" >Gyártás várható dátuma: </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group date" style="width:50%" data-provide="datepicker" data-date-format="yyyy-mm-dd">
-                                                        <input class="form-control" name="datum" onchange="if($(this).val()!= '<?=$oi['GyartasVarhatoDatuma']?>'){edited=true;$(this).css('background-color', '#ffdcab');}" id="datum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$oi['GyartasVarhatoDatuma']?>">
+                                                        <input class="form-control" name="datum" id="datum" type="dateISO" onchange="newDate('varhato', <?=$oi['ID']?>, $(this).val());" placeholder="éééé-hh-nn" value="<?=$oi['GyartasVarhatoDatuma']?>">
                                                         <div class="input-group-addon">
                                                             <span class="glyphicon glyphicon-th"></span>
                                                         </div>
@@ -134,7 +134,7 @@ else {
                                                 <label class="col-md-4 control-label" >Gyártás tényleges dátuma: </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group date" style="width:50%" data-provide="datepicker" data-date-format="yyyy-mm-dd">
-                                                        <input class="form-control" name="datum" onchange="if($(this).val() != '<?=$oi['GyartasDatuma']?>'){edited=true;$(this).css('background-color', '#ffdcab');}" id="datum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$oi['GyartasDatuma']?>">
+                                                        <input class="form-control" name="datum" id="datum" type="dateISO" onchange="newDate('tenyleges', <?=$oi['ID']?>, $(this).val());" placeholder="éééé-hh-nn" value="<?=$oi['GyartasDatuma']?>">
                                                         <div class="input-group-addon">
                                                             <span class="glyphicon glyphicon-th"></span>
                                                         </div>
@@ -173,21 +173,16 @@ else {
           </table>
 <script>
     $().tab;
-    var edited = false;
     var actId = 0;
     function showRow( rowId ) {
         if(actId == rowId){
             return;
         }
-        if(!(edited && !confirm('Másik rendelési tétel szerkesztése esetén a nem mentett módosítások elvesznek. Biztosan másik tételt kíván szerkeszteni?'))){
-            // FIXME - az elozoleg editalt valtoztatasokat resetelni kell
-            edited = false;
-            actId = rowId;
-            $('.selectCell').removeClass('selectedEditRow');
-            $('.editSor').hide();
-            $('#editSor'+rowId).show();
-            $('#selectCell_'+rowId).addClass('selectedEditRow');
-        }
+        actId = rowId;
+        $('.selectCell').removeClass('selectedEditRow');
+        $('.editSor').hide();
+        $('#editSor'+rowId).show();
+        $('#selectCell_'+rowId).addClass('selectedEditRow');
     }
     function loadTabla(tid){
         var divTabla = $('#felhasznaltTabla_'+tid);
@@ -206,7 +201,34 @@ else {
                 alert("Hiba!")
             }
         });
-
+    }
+    function saveNewState(oid, st){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_production_line.php",
+            data: ({'ID':oid, 'Statusz':st}),
+            success: function(data){
+                alert("Új státusz: "+st);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+    function newDate(typ, oid, dat){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_date_production_line.php",
+            data: ({'ID':oid, 'Tipus':typ, 'Datum':dat}),
+            success: function(data){
+                alert("Rögzített dátum: " + dat);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
     }
 </script>
 

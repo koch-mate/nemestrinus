@@ -129,4 +129,17 @@ function orderFullPrice($id){
     $s = $db->sum('megrendeles_tetel', 'Ar', ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
     return $s;
 }
+
+function orderLineStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles_tetel', ['GyartasStatusza'=>$st], ['ID'=>$id]);
+}
+
+
+function orderLineDateUpdate($id, $datum, $tipus){
+    global $db;
+    $_lookUp = ['varhato'=>'GyartasVarhatoDatuma','tenyleges'=>'GyartasDatuma'];
+    $db->update('megrendeles_tetel', [ $_lookUp[$tipus] => $datum ], [ 'ID'=>$id ]);   
+}
+
 ?>
