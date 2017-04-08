@@ -2,6 +2,7 @@
 session_start();
 
 require_once("../lib/config.php");
+require_once("../core/auth.php");
 
 require_once("../vendor/medoo.php");
 require_once("../lib/db.php");
@@ -9,6 +10,7 @@ require_once("../lib/order.php");
 require_once("../lib/export_customers.php");
 require_once("../lib/units.php");
 require_once("../lib/wood.php");
+require_once("../lib/messages.php");
 
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['ID'])){
@@ -54,8 +56,11 @@ else {
               </tr>
               <tr>
                   <th>Megjegyzés</th>
-                  <td><div><?=$og['Megjegyzes']?></div>
-                  <textarea class="form-control"></textarea></td>
+                  <td>
+                      <div id="renderMessages"><?=renderMessages(getMsg('megrendeles', $og['ID']))?></div>
+                      <?php /* <div><?=$og['Megjegyzes']?></div> */ ?>
+                      <?=newMessage('megrendeles', $og['ID']);?>
+                  </td>
               </tr>
               <tr>
                   <th>Tételek</th>

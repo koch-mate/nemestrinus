@@ -268,7 +268,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 <?php } ?>
                     <td>
                         <div style="overflow:auto; font-size:80%; display:none;" class="megj">
-                            <?=$og['Megjegyzes']?>
+                            <?=renderMessages($og['Megjegyzes'])?>
                         </div>
                     </td>
                     <td>

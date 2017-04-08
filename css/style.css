@@ -122,3 +122,7 @@ table.orderItems tr:hover {
 .selectedEditRow {
     background: #999;
 }
+
+div.loadMsg {
+    color: #aaa;
+}

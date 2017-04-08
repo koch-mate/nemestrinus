@@ -18,6 +18,7 @@ require_once("lib/packaging.php");
 require_once("lib/wood.php");
 require_once("lib/units.php");
 require_once("lib/order.php");
+require_once("lib/messages.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
