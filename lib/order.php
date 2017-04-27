@@ -19,6 +19,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'MegrendeloTel' => $megrendelo_tel,
         'KapcsolattartoNev' => $kapcs_nev,
         'SzallitasiCim' => $szall_cim,
+        'FizetesStatusza' => F_S_FIZETESRE_VAR,
         'KapcsolattartoTel' => $kapcs_tel
     ]);
     
@@ -55,6 +56,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
         'Vegosszeg' => $ar,
         'Penznem' => $penznem,
         'Prioritas' => $prioritas,
+        'FizetesStatusza' => F_S_FIZETESRE_VAR,
         'Fuvardij' => $szall_ktsg,
         'Megjegyzes' => $megjegyzes,
     ]);
@@ -85,6 +87,10 @@ function ordersGetAllData($filters = []){
         if($filters['Statuszok'] == 'aktiv'){
             $where['Statusz'] = M_S_AKTIV;
         }
+        if($filters['Statuszok'] == 'lezart'){
+            $where['Statusz'] = M_S_LEZART;
+        }
+        
     }
     if(array_key_exists('RogzitesDatum', $filters)){
         $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];
@@ -93,28 +99,25 @@ function ordersGetAllData($filters = []){
         $where[ 'KertDatum[<>]' ] = $filters['KertDatum'];
     }
     if(array_key_exists('Tipus', $filters)){
-        /*if($filters['Tipus'] == [M_LAKOSSAGI, M_EXPORT]){
-            // select all, no need for action
-        }
-        else if(in_array(M_LAKOSSAGI, $filters['Tipus'])){
-            $where['Tipus'] = M_LAKOSSAGI;
-        }
-        else if(in_array(M_EXPORT, $filters['Tipus'])){
-            $where['Tipus'] = M_EXPORT;
-        }
-        else{
-            $where['Tipus'] = '';
-        }*/
         $where['Tipus'] = $filters['Tipus'];
     }
     
-    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
+    if(array_key_exists('ID', $filters)){
+        $where = [ 'ID' => $filters['ID'] ];
+    }
+    
+    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
+}
+
+function orderGetIDByOrderLineID($id){
+    global $db;
+    return $db->get('megrendeles_tetel', 'MegrendelesID', ['ID'=>$id]);
 }
 
 function orderGetByID($id){
     global $db;
     $o = [];
-    $o['data'] = $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','GyartasVarhatoDatuma','GyartasTenylegesDatuma','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' => ['Deleted'=>0, 'ID'=>$id]])[0];
+    $o['data'] = $db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' => ['Deleted'=>0, 'ID'=>$id]])[0];
     $o['items'] = ordersGetItemsByID($id);
     return $o;
 }
@@ -133,13 +136,57 @@ function orderFullPrice($id){
 function orderLineStatusUpdate($id, $st){
     global $db;
     $db->update('megrendeles_tetel', ['GyartasStatusza'=>$st], ['ID'=>$id]);
+    $rid = $db->get('megrendeles_tetel', 'MegrendelesID', ['ID'=>$id]);
+    // if all order lines completed ( GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA )-> update shipping status
+    // active status: GY_S_AKTIV = [ GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR ]
+    if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
+    {
+        orderShippingStatusUpdate($rid, SZ_S_SZALLITASRA_VAR);
+    } 
 }
 
+function orderStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
+}
+
+function orderPaidStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles', ['FizetesStatusza'=>$st], ['ID'=>$id]);
+}
+
+function orderShippingStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles', ['SzallitasStatusza'=>$st], ['ID'=>$id]);
+}
+
+
+function orderGetFutureSumByType($tipus){
+    global $db;
+    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV]]));
+}
+
+
+function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){
+    global $db;
+    // adott honapig tarto megrendelesek
+    $mids = $db->select('megrendeles', 'ID', ['AND' => ['Deleted'=>0, 'KertDatum[<>]'=>[$from,$to]]]);
+    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'MegrendelesID'=>$mids]]));    
+}
 
 function orderLineDateUpdate($id, $datum, $tipus){
     global $db;
     $_lookUp = ['varhato'=>'GyartasVarhatoDatuma','tenyleges'=>'GyartasDatuma'];
     $db->update('megrendeles_tetel', [ $_lookUp[$tipus] => $datum ], [ 'ID'=>$id ]);   
 }
+
+function orderDel($id){
+    global $db;
+    $db->update('megrendeles', ['Deleted'=>1], ['ID'=>$id]);
+    $db->update('megrendeles_tetel', ['Deleted'=>1], ['MegrendelesID'=>$id]);
+    $mlids = $db->select('megrendeles_tetel', 'ID', ['MegrendelesID'=>$id]);
+    $db->update('faanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
+    $db->update('csomagoloanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
+}   // FIXME: megrendelestetelid csomagoloanyag
 
 ?>

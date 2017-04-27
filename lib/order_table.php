@@ -1,12 +1,12 @@
 <?php
-function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false){
+function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false){
 ?>
 <style>
     div.dataTables_scrollBody {
         padding-bottom: 18em;
     }
     .highlight {
-        text-shadow: 1px 1px 1px #bbb;
+        color:#4d75b3;
     }
     td.gyartasStatusz {
         color:#fff;
@@ -46,7 +46,9 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                 <th style="vertical-align:bottom;">Fizetés</th>
 <?php } ?>                
                 <th style="vertical-align:bottom;">Megjegyzés</th>
+<?php if($editButtonON || $trashButtonON){?>
                 <th style="vertical-align:bottom;">Művelet</th>
+<?php } ?>                
             </tr>
         </thead>
         <tbody>
@@ -176,9 +178,10 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                         <div id="div_po_<?=$og['ID']?>" style="display:none">
                             <?php
                             foreach(M_S_STATUSZOK as $ms){
+                                if($ms == $og['Statusz']){continue;}
                                 ?>
                                 <p>
-                                    <button type='button' class='btn btn-xs btn-primary' style='background:<?=M_S_SZINEK[$ms][0]?>;border-color:<?=M_S_SZINEK[$ms][0]?>;font-weight:bold;width:100%;' onclick='if(confirm("Státusz módosítása")){};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>
+                                    <button type='button' class='btn btn-xs btn-primary' style='background:<?=M_S_SZINEK[$ms][0]?>;border-color:<?=M_S_SZINEK[$ms][0]?>;font-weight:bold;width:100%;' onclick='if(confirm("Státusz módosítása erre: <?=$ms?>")){saveStatus(<?=$og['ID']?>,"<?=$ms?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>
                                         <?=$ms?>
                                     </button>
                                 </p>
@@ -186,9 +189,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                             }                                                                                                                        
                             ?>
                         </div>
-<?php } ?>
-                        
-<?php if($globStatusEditON){?>                                 
+
                         <a tabindex="1" data-toggle="popover" id="po_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="Sátusz módosítása" style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$og['Statusz']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
                             <?=$og['Statusz']?>
                         </a>
@@ -208,6 +209,20 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                     return $('#div_po_<?=$og['ID']?>').html()
                                 }
                             }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");});
+                            function saveStatus(lid, nst){
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "html",
+                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_order.php",
+                                    data: ({'ID':lid, 'Statusz':nst}),
+                                    success: function(data){
+                                        location.reload();
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        alert("Hiba!")
+                                    }
+                                });
+                            }
                         </script>
 <?php } ?>                        
                     </td>
@@ -217,6 +232,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                 <tr >
                                     <td class="gyartasStatusz">
                                         <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i></span> </td>
+                                    <td><b>ID:</b>&nbsp;<?=$oi['ID']?></td>
                                     <td style="padding:0 0.8em 0 0.8em;">
                                         <img src="img/<?=$oi['Fafaj']?>.png" class="zoom" style="height:1em;">
                                         <?=FATIPUSOK[$oi['Fafaj']][0]?>
@@ -253,7 +269,20 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                         </table>
                     </td>
 <?php if($shippingON){ ?>
-                    <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
+                    <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))">
+                        <table class="orderItems">
+                            <tr>
+                                <td rowspan="2">
+                                    <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span> 
+                                </td>
+                                <td style="padding-left:0.5em;">
+                                    <?=($oi['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['SzallitasVarhatoDatuma']?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?></td>
+                            </tr>
+                        </table>
                     </td>
 <?php } ?>
 <?php if($priceON){ ?>
@@ -263,19 +292,76 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     </td>
 <?php } ?>
 <?php if($paymentON){ ?>
-                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))"><span class="label" title="<?=$og['FizetesStatusza']?>" style="font-size:100%;background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;"><i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i></span>
-                    </td>                    
+                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))">
+                        
+                        
+                        <div id="div_fs_<?=$og['ID']?>" style="display:none">
+                            <?php
+                            foreach(array_keys(F_S_SZINEK) as $fs){
+                                if($fs == $og['FizetesStatusza']){continue;}
+                                ?>
+                                <p>
+                                    <button type='button' class='btn btn-xs btn-primary' style="background:<?=F_S_SZINEK[$fs][0]?>;border-color:<?=F_S_SZINEK[$fs][0]?>;" onclick='if(confirm("Fizetési státusz módosítása erre: <?=$fs?>")){savePaidStatus(<?=$og['ID']?>,"<?=$fs?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'><i class="fa fa-<?=F_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></button>
+
+                                </p>
+                                <?php
+                            }                                                                                                                        
+                            ?>
+                        </div>
+                        <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="Sátusz módosítása" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
+                            <i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i>
+                        </a>
+
+                    </td>    
+                        <script>
+                            $("#fs_<?=$og['ID']?>").popover({
+                                html: true,
+                                placement: 'bottom',
+                                trigger: 'focus',
+                                content: function () {
+                                    return $('#div_fs_<?=$og['ID']?>').html()
+                                }
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");});
+                            function savePaidStatus(lid, nst){
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "html",
+                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_paid.php", //TODO
+                                    data: ({'ID':lid, 'Statusz':nst}),
+                                    success: function(data){
+                                        location.reload();
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        alert("Hiba!")
+                                    }
+                                });
+                            }
+                        </script>
+
+
 <?php } ?>
                     <td>
                         <div style="overflow:auto; font-size:80%; display:none;" class="megj">
                             <?=renderMessages($og['Megjegyzes'])?>
                         </div>
                     </td>
+
+<?php if($editButtonON || $trashButtonON){?>
+
                     <td>
+<?php if($editButtonON){?>
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editorWin" data-id="<?=$og['ID']?>">
   <span class="glyphicon glyphicon-menu-hamburger"></span>
 </button>
+<?php } ?>
+<?php if($trashButtonON){?>
+<button type="button" class="btn btn-primary btn-sm" onclick="deleteOrder(<?=$og['ID']?>);" >
+  <span class="glyphicon glyphicon-trash" ></span>
+</button>
+<?php } ?>
+
                     </td>
+<?php } ?>
                 </tr>
                 <?php } ?>
         </tbody>
@@ -285,6 +371,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
         $(document).ready(function () {
             $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,
+                "lengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "minden"]],                
                 "language": {
                     "decimal": "",
                     "emptyTable": "Nincs adat",
@@ -339,10 +426,12 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     {   // megjegyzes
                         'orderable': false,
                     },
+<?php if($editButtonON || $trashButtonON){?>
                     {   // muvelet
                         'searchable': false,
                         'orderable': false
                     },
+<?php } ?>
             ],
             });
             $('[data-toggle="popover"]').popover({

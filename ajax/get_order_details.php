@@ -107,7 +107,7 @@ else {
                                             <?php
                                             foreach(GY_S_STATUSZOK as $gys){
                                                 ?>
-                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':''?>" role="presentation" onclick="saveNewState(<?=$oi['ID']?>, '<?=$gys?>');<?=$gys == GY_S_LEGYARTVA ? 'loadTabla('.$oi['ID'].');' : ''?>" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
+                                                <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':''?>" role="presentation" onclick="saveNewState(<?=$oi['ID']?>, <?=$og['ID']?>, '<?=$gys?>');<?=$gys == GY_S_LEGYARTVA ? 'loadTabla('.$oi['ID'].');' : ''?>" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
                                             
                                             <?php
                                             }
@@ -207,12 +207,12 @@ else {
             }
         });
     }
-    function saveNewState(oid, st){
+    function saveNewState(oid, mid, st){
         $.ajax({
             type: "POST",
             dataType: "html",
             url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_production_line.php",
-            data: ({'ID':oid, 'Statusz':st}),
+            data: ({'ID':oid,'MID':mid, 'Statusz':st}),
             success: function(data){
                 alert("Új státusz: "+st);
             },

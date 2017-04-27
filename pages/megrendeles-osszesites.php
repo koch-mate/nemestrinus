@@ -8,12 +8,12 @@
           <div class="panel panel-default">
             <div class="panel-heading" data-toggle="collapse" data-target="#collapseOne" role="tab" id="headingOne" style="cursor:pointer;">
               <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="<?=(empty($_GET['md']) && empty($_GET['td']) && empty($_GET['tip'])) ? 'false' : 'true'?>" aria-controls="collapseOne">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="<?=empty($_GET['id']) && empty($_GET['md']) && empty($_GET['td']) && empty($_GET['tip']) ? 'false' : 'true'?>" aria-controls="collapseOne">
                     <span class="glyphicon glyphicon-filter" style="margin-right:1em;"></span>Szűrők
                 </a>
               </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse <?=(empty($_GET['md']) && empty($_GET['td']) && empty($_GET['tip'])) ? '' : 'in'?>" role="tabpanel" aria-labelledby="headingOne">
+            <div id="collapseOne" class="panel-collapse collapse <?=(empty($_GET['id']) && empty($_GET['md']) && empty($_GET['td']) && empty($_GET['tip'])) ? '' : 'in'?>" role="tabpanel" aria-labelledby="headingOne">
               <div class="panel-body">
                   
              <?php
@@ -66,14 +66,36 @@
                         </script>
                         <label style="width: 15em;">Típus</label>
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default <?=($_GET['lak']=='on'?'active':'')?>">
-                                <input type="checkbox" autocomplete="off" name="lak" value="on" <?=($_GET['lak']=='on'?'checked':'')?>><span class="glyphicon glyphicon-home"></span> Lakossági
+                              <label class="btn btn-default <?=($_GET['lak'] || empty($_GET['tip'])=='on'?'active':'')?>">
+                                <input type="checkbox" autocomplete="off" name="lak" value="on" <?=($_GET['lak']=='on' || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-home"></span> Lakossági
                               </label>
-                              <label class="btn btn-default <?=($_GET['ex']=='on'?'active':'')?>">
-                                <input type="checkbox" autocomplete="off" name="ex" value="on" <?=($_GET['ex']=='on'?'checked':'')?>><span class="glyphicon glyphicon-globe"></span> Export
+                              <label class="btn btn-default <?=($_GET['ex'] || empty($_GET['tip'])=='on'?'active':'')?>">
+                                <input type="checkbox" autocomplete="off" name="ex" value="on" <?=($_GET['ex']=='on' || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-globe"></span> Export
                               </label>
                             </div>
                         </div>
+                  
+                  
+                  
+                      <div class="form-group">
+                        <input type="checkbox" name="idp" id="id_picker" value="on" data-size="mini" onchange="if(!$(this).prop('checked')){$('#idinput').val('');}" <?=(!empty($_GET['id'])?'checked':'')?> >
+                        <script>
+                        $(function() {
+                            $('#id_picker').bootstrapToggle({
+                                off: '<span class="glyphicon glyphicon-minus"></span>',
+                                on: '<span class="glyphicon glyphicon-plus"></span>',
+                                onstyle: 'success',
+                                offstyle: 'warning',
+                            });
+                        })
+                        </script>
+                        <label style="width: 15em;">ID</label>
+                          <input name="id" id="idinput" type="number" class="form_control" value="<?=$_GET['id']?>">
+                  </div>
+                  
+                  
+                  
+                  
                     <div style="margin-top:2em;">
                         <button type="submit" class="btn btn-primary" >
             Frissítés</button>
@@ -106,7 +128,33 @@ if($_GET['tip'] == 'on'){
         $f['Tipus'][] = M_EXPORT;
     }
 }
+if(!empty($_GET['id'])){
+    $f['ID'] = $_GET['id'];
+}
                                
-orderTable($filters=$f, $customerON = true, $globStatusEditON = true, $shippingON = true, $priceON = true, $paymentON = true);
+orderTable($filters=$f, $customerON = true, $customerDetailsON = false, $globStatusEditON = true, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = true, $editButtonON = false, $trashButtonON = true);
+
                                
 ?>
+
+<script>
+    
+function deleteOrder( oid ){
+    if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
+            $.ajax({
+                type: "POST",
+                dataType: "html",
+                url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_order.php",
+                data: ({'ID':oid}),
+                success: function(data){
+                    location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("Hiba!");
+                }
+            });
+
+    };
+}
+
+</script>

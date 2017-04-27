@@ -1,6 +1,6 @@
 <?php
-
-
+// TODO - delete this
+/*
 const U_NAMES = [
     U_TOMOR_KOBMETER => ['tömör köbméter','t. m<sup>3</sup>'],
     U_ERDESZETI_KOBMETER => ['erdészeti köbméter','e. m<sup>3</sup>'],
@@ -17,13 +17,13 @@ const U_FACT = [
 ];
 
 const U_STD = U_TOMOR_KOBMETER;
-
+*/
 function unitChange($form, $to, $x){
     $x = 1.0 / U_FACT[$form] * $x; 
     return $x * U_FACT[$to]; 
 }
 
-const ROUND_DIGITS = 2;
+// const ROUND_DIGITS = 2;
 
 function rnd($x){
     return round($x * (10 ** ROUND_DIGITS))/(10 ** ROUND_DIGITS);

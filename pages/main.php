@@ -3,8 +3,19 @@
     <h1>IHARTÜ 2000 Kft.</h1>
     <p>Tűzifa megrendelés, gyártás és szállítás nyilvántartó program</p>
 </div>
+
 <div>
-    <h3>Változtatások</h3>
+    <h3>Utolsó üzenetek</h3>
+    <?php 
+    
+    messagesGetLast(10);
+    
+    ?>
+    
+</div>
+
+<div>
+    <h3>Frissítések</h3>
     <p><span class="label label-default">2017. 03. 18.</span> <span class="label label-success">Új modul</span> <a href="?mode=megrendeles-osszesites">Megrendelés összesítés </a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Export rendelés <a href="?mode=export-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Lakossági rendelés <a href="?mode=lakossagi-uj-megrendeles">felvétel</a></p>

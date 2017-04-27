@@ -36,7 +36,12 @@
                                     ?>
                                     <li>
                                         <a href="/?mode=<?=$menuItem?>">
-                                            <?=(in_array($menuItem,array_keys(MENU_ICONS))?'<span class="glyphicon '.MENU_ICONS[$menuItem].'" aria-hidden="true"></span> ':'')?>
+                                            <?=(in_array($menuItem,array_keys(MENU_ICONS))?
+                                                MENU_ICONS[$menuItem][0] == 'g' ? 
+                                                '<span class="glyphicon '.MENU_ICONS[$menuItem].'" aria-hidden="true"></span> ':
+                                                '<i class="fa '.MENU_ICONS[$menuItem].'" aria-hidden="true"></i> '
+                                                
+                                                :'')?>
                                             <?=MENU_NAMES[$menuItem]?>
                                         </a>
                                     </li>

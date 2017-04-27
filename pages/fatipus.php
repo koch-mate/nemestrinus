@@ -1,27 +1,27 @@
 <h2>Fatípusok</h2>
 
 
-<table class="table table-striped table-hover display" style="width:60%;">
+<table class="table table-striped table-hover display" >
     <thead style="font-weight:bold;">
         <tr>
-            <td>Fafaj</td>
-            <td>
+            <th>Fafaj</th>
+            <th>
                 <?=ucfirst(F_KEMENY)?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?=ucfirst(F_LAGY)?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?=ucfirst(F_FENYOFELE)?>
-            </td>
+            </th>
         </tr>
     </thead>
     <tbody>
         <?php foreach(array_keys(FATIPUSOK) as $ft){?>
             <tr>
-                <td style="white-space:nowrap;">
-                    <span style="display:inline-block;width:2em;"><img src="/img/<?=$ft?>.png" class="zoom" style="height:1em;"></span>&nbsp;<span class="label label-default"><?=FATIPUSOK[$ft][0]?></span>
-                </td>
+                <th style="white-space:nowrap;">
+                    <span style="display:inline-block;width:2em;"><img src="/img/<?=$ft?>.png" class="zoom" style="height:1em;"></span><?=FATIPUSOK[$ft][0]?>
+                </th>
                 <td>
                     <?=(FATIPUSOK[$ft][1]==F_KEMENY ? '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>':'')?>
                 </td>

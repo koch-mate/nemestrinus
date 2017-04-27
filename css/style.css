@@ -3,7 +3,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0px;
-    background-image: url("/img/bg.jpg");
+    background-image: url("/img/bg2.jpg");
     background-attachment: fixed;
     background-position: center bottom;
     background-size: cover;
@@ -18,11 +18,11 @@ body {
 }
 
 div.bodyContainer {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     padding: 1em;
     border-radius: 4px;
     margin-bottom: 2em;
-    box-shadow: 5px 5px 15px #bbb;
+    box-shadow: 2px 2px 5px #bbb;
 }
 
 img.zoom:hover {
@@ -50,7 +50,7 @@ div.debug {
     top: 100px;
     width: 20em;
     padding: 1em;
-    box-shadow: 5px 5px 15px #bbb;
+    box-shadow: 5px 5px 5px #bbb;
     border-radius: 0 4px 4px 0;
 }
 

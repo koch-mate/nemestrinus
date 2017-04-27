@@ -68,28 +68,33 @@ const IMPLEMENTED_PAGES = [
     'faanyag-kiadas',
     'faanyag-korrekcio',
     'felhasznalok',
-    
-// TODO - in progress
+    'kiszallitas-lezart',
+    'gyartas-fuggo',
+    'gyartas-lezart',
     'lakossagi-uj-megrendeles',
     'export-uj-megrendeles',
     'megrendeles-osszesites',
     'termekgyartas',
-    'gyartas-fuggo',
-    'gyartas-lezart',
+    'konstansok',
+    'kiszallitas-fuggo',
+    'keszlet-osszesito',
+    'beszallitas-fuggo',
 
-// TODO
 ];
 
 const MENU_STRUCT = [
+    'beszallitas' => [
+        'beszallitas-fuggo'  
+    ],
     'alapanyag'         => [ 
-        'faanyag' => [ 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'], 
+        'faanyag' => [ 'keszlet-osszesito', 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'], 
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio'] 
     ],
     'gyartas'           => [
         'gyartas-fuggo', 'gyartas-lezart', // 'termekgyartas',
     ],
     'megrendeles'       => [
-        'megrendelesek' => ['megrendeles-osszesites'],
+        'megrendelesek' => ['megrendeles-osszesites', /* 'megrendeles-lezart' FIXME */],
         'lakossagi' => ['lakossagi-uj-megrendeles'],
         'export' => [
             'export-uj-megrendeles',
@@ -97,15 +102,17 @@ const MENU_STRUCT = [
         ],
     ],
     'szallitas'         => [
-        'kiszallitas',
+        'kiszallitas-fuggo',
+        'kiszallitas-lezart',
     ],
     'kimutatas'         => [
-        'leltar',
-        'fizetesek',
+//        'leltar',
+//        'fizetesek',
     ],
     'adminisztracio'    => [
         'felhasznalok',
         'fatipus',
+        'konstansok',
         'naplo',
         'sajat-profil',
     ],
@@ -113,6 +120,7 @@ const MENU_STRUCT = [
 
 // jogosultsagok
 const R_MAIN            = 'main';
+const R_BESZALLITAS     = 'beszallitas';
 const R_ALAPANYAG       = 'alapanyag';
 const R_GYARTAS         = 'gyartas';
 const R_MEGRENDELES     = 'megrendeles';
@@ -121,6 +129,7 @@ const R_KIMUTATAS       = 'kimutatas';
 const R_ADMINISZTRACIO  = 'adminisztracio';
 
 const RIGHTS = [ 
+    R_BESZALLITAS   => ['Bsz', 'Beszállítás'],
     R_ALAPANYAG     => ['Al', 'Alapanyag'],
     R_GYARTAS       => ['Gy', 'Gyártás'],
     R_MEGRENDELES   => ['M', 'Megrendelés'],
@@ -130,7 +139,10 @@ const RIGHTS = [
 ];
 
 const PAGE_RIGHTS = [
+    'beszallitas'               => R_BESZALLITAS,
+    'beszallitas-fuggo'         => R_BESZALLITAS,
     'alapanyag'                 => R_ALAPANYAG,
+    'keszlet-osszesito'         => R_ALAPANYAG,
     'faanyag'                   => R_ALAPANYAG,
     'csomagoloanyag'            => R_ALAPANYAG,
     'faanyag-keszlet'           => R_ALAPANYAG, 
@@ -148,10 +160,12 @@ const PAGE_RIGHTS = [
     'megrendeles'               => R_MEGRENDELES,
     'megrendelesek'             => R_MEGRENDELES,
     'megrendeles-osszesites'    => R_MEGRENDELES, 
+    'megrendeles-lezart'        => R_MEGRENDELES, 
     'lakossagi-uj-megrendeles'  => R_MEGRENDELES,
     'export-uj-megrendeles'     => R_MEGRENDELES,
     'szallitas'                 => R_SZALLITAS,
-    'kiszallitas'               => R_SZALLITAS,
+    'kiszallitas-fuggo'         => R_SZALLITAS,
+    'kiszallitas-lezart'        => R_SZALLITAS,
     'kimutatas'                 => R_KIMUTATAS,
     'leltar'                    => R_KIMUTATAS,
     'fizetesek'                 => R_KIMUTATAS,
@@ -164,6 +178,7 @@ const PAGE_RIGHTS = [
     'lakossagi'                 => R_MEGRENDELES,
     'export'                    => R_MEGRENDELES,
     'fatipus'                   => R_ADMINISZTRACIO,
+    'konstansok'                => R_ADMINISZTRACIO,
 ];
 
 const MENU_ICONS = [
@@ -172,6 +187,7 @@ const MENU_ICONS = [
     'csomagoloanyag-kiadas' => 'glyphicon-log-out', 
     'csomagoloanyag-korrekcio' => 'glyphicon-transfer',     
 
+    'keszlet-osszesito' => 'fa-bar-chart', 
     'faanyag-keszlet' => 'glyphicon-tasks', 
     'faanyag-bevitel' => 'glyphicon-log-in', 
     'faanyag-kiadas' => 'glyphicon-log-out', 
@@ -179,23 +195,31 @@ const MENU_ICONS = [
     
     'lakossagi-uj-megrendeles' => 'glyphicon-edit',
     
-    
     'export-uj-megrendeles' => 'glyphicon-edit',
     'export-megrendelok' => 'glyphicon-user',
     
     'megrendeles-osszesites' => 'glyphicon-shopping-cart',
+    'megrendeles-lezart' => 'glyphicon-check',
     
-    'felhasznalok' => 'glyphicon-user',
+    'felhasznalok' => 'fa-users',
     'fatipus' => 'glyphicon-tree-deciduous',
     'naplo' => 'glyphicon-book',
-    'sajat-profil' => 'glyphicon-user',
+    'sajat-profil' => 'fa-user',
+    'konstansok' => 'fa-cogs',
     
     'gyartas-fuggo' => 'glyphicon-cog',
     'gyartas-lezart' => 'glyphicon-check',
+
+    'kiszallitas-fuggo' => 'fa-truck', 
+    'kiszallitas-lezart' => 'glyphicon-check',
+    
 ];
 
 const MENU_NAMES = [
+    'beszallitas' => 'Beszállítás',
+    'beszallitas-fuggo' => 'Beszállítás',
     'alapanyag' => 'Alapanyag',
+    'keszlet-osszesito' => 'Készlet összesítő',
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
     'faanyag-keszlet' => 'Készlet', 
@@ -213,10 +237,12 @@ const MENU_NAMES = [
     'megrendeles' => 'Megrendelés',
     'megrendelesek'=> 'Összesítés',
     'megrendeles-osszesites' => 'Összes megrendelés', 
+    'megrendeles-lezart' => 'Lezárt megrendelések', 
     'lakossagi-uj-megrendeles' => 'Új megrendelés',
     'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',
-    'kiszallitas' => 'Szállítás',
+    'kiszallitas-fuggo' => 'Szállításra váró tételek',
+    'kiszallitas-lezart' => 'Lezárt megrendelések',
     'kimutatas' => 'Kimutatás',
     'leltar' => 'Leltár',
     'fizetesek' => 'Kifizetések',
@@ -230,6 +256,7 @@ const MENU_NAMES = [
     'export' => 'Export',
     'szemelyes-beallitasok' => 'Személyes beállítások',
     'fatipus'   => 'Fatípusok',
+    'konstansok'   => 'Konstansok',
 ];
 
 
@@ -239,13 +266,39 @@ const U_SZORT_URMETER = 'szur';
 const U_RAKOTT_URMETER = 'rur';
 
 
-const CSOMAGOLOANYAGOK = [
-    'takaro'    =>  ['Takarófólia','m<sup>2</sup>'],
-    'sztreccs'  =>  ['Sztreccsfólia','m'],
-    'halo'      =>  ['Háló','m'],
-    'raklap'    =>  ['Raklap','db'],
-    'kaloda'    =>  ['Kaloda elem','db'],
+const U_NAMES = [
+    U_TOMOR_KOBMETER => ['tömör köbméter','t. m<sup>3</sup>'],
+    U_ERDESZETI_KOBMETER => ['erdészeti köbméter','e. m<sup>3</sup>'],
+    U_SZORT_URMETER => ['szórt űrméter','sz. űm'],
+    U_RAKOTT_URMETER => ['rakott űrméter','r. űm'],
 ];
+
+// 1 tomor kobmeter hany _____-nak felel meg?
+const U_FACT = [
+    U_TOMOR_KOBMETER => 1.0,
+    U_ERDESZETI_KOBMETER => 1.7,
+    U_SZORT_URMETER => 2.0,
+    U_RAKOTT_URMETER => 1.4
+];
+
+const U_STD = U_TOMOR_KOBMETER;
+
+const ROUND_DIGITS = 2;
+
+const CS_TAKARO   = 'takaro';
+const CS_SZTRECCS = 'sztreccs';
+const CS_HALO     = 'halo';
+const CS_RAKLAP   = 'raklap';
+const CS_KALODA   = 'kaloda';
+
+const CSOMAGOLOANYAGOK = [
+    CS_TAKARO    =>  ['Takarófólia','m<sup>2</sup>'],
+    CS_SZTRECCS  =>  ['Sztreccsfólia','m'],
+    CS_HALO      =>  ['Háló','m'],
+    CS_RAKLAP    =>  ['Raklap','db'],
+    CS_KALODA    =>  ['Kaloda elem','db'],
+];
+
 
 const FORGALOM_BEVETEL = 'bevetel';
 const FORGALOM_KORREKCIO = 'korrekcio';
@@ -263,7 +316,7 @@ const FORGALOM_ICON = [
     FORGALOM_BEVETEL => 'glyphicon-log-in',
     FORGALOM_KORREKCIO => 'glyphicon-transfer',
     FORGALOM_KIADAS => 'glyphicon-log-out',
-    FORGALOM_FELHASZNALAS => 'glyphicon-compressed',
+    FORGALOM_FELHASZNALAS => 'glyphicon-cog',
 ];
 
 const F_KEMENY      = 'kemény lombos';
@@ -292,24 +345,34 @@ const FATIPUSOK = [
     F_EGYEB_LAGY => ['egyéb lágy lombos',F_LAGY],
 ];
 
-const EGYUTAS_KALODA_KICSI = 'egyutas_kicsi';
-const EGYUTAS_KALODA_NAGY = 'egyutas_nagy';
-const VISSZAVALTHATO_KALODA_KICSI = 'vv_kicsi';
-const VISSZAVALTHATO_KALODA_NAGY = 'vv_nagy';
-const POSCH_HALOS = 'posch_halos';
-const POSCH_HALOS_FOLIAS = 'posch_halos_folias';
-const OMLESZTETT = 'omlesztett';
+const EGYUTAS_KALODA_KICSI          = 'egyutas_kicsi';
+const EGYUTAS_KALODA_NAGY           = 'egyutas_nagy';
+const VISSZAVALTHATO_KALODA_KICSI   = 'vv_kicsi';
+const VISSZAVALTHATO_KALODA_NAGY    = 'vv_nagy';
+const POSCH_HALOS                   = 'posch_halos';
+const POSCH_HALOS_FOLIAS            = 'posch_halos_folias';
+const OMLESZTETT                    = 'omlesztett';
 
 
 const CSOMAGOLASTIPUSOK = [
-    EGYUTAS_KALODA_KICSI        => ['egyutas kaloda (kicsi)', 'db', 0.9, U_RAKOTT_URMETER ],
-    EGYUTAS_KALODA_NAGY         => ['egyutas kaloda (nagy)', 'db', 1.165, U_RAKOTT_URMETER ],
-    VISSZAVALTHATO_KALODA_KICSI => ['visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
-    VISSZAVALTHATO_KALODA_NAGY  => ['visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
+    EGYUTAS_KALODA_KICSI        => ['Egyutas kaloda (kicsi)', 'db', 0.9, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.165, U_RAKOTT_URMETER ],
+    VISSZAVALTHATO_KALODA_KICSI => ['Visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
+    VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
     POSCH_HALOS                 => ['Posch hálós', 'db', 2.1, U_SZORT_URMETER],
     POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.1, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'm<sup>3</sup>', 1, U_SZORT_URMETER]
 ]; 
+
+const CS_FELHASZNALAS = [
+    EGYUTAS_KALODA_KICSI        => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
+    EGYUTAS_KALODA_NAGY         => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
+    VISSZAVALTHATO_KALODA_KICSI => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 2],
+    VISSZAVALTHATO_KALODA_NAGY  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 4],
+    POSCH_HALOS                 => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 5, CS_RAKLAP => 1, CS_KALODA  => 0],
+    POSCH_HALOS_FOLIAS          => [CS_TAKARO => 4, CS_SZTRECCS => 0, CS_HALO => 5, CS_RAKLAP => 1, CS_KALODA  => 0],
+    OMLESZTETT                  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0]
+];
 
 // megrendelesek
 
@@ -340,11 +403,17 @@ const M_S_AKTIV = [
     M_S_VARAKOZIK,
 ];
 
+const M_S_LEZART = [
+    M_S_TELJESITVE,
+    M_S_VISSZAUTASITVA,
+    M_S_VISSZAMONDOTT
+];
+
 // gyartas statusza
-const GY_S_VISSZAIGAZOLASRA_VAR = 'visszaigazolásra vár';
-const GY_S_GYARTASRA_VAR = 'gyártásra vár';
-const GY_S_LEGYARTVA = 'legyártva';
-const GY_S_VISSZAUTASITVA = 'visszautasítva';
+const GY_S_VISSZAIGAZOLASRA_VAR     = 'visszaigazolásra vár';
+const GY_S_GYARTASRA_VAR            = 'gyártásra vár';
+const GY_S_LEGYARTVA                = 'legyártva';
+const GY_S_VISSZAUTASITVA           = 'visszautasítva';
 
 const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
 
@@ -361,9 +430,9 @@ const GY_S_AKTIV = [
 ];
 
 // szallitas statusza
-const SZ_S_GYARTAS_ALATT = 'gyártás alatt';
-const SZ_S_SZALLITASRA_VAR = 'szállításra vár';
-const SZ_S_LESZALLITVA = 'leszállítva';
+const SZ_S_GYARTAS_ALATT    = 'gyártás alatt';
+const SZ_S_SZALLITASRA_VAR  = 'szállításra vár';
+const SZ_S_LESZALLITVA      = 'leszállítva';
    
 const SZ_S_SZINEK = [
     SZ_S_GYARTAS_ALATT  => ['#FF8139', 'hourglass-start'],

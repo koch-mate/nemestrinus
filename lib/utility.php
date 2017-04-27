@@ -42,4 +42,24 @@ function colourBrightness($hex, $percent) {
 	return $hash.$hex;
 }
 
+
+function mb_ucfirst($str) {
+    $fc = mb_strtoupper(mb_substr($str, 0, 1));
+    return $fc.mb_substr($str, 1);
+}
+
+function spanify($x, $min=0, $max=0){
+    if($x!=0){
+    ?>
+    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=$x?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
+<?php
+    }
+    else {
+        ?>
+        <span class="label label-default">-&nbsp;<?=U_NAMES[U_STD][1]?></span>
+            <?php
+    }
+}
+
+
 ?>

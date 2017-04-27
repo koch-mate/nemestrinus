@@ -38,13 +38,14 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                 <table class="table table-striped table-hover display" id="t_<?=$p?>" style="min-width:90%;">
                     <thead>
                         <tr>
-                            <td>ID</td>
-                            <td>Forg.</td>
-                            <td style="min-width:10em;">Mennyiség</td>
-                            <td>Dátum</td>
-                            <td>Számlaszám</td>
-                            <td>Megjegyzés</td>
-                            <td>Művelet</td>
+                            <th>ID</th>
+                            <th>Forg.</th>
+                            <th style="min-width:10em;">Mennyiség</th>
+                            <th>Dátum</th>
+                            <th>Számlaszám</th>
+                            <th>Megrendelés&nbsp;ID</th>
+                            <th>Megjegyzés</th>
+                            <th>Művelet</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,11 +60,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                     <span class="glyphicon <?=FORGALOM_ICON[$ip['Forgalom']]?>" title="<?=FORGALOM_DICT[$ip['Forgalom']]?>"></span>
                                 </td>
                                 <td style="min-width:10em;" data-order="<?=$ip['Mennyiseg']?>">
-                                    <div class="progress" style="width:8em;display:inline-block; margin-bottom:0;">
-                                        <div class="progress-bar  <?=($ip['Mennyiseg']>0?'progress-bar-success':'progress-bar-danger')?>" role="progressbar" style="width: <?=($mx == 0? '0': abs($ip['Mennyiseg'])/$mx*100.0)?>%;min-width: 3em;">
-                                            <?=$ip['Mennyiseg'].' '.CSOMAGOLOANYAGOK[$p][1]?>
-                                        </div>
-                                    </div>
+                                    <?=$ip['Mennyiseg'].' '.CSOMAGOLOANYAGOK[$p][1]?>
                                 </td>
                                 <td style="white-space: nowrap">
                                     <?=$ip['Datum']?>
@@ -71,13 +68,20 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                 <td style="white-space: nowrap">
                                     <?=$ip['Szamlaszam']?>
                                 </td>
+                                <td style="white-space: nowrap">
+                                    <?php if(!empty($ip['MegrendelesTetelID'])){ ?>
+                                        <a href="?mode=megrendeles-osszesites&id=<?=orderGetIDByOrderLineID($ip['MegrendelesTetelID'])?>"><b>ID:&nbsp;</b><?=orderGetIDByOrderLineID($ip['MegrendelesTetelID']).'/'.$ip['MegrendelesTetelID']?></a>
+                                    <?php } ?>
+                                </td>
                                 <td>
                                     <div style="max-height:4em; overflow:auto; font-size:80%;">
                                         <?=$ip['Megjegyzes']?>
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszlet&del=<?=$ip['ID']?>';}">Törlés</button>
+                                    <?php if($ip['Forgalom'] != FORGALOM_FELHASZNALAS){?> 
+                                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszlet&del=<?=$ip['ID']?>';}">Törlés</button>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -113,7 +117,8 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                     "orderable": true,
                                 },
                                 null,
-            null,
+                                null,
+                                null,
                                 {
                                     "orderable": false
                                 },

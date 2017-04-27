@@ -35,10 +35,8 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
 
 function woodGetSuppliers(){
     global $db;
-    return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);
-    
+    return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);   
 }
-
 
 function woodGetSumByType($type){
     global $db;
@@ -104,7 +102,6 @@ function woodJsUnitConversion(){
 }
 
 function woodUsageTable($wid){
-
     $dat = woodGetUsedForOrder($wid);
     $sum = 0;
 ?>  

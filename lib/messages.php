@@ -33,7 +33,7 @@ function newMessage($tabla, $id){
     ?>
         <button type="button" class="btn btn-primary " onclick="$(this).hide();$('#msg_new').fadeIn()">Új üzenet</button>
         <div id="msg_new" style="display:none;">
-            <b><?=date("Y-m-d H:m:s")?> - <?=getUserFullName($_SESSION['userName'])?>:</b>
+            <b><?=date('Y-m-d H:i:s')?> - <?=getUserFullName($_SESSION['userName'])?>:</b>
             <table style="width:100%;">
                 <tr>
                     <td>
@@ -57,6 +57,8 @@ function newMessage($tabla, $id){
                     // reload messages
                     loadMessages();
                     $("#renderMessages").removeClass('loadMsg');
+                    // clear textarea
+                    $('#new_msg_text').val('');
 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -71,6 +73,35 @@ function newMessage($tabla, $id){
         </script>
     <?php
 }
+
+function sortByDate($a, $b){
+    return  $b[1]['d'] <=> $a[1]['d'];
+}
+
+function messagesGetLast($i){
+    global $db;
+    $msgs = $db->select('megrendeles',['ID','Megjegyzes'], ['Deleted'=>0]);
+    $dm = [];
+    foreach($msgs as $m){
+        $ms = unserialize($m['Megjegyzes']);
+        if(!empty($ms)){
+            foreach($ms as $ims){
+                $dm[] = [$m['ID'], $ims];
+            }
+        }
+    }
+    usort($dm, 'sortByDate');
+    $n = 0;
+    foreach($dm as $m){
+        if($n ++ >= $i){
+            break;
+        }
+        ?>
+        <p><b><?=$m[1]['d']?> <a href="?mode=megrendeles-osszesites&id=<?=$m[0]?>">[ID: <?=$m[0]?>]</a> <?=getUserFullName($m[1]['u'])?>: </b> <?=$m[1]['m']?></p>
+<?php
+    }
+}
+
 
 function recordNewMessage($msg, $tabla, $id){
     global $db;
@@ -88,7 +119,7 @@ function recordNewMessage($msg, $tabla, $id){
         
         $cmsg[] = [
             'u' => $_SESSION['userName'],
-            'd' => date('Y-m-d H:m:s'),
+            'd' => date('Y-m-d H:i:s'),
             'm' => $msg
         ];
         

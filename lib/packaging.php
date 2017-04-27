@@ -1,8 +1,8 @@
 <?php
 
-function packagingAdd($tipus,$menny,$szlsz,$datum,$megj,$forg){
+function packagingAdd($tipus,$menny,$szlsz,$datum,$megj,$forg,$mid=0){
     global $db;
-    $db->insert('csomagoloanyag', ['Tipus'=>$tipus, 'Mennyiseg'=>$menny, 'Szamlaszam'=>$szlsz, 'Datum'=>$datum, 'Megjegyzes'=>$megj, 'Forgalom'=>$forg]);
+    $db->insert('csomagoloanyag', ['Tipus'=>$tipus, 'Mennyiseg'=>$menny, 'Szamlaszam'=>$szlsz, 'Datum'=>$datum, 'Megjegyzes'=>$megj, 'Forgalom'=>$forg, 'MegrendelesTetelID'=>$mid]);
 }
 
 function packagingGetSumByType($type){
@@ -12,7 +12,7 @@ function packagingGetSumByType($type){
 
 function packagingGetDetailsByType($type){
     global $db;
-    return $db->select('csomagoloanyag', ['ID', 'Mennyiseg', 'Szamlaszam', 'Datum', 'Megjegyzes','Forgalom'], ["AND"=>['Tipus'=>$type, 'Deleted'=>0]]);
+    return $db->select('csomagoloanyag', ['ID', 'Mennyiseg', 'Szamlaszam', 'Datum', 'Megjegyzes','Forgalom', 'MegrendelesTetelID'], ["AND"=>['Tipus'=>$type, 'Deleted'=>0]]);
 }
 
 function packagingGetMaxQty($type){
@@ -38,5 +38,18 @@ function packagingRadioButtons(){
 function packagingDel($id){
     global $db;
     $db->update('csomagoloanyag',['Deleted'=>1],['ID'=>$id]);
+}
+
+function packagingUseForProduction($mid,$id){ // megrendeles ID, megrendeles tetel ID
+    global $db;
+    // get package type
+    $dat = $db->get('megrendeles_tetel', ['Csomagolas','Mennyiseg'], ['ID'=>$id]);
+    // szukseges csomagoloanyagok
+    foreach(array_keys(CS_FELHASZNALAS[$dat['Csomagolas']]) as $csa){
+        if(CS_FELHASZNALAS[$dat['Csomagolas']][$csa] > 0){
+            packagingAdd($csa,CS_FELHASZNALAS[$dat['Csomagolas']][$csa]*$dat['Mennyiseg'],'',date('Y-m-d'),'',FORGALOM_FELHASZNALAS,$mid=$id);
+        }
+    }
+    
 }
 ?>

@@ -191,53 +191,9 @@ include('lib/popups.php');
 
 
             <div class="jumbotron">
+        
+                <?php require('lib/new_order_available_stock_table.php'); ?>
 
-                <div>
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Alapanyag</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Félkész termék</a></li>
-                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Késztermék</a></li>
-                    </ul>
-                    <div class="tab-content" style="background:white;padding:1em;border:1px solid #ddd; border-top:none;border-radius:0 0 4px 4px;">
-                        <div role="tabpanel" class="tab-pane fade in active" id="alapanyag_tab">
-                            <table class="table table-striped table-hover display">
-                                <thead style="font-weight:bold;">
-                                    <tr>
-                                        <td>Fafaj</td>
-                                        <td>Készlet</td>
-                                        <td>Függő megrendelés</td>
-                                        <td>Különbség</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach(array_keys(FATIPUSOK) as $p){ $pq = rnd(woodGetSumByType($p));?>
-                                        <tr>
-                                            <td>
-                                                <?=FATIPUSOK[$p][0]?>
-                                            </td>
-                                            <td><span class="label label-<?=($pq>10?'success':($pq<=0?'danger':'warning'))?>"><?=$pq.' '.U_NAMES[U_STD][0]?></span></td>
-                                            <td>???
-                                                <?php // TODO - fuggo megrendelesek ?>
-                                            </td>
-                                            <td>???
-                                                <?// TODO - kulonbseg ?>
-                                            </td>
-                                        </tr>
-
-                                        <?php }?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="felkesz_termek_tab">...
-                            <?// TODO - felkesz termekek ?>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="kesztermek_tab">...
-                            <?// TODO - kulonbseg ?>
-                        </div>
-                    </div>
-
-                </div>
 
 
                 <div class="form-group" style="margin-top:2em;">
