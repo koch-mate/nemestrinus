@@ -209,9 +209,9 @@ include('lib/popups.php');
                         <script>
                             $("#hossz").slider({
                                 tooltip: 'always',
-                                ticks: [10, 25, 33, 50, 75],
-                                ticks_positions: [0, 23, 39, 77, 100],
-                                ticks_labels: ['10 cm', '25 cm', '33 cm', '50 cm', '75 cm'],
+                                ticks: [10, 25, 33, 50, 100],
+                                ticks_positions: [0, 23, 39, 66, 100],
+                                ticks_labels: ['10 cm', '25 cm', '33 cm', '50 cm', '100 cm'],
                                 ticks_snap_bounds: 4,
                                 formatter: function (v1) {
                                     return ('' + v1 + ' cm').replace(',', '-');
@@ -364,7 +364,7 @@ include('lib/popups.php');
             </script>
 
             <div class="form-group" style="padding-top:1em;">
-                <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási költség</label>
+                <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
                 <div class="col-md-4">
                     <div class="input-group">
                         <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" value="" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  required>

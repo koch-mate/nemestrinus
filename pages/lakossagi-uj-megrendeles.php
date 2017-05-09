@@ -216,9 +216,9 @@ include('lib/popups.php');
                             <script>
                                 $("#hossz").slider({
                                     tooltip: 'always',
-                                    ticks: [10, 25, 33, 50, 75],
-                                    ticks_positions: [0, 23, 39, 77, 100],
-                                    ticks_labels: ['10 cm', '25 cm', '33 cm', '50 cm', '75 cm'],
+                                    ticks: [10, 25, 33, 50, 100],
+                                    ticks_positions: [0, 23, 39, 66, 100],
+                                    ticks_labels: ['10 cm', '25 cm', '33 cm', '50 cm', '100 cm'],
                                     ticks_snap_bounds: 4,
                                     formatter: function (v1) {
                                         return ('' + v1 + ' cm');
@@ -247,7 +247,7 @@ include('lib/popups.php');
                         </div>
                     </div>
 
-                    <?php foreach([POSCH_HALOS, POSCH_HALOS_FOLIAS, OMLESZTETT] as $i){
+                    <?php foreach([POSCH_HALOS, OMLESZTETT] as $i){
                         $u_std_convert = unitChange(CSOMAGOLASTIPUSOK[$i][3], U_STD, CSOMAGOLASTIPUSOK[$i][2]);
                         $recalc = "recalc($u_std_convert, '$i');";
                         ?>
@@ -274,7 +274,7 @@ include('lib/popups.php');
                         </div>
                         <?php }?>
                     <div id='egyebTipusok' style='display:none; background:#f5f5f5;border-radius:4px;padding:1em;margin-bottom:1em;'>
-                    <?php foreach([EGYUTAS_KALODA_KICSI, EGYUTAS_KALODA_NAGY, VISSZAVALTHATO_KALODA_KICSI, VISSZAVALTHATO_KALODA_NAGY] as $i){
+                    <?php foreach([EGYUTAS_KALODA_KICSI, EGYUTAS_KALODA_NAGY, VISSZAVALTHATO_KALODA_KICSI, VISSZAVALTHATO_KALODA_NAGY, POSCH_HALOS_FOLIAS] as $i){
                         $u_std_convert = unitChange(CSOMAGOLASTIPUSOK[$i][3], U_STD, CSOMAGOLASTIPUSOK[$i][2]);
                         $recalc = "recalc($u_std_convert, '$i');";
                         ?>
@@ -369,7 +369,7 @@ include('lib/popups.php');
 
 
                 <div class="form-group" style="padding-top:1em;">
-                    <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási költség</label>
+                    <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()" type="number" value="" required>

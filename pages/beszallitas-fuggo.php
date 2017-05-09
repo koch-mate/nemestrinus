@@ -1,8 +1,6 @@
 <h1>Függő megrendelések</h1>
 
-<?php function spanify($x, $min=0, $max=0){ ?>
-    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=($x==0?'-':$x)?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
-<?php }
+<?php 
 
 $cm = intval(date('m'));
 $cy = intval(date('Y'));
