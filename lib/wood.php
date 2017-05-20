@@ -17,7 +17,7 @@ function woodTypesRadioButtons($supply=true){
     }
 }
 
-function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom, $faanyagID=null, $megrendelesTetelID=null){
+function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevelszam, $datum, $megjegyzes, $forgalom, $ekaer, $cmr, $fuvarozo, $faanyagID=null, $megrendelesTetelID=null){
     global $db;
     $db->insert('faanyag', [
         'Fatipus' => $fatipus,
@@ -25,6 +25,9 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
         'Beszallito' => $beszallito,
         'Szamlaszam' => $szamlaszam,
         'Szallitolevelszam' =>$szallitolevelszam,
+        'EKAER' => $ekaer,
+        'CMR' => $cmr,
+        'Fuvarozo' => $fuvarozo,
         'Datum' => $datum,
         'Megjegyzes' => $megjegyzes,
         'Forgalom' => $forgalom,
@@ -35,7 +38,7 @@ function woodAdd($fatipus, $mennyiseg, $beszallito, $szamlaszam, $szallitolevels
 
 function woodGetSuppliers(){
     global $db;
-    return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);   
+    return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);
 }
 
 function woodGetSumByType($type){
@@ -45,22 +48,22 @@ function woodGetSumByType($type){
 
 function woodGetDetailsByType($type){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);
 }
 
 function woodGetDataById($id){
     global $db;
-    return $db->get('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['ID'=>$id, 'Deleted'=>0]]);
+    return $db->get('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['ID'=>$id, 'Deleted'=>0]]);
 }
 
 function woodGetUsedForOrder($id){
     global $db;
-    return $db->select('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['MegrendelesTetelID'=>$id, 'Deleted'=>0]]);
+    return $db->select('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['MegrendelesTetelID'=>$id, 'Deleted'=>0]]);
 }
 
 function woodGetStock(){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
     //FIXME - le kell vonni a felhasznalast
 }
 
@@ -104,7 +107,7 @@ function woodJsUnitConversion(){
 function woodUsageTable($wid){
     $dat = woodGetUsedForOrder($wid);
     $sum = 0;
-?>  
+?>
 <table class="table">
     <thead>
         <tr>
@@ -135,11 +138,11 @@ if(!sizeof($dat)){
             <td>-</td>
             <td></td>
         </tr>
- 
+
 <?php
-}        
+}
 ?>
-        
+
     </tbody>
     <tfoot>
         <tr>
@@ -151,8 +154,8 @@ if(!sizeof($dat)){
         </tr>
     </tfoot>
 </table>
-<?php    
-    
+<?php
+
 }
 
 

@@ -5,7 +5,7 @@ if(isset($_GET['del'])){
     logEv(LOG_EVENT['wood_del'].':',null,' ID: '.$_GET['del']);
 
     $succMessage = "Az ID = ".$_GET['del']." sor törölve.";
-    
+
 }
 include("lib/popups.php");
 ?>
@@ -20,7 +20,7 @@ foreach(array_keys(FATIPUSOK) as $p){
     ?>
             <li role="presentation" <?=($p==array_keys(FATIPUSOK)[0]? 'class="active"': '')?> style="text-align:center;max-width:8em;">
                 <a href="#<?=$p?>" role="tab" data-toggle="tab"><span style="display:table-cell;height:100%;vertical-align:bottom;"><img src="/img/<?=$p?>.png" style="height:2em;margin-bottom:0.4em;"><br><?=ucfirst(FATIPUSOK[$p][0])?></span>
-                    
+
                 </a>
             </li>
             <?php
@@ -38,13 +38,17 @@ foreach(array_keys(FATIPUSOK) as $p){
                 <table class="table table-striped table-hover display" id="t_<?=$p?>" style="min-width:90%;">
                     <thead>
                         <tr>
-                            <td>ID</td>
-                            <td>Forg.</td>
-                            <td style="min-width:10em;">Mennyiség</td>
-                            <td>Dátum</td>
-                            <td>Számlaszám</td>
-                            <td>Megjegyzés</td>
-                            <td>Művelet</td>
+                            <th>ID</th>
+                            <th>Forg.</th>
+                            <th style="min-width:10em;">Mennyiség</th>
+                            <th>Dátum</th>
+                            <th>Számlaszám</th>
+                            <th>Száll. Lev. Szám</th>
+                            <th>CMR Szám</th>
+                            <th>EKÁER szám</th>
+                            <th>Fuvarozó</th>
+                            <th>Megjegyzés</th>
+                            <th>Művelet</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,6 +75,11 @@ foreach(array_keys(FATIPUSOK) as $p){
                                 <td style="white-space: nowrap">
                                     <?=$ip['Szamlaszam']?>
                                 </td>
+                                <td><?=$ip['Szallitolevelszam']?></td>
+                                <td><?=$ip['CMR']?></td>
+                                <td><?=$ip['EKAER']?></td>
+                                <td><?=$ip['Fuvarozo']?></td>
+
                                 <td>
                                     <div style="max-height:4em; overflow:auto; font-size:80%;">
                                         <?=$ip['Megjegyzes']?>
@@ -106,14 +115,18 @@ foreach(array_keys(FATIPUSOK) as $p){
                             "columns": [
                                 {
                                     "searchable": false
-            },
+                                },
                                 null,
                                 {
                                     "type": "num",
                                     "orderable": true,
                                 },
                                 null,
-            null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
                                 {
                                     "orderable": false
                                 },
@@ -125,7 +138,7 @@ foreach(array_keys(FATIPUSOK) as $p){
 
 
                         });
-                        
+
                     });
                 </script>
             </div>
@@ -136,7 +149,7 @@ foreach(array_keys(FATIPUSOK) as $p){
             $('#myTabs a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');
-                
+
             })
             $('#myTabs a:first').tab('show') // Select first tab
             // to fix DataTables header misalignment issue

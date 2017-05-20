@@ -12,7 +12,7 @@ require_once("../lib/wood.php");
 
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['ID']) || empty($_POST['data'])){
-    
+
 }
 else {
     $dd=$_POST['data'];
@@ -21,8 +21,8 @@ else {
         $faanyagId = $d;
         $menny = $dd[$d];
         $wi = woodGetDataById($faanyagId);
-        
-        woodAdd($wi['Fatipus'], -1.0*abs($menny), $beszallito=null, $szamlaszam=null, $szallitolevelszam=null, $datum=date('Y-m-d'), $megjegyzes=null, $forgalom=FORGALOM_FELHASZNALAS, $faanyagID=$d, $megrendelesTetelID=$megrendelesTetelId);
+
+        woodAdd($wi['Fatipus'], -1.0*abs($menny), $beszallito=null, $szamlaszam=null, $szallitolevelszam=null, $datum=date('Y-m-d'), $megjegyzes=null, $forgalom=FORGALOM_FELHASZNALAS,$ekaer =null, $cmr=null, $fuvarozo=null, $faanyagID=$d, $megrendelesTetelID=$megrendelesTetelId);
 
     }
 ?>
