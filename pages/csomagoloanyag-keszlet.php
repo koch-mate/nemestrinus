@@ -5,7 +5,7 @@ if(isset($_GET['del'])){
     logEv(LOG_EVENT['packaging_del'].':',null,' ID: '.$_GET['del']);
 
     $succMessage = "Az ID = ".$_GET['del']." sor törölve.";
-    
+
 }
 include("lib/popups.php");
 ?>
@@ -79,7 +79,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                     </div>
                                 </td>
                                 <td>
-                                    <?php if($ip['Forgalom'] != FORGALOM_FELHASZNALAS){?> 
+                                    <?php if($ip['Forgalom'] != FORGALOM_FELHASZNALAS){?>
                                         <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszlet&del=<?=$ip['ID']?>';}">Törlés</button>
                                     <?php } ?>
                                 </td>
@@ -147,7 +147,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 $("#t_"+e.target.href.substring(e.target.href.indexOf("#")+1)).dataTable().fnAdjustColumnSizing();
             })
-            
+
             $('#myTabs a:first').tab('show') // Select first tab
         });
     </script>

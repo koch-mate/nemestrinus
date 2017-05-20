@@ -1,8 +1,8 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_BEVETEL);
-    logEv(LOG_EVENT['wood_add'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum']]));  
+    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_BEVETEL, $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo']);
+    logEv(LOG_EVENT['wood_add'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'], $_POST['datum']]));
     $succMessage = "Rögzítve.";
 }
 
@@ -68,14 +68,32 @@ woodJsUnitConversion();
                     <input id="szallitolevel" name="szallitolevel" type="text" placeholder="12345678" class="form-control input-md">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ekaer">EKÁER szám</label>
+                <div class="col-md-5">
+                    <input id="ekaer" name="ekaer" type="text" placeholder="12345678" class="form-control input-md">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="cmr">CMR szám</label>
+                <div class="col-md-5">
+                    <input id="cmr" name="cmr" type="text" placeholder="12345678" class="form-control input-md">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fuvarozo">Fuvarozó</label>
+                <div class="col-md-5">
+                    <input id="fuvarozo" name="fuvarozo" type="text" placeholder="" class="form-control input-md">
+                </div>
+            </div>
             <div class="form-group" id="beszform">
                 <label class="col-md-4 control-label" for="beszallito">Beszállító</label>
                 <div class="col-md-5">
                     <select name="beszallito" class="selectpicker" id="besz" data-live-search="true" onchange="if($('#besz').val()=='__uj__'){$('#besz').parent().hide();$('#beszUj').show();}">
                         <optgroup label="Saját kitermelés">
-                            <option value="Ihartü">Ihartü</option> 
+                            <option value="Ihartü">Ihartü</option>
                         </optgroup>
-                        <optgroup label="Külső cég"> 
+                        <optgroup label="Külső cég">
                             <?php
                             foreach(woodGetSuppliers() as $b){
                                 ?>

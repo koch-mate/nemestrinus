@@ -166,6 +166,11 @@ function orderGetFutureSumByType($tipus){
     return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV]]));
 }
 
+function orderGetCompletedSumByType($tipus){
+    global $db;
+    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_LEGYARTVA]]));
+}
+
 function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){
     global $db;
     // adott honapig tarto megrendelesek

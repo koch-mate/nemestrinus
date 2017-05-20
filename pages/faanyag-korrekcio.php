@@ -1,8 +1,8 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], null, null, null, $_POST['datum'], $_POST['megj'], FORGALOM_KORREKCIO);
-    logEv(LOG_EVENT['wood_correction'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['datum']]));  
+    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], null, null, null, $_POST['datum'], $_POST['megj'], FORGALOM_KORREKCIO, null,null,null);
+    logEv(LOG_EVENT['wood_correction'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['datum']]));
     $succMessage = "Rögzítve.";
 }
 
@@ -42,7 +42,7 @@ woodJsUnitConversion();
                     </div>
                 </div>
             </div>
-                
+
             <div class="form-group">
                 <label class="col-md-4 control-label" for="">&nbsp;</label>
                 <div class="col-md-5">
@@ -67,7 +67,7 @@ woodJsUnitConversion();
                         <div class="alert alert-info" role="alert">Pozitív és negatív előjellel is lehet korrekciót rögzíteni, attól függően, hogy milyen irányú az eltérés a valós és a programban szereplő készlet között.</div>
                     </div>
                 </div>
-                
+
 
             <div class="form-group">
                 <label class="col-md-4 control-label" for="datum">Dátum</label>
