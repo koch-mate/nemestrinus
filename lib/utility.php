@@ -11,7 +11,7 @@ function colourBrightness($hex, $percent) {
 	}
 	/// HEX TO RGB
 	$rgb = array(hexdec(substr($hex,0,2)), hexdec(substr($hex,2,2)), hexdec(substr($hex,4,2)));
-	//// CALCULATE 
+	//// CALCULATE
 	for ($i=0; $i<3; $i++) {
 		// See if brighter or darker
 		if ($percent > 0) {
@@ -61,5 +61,11 @@ function spanify($x, $min=0, $max=0){
     }
 }
 
+function ezres($x)
+{
+	$y = "".$x;
+	if(strlen($y)<=3){ return $y; }
+	return substr($y,	0, -3).'.'.substr($y, -3,3);
+}
 
 ?>

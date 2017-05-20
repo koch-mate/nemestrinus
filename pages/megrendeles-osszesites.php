@@ -15,7 +15,7 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse <?=(empty($_GET['id']) && empty($_GET['md']) && empty($_GET['td']) && empty($_GET['tip'])) ? '' : 'in'?>" role="tabpanel" aria-labelledby="headingOne">
               <div class="panel-body">
-                  
+
              <?php
                     $tnev = [
                         'md' => 'Megrendelés dátuma',
@@ -74,9 +74,9 @@
                               </label>
                             </div>
                         </div>
-                  
-                  
-                  
+
+
+
                       <div class="form-group">
                         <input type="checkbox" name="idp" id="id_picker" value="on" data-size="mini" onchange="if(!$(this).prop('checked')){$('#idinput').val('');}" <?=(!empty($_GET['id'])?'checked':'')?> >
                         <script>
@@ -92,32 +92,32 @@
                         <label style="width: 15em;">ID</label>
                           <input name="id" id="idinput" type="number" class="form_control" value="<?=$_GET['id']?>">
                   </div>
-                  
-                  
-                  
-                  
+
+
+
+
                     <div style="margin-top:2em;">
                         <button type="submit" class="btn btn-primary" >
             Frissítés</button>
-                    </div>             
+                    </div>
                 </div>
             </div>
           </div>
         </div>
-       
+
     </fieldset>
 </form>
-    
-<?php 
-    
-require("lib/order_table.php"); 
-                               
+
+<?php
+
+require("lib/order_table.php");
+
 $f = [];
 if($_GET['md'] == 'on'){
-    $f['RogzitesDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['mdm1'],1, $_GET['mdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['mdm2'])+1,0, $_GET['mdy2']))];                    
+    $f['RogzitesDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['mdm1'],1, $_GET['mdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['mdm2'])+1,0, $_GET['mdy2']))];
 }
 if($_GET['td'] == 'on'){
-    $f['KertDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['tdm1'],1, $_GET['tdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['tdm2'])+1,0, $_GET['tdy2']))];                    
+    $f['KertDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['tdm1'],1, $_GET['tdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['tdm2'])+1,0, $_GET['tdy2']))];
 }
 if($_GET['tip'] == 'on'){
     $f['Tipus'] = [];
@@ -131,14 +131,14 @@ if($_GET['tip'] == 'on'){
 if(!empty($_GET['id'])){
     $f['ID'] = $_GET['id'];
 }
-                               
-orderTable($filters=$f, $customerON = true, $customerDetailsON = false, $globStatusEditON = true, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = true, $editButtonON = false, $trashButtonON = true);
 
-                               
+orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = true, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = true, $editButtonON = false, $trashButtonON = true);
+
+
 ?>
 
 <script>
-    
+
 function deleteOrder( oid ){
     if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
             $.ajax({

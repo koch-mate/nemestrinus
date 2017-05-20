@@ -47,9 +47,9 @@ function packagingUseForProduction($mid,$id){ // megrendeles ID, megrendeles tet
     // szukseges csomagoloanyagok
     foreach(array_keys(CS_FELHASZNALAS[$dat['Csomagolas']]) as $csa){
         if(CS_FELHASZNALAS[$dat['Csomagolas']][$csa] > 0){
-            packagingAdd($csa,CS_FELHASZNALAS[$dat['Csomagolas']][$csa]*$dat['Mennyiseg'],'',date('Y-m-d'),'',FORGALOM_FELHASZNALAS,$mid=$id);
+            packagingAdd($csa,-1.0 * CS_FELHASZNALAS[$dat['Csomagolas']][$csa]*$dat['Mennyiseg'],'',date('Y-m-d'),'',FORGALOM_FELHASZNALAS,$mid=$id);
         }
     }
-    
+
 }
 ?>

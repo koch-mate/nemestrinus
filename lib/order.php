@@ -22,8 +22,8 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'FizetesStatusza' => F_S_FIZETESRE_VAR,
         'KapcsolattartoTel' => $kapcs_tel
     ]);
-    
-    foreach(json_decode($order_json) as $o){    
+
+    foreach(json_decode($order_json) as $o){
         $db->insert('megrendeles_tetel', [
             'MegrendelesID' => $new_id,
             'Fafaj' => $o->fafaj,
@@ -60,8 +60,8 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
         'Fuvardij' => $szall_ktsg,
         'Megjegyzes' => $megjegyzes,
     ]);
-    
-    foreach(json_decode($order_json) as $o){    
+
+    foreach(json_decode($order_json) as $o){
         $db->insert('megrendeles_tetel', [
             'MegrendelesID' => $new_id,
             'Fafaj' => $o->fafaj,
@@ -90,7 +90,7 @@ function ordersGetAllData($filters = []){
         if($filters['Statuszok'] == 'lezart'){
             $where['Statusz'] = M_S_LEZART;
         }
-        
+
     }
     if(array_key_exists('RogzitesDatum', $filters)){
         $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];
@@ -101,11 +101,11 @@ function ordersGetAllData($filters = []){
     if(array_key_exists('Tipus', $filters)){
         $where['Tipus'] = $filters['Tipus'];
     }
-    
+
     if(array_key_exists('ID', $filters)){
         $where = [ 'ID' => $filters['ID'] ];
     }
-    
+
     return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
 }
 
@@ -142,7 +142,7 @@ function orderLineStatusUpdate($id, $st){
     if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
     {
         orderShippingStatusUpdate($rid, SZ_S_SZALLITASRA_VAR);
-    } 
+    }
 }
 
 function orderStatusUpdate($id, $st){
@@ -166,18 +166,17 @@ function orderGetFutureSumByType($tipus){
     return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV]]));
 }
 
-
 function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){
     global $db;
     // adott honapig tarto megrendelesek
     $mids = $db->select('megrendeles', 'ID', ['AND' => ['Deleted'=>0, 'KertDatum[<>]'=>[$from,$to]]]);
-    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'MegrendelesID'=>$mids]]));    
+    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'MegrendelesID'=>$mids]]));
 }
 
 function orderLineDateUpdate($id, $datum, $tipus){
     global $db;
     $_lookUp = ['varhato'=>'GyartasVarhatoDatuma','tenyleges'=>'GyartasDatuma'];
-    $db->update('megrendeles_tetel', [ $_lookUp[$tipus] => $datum ], [ 'ID'=>$id ]);   
+    $db->update('megrendeles_tetel', [ $_lookUp[$tipus] => $datum ], [ 'ID'=>$id ]);
 }
 
 function orderDel($id){

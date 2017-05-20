@@ -79,16 +79,17 @@ const IMPLEMENTED_PAGES = [
     'kiszallitas-fuggo',
     'keszlet-osszesito',
     'beszallitas-fuggo',
+    'arlista',
 
 ];
 
 const MENU_STRUCT = [
     'beszallitas' => [
-        'beszallitas-fuggo'  
+        'beszallitas-fuggo'
     ],
-    'alapanyag'         => [ 
-        'faanyag' => [ 'keszlet-osszesito', 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'], 
-        'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio'] 
+    'alapanyag'         => [
+        'faanyag' => [ 'keszlet-osszesito', 'faanyag-keszlet', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'],
+        'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio']
     ],
     'gyartas'           => [
         'gyartas-fuggo', 'gyartas-lezart', // 'termekgyartas',
@@ -113,6 +114,7 @@ const MENU_STRUCT = [
         'felhasznalok',
         'fatipus',
         'konstansok',
+        'arlista',
         'naplo',
         'sajat-profil',
     ],
@@ -130,7 +132,7 @@ const R_SZALLITAS       = 'szallitas';
 const R_KIMUTATAS       = 'kimutatas';
 const R_ADMINISZTRACIO  = 'adminisztracio';
 
-const RIGHTS = [ 
+const RIGHTS = [
     R_BESZALLITAS   => ['Bsz', 'Beszállítás'],
     R_ALAPANYAG     => ['Al', 'Alapanyag'],
     R_GYARTAS       => ['Gy', 'Gyártás'],
@@ -149,22 +151,22 @@ const PAGE_RIGHTS = [
     'keszlet-osszesito'         => R_ALAPANYAG,
     'faanyag'                   => R_ALAPANYAG,
     'csomagoloanyag'            => R_ALAPANYAG,
-    'faanyag-keszlet'           => R_ALAPANYAG, 
-    'faanyag-bevitel'           => R_ALAPANYAG, 
-    'faanyag-kiadas'            => R_ALAPANYAG, 
-    'faanyag-korrekcio'         => R_ALAPANYAG, 
-    'csomagoloanyag-keszlet'    => R_ALAPANYAG, 
-    'csomagoloanyag-bevitel'    => R_ALAPANYAG, 
-    'csomagoloanyag-kiadas'     => R_ALAPANYAG, 
-    'csomagoloanyag-korrekcio'  => R_ALAPANYAG, 
+    'faanyag-keszlet'           => R_ALAPANYAG,
+    'faanyag-bevitel'           => R_ALAPANYAG,
+    'faanyag-kiadas'            => R_ALAPANYAG,
+    'faanyag-korrekcio'         => R_ALAPANYAG,
+    'csomagoloanyag-keszlet'    => R_ALAPANYAG,
+    'csomagoloanyag-bevitel'    => R_ALAPANYAG,
+    'csomagoloanyag-kiadas'     => R_ALAPANYAG,
+    'csomagoloanyag-korrekcio'  => R_ALAPANYAG,
     'gyartas'                   => R_GYARTAS,
-    'termekgyartas'             => R_GYARTAS, 
+    'termekgyartas'             => R_GYARTAS,
     'gyartas-fuggo'             => R_GYARTAS,
     'gyartas-lezart'            => R_GYARTAS,
     'megrendeles'               => R_LAK_MEGRENDELES,
     'megrendelesek'             => R_EXP_MEGRENDELES,
-    'megrendeles-osszesites'    => R_EXP_MEGRENDELES, 
-    'megrendeles-lezart'        => R_EXP_MEGRENDELES, 
+    'megrendeles-osszesites'    => R_EXP_MEGRENDELES,
+    'megrendeles-lezart'        => R_EXP_MEGRENDELES,
     'lakossagi-uj-megrendeles'  => R_LAK_MEGRENDELES,
     'export-uj-megrendeles'     => R_EXP_MEGRENDELES,
     'szallitas'                 => R_SZALLITAS,
@@ -183,40 +185,42 @@ const PAGE_RIGHTS = [
     'export'                    => R_EXP_MEGRENDELES,
     'fatipus'                   => R_ADMINISZTRACIO,
     'konstansok'                => R_ADMINISZTRACIO,
+    'arlista'                   => R_ADMINISZTRACIO,
 ];
 
 const MENU_ICONS = [
-    'csomagoloanyag-keszlet' => 'glyphicon-tasks', 
-    'csomagoloanyag-bevitel' => 'glyphicon-log-in', 
-    'csomagoloanyag-kiadas' => 'glyphicon-log-out', 
-    'csomagoloanyag-korrekcio' => 'glyphicon-transfer',     
+    'csomagoloanyag-keszlet' => 'glyphicon-tasks',
+    'csomagoloanyag-bevitel' => 'glyphicon-log-in',
+    'csomagoloanyag-kiadas' => 'glyphicon-log-out',
+    'csomagoloanyag-korrekcio' => 'glyphicon-transfer',
 
-    'keszlet-osszesito' => 'fa-bar-chart', 
-    'faanyag-keszlet' => 'glyphicon-tasks', 
-    'faanyag-bevitel' => 'glyphicon-log-in', 
-    'faanyag-kiadas' => 'glyphicon-log-out', 
-    'faanyag-korrekcio' => 'glyphicon-transfer', 
-    
+    'keszlet-osszesito' => 'fa-bar-chart',
+    'faanyag-keszlet' => 'glyphicon-tasks',
+    'faanyag-bevitel' => 'glyphicon-log-in',
+    'faanyag-kiadas' => 'glyphicon-log-out',
+    'faanyag-korrekcio' => 'glyphicon-transfer',
+
     'lakossagi-uj-megrendeles' => 'glyphicon-edit',
-    
+
     'export-uj-megrendeles' => 'glyphicon-edit',
     'export-megrendelok' => 'glyphicon-user',
-    
+
     'megrendeles-osszesites' => 'glyphicon-shopping-cart',
     'megrendeles-lezart' => 'glyphicon-check',
-    
+
     'felhasznalok' => 'fa-users',
     'fatipus' => 'glyphicon-tree-deciduous',
     'naplo' => 'glyphicon-book',
     'sajat-profil' => 'fa-user',
     'konstansok' => 'fa-cogs',
-    
+    'arlista' => 'fa-money',
+
     'gyartas-fuggo' => 'glyphicon-cog',
     'gyartas-lezart' => 'glyphicon-check',
 
-    'kiszallitas-fuggo' => 'fa-truck', 
+    'kiszallitas-fuggo' => 'fa-truck',
     'kiszallitas-lezart' => 'glyphicon-check',
-    
+
 ];
 
 const MENU_NAMES = [
@@ -226,22 +230,22 @@ const MENU_NAMES = [
     'keszlet-osszesito' => 'Készlet összesítő',
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
-    'faanyag-keszlet' => 'Készlet', 
-    'faanyag-bevitel' => 'Bevételezés', 
-    'faanyag-kiadas' => 'Eladás', 
-    'faanyag-korrekcio' => 'Korrekció', 
-    'csomagoloanyag-keszlet' => 'Készlet', 
-    'csomagoloanyag-bevitel' => 'Bevételezés', 
-    'csomagoloanyag-kiadas' => 'Eladás', 
-    'csomagoloanyag-korrekcio' => 'Korrekció', 
+    'faanyag-keszlet' => 'Készlet',
+    'faanyag-bevitel' => 'Bevételezés',
+    'faanyag-kiadas' => 'Eladás',
+    'faanyag-korrekcio' => 'Korrekció',
+    'csomagoloanyag-keszlet' => 'Készlet',
+    'csomagoloanyag-bevitel' => 'Bevételezés',
+    'csomagoloanyag-kiadas' => 'Eladás',
+    'csomagoloanyag-korrekcio' => 'Korrekció',
     'gyartas' => 'Gyártás',
-    'gyartas-fuggo' => 'Függő megrendelések',
-    'gyartas-lezart' => 'Lezárult megrendelések',
-    'termekgyartas' => 'Gyártás', 
+    'gyartas-fuggo' => 'Függő gyártások',
+    'gyartas-lezart' => 'Lezárult gyártások',
+    'termekgyartas' => 'Gyártás',
     'megrendeles' => 'Megrendelés',
     'megrendelesek'=> 'Összesítés',
-    'megrendeles-osszesites' => 'Összes megrendelés', 
-    'megrendeles-lezart' => 'Lezárt megrendelések', 
+    'megrendeles-osszesites' => 'Összes megrendelés',
+    'megrendeles-lezart' => 'Lezárt megrendelések',
     'lakossagi-uj-megrendeles' => 'Új megrendelés',
     'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',
@@ -261,6 +265,7 @@ const MENU_NAMES = [
     'szemelyes-beallitasok' => 'Személyes beállítások',
     'fatipus'   => 'Fatípusok',
     'konstansok'   => 'Konstansok',
+    'arlista' => 'Árlista',
 ];
 
 
@@ -287,7 +292,7 @@ const U_FACT = [
 
 const U_STD = U_TOMOR_KOBMETER;
 
-const ROUND_DIGITS = 2;
+const ROUND_DIGITS = 2; // kerekites pontossaga megjeleniteskor
 
 const CS_TAKARO   = 'takaro';
 const CS_SZTRECCS = 'sztreccs';
@@ -336,7 +341,7 @@ const F_TOLGY           = 'tolgy';
 const F_FENYO           = 'fenyo';
 const F_EGYEB_KEMENY    = 'egyeb_kemeny';
 const F_EGYEB_LAGY      = 'egyeb_lagy';
-    
+
 const FATIPUSOK = [
     F_AKAC => ['akác',F_KEMENY],
     F_BUKK => ['bükk',F_KEMENY],
@@ -366,7 +371,7 @@ const CSOMAGOLASTIPUSOK = [
     POSCH_HALOS                 => ['Posch hálós', 'db', 2.1, U_SZORT_URMETER],
     POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.1, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'm<sup>3</sup>', 1, U_SZORT_URMETER]
-]; 
+];
 
 const CS_FELHASZNALAS = [
     EGYUTAS_KALODA_KICSI        => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
@@ -437,12 +442,12 @@ const GY_S_AKTIV = [
 const SZ_S_GYARTAS_ALATT    = 'gyártás alatt';
 const SZ_S_SZALLITASRA_VAR  = 'szállításra vár';
 const SZ_S_LESZALLITVA      = 'leszállítva';
-   
+
 const SZ_S_SZINEK = [
     SZ_S_GYARTAS_ALATT  => ['#FF8139', 'hourglass-start'],
     SZ_S_SZALLITASRA_VAR=> ['#F7D52F', 'truck'],
     SZ_S_LESZALLITVA    => ['#0B630E', 'check'],
-    
+
 ];
 
 // fizetes statusza
@@ -460,6 +465,23 @@ const P_EURO = 'EUR';
 
 
 // nedvesseg
+const N_FRISS = 'nedves';
+const N_FELSZARAZ = 'felszaraz';
+const N_SZARAZ = 'szaraz';
+const NEDVESSEG = [N_SZARAZ => [1, 'száraz'], N_FELSZARAZ => [2,'félszáraz'], N_FRISS => [3,'friss']];
 
-const NEDVESSEG = ['szaraz' => [1, 'száraz'], 'felszaraz'=>[2,'félszáraz'], 'nedves'=>[3,'friss']];
+// gyartasi idok (napban)
+const GYARTASI_IDO = [
+  M_EXPORT => [
+    N_FRISS => 4*7,
+    N_FELSZARAZ => 10*7,
+    N_SZARAZ => 16*7,
+  ],
+  M_LAKOSSAGI => [
+    N_FRISS => 10,
+    N_FELSZARAZ => 10*7,
+    N_SZARAZ => 16*7,
+  ],
+];
+
 ?>

@@ -1,13 +1,13 @@
-<h2>Függő megrendelések</h2>
+<h2>Függő gyártások</h2>
 
 <style>
 .modal {
   overflow-y:auto;
 }
 </style>
-<?php 
-    
-require("lib/order_table.php"); 
+<?php
+
+require("lib/order_table.php");
 orderTable($filters = ['Statuszok'=>'aktiv'], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true );
 
 ?>
@@ -48,7 +48,7 @@ orderTable($filters = ['Statuszok'=>'aktiv'], $customerON = false, $customerDeta
 </div>
 <script>
 var loadCnt = $('#modalSmCont').html();
-    
+
 $('#editorWin').on('shown.bs.modal', function (event) {
     $('#modalCont').html(loadCnt)
     var button = $(event.relatedTarget);
@@ -73,11 +73,11 @@ $('#editorWin').on('shown.bs.modal', function (event) {
 $('#editorWin').on('hidden.bs.modal', function(event) {
     window.location.href = '?mode=<?=$_GET['mode']?>';      // FIXME - do in a more elegant way, reload only if meaningful change has happened, or even do it via AJAX
 });
-    
+
 $('#editorSmWin').on('shown.bs.modal', function (event) {
     $('#modalSmCont').html(loadCnt);
     $('.modal-backdrop').last().css('z-index',9990);
-    
+
     var button = $(event.relatedTarget);
     var orderId = button.data('id');
     var orderTipus = button.data('fatipus');

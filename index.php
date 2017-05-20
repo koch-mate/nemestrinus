@@ -19,6 +19,7 @@ require_once("lib/wood.php");
 require_once("lib/units.php");
 require_once("lib/order.php");
 require_once("lib/messages.php");
+require_once("lib/prices.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
@@ -48,7 +49,7 @@ if(empty($_SESSION['activeLogin'])){
     {
         if(!empty($_POST['user'])){
             // login with username and password
-            
+
             if(authenticate($_POST['user'], $_POST['password'])){
                 // TODO - do proper authentication
                 $_SESSION['activeLogin'] = True;
@@ -67,20 +68,24 @@ if(empty($_SESSION['activeLogin'])){
 }
 if(!empty($_SESSION['activeLogin'])) {
     // get user data
-    $_SESSION['realName'] = getUserFullName($_SESSION['userName']); 
+    $_SESSION['realName'] = getUserFullName($_SESSION['userName']);
     $_SESSION['lastActivity'] = time();
-    $_SESSION['userRights'] = getUserRights($_SESSION['userName']); 
+    $_SESSION['userRights'] = getUserRights($_SESSION['userName']);
     $_SESSION['userID'] = getUserID($_SESSION['userName']);
     if(empty($_mode) || $_mode == 'login'){
         $_mode = 'main';
     }
+    // if the user has only right for "lakossagi megrendelesek", redirect to the new order page
+    if($_SESSION['userRights'] == [R_LAK_MEGRENDELES]){
+        $_mode = 'lakossagi-uj-megrendeles';
+    }
     if(in_array($_mode, IMPLEMENTED_PAGES))
     {
         // find rootNode
-        
+
         if(!in_array('', $_SESSION['userRights'])) {}  //TODO!!!!!
         $mode = $_mode;
-        // TODO - check for privileges 
+        // TODO - check for privileges
     }
     else {
         $mode = 'error';
@@ -154,18 +159,18 @@ else {
 
     <body>
 
-        <?php if($mode != 'login'){ 
+        <?php if($mode != 'login'){
             require('pages/nav.php');
         ?>
             <div style='height:6em;'>&nbsp;</div>
-            <?php 
+            <?php
         }
         ?>
                 <div class="container">
                     <div class="bodyContainer">
 
                         <div class="starter-template">
-                            <?php 
+                            <?php
                             require('pages/'.$mode.'.php');
                             ?>
                         </div>
@@ -179,12 +184,12 @@ else {
                     });
                 </script>
                 <?php
-        if(DEBUG){ 
+        if(DEBUG){
             require_once('debug.php');
         }
 
 ?>
-        
+
     </body>
 
     </html>

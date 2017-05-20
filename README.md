@@ -1,6 +1,5 @@
 # Nemestrinus
 
 Requirements:
- - Python 3
- - CherryPy
- 
+ - PHP 7
+ - MySQL
