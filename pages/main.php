@@ -6,16 +6,22 @@
 
 <div>
     <h3>Utolsó üzenetek</h3>
-    <?php 
-    
+    <?php
+
     messagesGetLast(10);
-    
+
     ?>
-    
+
 </div>
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 05. 20.</span> <span class="label label-success">Új funkció</span> Száradási idők és Árlista felvétele</p>
+    <p><span class="label label-default">2017. 05. 09.</span> <span class="label label-success">Új funkció</span> Lakossági és export megrendelések szétválasztása</p>
+    <p><span class="label label-default">2017. 04. 8.</span> <span class="label label-success">Új funkció</span> Üzenetek küldése a megrendeléshez</p>
+    <p><span class="label label-default">2017. 03. 28.</span> <span class="label label-success">Új funkció</span> Alapértelmezett csomagolástípusok lakossági megrendeléshez</p>
+    <p><span class="label label-default">2017. 03. 25.</span> <span class="label label-success">Új funkció</span> Gyártás során teljesített elemek hozzáadása és törlése</p>
+    <p><span class="label label-default">2017. 03. 20.</span> <span class="label label-success">Új modul</span> Gyártás</p>
     <p><span class="label label-default">2017. 03. 18.</span> <span class="label label-success">Új modul</span> <a href="?mode=megrendeles-osszesites">Megrendelés összesítés </a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Export rendelés <a href="?mode=export-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Lakossági rendelés <a href="?mode=lakossagi-uj-megrendeles">felvétel</a></p>
