@@ -5,7 +5,7 @@ if(!empty($_POST['datum'])){
     // store order
     $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
 
-    logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);
+    logEv(LOG_EVENT['order_residental_add'].':',null,"ID: ".$oid);
 
     $succMessage = "A megrendelés rögzítésre került.";
 }
@@ -19,6 +19,10 @@ include('lib/popups.php');
     <script>
         document.order_db = {};
         document.order_db_id = 0;
+        document.nval = 0; // atvaltott mennyiseg
+        document.oval = 0; // eredeti mennyiseg
+        document.Cfatipus = '<?=array_keys(FATIPUSOK)[0]?>';
+        document.Ccsomagolas = '';
         document.fatipusok = {
             <?php foreach(array_keys(FATIPUSOK) as $i){
             ?>
@@ -84,6 +88,41 @@ include('lib/popups.php');
             delete document.order_db[id];
             $("#order_json").val(JSON.stringify(document.order_db));
         }
+        function woodChange(fafaj)
+        {
+          document.Cfatipus = fafaj;
+          priceCal();
+        }
+        function priceCal(){
+          var pt = <?=json_encode(ARLISTA[M_LAKOSSAGI])?>;
+          document.Ccsomagolas = $('input[name=csomagolas_r]:checked').val();
+          try{
+            $("#ar").val(Math.round(document.oval*pt[document.Ccsomagolas][document.Cfatipus]*100)/100);
+          }
+          catch(TypeError){
+            $("#ar").val(0);
+          }
+        }
+        function distCalc(){
+          var szc = $('#szallcim').val();
+          $('#tavKm').html('<i class="fa fa-cog  fa-spin fa-fw"></i>');
+          // https://maps.googleapis.com/maps/api/distancematrix/json?origins=8444%20Szentgál,%20Magyarország&destinations=7451%20Kaposvár%20Margaréta%20u.%201/d&key=AIzaSyCNgpxoeDSu7tMM5SoTo0d-Gh3JZHrrXAY
+
+          $.ajax({
+            method:'GET',
+            url:'https://maps.googleapis.com/maps/api/distancematrix/json',
+            data: {
+              origins : '8444%20Szentgál,%20Magyarország',
+              destinations : szc,
+              key: 'AIzaSyCNgpxoeDSu7tMM5SoTo0d-Gh3JZHrrXAY'
+            }
+          }).done(function(data){
+            $('#tavKm').html(data.rows[0].elements[0].distance.text);
+          }).fail(function(){
+            $('#tavKm').html('-- km');
+          });
+        }
+
     </script>
     <form class="form-horizontal" id="megr" name="megr" action="/?mode=lakossagi-uj-megrendeles" method="post">
         <fieldset>
@@ -174,7 +213,7 @@ include('lib/popups.php');
                 <div class="form-group">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-default" onclick="$('#kapcsnev').val($('#megrendelonev').val());$('#szallcim').val($('#megrendelocim').val());$('#kapcstel').val($('#megrendelotel').val());$('#megr').valid()" type="button">Megrendelő adatainak másolása</button>
+                        <button id="singlebutton" name="singlebutton" class="btn btn-default" onclick="$('#kapcsnev').val($('#megrendelonev').val());$('#szallcim').val($('#megrendelocim').val());$('#kapcstel').val($('#megrendelotel').val());$('#megr').valid();calcDist();" type="button">Megrendelő adatainak másolása</button>
                     </div>
                 </div>
 
@@ -188,7 +227,7 @@ include('lib/popups.php');
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="szallcim">Szállítási cím</label>
                     <div class="col-md-8">
-                        <input id="szallcim" required name="szallcim" type="text" placeholder="irányítószám, helység, utca, házszám" class="form-control input-md">
+                        <input id="szallcim" required name="szallcim" type="text" onblur="distCalc();" placeholder="irányítószám, helység, utca, házszám" class="form-control input-md">
 
                     </div>
                 </div>
@@ -206,7 +245,7 @@ include('lib/popups.php');
                     <div class="form-group" style="margin-top:2em;">
                         <label class="col-md-4 control-label" for="hossz">Fafaj</label>
                         <div class="col-md-4">
-                            <?=woodTypesRadioButtons($supply=false)?>
+                            <?=woodTypesRadioButtons($supply=false, $callback="woodChange($(this).val());")?>
                         </div>
                     </div>
                     <div class="form-group" style="padding-top:1em;">
@@ -302,7 +341,10 @@ include('lib/popups.php');
                                     if ($("#menny_" + nm).val() == "") {
                                         $("#menny_" + nm).val('1');
                                     }
+                                    document.nval = xr * $("#menny_" + nm).val();
+                                    document.oval = $("#menny_" + nm).val();
                                     $('#cmenny').html(Math.round(xr * $("#menny_" + nm).val() * 100) / 100 + " <?=U_NAMES[U_STD][0]?>");
+                                    priceCal();
                                 }
                             </script>
                             <div class="form-group">
@@ -366,18 +408,30 @@ include('lib/popups.php');
                 </div>
 
 
+                <?php
 
+                // google distance matrix api:
+              //  https://maps.googleapis.com/maps/api/distancematrix/json?origins=8444%20Szentgál,%20Magyarország&destinations=7451%20Kaposvár%20Margaréta%20u.%201/d&key=AIzaSyCNgpxoeDSu7tMM5SoTo0d-Gh3JZHrrXAY
+                 ?>
 
-                <div class="form-group" style="padding-top:1em;">
-                    <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  step="any" type="number" value="" required>
-                            <span class="input-group-addon">Ft</span>
-                        </div>
+                 <div class="form-group" style="padding-top:1em;">
+                     <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
+                     <div class="col-md-4">
+                         <div class="input-group">
+                             <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  step="any" type="number" value="" required>
+                             <span class="input-group-addon">Ft</span>
+                         </div>
 
-                    </div>
-                </div>
+                     </div>
+                 </div>
+                 <div class="form-group" style="padding-top:1em;">
+                     <label class="col-md-4 control-label" ></label>
+                     <div class="col-md-4">
+                          <div id="tavolsag">
+                          Távolság Szentgáltól közúton: <span id="tavKm" style="font-size:120%;" class="label label-default">-- km</span>
+                          </div>
+                     </div>
+                 </div>
                 <div class="form-group" style="padding-top:1em;">
                     <label class="col-md-4 control-label" for="vegosszeg"></label>
                     <div class="col-md-4">
