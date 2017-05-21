@@ -5,7 +5,7 @@ if(!empty($_POST['datum'])){
     // store order
     $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
 
-    logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);
+    logEv(LOG_EVENT['order_residental_add'].':',null,"ID: ".$oid);
 
     $succMessage = "A megrendelés rögzítésre került.";
 }
@@ -19,6 +19,10 @@ include('lib/popups.php');
     <script>
         document.order_db = {};
         document.order_db_id = 0;
+        document.nval = 0; // atvaltott mennyiseg
+        document.oval = 0; // eredeti mennyiseg
+        document.Cfatipus = '<?=array_keys(FATIPUSOK)[0]?>';
+        document.Ccsomagolas = '';
         document.fatipusok = {
             <?php foreach(array_keys(FATIPUSOK) as $i){
             ?>
@@ -84,6 +88,22 @@ include('lib/popups.php');
             delete document.order_db[id];
             $("#order_json").val(JSON.stringify(document.order_db));
         }
+        function woodChange(fafaj)
+        {
+          document.Cfatipus = fafaj;
+          priceCal();
+        }
+        function priceCal(){
+          var pt = <?=json_encode(ARLISTA[M_LAKOSSAGI])?>;
+          document.Ccsomagolas = $('input[name=csomagolas_r]:checked').val();
+          try{
+            $("#ar").val(Math.round(document.oval*pt[document.Ccsomagolas][document.Cfatipus]*100)/100);
+          }
+          catch(TypeError){
+            $("#ar").val(0);            
+          }
+        }
+
     </script>
     <form class="form-horizontal" id="megr" name="megr" action="/?mode=lakossagi-uj-megrendeles" method="post">
         <fieldset>
@@ -206,7 +226,7 @@ include('lib/popups.php');
                     <div class="form-group" style="margin-top:2em;">
                         <label class="col-md-4 control-label" for="hossz">Fafaj</label>
                         <div class="col-md-4">
-                            <?=woodTypesRadioButtons($supply=false)?>
+                            <?=woodTypesRadioButtons($supply=false, $callback="woodChange($(this).val());")?>
                         </div>
                     </div>
                     <div class="form-group" style="padding-top:1em;">
@@ -302,7 +322,10 @@ include('lib/popups.php');
                                     if ($("#menny_" + nm).val() == "") {
                                         $("#menny_" + nm).val('1');
                                     }
+                                    document.nval = xr * $("#menny_" + nm).val();
+                                    document.oval = $("#menny_" + nm).val();
                                     $('#cmenny').html(Math.round(xr * $("#menny_" + nm).val() * 100) / 100 + " <?=U_NAMES[U_STD][0]?>");
+                                    priceCal();
                                 }
                             </script>
                             <div class="form-group">

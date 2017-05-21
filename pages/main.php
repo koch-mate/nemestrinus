@@ -16,10 +16,11 @@
 
 <div>
     <h3>Frissítések</h3>
-    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszletmozgas">Csomagolóanyag készletmozgás </a></p>
-    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszlet">Csomagolóanyag raktárkészlet </a></p>
-    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszletmozgas">Faanyag készletmozgás </a></p>
-    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszlet">Faanyag raktárkészlet </a></p>
+    <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új funkció</span> Árlistás árak kalkulációja lakossági megrendelésekhez</p>
+    <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszletmozgas">Csomagolóanyag készletmozgás </a></p>
+    <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszlet">Csomagolóanyag raktárkészlet </a></p>
+    <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszletmozgas">Faanyag készletmozgás </a></p>
+    <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszlet">Faanyag raktárkészlet </a></p>
     <p><span class="label label-default">2017. 05. 20.</span> <span class="label label-success">Új funkció</span> Nemzetközi fuvarozással kapcsolatos adatok felvétele</p>
     <p><span class="label label-default">2017. 05. 20.</span> <span class="label label-success">Új funkció</span> Száradási idők és Árlista felvétele</p>
     <p><span class="label label-default">2017. 05. 09.</span> <span class="label label-success">Új funkció</span> Lakossági és export megrendelések szétválasztása</p>

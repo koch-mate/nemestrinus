@@ -1,12 +1,12 @@
 <?php
 
-function woodTypesRadioButtons($supply=true){
+function woodTypesRadioButtons($supply=true, $callback=""){
     foreach(array_keys(FATIPUSOK) as $rk){
         if($supply){$me  = woodGetSumByType($rk);}
 ?>
     <div class="radio">
         <label for="r_cs_<?=$rk?>">
-            <input type="radio" name="r_cs" id="r_cs_<?=$rk?>" value="<?=$rk?>" <?=($rk==array_keys(FATIPUSOK)[0]? ' checked="checked"': '')?> >
+            <input type="radio" name="r_cs" id="r_cs_<?=$rk?>" value="<?=$rk?>" onchange="<?=$callback?>" <?=($rk==array_keys(FATIPUSOK)[0]? ' checked="checked"': '')?> >
             <span style="width: 3em; display:inline-block;"><img src="/img/<?=$rk?>.png" class="zoom" title="<?=FATIPUSOK[$rk][0]?>" style="height:2em;" /></span>
             <b><?=FATIPUSOK[$rk][0]?></b>
             <?php if($supply){?> <span class="label label-<?=($me>10?'success':($me<0?'danger':'warning'))?>"><?=$me?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
