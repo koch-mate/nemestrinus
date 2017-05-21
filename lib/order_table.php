@@ -31,28 +31,28 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                 <th style="vertical-align:bottom;" title="Prioritás">P.</th>
 <?php if($customerON){ ?>
                 <th style="vertical-align:bottom;">Megrendelő</th>
-<?php } ?>                
+<?php } ?>
                 <th style="vertical-align:bottom;">Megrendelés dátuma</th>
                 <th style="vertical-align:bottom;">Ígért teljesítés dátuma</th>
                 <th style="vertical-align:bottom;">Megrendelés státusza</th>
                 <th style="vertical-align:bottom;">Tétel(ek)</th>
 <?php if($shippingON){ ?>
                 <th style="vertical-align:bottom;">Szállítás</th>
-<?php } ?>                
+<?php } ?>
 <?php if($priceON){ ?>
                 <th style="vertical-align:bottom;">Ár</th>
-<?php } ?>                
+<?php } ?>
 <?php if($paymentON){ ?>
                 <th style="vertical-align:bottom;">Fizetés</th>
-<?php } ?>                
+<?php } ?>
                 <th style="vertical-align:bottom;">Megjegyzés</th>
 <?php if($editButtonON || $trashButtonON){?>
                 <th style="vertical-align:bottom;">Művelet</th>
-<?php } ?>                
+<?php } ?>
             </tr>
         </thead>
         <tbody>
-            <?php 
+            <?php
 
                 foreach(ordersGetAllData($filters=$filters) as $og){?>
                 <tr id="tr_<?=$og['ID']?>">
@@ -68,7 +68,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     </td>
 <?php if($customerON){ ?>
                     <td>
-<?php if($customerDetailsON){?>                    
+<?php if($customerDetailsON){?>
                         <a tabindex="0" data-toggle="popover" title="Adatok" data-content="<?php if($og['Tipus']==M_LAKOSSAGI){?><table class='table table-striped table-hover' style='font-size:80%'>
                             <tbody>
                                 <tr>
@@ -162,11 +162,11 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                         </table><?php }?>" style="cursor:pointer;">
                             <?=($og['Tipus']==M_LAKOSSAGI ? $og['MegrendeloNev'] : exportCustomerGetNameById($og['MegrendeloID']))?>
                         </a>
-<?php } else { // customerDetailsON ?> 
+<?php } else { // customerDetailsON ?>
             <?=($og['Tipus']==M_LAKOSSAGI ? $og['MegrendeloNev'] : exportCustomerGetNameById($og['MegrendeloID']))?>
 <?php } ?>
                     </td>
-<?php } ?>                    
+<?php } ?>
                     <td>
                         <?=$og['RogzitesDatum']?>
                     </td>
@@ -186,20 +186,20 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                     </button>
                                 </p>
                                 <?php
-                            }                                                                                                                        
+                            }
                             ?>
                         </div>
 
                         <a tabindex="1" data-toggle="popover" id="po_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="Sátusz módosítása" style="background:<?=M_S_SZINEK[$og['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$og['Statusz']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
                             <?=$og['Statusz']?>
                         </a>
-<?php } else {?>  
+<?php } else {?>
                         <span id="po_<?=$og['ID']?>" class="btn btn-xs btn-primary " style="cursor:default;background:<?=M_S_SZINEK[$og['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$og['Statusz']][0]?>;font-weight:bold;" >
                             <?=$og['Statusz']?>
                         </span>
-<?php } ?>                        
-                        
-<?php if($globStatusEditON){?>         
+<?php } ?>
+
+<?php if($globStatusEditON){?>
                         <script>
                             $("#po_<?=$og['ID']?>").popover({
                                 html: true,
@@ -224,7 +224,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                 });
                             }
                         </script>
-<?php } ?>                        
+<?php } ?>
                     </td>
                     <td>
                         <table class="orderItems"  >
@@ -253,11 +253,11 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                         <?=$oi['Mennyiseg']?>
                                             <?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][1]?>
                                     </td>
-<?php if($priceON){ ?>                                    
+<?php if($priceON){ ?>
                                     <td style="padding-right:0.8em;">
                                         <?=$oi['Ar']."&nbsp;".$og['Penznem']?>
                                     </td>
-<?php } ?>                                    
+<?php } ?>
                                     <td style="padding-right:0.8em;">
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
@@ -273,7 +273,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                         <table class="orderItems">
                             <tr>
                                 <td rowspan="2">
-                                    <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span> 
+                                    <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
                                 </td>
                                 <td style="padding-left:0.5em;">
                                     <?=($oi['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['SzallitasVarhatoDatuma']?></span>
@@ -293,41 +293,56 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 <?php } ?>
 <?php if($paymentON){ ?>
                     <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))">
-                        
-                        
-                        <div id="div_fs_<?=$og['ID']?>" style="display:none">
+
+
+                        <div id="div_fs_<?=$og['ID']?>" style="display:none;color:#000;">
                             <?php
                             foreach(array_keys(F_S_SZINEK) as $fs){
                                 if($fs == $og['FizetesStatusza']){continue;}
                                 ?>
-                                <p>
-                                    <button type='button' class='btn btn-xs btn-primary' style="background:<?=F_S_SZINEK[$fs][0]?>;border-color:<?=F_S_SZINEK[$fs][0]?>;" onclick='if(confirm("Fizetési státusz módosítása erre: <?=$fs?>")){savePaidStatus(<?=$og['ID']?>,"<?=$fs?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'><i class="fa fa-<?=F_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></button>
+                                <p style="color:#000;">
+                                    Új&nbsp;státusz:&nbsp;<button type='button' class='btn btn-xs btn-primary' style="background:<?=F_S_SZINEK[$fs][0]?>;border-color:<?=F_S_SZINEK[$fs][0]?>;" onclick='if(confirm("Fizetési státusz módosítása erre: <?=$fs?>")){savePaidStatus(<?=$og['ID']?>,"<?=$fs?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'><i class="fa fa-<?=F_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></button>
 
                                 </p>
                                 <?php
-                            }                                                                                                                        
+                                if($fs == F_S_FIZETVE){ ?>
+                                  <label style="color:#000;">Fizetés&nbsp;dátuma:</label>
+                                    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd" style="width:10em;">
+                                      <input class="form-control" name="fizetes_datuma_<?=$og['ID']?>" id="datum_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d')?>">
+                                      <div class="input-group-addon">
+                                          <span class="glyphicon glyphicon-th"></span>
+                                      </div>
+                                    </div>
+                                  <?php
+                                }
+                            }
                             ?>
                         </div>
-                        <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="Sátusz módosítása" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
+                        <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="<span style='color:#000'>Sátusz módosítása</span>" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
                             <i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i>
                         </a>
-
-                    </td>    
+                        <p>
+                          <b>H:&nbsp;</b><?=$og['FizetesiHatarido']?><br />
+                          <b>T:&nbsp;</b><?=$og['FizetesDatuma']?><br />
+                        </p>
+                    </td>
                         <script>
                             $("#fs_<?=$og['ID']?>").popover({
                                 html: true,
                                 placement: 'bottom',
-                                trigger: 'focus',
+                                trigger: 'click',
                                 content: function () {
-                                    return $('#div_fs_<?=$og['ID']?>').html()
+                                    return $('#div_fs_<?=$og['ID']?>').html();
                                 }
-                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");});
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
+
                             function savePaidStatus(lid, nst){
+
                                 $.ajax({
                                     type: "POST",
                                     dataType: "html",
-                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_paid.php", //TODO
-                                    data: ({'ID':lid, 'Statusz':nst}),
+                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_paid.php",
+                                    data: ({'ID':lid, 'Statusz':nst, 'Datum': $("#datum_<?=$og['ID']?>").val()}),
                                     success: function(data){
                                         location.reload();
                                     },
@@ -371,7 +386,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
         $(document).ready(function () {
             $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,
-                "lengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "minden"]],                
+                "lengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "minden"]],
                 "language": {
                     "decimal": "",
                     "emptyTable": "Nincs adat",

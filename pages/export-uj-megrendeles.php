@@ -3,7 +3,7 @@
 
 if(!empty($_POST['datum'])){
     // store order
-    $oid = orderExportAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelo'], $_POST['prio'], $_POST['penznem'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
+    $oid = orderExportAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelo'], $_POST['prio'], $_POST['penznem'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
 
     logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);
 
@@ -136,6 +136,17 @@ include('lib/popups.php');
                 <div class="col-md-4">
                     <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
                         <input class="form-control" name="idatum" id="idatum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d', time()+(7*24*3600))?>">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fizhat">Fizetési határidő</label>
+                <div class="col-md-4">
+                    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
+                        <input class="form-control" name="fizhat" id="fizhat" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d', time()+(7*24*3600))?>">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 
-function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
+function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
@@ -20,6 +20,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'KapcsolattartoNev' => $kapcs_nev,
         'SzallitasiCim' => $szall_cim,
         'FizetesStatusza' => F_S_FIZETESRE_VAR,
+        'FizetesiHatarido' => $fizhat,
         'KapcsolattartoTel' => $kapcs_tel
     ]);
 
@@ -43,7 +44,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
     return $new_id;
 }
 
-function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
+function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
@@ -57,6 +58,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $megre
         'Penznem' => $penznem,
         'Prioritas' => $prioritas,
         'FizetesStatusza' => F_S_FIZETESRE_VAR,
+        'FizetesiHatarido' => $fizhat,
         'Fuvardij' => $szall_ktsg,
         'Megjegyzes' => $megjegyzes,
     ]);
@@ -84,9 +86,12 @@ function ordersGetAllData($filters = []){
     global $db;
     $where =  ['Deleted'=>0];
     if(array_key_exists('Statuszok', $filters)){
-        if($filters['Statuszok'] == 'aktiv'){
-            $where['Statusz'] = M_S_AKTIV;
-        }
+      if($filters['Statuszok'] == 'aktiv'){
+          $where['Statusz'] = M_S_AKTIV;
+      }
+      if($filters['Statuszok'] == 'gyarthato'){
+          $where['Statusz'] = M_S_GYARTHATO;
+      }
         if($filters['Statuszok'] == 'lezart'){
             $where['Statusz'] = M_S_LEZART;
         }
@@ -106,7 +111,7 @@ function ordersGetAllData($filters = []){
         $where = [ 'ID' => $filters['ID'] ];
     }
 
-    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
+    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
 }
 
 function orderGetIDByOrderLineID($id){
@@ -150,9 +155,9 @@ function orderStatusUpdate($id, $st){
     $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
 }
 
-function orderPaidStatusUpdate($id, $st){
+function orderPaidStatusUpdate($id, $st, $datum){
     global $db;
-    $db->update('megrendeles', ['FizetesStatusza'=>$st], ['ID'=>$id]);
+    $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum], ['ID'=>$id]);
 }
 
 function orderShippingStatusUpdate($id, $st){
