@@ -1,8 +1,8 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], null, null, null, $_POST['datum'], $_POST['megj'], FORGALOM_KORREKCIO, null,null,null);
-    logEv(LOG_EVENT['wood_correction'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['datum']]));
+    woodAdd($_POST['fatipus'], $_POST['cmennyiseg'], null, null, null, $_POST['datum'], $_POST['megj'], FORGALOM_KORREKCIO, null,null,null,$faanyagID=$_POST['refID']);
+    logEv(LOG_EVENT['wood_correction'].':',null,implode(', ',[FATIPUSOK[$_POST['fatipus']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['datum'], 'RefID: '.$_POST['refID']]));
     $succMessage = "Rögzítve.";
 }
 
@@ -13,21 +13,29 @@ woodJsUnitConversion();
 
 
     <h2>Alapanyag készlet korrekció</h2>
-    <div class="jumbotron">
+    <div class="alert alert-info" role="alert">Korrekciót akkor kell alkalmayni, ha egy bevételezett tétel felhasználás/értékesítés utáni maradék készlete nem egyezik meg a programban a valóságossal.</div>
+
+    <?php if(isset($_POST['mennyiseg']) && isset($_POST['id'])){ ?>
 
         <form class="form-horizontal" id="csom" name="alapanyag" method="post" action="/?mode=faanyag-korrekcio">
             <fieldset>
-                <div class="alert alert-info" role="alert">Csomagolóanyag készlet korrekciójához. Ha a tényleges készlet nem egyezik a rendszerben tárolttal, de a különbség oka nem megrendelés, eladás vagy gyártás során történő felhasználás.</div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="checkboxes">Fafaj</label>
-                    <div class="col-md-4">
-                        <?php
-                               woodTypesRadioButtons();
+              <div class="form-group">
+                  <label class="col-md-4 control-label" for="checkboxes">Korrekció ehhez a készletelemhez</label>
+                  <div class="col-md-4">
+                    <?php $dat = (woodGetDataById($_POST['id']));?>
+                    <p> <b>ID:</b> <?=$dat['ID']?> </p>
+                    <p> <b>Eredeti mennyiség:</b> <?=rnd($dat['Mennyiseg']).' '.U_NAMES[U_STD][0]?> </p>
+                    <p> <b>Fel nem használt mennyiség:</b> <?=rnd($_POST['mennyiseg']).' '.U_NAMES[U_STD][0]?> </p>
+                    <p> <b>Beszállító:</b> <?=$dat['Beszallito']?> </p>
+                    <p> <b>Fatípus:</b> <?=FATIPUSOK[$dat['Fatipus']][0]?> <span style="display:inline-block;width:2em;"><img src="/img/<?=$dat['Fatipus']?>.png" class="zoom" style="height:1em;"></span> </p>
+                    <p> <b>Dátum:</b> <?=$dat['Datum']?> </p>
+                    <p> <b>Számlaszám:</b> <?=$dat['Szamlaszam']?>  </p>
+                  </div>
+              </div>
+          <input type="hidden" name="fatipus" value="<?=$dat['Fatipus']?>" />
+          <input type="hidden" name="refID" value="<?=$dat['ID']?>" />
 
-?>
-                    </div>
-                </div>
 
             <input type="hidden" id="cmennyiseg" name="cmennyiseg" value="0">
             <div class="form-group">
@@ -47,7 +55,7 @@ woodJsUnitConversion();
                 <label class="col-md-4 control-label" for="">&nbsp;</label>
                 <div class="col-md-5">
                     <div class="input-group">
-                        <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="-" type="number" required onchange="recalc()" onkeyup="recalc();">
+                        <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="-" type="number"  step="any" required onchange="recalc()" onkeyup="recalc();">
                         <span class="input-group-addon" id="mertekegyseg">XX</span>
                     </div>
                 </div>
@@ -102,4 +110,7 @@ woodJsUnitConversion();
             btnClick($("#me_btn_<?=array_keys(U_NAMES)[0]?>"), '<?=U_NAMES[array_keys(U_NAMES)[0]][1]?>', '<?=U_FACT[array_keys(U_NAMES)[0]]?>');
         });
     </script>
-</div>
+    <?php } else { ?>
+      <div class="alert alert-warning" role="alert">Faanyag korrekciót bevételezett készleten tud kezdeményezni. <a href="?mode=faanyag-keszletmozgas">Válassza ki</a> a kívánt készlet tételt, és kattintson az <b>Korrekció</b> gombra.</div>
+
+    <?php }?>

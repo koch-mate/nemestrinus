@@ -1,5 +1,3 @@
-<?php
-?>
 <h1>Készlet összesítő</h1>
 
 <p>
@@ -15,7 +13,7 @@
       A <b>Maradék</b> oszlop mutatja a az első két oszlop különbségét. A zöld szín jelenti, hogy több alapanyag van jelenleg készleten, mint amennyi a gyártásra váró tételek teljesítéséhez szükséges, a piros szín pedig azt, hogy az összes gyártásra váró tétel teljesítéséhez még alapanyagot kell behozni.
     </li>
     <li>
-      A <b>Teljesített megrendelés</b> oszlop azt mutatja, hogy az adott fatípusbol a múltban mennyi megrendelés került teljesítésre.
+      A <b>Felhasználás + Értékesítés</b> oszlop azt mutatja, hogy az adott típusból a múltban mennyi megrendelés került felhasználásra gyártás során, illetve közvetlen értékesítésre.
     </li>
   </ul>
 </p>
@@ -29,7 +27,7 @@
             <th></th>
             <th style="text-align:center;">Maradék</th>
             <th></th>
-            <th style="text-align:center;">Teljesített<br />megrendelés</th>
+            <th style="text-align:center;">Felhasználás + Értékesítés</th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +35,8 @@
 foreach(array_keys(FATIPUSOK) as $rk){
     $keszlet  = woodGetSumByType($rk);
     $elojegyzes = orderGetFutureSumByType($rk);
-    $teljesitett = orderGetCompletedSumByType($rk);
+    $felhasznalas = orderGetCompletedSumByType($rk,[FORGALOM_FELHASZNALAS]);
+    $ertekesites = orderGetCompletedSumByType($rk, [FORGALOM_KIADAS]);
 ?>
         <tr>
             <th>
@@ -59,7 +58,61 @@ foreach(array_keys(FATIPUSOK) as $rk){
             </td>
             <td></td>
             <td style="text-align:center;">
-                <b>(</b><?=spanify($teljesitett)?><b>)</b>
+                <b>(</b><?=spanify($felhasznalas)?>&nbsp;+&nbsp;<?=spanify($ertekesites)?><b>)</b>
+            </td>
+
+        </tr>
+    <?php
+    }
+
+?>
+    </tbody>
+</table>
+
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Fatípus</th>
+            <th style="text-align:center;">Aktuális készlet</th>
+            <th></th>
+            <th style="text-align:center;">Gyártásra váró<br />megrendelések szükséglete</th>
+            <th></th>
+            <th style="text-align:center;">Maradék</th>
+            <th></th>
+            <th style="text-align:center;">Felhasználás + Értékesítés</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php
+foreach(array_keys(CSOMAGOLOANYAGOK) as $rk){
+    $keszlet  = packagingGetSumByType($rk);
+    $elojegyzes = packagingGetFutureSumByType($rk);
+    $felhasznalas = packagingGetPastSumByType($rk,[FORGALOM_FELHASZNALAS]);
+    $ertekesites = packagingGetPastSumByType($rk, [FORGALOM_KIADAS]);
+
+?>
+        <tr>
+            <th>
+                <label for="r_cs_<?=$rk?>">
+                    <span style="width: 5em; display:inline-block;"><img src="/img/<?=$rk?>.png" class="zoom" title="<?=CSOMAGOLOANYAGOK[$rk][0]?>" style="height:2em;" /></span>
+                    <b><?=CSOMAGOLOANYAGOK[$rk][0]?></b>
+                </label>
+            </th>
+            <td style="text-align:center;">
+                <?=spanify($keszlet,$min=0,$max=0,$u=CSOMAGOLOANYAGOK[$rk][1])?>
+            </td>
+            <td><span class="glyphicon glyphicon-minus"></span></td>
+            <td style="text-align:center;">
+                <?=spanify($elojegyzes, $min = ($keszlet-$elojegyzes < 0 ? $elojegyzes+1 : 0), $max = ($keszlet-$elojegyzes < 0 ? $elojegyzes + 2 : 0), $u=CSOMAGOLOANYAGOK[$rk][1])?>
+            </td>
+            <td><span class="glyphicon glyphicon-arrow-right"></span></td>
+            <td style="text-align:center;">
+                <?=spanify($keszlet-$elojegyzes, $min=0, $max=0, $u=CSOMAGOLOANYAGOK[$rk][1])?>
+            </td>
+            <td></td>
+            <td style="text-align:center;">
+                <b>(</b><?=spanify($felhasznalas, $min=0, $max=0,$u=CSOMAGOLOANYAGOK[$rk][1])?>&nbsp;+&nbsp;<?=spanify($ertekesites, $min=0, $max=0,$u=CSOMAGOLOANYAGOK[$rk][1])?><b>)</b>
             </td>
 
         </tr>

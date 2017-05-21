@@ -166,9 +166,9 @@ function orderGetFutureSumByType($tipus){
     return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV]]));
 }
 
-function orderGetCompletedSumByType($tipus){
+function orderGetCompletedSumByType($tipus, $forg){
     global $db;
-    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_LEGYARTVA]]));
+    return -1.0*rnd($db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$tipus, 'Forgalom'=>$forg]]));
 }
 
 function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){

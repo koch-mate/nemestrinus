@@ -5,7 +5,7 @@ if(!empty($_POST['datum'])){
     // store order
     $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
 
-    logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);  
+    logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);
 
     $succMessage = "A megrendelés rögzítésre került.";
 }
@@ -64,10 +64,10 @@ include('lib/popups.php');
             document.order_db[document.order_db_id++] = order;
             document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;Ft", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
-            
+
             updateVegosszeg();
         }
-        
+
         function updateVegosszeg(){
             s = 0;
             $.each(document.order_db, function(i,val){
@@ -101,8 +101,8 @@ include('lib/popups.php');
                 <label class="col-md-4 control-label" for="felvcb">Rendelést felvette</label>
                 <div class="col-md-5">
                     <div class="input-group">
-                        <span class="input-group-addon">     
-                          <input type="checkbox" id="felvcb"  onchange="$('#felvette').prop('disabled', !this.checked);if(!this.checked){$('#felvdiv').removeClass('has-error');$('#felvette-error').hide();}">     
+                        <span class="input-group-addon">
+                          <input type="checkbox" id="felvcb"  onchange="$('#felvette').prop('disabled', !this.checked);if(!this.checked){$('#felvdiv').removeClass('has-error');$('#felvette-error').hide();}">
                       </span>
                         <input id="felvette" required disabled="disabled" name="felvette" class="form-control" type="text" placeholder="név">
                     </div>
@@ -262,10 +262,10 @@ include('lib/popups.php');
                                     <?=ucfirst(CSOMAGOLASTIPUSOK[$i][0])?>
                                         <input type="radio" value="<?=$i?>" name="csomagolas_r" id='rad_<?=$i?>' onchange="<?=$recalc?>">
                                         </span>
-                                        <input type="number" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
+                                        <input type="number"  step="any" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
                                         <span class="input-group-addon" id="menny_me_<?=$i?>"><?=(CSOMAGOLASTIPUSOK[$i][1])?></span>
                                 </div>
-                                <?php if($i == OMLESZTETT){?>                            
+                                <?php if($i == OMLESZTETT){?>
                                 <div style="padding-top:2em;">
                                     <button type="button" class="btn btn-default btn-sm" onclick="$(this).hide();$('#egyebTipusok').slideDown();">Egyéb típusok <span class="glyphicon glyphicon-chevron-down"></span></button>
                                 </div>
@@ -288,7 +288,7 @@ include('lib/popups.php');
                                     <?=ucfirst(CSOMAGOLASTIPUSOK[$i][0])?>
                                         <input type="radio" value="<?=$i?>" name="csomagolas_r" id='rad_<?=$i?>' onchange="<?=$recalc?>">
                                         </span>
-                                        <input type="number" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
+                                        <input type="number"  step="any" id="menny_<?=$i?>" name="csomagolas_r_<?=$i?>" class="form-control" placeholder="-" onchange="<?=$recalc?>" onkeyup="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>" onfocus="$('#rad_<?=$i?>').prop('checked', true);<?=$recalc?>">
                                         <span class="input-group-addon" id="menny_me_<?=$i?>"><?=(CSOMAGOLASTIPUSOK[$i][1])?></span>
                                 </div>
                             </div>
@@ -316,7 +316,7 @@ include('lib/popups.php');
                             <div class="form-group" style="padding-top:1em;">
                                 <label class="col-md-4 control-label" for="huratmero">Nedvesség</label>
                                 <div class="col-md-4">
-                                    <?php 
+                                    <?php
                                     $ni = 0;
                                     foreach(array_keys(NEDVESSEG) as $nedv){?>
                                     <div class="radio">
@@ -327,12 +327,12 @@ include('lib/popups.php');
                                     <?php $ni++; }?>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group" style="padding-top:1em;">
                                 <label class="col-md-4 control-label" for="ar">Ár</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input id="ar" name="ar" class="form-control" placeholder="-" type="number" value="" required>
+                                        <input id="ar" name="ar" class="form-control" placeholder="-" type="number"  step="any" value="" required>
                                         <span class="input-group-addon">Ft</span>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@ include('lib/popups.php');
                     <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()" type="number" value="" required>
+                            <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  step="any" type="number" value="" required>
                             <span class="input-group-addon">Ft</span>
                         </div>
 

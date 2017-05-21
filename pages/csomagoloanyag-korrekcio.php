@@ -9,7 +9,6 @@ if(isset($_POST['r_cs'])){
 include('lib/popups.php');
 ?>
     <h2>Csomagoló alapanyagok készletének korrekciója</h2>
-    <div class="jumbotron">
 
         <form class="form-horizontal" id="csom" name="csom" method="post" action="/?mode=csomagoloanyag-korrekcio">
             <fieldset>
@@ -29,7 +28,7 @@ include('lib/popups.php');
                     <label class="col-md-4 control-label" for="mennyiseg">Mennyiség</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="123" required type="number">
+                            <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="123" required type="number"  step="any">
                             <span class="input-group-addon" id="menny_me"><?=CSOMAGOLOANYAGOK[array_keys(CSOMAGOLOANYAGOK)[0]][1]?></span>
                         </div>
                     </div>
@@ -65,4 +64,3 @@ include('lib/popups.php');
         <script>
             $('#csom').validate();
         </script>
-    </div>
