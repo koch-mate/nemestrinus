@@ -28,9 +28,10 @@ $mode = '';
 
 // is there a logout attempt?
 // has the session timeout'ed?
-if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && (time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT)){
+$sessionTimeout = ((time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT) ? 1 : 0;
+if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && $sessionTimeout)){
     session_destroy();
-    $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login';
+    $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login&redirect=' . $_GET['mode'].($sessionTimeout ? '&timeout=true':'');
     header('Location: ' . $loginUrl);
     die('logout redirecion failed');
 }
@@ -47,6 +48,9 @@ if(empty($_SESSION['activeLogin'])){
     }
     else
     {
+        if(isset($_GET['timeout'])){
+          $loginTimeout = True;
+        }
         if(!empty($_POST['user'])){
             // login with username and password
 

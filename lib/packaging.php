@@ -52,4 +52,23 @@ function packagingUseForProduction($mid,$id){ // megrendeles ID, megrendeles tet
     }
 
 }
+
+function packagingGetFutureSumByType($tipus){
+  global $db;
+  $n = 0;
+  foreach (CS_FELHASZNALAS as $k => $v) {
+    if($v[$tipus] == 0){
+      continue;
+    }
+    $n += $v[$tipus] * $db->count('megrendeles_tetel', ['AND' => ['Deleted'=>0, 'Csomagolas'=>$k, 'GyartasStatusza'=>GY_S_AKTIV]]);
+  }
+  return $n;
+}
+
+function packagingGetPastSumByType($tipus, $forg){
+  global $db;
+  return -1.0*$db->sum('csomagoloanyag', 'Mennyiseg', ["AND"=> ['Tipus'=>$tipus, 'Deleted'=>0, 'Forgalom'=>$forg]]);
+}
+
+
 ?>

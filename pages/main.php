@@ -16,6 +16,11 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszletmozgas">Csomagolóanyag készletmozgás </a></p>
+    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszlet">Csomagolóanyag raktárkészlet </a></p>
+    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszletmozgas">Faanyag készletmozgás </a></p>
+    <p><span class="label label-default">2017. 03. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=faanyag-keszlet">Faanyag raktárkészlet </a></p>
+    <p><span class="label label-default">2017. 05. 20.</span> <span class="label label-success">Új funkció</span> Nemzetközi fuvarozással kapcsolatos adatok felvétele</p>
     <p><span class="label label-default">2017. 05. 20.</span> <span class="label label-success">Új funkció</span> Száradási idők és Árlista felvétele</p>
     <p><span class="label label-default">2017. 05. 09.</span> <span class="label label-success">Új funkció</span> Lakossági és export megrendelések szétválasztása</p>
     <p><span class="label label-default">2017. 04. 8.</span> <span class="label label-success">Új funkció</span> Üzenetek küldése a megrendeléshez</p>
@@ -26,7 +31,7 @@
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Export rendelés <a href="?mode=export-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 25.</span> <span class="label label-success">Új modul</span> Lakossági rendelés <a href="?mode=lakossagi-uj-megrendeles">felvétel</a></p>
     <p><span class="label label-default">2017. 02. 4.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-kiadas">eladás</a></p>
-    <p><span class="label label-default">2017. 02. 4.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-keszlet">készlet</a></p>
+    <p><span class="label label-default">2017. 02. 4.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-keszletmozgas">készlet</a></p>
     <p><span class="label label-default">2017. 02. 3.</span> <span class="label label-success">Új modul</span> Alapanyag <a href="?mode=faanyag-bevitel">bevétel</a></p>
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modul</span> Csomagolóanyag <a href="?mode=csomagoloanyag-kiadas">eladás</a></p>
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modul</span> Csomagolóanyag <a href="?mode=csomagoloanyag-keszlet">készlet</a></p>

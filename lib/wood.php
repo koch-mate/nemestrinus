@@ -63,7 +63,7 @@ function woodGetUsedForOrder($id){
 
 function woodGetStock(){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>FORGALOM_BEVETEL]]);
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>[FORGALOM_BEVETEL,FORGALOM_KORREKCIO], 'Mennyiseg[>]'=>0]]);
     //FIXME - le kell vonni a felhasznalast
 }
 
@@ -77,7 +77,7 @@ function woodDel($id){
     $db->update('faanyag',['Deleted'=>1],['ID'=>$id]);
 }
 
-function woodJsUnitConversion(){
+function woodJsUnitConversion($maxVal = 0){
     ?>
         <script>
             var factor = 1.0;
@@ -97,6 +97,9 @@ function woodJsUnitConversion(){
                 if (isNaN(cval)) {
                     cval = 0;
                 }
+                <?php if($maxVal > 0){ ?>
+                  if(cval > <?=$maxVal?>){cval = <?=$maxVal?>;}
+                <?php } ?>
                 $("#cmenny").html('' + Math.round(cval * 100) / 100.0 + ' <?=U_NAMES[U_STD][0]?>');
                 $("#cmennyiseg").val(Math.round(cval * 100) / 100.0);
             }
@@ -158,5 +161,14 @@ if(!sizeof($dat)){
 
 }
 
+function woodIsThereUse($id){
+  // volt-e mar barmilyen felhasznalas az adott tetelbol?
+  global $db;
+  return $db->has('faanyag', ['AND' => ['FaanyagID'=>$id, 'Deleted'=>0]]);
+}
 
+function woodGetUsedPortion($id){
+  global $db;
+  return -1*$db->sum('faanyag', 'Mennyiseg', ['AND' => ['FaanyagID'=>$id, 'Deleted'=>0]]);
+}
 ?>

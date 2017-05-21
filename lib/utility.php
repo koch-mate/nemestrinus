@@ -48,15 +48,15 @@ function mb_ucfirst($str) {
     return $fc.mb_substr($str, 1);
 }
 
-function spanify($x, $min=0, $max=0){
+function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1]){
     if($x!=0){
     ?>
-    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=$x?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
+    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=$x?>&nbsp;<?=$u?></span>
 <?php
     }
     else {
         ?>
-        <span class="label label-default">-&nbsp;<?=U_NAMES[U_STD][1]?></span>
+        <span class="label label-default">-&nbsp;<?=$u?></span>
             <?php
     }
 }

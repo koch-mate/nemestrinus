@@ -14,7 +14,6 @@ woodJsUnitConversion();
 
 <h2>Alapanyag bevételezése</h2>
 
-<div class="jumbotron">
 
     <form class="form-horizontal" id="alapanyag" name="alapanyag" method="post" action="/?mode=faanyag-bevitel">
         <fieldset>
@@ -43,7 +42,7 @@ woodJsUnitConversion();
                 <label class="col-md-4 control-label" for="">&nbsp;</label>
                 <div class="col-md-5">
                     <div class="input-group">
-                        <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="-" type="number" required onchange="recalc()" onkeyup="recalc();">
+                        <input id="mennyiseg" name="mennyiseg" class="form-control" placeholder="-" type="number" step="any" required onchange="recalc()" onkeyup="recalc();">
                         <span class="input-group-addon" id="mertekegyseg">XX</span>
                     </div>
                 </div>
@@ -143,4 +142,3 @@ woodJsUnitConversion();
             btnClick($("#me_btn_<?=array_keys(U_NAMES)[0]?>"), '<?=U_NAMES[array_keys(U_NAMES)[0]][1]?>', '<?=U_FACT[array_keys(U_NAMES)[0]]?>');
         });
     </script>
-</div>
