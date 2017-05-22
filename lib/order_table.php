@@ -360,9 +360,25 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 
 <?php } ?>
                     <td>
-                        <div style="overflow:auto; font-size:80%; display:none;" class="megj">
-                            <?=renderMessages($og['Megjegyzes'])?>
+                        <div style="overflow:auto; font-size:80%; display:none;" class="megj" id="megj_div_<?=$og['ID']?>" data-toggle="popover">
+                            <?=renderMessages($og['Megjegyzes'], $desc = false)?>
                         </div>
+                        <template id="megj_templ_<?=$og['ID']?>" >
+
+                          <?=newMessage('megrendeles', $og['ID'],$msgDivID="megj_div_".$og['ID'],$callback="newMsgDone('megj_div_".$og['ID']."');");?>
+                        </template>
+                        <script>
+                            $("#megj_div_<?=$og['ID']?>").popover({
+                                html: true,
+                                placement: 'bottom',
+                                trigger: 'click',
+                                content: function () {
+                                    return $('#megj_templ_<?=$og['ID']?>').html();
+                                }
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
+
+                        </script>
+
                     </td>
 
 <?php if($editButtonON || $trashButtonON){?>
@@ -374,7 +390,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 </button>
 <?php } ?>
 <?php if($trashButtonON){?>
-<button type="button" class="btn btn-primary btn-sm" onclick="deleteOrder(<?=$og['ID']?>);" >
+<button type="button" class="btn btn-danger btn-sm" onclick="deleteOrder(<?=$og['ID']?>);" >
   <span class="glyphicon glyphicon-trash" ></span>
 </button>
 <?php } ?>
@@ -387,7 +403,10 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
     </table>
 
     <script>
-
+    function newMsgDone(popid){
+      $("#"+popid).popover('hide');
+      $("#"+popid).animate({scrollTop: $("#"+popid).prop('scrollHeight')},1000);
+    }
     function savePaidStatus(lid){
         var aData = (
           {
