@@ -276,7 +276,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                     <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
                                 </td>
                                 <td style="padding-left:0.5em;">
-                                    <?=($oi['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['SzallitasVarhatoDatuma']?></span>
+                                    <?=($og['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($og['Statusz'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$og['SzallitasVarhatoDatuma']?></span>
                                 </td>
                             </tr>
                             <tr>
@@ -292,39 +292,58 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     </td>
 <?php } ?>
 <?php if($paymentON){ ?>
-                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))">
+                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))"  style="white-space: nowrap;">
 
 
-                        <div id="div_fs_<?=$og['ID']?>" style="display:none;color:#000;">
+                        <template id="div_fs_<?=$og['ID']?>" style="color:#000;">
+
                             <?php
                             foreach(array_keys(F_S_SZINEK) as $fs){
-                                if($fs == $og['FizetesStatusza']){continue;}
                                 ?>
                                 <p style="color:#000;">
-                                    Új&nbsp;státusz:&nbsp;<button type='button' class='btn btn-xs btn-primary' style="background:<?=F_S_SZINEK[$fs][0]?>;border-color:<?=F_S_SZINEK[$fs][0]?>;" onclick='if(confirm("Fizetési státusz módosítása erre: <?=$fs?>")){savePaidStatus(<?=$og['ID']?>,"<?=$fs?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'><i class="fa fa-<?=F_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></button>
-
+                                    <label><input type="radio" name="fizst_rad_<?=$og['ID']?>" value="<?=$fs?>" <?=($fs == $og['FizetesStatusza'] ? 'checked="checked"':'')?>>&nbsp;
+                                    <span class='label ' style="background:<?=F_S_SZINEK[$fs][0]?>;border-color:<?=F_S_SZINEK[$fs][0]?>;" ><i class="fa fa-<?=F_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></span></label>
                                 </p>
-                                <?php
-                                if($fs == F_S_FIZETVE){ ?>
-                                  <label style="color:#000;">Fizetés&nbsp;dátuma:</label>
-                                    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd" style="width:10em;">
-                                      <input class="form-control" name="fizetes_datuma_<?=$og['ID']?>" id="datum_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d')?>">
-                                      <div class="input-group-addon">
-                                          <span class="glyphicon glyphicon-th"></span>
-                                      </div>
-                                    </div>
-                                  <?php
-                                }
-                            }
-                            ?>
-                        </div>
-                        <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="<span style='color:#000'>Sátusz módosítása</span>" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
-                            <i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i>
-                        </a>
-                        <p>
-                          <b>H:&nbsp;</b><?=$og['FizetesiHatarido']?><br />
-                          <b>T:&nbsp;</b><?=$og['FizetesDatuma']?><br />
-                        </p>
+                          <?php } ?>
+
+                          <label style="color:#000;">Fizetési&nbsp;határidő:</label>
+                            <div class="input-group date" data-provide="datepicker" id="fhatarido_<?=$og['ID']?>" data-date-format="yyyy-mm-dd" style="width:10em;">
+                              <input class="form-control" name="fihatarido_<?=$og['ID']?>" id="fihatarido_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$og['FizetesiHatarido']?>">
+                              <div class="input-group-addon">
+                                  <span class="glyphicon glyphicon-th"></span>
+                              </div>
+                            </div>
+                            <label style="color:#000;">Fizetés&nbsp;dátuma:</label>
+                              <div class="input-group date" data-provide="datepicker" id="fdatum_<?=$og['ID']?>" data-date-format="yyyy-mm-dd" style="width:10em;">
+                                <input class="form-control" name="fidatum_<?=$og['ID']?>" id="fidatum_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$og['FizetesDatuma']?>" >
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                              </div>
+                              <div style="margin-top:0.5em;">
+                                <button class="btn btn-sm btn-success" onclick='if(confirm("Menti a változásokat?")){savePaidStatus(<?=$og['ID']?>)};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>Mentés</button>
+                                <button class="btn btn-sm btn-danger" onclick='$("#tr_<?=$og['ID']?>").removeClass("highlight");$(".popover").popover("hide");'>Mégsem</button>
+                              </div>
+                        </template>
+
+                        <table class="orderItems">
+                            <tr>
+                                <td rowspan="2">
+                                  <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="<span style='color:#000'>Sátusz módosítása</span>" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;font-size:100%;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
+                                      <i class="fa fa-<?=F_S_SZINEK[$og['FizetesStatusza']][1]?> fa-fw"></i>
+                                  </a>
+                                </td>
+                                <td style="padding-left:0.5em;">
+                                  <?=($og['FizetesiHatarido'] <= date('Y-m-d') && $og['FizetesStatusza']==F_S_FIZETESRE_VAR ? '<span style="color:red;"><b>H:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>H:</b>&nbsp;').$og['FizetesiHatarido']?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td  style="padding-left:0.5em;">
+                                <?=($og['FizetesDatuma'] > $og['FizetesiHatarido'] && $og['FizetesStatusza']==F_S_FIZETVE ? '<span style="color:red;"><b>T:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>T:</b>&nbsp;').$og['FizetesDatuma']?></span>
+                              </td>
+                            </tr>
+                        </table>
+
                     </td>
                         <script>
                             $("#fs_<?=$og['ID']?>").popover({
@@ -336,21 +355,6 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                 }
                             }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
 
-                            function savePaidStatus(lid, nst){
-
-                                $.ajax({
-                                    type: "POST",
-                                    dataType: "html",
-                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_paid.php",
-                                    data: ({'ID':lid, 'Statusz':nst, 'Datum': $("#datum_<?=$og['ID']?>").val()}),
-                                    success: function(data){
-                                        location.reload();
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                        alert("Hiba!")
-                                    }
-                                });
-                            }
                         </script>
 
 
@@ -383,6 +387,31 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
     </table>
 
     <script>
+
+    function savePaidStatus(lid){
+        var aData = (
+          {
+            'ID':lid,
+            'Statusz':$("input[name=fizst_rad_"+lid+"]:checked").val(),
+            'Datum': $("#fidatum_"+lid).val(  ),
+            'Hatarido': $("#fihatarido_"+lid).val( )
+          }
+        );
+        console.log(aData);
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_paid.php",
+            data: aData,
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+
         $(document).ready(function () {
             $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,

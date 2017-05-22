@@ -155,9 +155,11 @@ function orderStatusUpdate($id, $st){
     $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
 }
 
-function orderPaidStatusUpdate($id, $st, $datum){
+function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     global $db;
-    $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum], ['ID'=>$id]);
+    if($datum == ''){$datum = null;}
+    if($hatarido == ''){$hatarido = null;}
+    $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum, 'FizetesiHatarido'=>$hatarido], ['ID'=>$id]);
 }
 
 function orderShippingStatusUpdate($id, $st){
