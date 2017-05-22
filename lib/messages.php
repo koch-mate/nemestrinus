@@ -21,7 +21,9 @@ function testMsg(){
 }
 
 function renderMessages($_m){
+    if (trim($_m) == '') return;
     $msg = unserialize($_m);
+
     foreach($msg as $m){
         ?>
         <p><b><?=$m['d']?> - <?=getUserFullName($m['u'])?>:</b> <?=$m['m']?></p>
@@ -65,7 +67,7 @@ function newMessage($tabla, $id){
                     alert("Hiba a rögzítés során!");
                     $("#renderMessages").removeClass('loadMsg');
                 }
-            });            
+            });
         }
         function loadMessages(){
             $('#renderMessages').load("<?=SERVER_PROTOCOL.SERVER_URL?>ajax/render_messages.php?table=<?=$tabla?>&id=<?=$id?>");
@@ -116,13 +118,13 @@ function recordNewMessage($msg, $tabla, $id){
         catch (Exception $e) {
             $cmsg = [];
         }
-        
+
         $cmsg[] = [
             'u' => $_SESSION['userName'],
             'd' => date('Y-m-d H:i:s'),
             'm' => $msg
         ];
-        
+
         $db->update($tabla, ['Megjegyzes' => $cmsg], ['ID'=>$id]);
     }
 }
