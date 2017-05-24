@@ -498,4 +498,9 @@ const GYARTASI_IDO = [
   ],
 ];
 
+// varhato szallitasi ido
+const SZALLITASI_IDO = [
+  M_EXPORT => 10,
+  M_LAKOSSAGI => 7
+]
 ?>

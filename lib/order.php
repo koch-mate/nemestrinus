@@ -2,6 +2,12 @@
 
 function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
+    $cmsg = [[
+        'u' => $_SESSION['userName'],
+        'd' => date('Y-m-d H:i:s'),
+        'm' => $megjegyzes
+    ]];
+
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
         'KertDatum' => $teljesitesDatum,
@@ -13,7 +19,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'Vegosszeg' => $ar,
         'Penznem' => P_FORINT,
         'Fuvardij' => $szall_ktsg,
-        'Megjegyzes' => $megjegyzes,
+        'Megjegyzes' => $cmsg,
         'MegrendeloNev' => $megrendelo_nev,
         'MegrendeloCim' => $megrendelo_cim,
         'MegrendeloTel' => $megrendelo_tel,
@@ -37,7 +43,8 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
             'Ar' => $o->ar,
             'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
             'GyartasDatuma' => null,
-            'GyartasVarhatoDatuma' => null
+            'GyartasVarhatoDatuma' => null,
+            'GyartasSzamitottDatuma' => orderCalculateManufacturingDate(M_LAKOSSAGI, $o->nedv, $teljesitesDatum)
 
         ]);
     }
@@ -46,6 +53,12 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
 
 function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
+    $cmsg = [[
+        'u' => $_SESSION['userName'],
+        'd' => date('Y-m-d H:i:s'),
+        'm' => $megjegyzes
+    ]];
+
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
         'KertDatum' => $teljesitesDatum,
@@ -60,7 +73,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
         'FizetesStatusza' => F_S_FIZETESRE_VAR,
         'FizetesiHatarido' => $fizhat,
         'Fuvardij' => $szall_ktsg,
-        'Megjegyzes' => $megjegyzes,
+        'Megjegyzes' => $cmsg,
     ]);
 
     foreach(json_decode($order_json) as $o){
@@ -76,10 +89,15 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
             'Ar' => $o->ar,
             'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
             'GyartasDatuma' => null,
-            'GyartasVarhatoDatuma' => null
+            'GyartasVarhatoDatuma' => null,
+            'GyartasSzamitottDatuma' => orderCalculateManufacturingDate(M_EXPORT, $o->nedv, $teljesitesDatum)
         ]);
     }
     return $new_id;
+}
+
+function orderCalculateManufacturingDate($type, $moist, $expDate){
+  return date("Y-m-d", strtotime(date("Y-m-d")." -".(GYARTASI_IDO[$type][$moist]+SZALLITASI_IDO[$type])." days"));
 }
 
 function ordersGetAllData($filters = []){
@@ -128,7 +146,7 @@ function orderGetByID($id){
 }
 function ordersGetItemsByID($id){
     global $db;
-    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasVarhatoDatuma', 'Ar'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
+    return $db->select('megrendeles_tetel', ['ID', 'Fafaj', 'Hossz', 'Huratmero', 'Csomagolas', 'Mennyiseg', 'MennyisegStd', 'Nedvesseg', 'GyartasStatusza', 'GyartasDatuma', 'GyartasSzamitottDatuma', 'GyartasVarhatoDatuma', 'Ar'], ['AND' => ['Deleted'=>0, 'MegrendelesID'=>$id]]);
 }
 
 function orderFullPrice($id){

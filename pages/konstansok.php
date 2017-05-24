@@ -77,3 +77,28 @@
       }?>
     </tbody>
 </table>
+
+
+<h1>Alapértelmezett szállítási idők</h1>
+<table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th><span class="glyphicon glyphicon-home"></span>&nbsp;Lakossági</th>
+        <th><span class="glyphicon glyphicon-globe"></span>&nbsp;Export</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <th>
+            Bármilyen megrendelésre
+          </th>
+          <td>
+            <?=rnd(SZALLITASI_IDO[M_LAKOSSAGI]/7)?>&nbsp;hét&nbsp;(<?=SZALLITASI_IDO[M_LAKOSSAGI]?>&nbsp;nap)
+          </td>
+          <td>
+            <?=rnd(SZALLITASI_IDO[M_EXPORT]/7)?>&nbsp;hét&nbsp;(<?=SZALLITASI_IDO[M_EXPORT]?>&nbsp;nap)
+          </td>
+        </tr>
+    </tbody>
+</table>

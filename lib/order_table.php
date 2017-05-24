@@ -262,6 +262,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
                                     <td></td>
+                                    <td><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?></span></td>
                                     <td><?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span></td>
                                     <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
                                 </tr>
@@ -386,10 +387,10 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     <td>
 <?php if($editButtonON){?>
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#editorWin" data-id="<?=$og['ID']?>">
-  <span class="glyphicon glyphicon-menu-hamburger"></span>
+  <span class="glyphicon glyphicon-cog"></span>
 </button>
 <?php } ?>
-<?php if($trashButtonON){?>
+<?php if($trashButtonON && $og['Statusz'] == M_S_FELDOLGOZAS_ALATT){?>
 <button type="button" class="btn btn-danger btn-sm" onclick="deleteOrder(<?=$og['ID']?>);" >
   <span class="glyphicon glyphicon-trash" ></span>
 </button>
