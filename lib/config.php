@@ -33,6 +33,9 @@ const DB_DATA = (DEBUG ? LOCAL_DB : DEPLOY_DB);
 const SERVER_URL = "localhost/";
 const SERVER_PROTOCOL = "http://";
 
+const MAIL_FROM = 'no-reply@ihartu.hu';
+const MAIL_NAME = 'Ihartu Kft. Automated Mailer';
+
 // logout after SESSION_TIMEOUT seconds of inactivity
 const SESSION_TIMEOUT = DEBUG ? 3000 : 300;
 

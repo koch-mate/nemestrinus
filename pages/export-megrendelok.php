@@ -4,7 +4,7 @@ if(isset($_GET['deluser'])){
     // delete user
     $user = exportCustomerGetNameById($_GET['deluser']);
     exportCustomerDelete($_GET['deluser']);
-    logEv(LOG_EVENT['del_export_customer'].' ('.$user.')', null, null);    
+    logEv(LOG_EVENT['del_export_customer'].' ('.$user.')', null, null);
     $succMessage = 'A(z) <em>'.$user.'</em> megrendelő törölve.';
 }
 if(isset($_GET['actuser'])){
@@ -12,7 +12,22 @@ if(isset($_GET['actuser'])){
     $user = exportCustomerGetNameById($_GET['actuser']);
     exportCustomerStatusToggle($_GET['actuser']);
     logEv(LOG_EVENT['status_export_customer'].' ('.$user.'):', null, (exportCustomerGetStatus($user) ? 'aktív':'inaktív'));
-    $succMessage = 'A(z) <em>'.$user.'</em> megrendelő státusza módosult.';    
+    $succMessage = 'A(z) <em>'.$user.'</em> megrendelő státusza módosult.';
+}
+
+if(isset($_GET['jelszoemelezteto'])){
+  // send password reminder
+  $user = $_GET['jelszoemelezteto'];
+  $dd = getExportCustomerDataById($user)[0];
+  $dat = [
+    'password' => $dd['Jelszo'],
+    'userName' => $dd['Email'],
+    'link'     => SERVER_PROTOCOL.SERVER_URL
+  ];
+  sendEmail($to=$d['Email'], $toName=$dd['MegrendeloNev'], $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+  logEv(LOG_EVENT['passwd_notify_export_customer'].' ('.$dd['MegrendeloNev'].')');
+  $succMessage = 'A(z) <em>'.$dd['MegrendeloNev'].'</em> felhasználó számára emlékeztetőt küdtünk.';
+
 }
 
 if(!empty($_POST['cegnev'])){
@@ -65,9 +80,9 @@ if(!empty($_POST['cegnev'])){
             $_POST['pass'],
             $_POST['bill_address'],
             $_POST['ship_address'],($_POST['state'] ? 'aktív':'inaktív')]));
-        
+
     }
-    
+
 }
     include('lib/popups.php');
 
@@ -125,8 +140,8 @@ if(!empty($_POST['cegnev'])){
                         <?=$i['SzamlazasiCim']?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-xs btn-primary">Emlékeztető
-                            <br>küldése</button>
+                      <a href="?mode=export-megrendelok&jelszoemelezteto=<?=$i['ID']?>" class="btn btn-xs btn-primary">Emlékeztető
+                          <br>küldése</a>
                     </td>
                     <td>
                         <?=$i['RegisztraltDatum']?>
@@ -199,7 +214,7 @@ if(!empty($_POST['cegnev'])){
         });
     </script>
 
-    <?php 
+    <?php
 // check if we are in edit mode
 if(isset($_GET['szerk'])){
     $ud = getExportCustomerDataById($_GET['szerk'])[0];
