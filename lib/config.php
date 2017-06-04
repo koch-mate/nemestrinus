@@ -90,7 +90,7 @@ const MENU_STRUCT = [
         'beszallitas-fuggo'
     ],
     'alapanyag'         => [
-        'alapanyag'=>[ 'keszlet-osszesito' ], 
+        'alapanyag'=>[ 'keszlet-osszesito' ],
         'faanyag' => [ 'faanyag-keszlet','faanyag-keszletmozgas', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'],
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-keszletmozgas', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio']
     ],
@@ -421,6 +421,11 @@ const M_S_AKTIV = [
     M_S_VARAKOZIK,
 ];
 
+const M_S_GYARTHATO = [
+  M_S_ELFOGADVA,
+  M_S_VARAKOZIK,
+];
+
 const M_S_LEZART = [
     M_S_TELJESITVE,
     M_S_VISSZAUTASITVA,
@@ -493,4 +498,9 @@ const GYARTASI_IDO = [
   ],
 ];
 
+// varhato szallitasi ido
+const SZALLITASI_IDO = [
+  M_EXPORT => 10,
+  M_LAKOSSAGI => 7
+]
 ?>

@@ -19,5 +19,5 @@ Hibás autentikáció.
 <?php
 }
 else {
-    orderPaidStatusUpdate($_POST['ID'],$_POST['Statusz']);
+    orderPaidStatusUpdate($_POST['ID'],$_POST['Statusz'],$_POST['Datum'],$_POST['Hatarido']);
 } ?>

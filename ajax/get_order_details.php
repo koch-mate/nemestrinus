@@ -14,7 +14,7 @@ require_once("../lib/messages.php");
 
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['ID'])){
-    
+
 }
 else {
     $dat = orderGetByID($_POST['ID']);
@@ -65,13 +65,13 @@ else {
               <tr>
                   <th>Tételek</th>
                   <td>
-                      <table class="orderItems" style="font-size:100%; " >
+                      <table class="orderItems" style="font-size:100%; vertical-align:bottom;" >
                             <?php foreach($dat['items'] as $oi){ ?>
                                 <tr onclick="showRow('<?=$oi['ID']?>');" style="height:4em; cursor:pointer;">
                                     <td rowspan="3" class="selectCell" id="selectCell_<?=$oi['ID']?>" style="padding:0 0.8em 0 0;"></td>
                                     <td rowspan="3" style="padding:0 0.8em 0 0;"></td>
-                                    <td colspan="8">                                        
-                                        <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><b>ID</b>-<?=$oi['ID']?>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i>&nbsp<?=$oi['GyartasStatusza']?></span> 
+                                    <td colspan="8">
+                                        <span class="label" title="<?=$oi['GyartasStatusza']?>" style="font-size:100%;background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><b>ID</b>-<?=$oi['ID']?>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i>&nbsp<?=$oi['GyartasStatusza']?></span>
                                     </td>
                                 </tr>
                                 <tr  >
@@ -98,7 +98,9 @@ else {
                                     <td style="padding-right:0.8em;">
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
-                                    <td><?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span></td>
+                                    <td>
+                                      <?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?></span><br />
+                                      <?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span></td>
                                     <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
                                 </tr>
                                 <tr id="editSor<?=$oi['ID']?>" class="editSor" style="display:none;">
@@ -108,17 +110,17 @@ else {
                                             foreach(GY_S_STATUSZOK as $gys){
                                                 ?>
                                                 <li class="smallpills <?=$gys == $oi['GyartasStatusza']?'active':''?>" role="presentation" onclick="saveNewState(<?=$oi['ID']?>, <?=$og['ID']?>, '<?=$gys?>');<?=$gys == GY_S_LEGYARTVA ? 'loadTabla('.$oi['ID'].');' : ''?>" ><a role="tab" href="#tab_<?=GY_S_SZINEK[$gys][2]?>_<?=$oi['ID']?>" data-toggle="tab" ><span style="background:<?=GY_S_SZINEK[$gys][0]?>;display:inline-block;width:1em;border-radius:4px;box-shadow:0px 0px 4px #fff;">&nbsp;</span>&nbsp;<i class="fa fa-<?=GY_S_SZINEK[$gys][1]?> fa-fw"></i>&nbsp;<?=$gys?></a></li>
-                                            
+
                                             <?php
                                             }
                                             ?>
-                                         
+
                                         </ul>
 
                                         <div class="tab-content">
                                           <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_VISSZAIGAZOLASRA_VAR ? ' in active':''?>" id="tab_vv_<?=$oi['ID']?>"></div>
-                                                
-                                            
+
+
                                           <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_GYARTASRA_VAR ? ' in active':''?>"  id="tab_gyv_<?=$oi['ID']?>">
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" >Gyártás várható dátuma: </label>
@@ -131,9 +133,9 @@ else {
                                                     </div>
                                                 </div>
                                             </div>
-                                              
+
                                           </div>
-                                            
+
                                           <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_LEGYARTVA ? ' in active':''?>"  id="tab_l_<?=$oi['ID']?>">
                                           <div class="form-group" >
                                                 <label class="col-md-4 control-label" >Gyártás tényleges dátuma: </label>
@@ -156,14 +158,14 @@ else {
                                               </div>
 
                                         </div>
-                                            
-                                            
-                                            
-                                            
+
+
+
+
                                           <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_VISSZAUTASITVA ? ' in active':''?>" id="tab_v_<?=$oi['ID']?>"></div>
-                                            
-                                            
-                                            
+
+
+
                                         </div>
 
                                     </td>

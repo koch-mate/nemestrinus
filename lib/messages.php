@@ -20,8 +20,17 @@ function testMsg(){
     return (serialize($testMessage));
 }
 
-function renderMessages($_m){
+function renderMessages($_m, $desc = false){
+    if (trim($_m) == ''){ ?>
+      <p>
+      <i style="color:#999;">Nincs még üzenet</i>
+      </p>
+      <?php return;
+    }
     $msg = unserialize($_m);
+    if($desc){
+      $msg = array_reverse($msg);
+    }
     foreach($msg as $m){
         ?>
         <p><b><?=$m['d']?> - <?=getUserFullName($m['u'])?>:</b> <?=$m['m']?></p>
@@ -29,7 +38,7 @@ function renderMessages($_m){
     }
 }
 
-function newMessage($tabla, $id){
+function newMessage($tabla, $id, $msgDivID="renderMessages", $callback = ''){
     ?>
         <button type="button" class="btn btn-primary " onclick="$(this).hide();$('#msg_new').fadeIn()">Új üzenet</button>
         <div id="msg_new" style="display:none;">
@@ -56,19 +65,19 @@ function newMessage($tabla, $id){
                 success: function(data){
                     // reload messages
                     loadMessages();
-                    $("#renderMessages").removeClass('loadMsg');
+                    $("#<?=$msgDivID?>").removeClass('loadMsg');
                     // clear textarea
                     $('#new_msg_text').val('');
-
+                    <?=$callback.';'?>
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert("Hiba a rögzítés során!");
-                    $("#renderMessages").removeClass('loadMsg');
+                    $("#<?=$msgDivID?>").removeClass('loadMsg');
                 }
-            });            
+            });
         }
         function loadMessages(){
-            $('#renderMessages').load("<?=SERVER_PROTOCOL.SERVER_URL?>ajax/render_messages.php?table=<?=$tabla?>&id=<?=$id?>");
+            $('#<?=$msgDivID?>').load("<?=SERVER_PROTOCOL.SERVER_URL?>ajax/render_messages.php?table=<?=$tabla?>&id=<?=$id?>");
         }
         </script>
     <?php
@@ -116,13 +125,13 @@ function recordNewMessage($msg, $tabla, $id){
         catch (Exception $e) {
             $cmsg = [];
         }
-        
+
         $cmsg[] = [
             'u' => $_SESSION['userName'],
             'd' => date('Y-m-d H:i:s'),
             'm' => $msg
         ];
-        
+
         $db->update($tabla, ['Megjegyzes' => $cmsg], ['ID'=>$id]);
     }
 }

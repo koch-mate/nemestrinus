@@ -24,7 +24,7 @@
                     foreach(array_keys($tnev) as $tn){
                     ?>
                     <div class="form-group">
-                        <input type="checkbox" name="<?=$tn?>" id="<?=$tn?>_picker" value="on" data-size="mini" <?=($_GET[$tn]=='on'?'checked':'')?> >
+                        <input type="checkbox" name="<?=$tn?>" id="<?=$tn?>_picker" value="on" data-size="mini" <?=(isset($_GET[$tn])&&$_GET[$tn]=='on'?'checked':'')?> >
                         <script>
                         $(function() {
                             $('#<?=$tn?>_picker').bootstrapToggle({
@@ -53,7 +53,7 @@
                     </div>
                     <?php } ?>
                     <div class="form-group">
-                        <input type="checkbox" name="tip" id="tip_picker" value="on" data-size="mini" <?=($_GET['tip']=='on'?'checked':'')?> >
+                        <input type="checkbox" name="tip" id="tip_picker" value="on" data-size="mini" <?=(isset($_GET['tip']) && $_GET['tip']=='on'?'checked':'')?> >
                         <script>
                         $(function() {
                             $('#tip_picker').bootstrapToggle({
@@ -66,11 +66,11 @@
                         </script>
                         <label style="width: 15em;">Típus</label>
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default <?=($_GET['lak'] || empty($_GET['tip'])=='on'?'active':'')?>">
+                              <label class="btn btn-default <?=((isset($_GET['lak']) && $_GET['lak']) || empty($_GET['tip'])=='on'?'active':'')?>">
                                 <input type="checkbox" autocomplete="off" name="lak" value="on" <?=($_GET['lak']=='on' || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-home"></span> Lakossági
                               </label>
-                              <label class="btn btn-default <?=($_GET['ex'] || empty($_GET['tip'])=='on'?'active':'')?>">
-                                <input type="checkbox" autocomplete="off" name="ex" value="on" <?=($_GET['ex']=='on' || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-globe"></span> Export
+                              <label class="btn btn-default <?=((isset($_GET['ex']) && $_GET['ex']) || empty($_GET['tip'])=='on'?'active':'')?>">
+                                <input type="checkbox" autocomplete="off" name="ex" value="on" <?=((isset($_GET['ex']) && $_GET['ex']=='on') || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-globe"></span> Export
                               </label>
                             </div>
                         </div>
@@ -113,13 +113,13 @@
 require("lib/order_table.php");
 
 $f = [];
-if($_GET['md'] == 'on'){
+if(isset($_GET['md'] ) && $_GET['md'] == 'on'){
     $f['RogzitesDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['mdm1'],1, $_GET['mdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['mdm2'])+1,0, $_GET['mdy2']))];
 }
-if($_GET['td'] == 'on'){
+if(isset($_GET['td']) && $_GET['td'] == 'on'){
     $f['KertDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['tdm1'],1, $_GET['tdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['tdm2'])+1,0, $_GET['tdy2']))];
 }
-if($_GET['tip'] == 'on'){
+if(isset($_GET['tip']) && $_GET['tip'] == 'on'){
     $f['Tipus'] = [];
     if($_GET['lak'] == 'on'){
         $f['Tipus'][] = M_LAKOSSAGI;
