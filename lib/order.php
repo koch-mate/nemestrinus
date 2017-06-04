@@ -110,9 +110,9 @@ function ordersGetAllData($filters = []){
       if($filters['Statuszok'] == 'gyarthato'){
           $where['Statusz'] = M_S_GYARTHATO;
       }
-        if($filters['Statuszok'] == 'lezart'){
-            $where['Statusz'] = M_S_LEZART;
-        }
+      if($filters['Statuszok'] == 'lezart'){
+          $where['Statusz'] = M_S_LEZART;
+      }
 
     }
     if(array_key_exists('RogzitesDatum', $filters)){
@@ -129,7 +129,7 @@ function ordersGetAllData($filters = []){
         $where = [ 'ID' => $filters['ID'] ];
     }
 
-    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas'], ['AND' =>$where]));
+    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas','SzallitolevelSzam','CMR','EKAER','Fuvarozo'], ['AND' =>$where]));
 }
 
 function orderGetIDByOrderLineID($id){
@@ -180,9 +180,9 @@ function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum, 'FizetesiHatarido'=>$hatarido], ['ID'=>$id]);
 }
 
-function orderShippingStatusUpdate($id, $st){
+function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
     global $db;
-    $db->update('megrendeles', ['SzallitasStatusza'=>$st], ['ID'=>$id]);
+    $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
 }
 
 
