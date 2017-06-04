@@ -198,9 +198,13 @@ function orderGetCompletedSumByType($tipus, $forg){
 
 function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){
     global $db;
+    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'GyartasSzamitottDatuma[<>]'=>[$from,$to]]]));
     // adott honapig tarto megrendelesek
+    // regi, hibas szamolas, mert csak az elvart datumot veszi figyelembe, a szamitott datumot nem
+    /*
     $mids = $db->select('megrendeles', 'ID', ['AND' => ['Deleted'=>0, 'KertDatum[<>]'=>[$from,$to]]]);
     return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'MegrendelesID'=>$mids]]));
+    */
 }
 
 function orderLineDateUpdate($id, $datum, $tipus){

@@ -262,7 +262,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                         <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
                                     </td>
                                     <td></td>
-                                    <td><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?></span></td>
+                                    <td><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span></td>
                                     <td><?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span></td>
                                     <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
                                 </tr>
