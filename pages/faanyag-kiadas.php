@@ -2,7 +2,7 @@
 
 if(!empty($_POST['cmennyiseg'])){
     woodAdd($_POST['fatipus'], -$_POST['cmennyiseg'], null, $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_KIADAS, $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'],$faanyagID=$_POST['refID']);
-    logEv(LOG_EVENT['wood_sell'].':',null,implode(', ',[FATIPUSOK[$_POST['fatipus']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['szlaszam'], $_POST['datum']]));
+    logEv(LOG_EVENT['wood_sell'].':',null,implode(', ',['RefID: '.$_POST['refID'],FATIPUSOK[$_POST['fatipus']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['szlaszam'], $_POST['datum']]));
     $succMessage = "Rögzítve.";
 }
 

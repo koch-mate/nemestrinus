@@ -271,7 +271,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     </td>
 <?php if($shippingON){ ?>
                     <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))">
-                        <table class="orderItems">
+                      <table style="font-size:80%;">
                             <tr>
                                 <td rowspan="2">
                                     <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>

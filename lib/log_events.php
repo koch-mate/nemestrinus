@@ -1,8 +1,9 @@
 <?php
 
 const LOG_EVENT = [
-    'login' => 'Bejelentkezés: ',
+    'login' => 'Bejelentkezés',
     'bad_password'  => 'Hibás jelszó megadás',
+    'timeout'       => 'Lejárt a biztonsági időkorlát',
 
     'new_user'      => 'Új felhasználó létrehozása',
     'update_user'   => 'Felhasználó adatainak módosítása',
@@ -31,6 +32,18 @@ const LOG_EVENT = [
     'order_residental_add' => 'Lakossági megrendelés felvétele',
 
     'order_export_add' => 'Export megrendelés felvétele',
+
+    'order_add_message' => 'Új üzenet a megrendeléshez',
+
+    'order_status_update' => 'Megrendelés státusza',
+    'order_delete' => 'Megrendelés törlése',
+    'order_paid_status_update' => 'Megrendelés fizetési adatai',
+    'order_shipping_status_update' => 'Megrendelés szállítási adatai',
+
+    'order_item_status_update' => 'Megrendelés elem státusza',
+    'order_item_prod_date' => 'Megrendelés elem gyártás dátuma',
+    'order_item_add_wood' => 'Megrendelés elem faanyag felhasználás felvétele',
+    'order_item_del_wood' => 'Megrendelés elem faanyag felhasználás törlése',
 ];
 
 

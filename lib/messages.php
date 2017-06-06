@@ -1,5 +1,4 @@
 <?php
-
 function getMsg($tabla, $id){
     global $db;
     return $db->get($tabla, 'Megjegyzes', ['ID'=> $id]);
@@ -133,6 +132,8 @@ function recordNewMessage($msg, $tabla, $id){
         ];
 
         $db->update($tabla, ['Megjegyzes' => $cmsg], ['ID'=>$id]);
+        logEv(LOG_EVENT['order_add_message'].':',null,implode(', ',['ID: '.$id, $msg]));
+
     }
 }
 
