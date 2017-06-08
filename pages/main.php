@@ -16,6 +16,8 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 06. 04.</span> <span class="label label-success">Új funkció</span> Szállítás státuszának és egyéb adatainak kezelése</p>
+    <p><span class="label label-default">2017. 06. 04.</span> <span class="label label-success">Új funkció</span> Jelszóemlékeztető küldése</p>
     <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új funkció</span> Árlistás árak kalkulációja lakossági megrendelésekhez</p>
     <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszletmozgas">Csomagolóanyag készletmozgás </a></p>
     <p><span class="label label-default">2017. 05. 21.</span> <span class="label label-success">Új modul</span> <a href="?mode=csomagoloanyag-keszlet">Csomagolóanyag raktárkészlet </a></p>

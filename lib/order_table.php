@@ -1,5 +1,5 @@
 <?php
-function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false){
+function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false){
 ?>
 <style>
     div.dataTables_scrollBody {
@@ -36,7 +36,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                 <th style="vertical-align:bottom;">Ígért teljesítés dátuma</th>
                 <th style="vertical-align:bottom;">Megrendelés státusza</th>
                 <th style="vertical-align:bottom;">Tétel(ek)</th>
-<?php if($shippingON){ ?>
+<?php if($shippingON || $shippingEditON){ ?>
                 <th style="vertical-align:bottom;">Szállítás</th>
 <?php } ?>
 <?php if($priceON){ ?>
@@ -271,21 +271,136 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     </td>
 <?php if($shippingON){ ?>
                     <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))">
-                        <table class="orderItems">
+                      <table style="font-size:80%;">
                             <tr>
                                 <td rowspan="2">
                                     <span class="label" title="<?=$og['SzallitasStatusza']?>" style="font-size:100%;background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;"><i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i></span>
                                 </td>
                                 <td style="padding-left:0.5em;">
                                     <?=($og['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($og['Statusz'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$og['SzallitasVarhatoDatuma']?></span>
+
                                 </td>
                             </tr>
                             <tr>
-                                <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?></td>
+                                <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?><br />
+                                <b>Szlsz:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
+                                <b>CMR/EKAER:&nbsp;</b><?=$og['CMR']?>/<?=$og['EKAER']?><br />
+                                <b>Fuvarozó:&nbsp;</b><?=$og['Fuvarozo']?></td>
                             </tr>
                         </table>
                     </td>
 <?php } ?>
+<?php if($shippingEditON){ ?>
+                    <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))"  style="white-space: nowrap; width:20em;">
+                        <template id="div_szs_<?=$og['ID']?>" style="color:#000;">
+                          <div style="width:20em;">
+
+                            <?php
+                            foreach(array_keys(SZ_S_SZINEK) as $fs){
+                              if($og['SzallitasStatusza'] == SZ_S_GYARTAS_ALATT && $fs != SZ_S_GYARTAS_ALATT){
+                                continue;
+                              }
+                              if($og['SzallitasStatusza'] != SZ_S_GYARTAS_ALATT && $fs == SZ_S_GYARTAS_ALATT){
+                                continue;
+                              }
+
+                                ?>
+                                <p style="color:#000;">
+                                    <label><input type="radio" name="szst_rad_<?=$og['ID']?>" value="<?=$fs?>" <?=($fs == $og['SzallitasStatusza'] ? 'checked="checked"':'')?>>&nbsp;
+                                    <span class='label ' style="background:<?=SZ_S_SZINEK[$fs][0]?>;border-color:<?=SZ_S_SZINEK[$fs][0]?>;" ><i class="fa fa-<?=SZ_S_SZINEK[$fs][1]?> fa-fw" ></i><?=$fs?></span></label>
+                                </p>
+                          <?php } ?>
+                          <div class="form-group">
+                            <label style="color:#000;">Szállítás&nbsp;várható&nbsp;dátuma:</label>
+                              <div class="input-group date" data-provide="datepicker" id="szhatarido_<?=$og['ID']?>" data-date-format="yyyy-mm-dd" style="width:10em;">
+                                <input class="form-control" name="szihatarido_<?=$og['ID']?>" id="szihatarido_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$og['SzallitasVarhatoDatuma']?>">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                              </div>
+
+                          </div>
+                          <div class="form-group">
+                            <label style="color:#000;">Szállítás&nbsp;tényleges&nbsp;dátuma:</label>
+                              <div class="input-group date" data-provide="datepicker" id="szdatum_<?=$og['ID']?>" data-date-format="yyyy-mm-dd" style="width:10em;">
+                                <input class="form-control" name="szidatum_<?=$og['ID']?>" id="szidatum_<?=$og['ID']?>" type="dateISO" required placeholder="éééé-hh-nn" value="<?=$og['SzallitasTenylegesDatuma']?>" >
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                              </div>
+
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label" style="color:#000;">Szállítólevél szám:</label>
+                              <div style="width:10em;">
+                                <input class="form-control input-md" name="szszlev_<?=$og['ID']?>" id="szszlev_<?=$og['ID']?>"   value="<?=$og['SzallitolevelSzam']?>" >
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label style="color:#000;">CMR:</label>
+                                <div  style="width:10em;">
+                                  <input class="form-control input-md" name="szcmr_<?=$og['ID']?>" id="szcmr_<?=$og['ID']?>"  value="<?=$og['CMR']?>" >
+                                </div>
+                          </div>
+                          <div class="form-group">
+                            <label style="color:#000;">EKAER:</label>
+                              <div    style="width:10em;">
+                                <input class="form-control input-md" name="szekaer_<?=$og['ID']?>" id="szekaer_<?=$og['ID']?>"  value="<?=$og['EKAER']?>" >
+                              </div>
+                            </div>
+                            <div class="form-group">
+
+                              <label style="color:#000;">Fuvarozó:</label>
+                                <div    style="width:10em;">
+                                  <input class="form-control input-md" name="szfuvarozo_<?=$og['ID']?>" id="szfuvarozo_<?=$og['ID']?>"  value="<?=$og['Fuvarozo']?>" >
+                                </div>
+
+                          </div>
+
+                              <div style="margin-top:0.5em;">
+                                <button class="btn btn-sm btn-success" onclick='if(confirm("Menti a változásokat?")){saveShippingStatus(<?=$og['ID']?>)};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>Mentés</button>
+                                <button class="btn btn-sm btn-danger" onclick='$("#tr_<?=$og['ID']?>").removeClass("highlight");$(".popover").popover("hide");'>Mégsem</button>
+                              </div>
+                            </div>
+                        </template>
+                        <table style="font-size:80%;">
+                            <tr>
+                                <td rowspan="2">
+                                  <a tabindex="1" data-toggle="popover" id="szs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="<span style='color:#000'>Sátusz módosítása</span>" style="background:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;border-color:<?=SZ_S_SZINEK[$og['SzallitasStatusza']][0]?>;font-weight:bold;font-size:100%;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
+                                    <i class="fa fa-<?=SZ_S_SZINEK[$og['SzallitasStatusza']][1]?> fa-fw"></i>
+                                </a>
+
+                                </td>
+                                <td style="padding-left:0.5em;">
+                                    <?=($og['SzallitasVarhatoDatuma'] <= date('Y-m-d') && in_array($og['Statusz'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$og['SzallitasVarhatoDatuma']?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?>
+                                  <br />
+                                  <b>Szlsz.:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
+                                  <b>CMR/EKAER:&nbsp;</b><?=$og['CMR']?>/<?=$og['EKAER']?><br />
+                                  <b>Fuvarozó:&nbsp;</b><?=$og['Fuvarozo']?>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                        <script>
+                            $("#szs_<?=$og['ID']?>").popover({
+                                html: true,
+                                placement: 'bottom',
+                                trigger: 'click',
+                                content: function () {
+                                    return $('#div_szs_<?=$og['ID']?>').html();
+                                }
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
+
+                        </script>
+
+
+<?php  } ?>
+
 <?php if($priceON){ ?>
                     <td style="white-space: nowrap;">
                         <b><?=(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
@@ -327,7 +442,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                               </div>
                         </template>
 
-                        <table class="orderItems">
+                        <table style="font-size:80%;">
                             <tr>
                                 <td rowspan="2">
                                   <a tabindex="1" data-toggle="popover" id="fs_<?=$og['ID']?>" class="btn btn-xs btn-primary " title="<span style='color:#000'>Sátusz módosítása</span>" style="background:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;border-color:<?=F_S_SZINEK[$og['FizetesStatusza']][0]?>;font-weight:bold;font-size:100%;" onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
@@ -432,6 +547,36 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
         });
     }
 
+
+    function saveShippingStatus(lid){
+        var aData = (
+          {
+            'ID':lid,
+            'Statusz':$("input[name=szst_rad_"+lid+"]:checked").val(),
+            'Datum': $("#szidatum_"+lid).val(  ),
+            'Hatarido': $("#szihatarido_"+lid).val( ),
+            'Szlev': $("#szszlev_"+lid).val(),
+            'CMR': $("#szcmr_"+lid).val(),
+            'EKAER': $("#szekaer_"+lid).val(),
+            'Fuvarozo': $("#szfuvarozo_"+lid).val()
+          }
+        );
+        console.log(aData);
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_shipping.php",
+            data: aData,
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+
+
         $(document).ready(function () {
             $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,
@@ -475,7 +620,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                     {
                         'orderable': false,
                     },
-<?php if($shippingON){ ?>
+<?php if($shippingON || $shippingEditON){ ?>
                     null,   // szallitas statusz
 <?php } ?>
 <?php if($priceON){ ?>

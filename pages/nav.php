@@ -11,7 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <?php 
+                <?php
                 foreach(array_keys(MENU_STRUCT) as $topMenu) {
                     if(!in_array(PAGE_RIGHTS[$topMenu], $_SESSION['userRights'])){
                         continue;
@@ -21,7 +21,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <?=MENU_NAMES[$topMenu]?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <?php 
+                            <?php
                             foreach(array_keys(MENU_STRUCT[$topMenu]) as $separator){
 
                                 if(!is_numeric($separator) && in_array(PAGE_RIGHTS[$separator], $_SESSION['userRights'])){?>
@@ -37,10 +37,10 @@
                                     <li>
                                         <a href="/?mode=<?=$menuItem?>">
                                             <?=(in_array($menuItem,array_keys(MENU_ICONS))?
-                                                MENU_ICONS[$menuItem][0] == 'g' ? 
+                                                MENU_ICONS[$menuItem][0] == 'g' ?
                                                 '<span class="glyphicon '.MENU_ICONS[$menuItem].'" aria-hidden="true"></span> ':
                                                 '<i class="fa '.MENU_ICONS[$menuItem].'" aria-hidden="true"></i> '
-                                                
+
                                                 :'')?>
                                             <?=MENU_NAMES[$menuItem]?>
                                         </a>
@@ -63,6 +63,9 @@
                                         <?=$_SESSION['realName']?>
                                     </a>
                                 </p>
+                            </li>
+                            <li >
+                                <a style="color:orange;" href="https://github.com/koch-mate/nemestrinus/issues/new" target="_blank">Hibabejelentés</a>
                             </li>
                             <li><a href="/?mode=logout">Kilépés</a></li>
                         </ul>

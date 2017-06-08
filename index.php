@@ -20,6 +20,7 @@ require_once("lib/units.php");
 require_once("lib/order.php");
 require_once("lib/messages.php");
 require_once("lib/prices.php");
+require_once("lib/mail.php");
 require_once("core/auth.php");
 
 $_mode = $_GET['mode'];
@@ -32,6 +33,9 @@ $sessionTimeout = ((time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT) ? 1 : 0
 if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && $sessionTimeout)){
     session_destroy();
     $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login&redirect=' . $_GET['mode'].($sessionTimeout ? '&timeout=true':'');
+    if($sessionTimeout){
+      logEv(LOG_EVENT['timeout'].':',null,"User: ".$_SESSION['userName']);
+    }
     header('Location: ' . $loginUrl);
     die('logout redirecion failed');
 }
@@ -61,15 +65,20 @@ if(empty($_SESSION['activeLogin'])){
                 $_SESSION['userName'] = $_POST['user']; // FIXME - protect, check, etc.
                 // TODO - reject if incorrect credentials, set $loginError
                 $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
+                // log the login event
+                logEv(LOG_EVENT['login'].':',null,"User: ".$_SESSION['userName']);
             }
             else {
                 $loginError = True;
                 $_SESSION['activeLogin'] = False;
                 $_mode = 'login';
+                logEv(LOG_EVENT['bad_password'].':',null,"User: ".$_POST['user']);
+
             }
         }
     }
 }
+// TODO if redirect=logout, error occures
 if(!empty($_SESSION['activeLogin'])) {
     // get user data
     $_SESSION['realName'] = getUserFullName($_SESSION['userName']);

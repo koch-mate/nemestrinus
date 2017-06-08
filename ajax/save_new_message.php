@@ -11,6 +11,8 @@ require_once("../lib/units.php");
 require_once("../lib/wood.php");
 require_once("../lib/messages.php");
 
+require_once('../lib/log.php');
+require_once('../lib/log_events.php');
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['msg']) ){
     ?>

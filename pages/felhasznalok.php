@@ -6,7 +6,7 @@ if(isset($_GET['deluser'])){
     // delete user
     $user = $_GET['deluser'];
     userDelete($user);
-    logEv(LOG_EVENT['del_user'].' ('.$user.')', null, null);    
+    logEv(LOG_EVENT['del_user'].' ('.$user.')', null, null);
     $succMessage = 'A(z) <em>'.$user.'</em> felhasználó törölve.';
 }
 if(isset($_GET['actuser'])){
@@ -14,7 +14,21 @@ if(isset($_GET['actuser'])){
     $user = $_GET['actuser'];
     userStatusToggle($user);
     logEv(LOG_EVENT['status_user'].' ('.$user.'):', null, (userGetStatus($user) ? 'aktív':'inaktív'));
-    $succMessage = 'A(z) <em>'.$user.'</em> felhasználó státusza módosult.';    
+    $succMessage = 'A(z) <em>'.$user.'</em> felhasználó státusza módosult.';
+}
+if(isset($_GET['jelszoemelezteto'])){
+  // send password reminder
+  $user = $_GET['jelszoemelezteto'];
+  $d = getUserDataById($user);
+  $dat = [
+    'password' => $d['Password'],
+    'userName' => $d['UserName'],
+    'link'     => SERVER_PROTOCOL.SERVER_URL
+  ];
+  sendEmail($to=$d['Email'], $toName=$d['TeljesNev'], $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+  logEv(LOG_EVENT['passwd_notify_user'].' ('.$d['userName'].')');
+  $succMessage = 'A(z) <em>'.$d['userName'].'</em> felhasználó számára emlékeztetőt küdtünk.';
+
 }
 if(!empty($_POST['user'])){
     if(!empty($_POST['uid'])){
@@ -31,6 +45,13 @@ if(!empty($_POST['user'])){
             }
             $akt = !empty($_POST['aktiv']) ? 1 : 0;
             userUpdate($user, $tn, $pass, $email, $r, $akt);
+            $dat = [
+              'password' => $pass,
+              'userName' => $user,
+              'link'     => SERVER_PROTOCOL.SERVER_URL
+            ];
+            sendEmail($to=$email, $toName=$tn, $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+
             logEv(LOG_EVENT['update_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
             $succMessage = "A(z) <em>".$user."</em> felhasználó adatai frissültek.";
     }
@@ -51,6 +72,12 @@ if(!empty($_POST['user'])){
             }
             $akt = !empty($_POST['aktiv']) ? 1 : 0;
             userAdd($user, $tn, $pass, $email, $r, $akt);
+            $dat = [
+              'password' => $pass,
+              'userName' => $user,
+              'link'     => SERVER_PROTOCOL.SERVER_URL
+            ];
+            sendEmail($to=$email, $toName=$tn, $subj="Jelszó emlékeztető", $template="password", $d=$dat);
             $succMessage = "Az új felhasználó rögzítésre került.";
             logEv(LOG_EVENT['new_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
         }
@@ -98,8 +125,8 @@ include('lib/popups.php');
                             <?php    }?>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-xs btn-primary">Emlékeztető
-                            <br>küldése</button>
+                        <a href="?mode=felhasznalok&jelszoemelezteto=<?=$i['ID']?>" class="btn btn-xs btn-primary">Emlékeztető
+                            <br>küldése</a>
                     </td>
                     <td>
                         <a href="mailto:<?=$i['Email']?>">
@@ -170,7 +197,7 @@ include('lib/popups.php');
         });
     </script>
 
-    <?php 
+    <?php
 // check if we are in edit mode
 if(isset($_GET['szerk'])){
     $ud = getUserDataById($_GET['szerk']);
