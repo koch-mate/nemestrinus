@@ -1,5 +1,5 @@
 <?php
-
+// the following line *MUST* remain line 3 in the file! //
 const DEBUG = True;
 
 const L_INFO    = 'log-info';
