@@ -2,3 +2,5 @@
 .brackets.json
 footage/bg
 footage/bg2
+
+deploy/deploy.sh
