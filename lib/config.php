@@ -7,7 +7,7 @@ const L_DEBUG   = 'log-debug';
 const L_WARNING = 'log-warning';
 const L_ERROR   = 'log-error';
 
-const LOGLEVEL = L_INFO;
+const LOGLEVEL = (DEBUG ? L_INFO : L_WARNING);
 
 const LOCAL_DB = [
     'database_type' => 'mysql',
@@ -30,14 +30,14 @@ const DEPLOY_DB = [
 
 const DB_DATA = (DEBUG ? LOCAL_DB : DEPLOY_DB);
 
-const SERVER_URL = "localhost/";
-const SERVER_PROTOCOL = "http://";
+const SERVER_URL = (DEBUG ? "localhost/" : "mgmt.ihartu.hu");
+const SERVER_PROTOCOL = (DEBUG ? "http://" : "http://");
 
 const MAIL_FROM = 'no-reply@ihartu.hu';
 const MAIL_NAME = 'Ihartu Kft. Automated Mailer';
 
 // logout after SESSION_TIMEOUT seconds of inactivity
-const SESSION_TIMEOUT = DEBUG ? 3000 : 300;
+const SESSION_TIMEOUT = DEBUG ? 3000 : 600;
 
 const MONTHS = [
     1 => 'január',
