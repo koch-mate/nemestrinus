@@ -14,9 +14,11 @@ function sendEmail($to="koch.mate@gmail.com", $toName="Koch Máté", $subj="PHPM
 
   $mail = new PHPMailer;
   $mail->setFrom(MAIL_FROM, MAIL_NAME);
-  // DEBUG only FIXME!
-  $to = 'koch.mate@gmail.com';
-  
+
+  if(DEBUG){
+    $to = 'koch.mate@gmail.com';    
+  }
+
   $mail->addAddress($to, $toName);
 
   $mail->Subject = $subj;

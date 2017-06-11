@@ -86,6 +86,8 @@ const IMPLEMENTED_PAGES = [
     'beszallitas-fuggo',
     'arlista',
 
+    'kimutatas-fafelhasznalas',
+
 ];
 
 const MENU_STRUCT = [
@@ -113,6 +115,7 @@ const MENU_STRUCT = [
         'kiszallitas-lezart',
     ],
     'kimutatas'         => [
+      'kimutatas-fafelhasznalas',
 //        'leltar',
 //        'fizetesek',
     ],
@@ -194,6 +197,7 @@ const PAGE_RIGHTS = [
     'fatipus'                   => R_ADMINISZTRACIO,
     'konstansok'                => R_ADMINISZTRACIO,
     'arlista'                   => R_ADMINISZTRACIO,
+    'kimutatas-fafelhasznalas'    => R_KIMUTATAS,
 ];
 
 const MENU_ICONS = [
@@ -230,6 +234,8 @@ const MENU_ICONS = [
 
     'kiszallitas-fuggo' => 'fa-truck',
     'kiszallitas-lezart' => 'glyphicon-check',
+
+    'kimutatas-fafelhasznalas' => 'fa-tree',
 
 ];
 
@@ -278,6 +284,7 @@ const MENU_NAMES = [
     'fatipus'   => 'Fatípusok',
     'konstansok'   => 'Konstansok',
     'arlista' => 'Árlista',
+    'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
 ];
 
 
