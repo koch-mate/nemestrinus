@@ -164,6 +164,7 @@ else {
                 }
             });
             $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+            $.fn.datepicker.defaults.calendarWeeks = true;
             $.fn.datepicker.defaults.language = "hu";
             $.fn.datepicker.defaults.todayHighlight = true;
             $.fn.datepicker.defaults.autoclose = true;
@@ -192,8 +193,9 @@ else {
                 <script>
                     $(document).ready(function () {
                         $('.datepicker').datepicker({
-                            format: "yyyy-mm-dd",
-                        });
+                          calendarWeeks: true,
+                          format: "yyyy-mm-dd"
+                          });
                     });
                 </script>
                 <?php

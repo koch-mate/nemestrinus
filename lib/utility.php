@@ -68,4 +68,8 @@ function ezres($x)
 	return substr($y,	0, -3).'.'.substr($y, -3,3);
 }
 
+function issueLink($url, $title){
+	?><a href="<?=$url?>" target="_blank"><?=$title?></a><?
+}
+
 ?>
