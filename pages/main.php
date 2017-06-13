@@ -16,6 +16,12 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 06. 13.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/6','Export rendelés bevitel, nem látszanak a tételek')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/5','Export megrendelés Ft?')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/4','Időkorlát')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/2','Export igért teljesítési határidő')?>
+    </p>
     <p><span class="label label-default">2017. 06. 11.</span> <span class="label label-success">Új modul</span> <a href="?mode=kimutatas-fafelhasznalas">Fafelhasználás</a></p>
     <p><span class="label label-default">2017. 06. 04.</span> <span class="label label-success">Új funkció</span> Szállítás státuszának és egyéb adatainak kezelése</p>
     <p><span class="label label-default">2017. 06. 04.</span> <span class="label label-success">Új funkció</span> Jelszóemlékeztető küldése</p>

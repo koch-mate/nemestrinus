@@ -65,7 +65,7 @@ include('lib/popups.php');
                 'ar': $("#ar").val(),
             };
             document.order_db[document.order_db_id++] = order;
-            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;<span class='penznem'>Ft</span>", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
+            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;<span class='penznem'>EUR</span>", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
 
             updateVegosszeg();
@@ -81,7 +81,7 @@ include('lib/popups.php');
             if(!isNaN(sz)){
                 s += sz;
             }
-            $("#vegosszeg").html('Végösszeg:&nbsp;'+s+'&nbsp;<span class="penznem">Ft</span>');
+            $("#vegosszeg").html('Végösszeg:&nbsp;'+s+'&nbsp;<span class="penznem">EUR</span>');
             penznemUpd();
         }
 
@@ -311,7 +311,7 @@ include('lib/popups.php');
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <input id="ar" name="ar" class="form-control" placeholder="-" type="number" step="any" value="" required>
-                                    <span class="input-group-addon" id="ar-penznem">Ft</span>
+                                    <span class="input-group-addon" id="ar-penznem">EUR</span>
                                 </div>
 
                             </div>
@@ -352,13 +352,13 @@ include('lib/popups.php');
                 <div class="col-md-4">
                     <div class="radio">
                         <label for="penznem-0">
-                            <input type="radio" name="penznem" id="penznem-0" value="<?=P_FORINT?>" checked="checked" onchange="penznemUpd()">
+                            <input type="radio" name="penznem" id="penznem-0" value="<?=P_FORINT?>"  onchange="penznemUpd()">
                             <?=P_FORINT?>
                         </label>
                     </div>
                     <div class="radio">
                         <label for="penznem-1">
-                            <input type="radio" name="penznem" id="penznem-1" value="<?=P_EURO?>" onchange="penznemUpd()">
+                            <input type="radio" name="penznem" id="penznem-1" value="<?=P_EURO?>" checked="checked" onchange="penznemUpd()">
                             <?=P_EURO?>
                         </label>
                     </div>
@@ -379,7 +379,7 @@ include('lib/popups.php');
                 <div class="col-md-4">
                     <div class="input-group">
                         <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" step="any" value="" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  required>
-                        <span class="input-group-addon" id="szk-penznem">Ft</span>
+                        <span class="input-group-addon" id="szk-penznem">EUR</span>
                     </div>
 
                 </div>
@@ -389,7 +389,7 @@ include('lib/popups.php');
                     <label class="col-md-4 control-label" for="vegosszeg"></label>
                     <div class="col-md-4">
                         <div>
-                            <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - <span class="penznem">Ft</span> </span>
+                            <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - <span class="penznem">EUR</span> </span>
                         </div>
                     </div>
                 </div>

@@ -110,7 +110,7 @@ include('lib/popups.php');
 
           $.ajax({
             method:'POST',
-            url:'<?=SERVER_PROTOCOL.SERVER_URL?>/ajax/getDistance.php',
+            url:'<?=SERVER_PROTOCOL.SERVER_URL?>ajax/getDistance.php',
             data: {
               origins : '8444%20Szentgál,%20Magyarország',
               destinations : szc

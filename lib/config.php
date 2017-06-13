@@ -29,15 +29,15 @@ const DEPLOY_DB = [
 ];
 
 const DB_DATA = (DEBUG ? LOCAL_DB : DEPLOY_DB);
-
-const SERVER_URL = (DEBUG ? "localhost/" : "mgmt.ihartu.hu");
+// must end with '/'
+const SERVER_URL = (DEBUG ? "localhost/" : "mgmt.ihartu.hu/");
 const SERVER_PROTOCOL = (DEBUG ? "http://" : "http://");
 
 const MAIL_FROM = 'no-reply@ihartu.hu';
 const MAIL_NAME = 'Ihartu Kft. Automated Mailer';
 
 // logout after SESSION_TIMEOUT seconds of inactivity
-const SESSION_TIMEOUT = DEBUG ? 3000 : 600;
+const SESSION_TIMEOUT = DEBUG ? 3600 : 3600;
 
 const MONTHS = [
     1 => 'január',

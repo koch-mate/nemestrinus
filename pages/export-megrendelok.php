@@ -24,7 +24,7 @@ if(isset($_GET['jelszoemelezteto'])){
     'userName' => $dd['Email'],
     'link'     => SERVER_PROTOCOL.SERVER_URL
   ];
-  sendEmail($to=$d['Email'], $toName=$dd['MegrendeloNev'], $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+  sendEmail($to=$d['Email'], $toName=$dd['MegrendeloNev'], $subj="Jelszo emlekezteto", $template="password", $d=$dat);
   logEv(LOG_EVENT['passwd_notify_export_customer'].' ('.$dd['MegrendeloNev'].')');
   $succMessage = 'A(z) <em>'.$dd['MegrendeloNev'].'</em> felhasználó számára emlékeztetőt küdtünk.';
 

@@ -25,7 +25,7 @@ if(isset($_GET['jelszoemelezteto'])){
     'userName' => $d['UserName'],
     'link'     => SERVER_PROTOCOL.SERVER_URL
   ];
-  sendEmail($to=$d['Email'], $toName=$d['TeljesNev'], $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+  sendEmail($to=$d['Email'], $toName=$d['TeljesNev'], $subj="Jelszo emlekezteto", $template="password", $d=$dat);
   logEv(LOG_EVENT['passwd_notify_user'].' ('.$d['userName'].')');
   $succMessage = 'A(z) <em>'.$d['userName'].'</em> felhasználó számára emlékeztetőt küdtünk.';
 
@@ -50,7 +50,7 @@ if(!empty($_POST['user'])){
               'userName' => $user,
               'link'     => SERVER_PROTOCOL.SERVER_URL
             ];
-            sendEmail($to=$email, $toName=$tn, $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+            sendEmail($to=$email, $toName=$tn, $subj="Jelszo emlekezteto", $template="password", $d=$dat);
 
             logEv(LOG_EVENT['update_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
             $succMessage = "A(z) <em>".$user."</em> felhasználó adatai frissültek.";
@@ -77,7 +77,7 @@ if(!empty($_POST['user'])){
               'userName' => $user,
               'link'     => SERVER_PROTOCOL.SERVER_URL
             ];
-            sendEmail($to=$email, $toName=$tn, $subj="Jelszó emlékeztető", $template="password", $d=$dat);
+            sendEmail($to=$email, $toName=$tn, $subj="Jelszo emlekezteto", $template="password", $d=$dat);
             $succMessage = "Az új felhasználó rögzítésre került.";
             logEv(LOG_EVENT['new_user'].' ('.$user.'):', null, implode(', ',[$tn,$email,'('.implode(', ',$r).')',($akt ? 'aktív':'inaktív')]));
         }
