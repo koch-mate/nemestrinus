@@ -16,6 +16,12 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 06. 14.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/11','Lakossági megr. gyártási idők')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/12','Lakossági rendelés')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/19','Nyír')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/20','Fatípusok 02')?>,
+    </p>
     <p><span class="label label-default">2017. 06. 13.</span> <span class="label label-warning">Hibajavítások</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/6','Export rendelés bevitel, nem látszanak a tételek')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/5','Export megrendelés Ft?')?>,

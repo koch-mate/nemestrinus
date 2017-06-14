@@ -237,6 +237,7 @@ const MENU_ICONS = [
 
     'kimutatas-fafelhasznalas' => 'fa-tree',
 
+    'beszallitas-fuggo' => 'fa-truck',
 ];
 
 const MENU_NAMES = [
@@ -288,7 +289,7 @@ const MENU_NAMES = [
 ];
 
 
-const U_ERDESZETI_KOBMETER = 'ekob';
+//const U_ERDESZETI_KOBMETER = 'ekob';
 const U_TOMOR_KOBMETER = 'tkob';
 const U_SZORT_URMETER = 'szur';
 const U_RAKOTT_URMETER = 'rur';
@@ -296,7 +297,7 @@ const U_RAKOTT_URMETER = 'rur';
 
 const U_NAMES = [
     U_TOMOR_KOBMETER => ['tömör köbméter','t. m<sup>3</sup>'],
-    U_ERDESZETI_KOBMETER => ['erdészeti köbméter','e. m<sup>3</sup>'],
+//    U_ERDESZETI_KOBMETER => ['erdészeti köbméter','e. m<sup>3</sup>'],
     U_SZORT_URMETER => ['szórt űrméter','sz. űm'],
     U_RAKOTT_URMETER => ['rakott űrméter','r. űm'],
 ];
@@ -304,9 +305,9 @@ const U_NAMES = [
 // 1 tomor kobmeter hany _____-nak felel meg?
 const U_FACT = [
     U_TOMOR_KOBMETER => 1.0,
-    U_ERDESZETI_KOBMETER => 1.7,
+//    U_ERDESZETI_KOBMETER => 1.7,
     U_SZORT_URMETER => 2.0,
-    U_RAKOTT_URMETER => 1.4
+    U_RAKOTT_URMETER => 1.429
 ];
 
 const U_STD = U_TOMOR_KOBMETER;
@@ -320,11 +321,11 @@ const CS_RAKLAP   = 'raklap';
 const CS_KALODA   = 'kaloda';
 
 const CSOMAGOLOANYAGOK = [
-    CS_TAKARO    =>  ['Takarófólia','m<sup>2</sup>'],
-    CS_SZTRECCS  =>  ['Sztreccsfólia','m'],
+    CS_TAKARO    =>  ['Takarófólia','db'],
+    CS_SZTRECCS  =>  ['Sztreccsfólia','db'],
     CS_HALO      =>  ['Háló','m'],
     CS_RAKLAP    =>  ['Raklap','db'],
-    CS_KALODA    =>  ['Kaloda elem','db'],
+    CS_KALODA    =>  ['Kaloda keret','db'],
 ];
 
 
@@ -360,6 +361,9 @@ const F_TOLGY           = 'tolgy';
 const F_FENYO           = 'fenyo';
 const F_EGYEB_KEMENY    = 'egyeb_kemeny';
 const F_EGYEB_LAGY      = 'egyeb_lagy';
+const F_NYIR            = 'nyir';
+const F_JUHAR           = 'juhar';
+const F_CSERESZNYE      = 'cseresznye';
 
 const FATIPUSOK = [
     F_AKAC => ['akác',F_KEMENY],
@@ -368,12 +372,17 @@ const FATIPUSOK = [
     F_GYERTYAN => ['gyertyán',F_KEMENY],
     F_KORIS => ['kőris',F_KEMENY],
     F_TOLGY => ['tölgy',F_KEMENY],
+    F_JUHAR => ['juhar',F_KEMENY],
+    F_CSERESZNYE => ['cseresznye',F_KEMENY],
+    F_NYIR => ['nyír',F_LAGY],
     F_FENYO => ['fenyő',F_FENYOFELE],
     F_EGYEB_KEMENY => ['egyéb kemény lombos',F_KEMENY],
     F_EGYEB_LAGY => ['egyéb lágy lombos',F_LAGY],
 ];
 
 const EGYUTAS_KALODA_KICSI          = 'egyutas_kicsi';
+const EGYUTAS_KALODA_KESKENY        = 'egyutas_keskeny';
+const EGYUTAS_KALODA_NORMAL         = 'egyutas_normal';
 const EGYUTAS_KALODA_NAGY           = 'egyutas_nagy';
 const VISSZAVALTHATO_KALODA_KICSI   = 'vv_kicsi';
 const VISSZAVALTHATO_KALODA_NAGY    = 'vv_nagy';
@@ -383,22 +392,26 @@ const OMLESZTETT                    = 'omlesztett';
 
 
 const CSOMAGOLASTIPUSOK = [
-    EGYUTAS_KALODA_KICSI        => ['Egyutas kaloda (kicsi)', 'db', 0.9, U_RAKOTT_URMETER ],
-    EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.165, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_KICSI        => ['Egyutas kaloda (kicsi)', 'db', 1.0, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_KESKENY      => ['Egyutas kaloda (keskeny)', 'db', 1.24, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NORMAL       => ['Egyutas kaloda (normál)', 'db', 1.65, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.8, U_RAKOTT_URMETER ],
     VISSZAVALTHATO_KALODA_KICSI => ['Visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
     VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
-    POSCH_HALOS                 => ['Posch hálós', 'db', 2.1, U_SZORT_URMETER],
-    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.1, U_SZORT_URMETER],
+    POSCH_HALOS                 => ['Posch hálós', 'db', 2.24, U_SZORT_URMETER],
+    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.24, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'm<sup>3</sup>', 1, U_SZORT_URMETER]
 ];
 
 const CS_FELHASZNALAS = [
     EGYUTAS_KALODA_KICSI        => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
+    EGYUTAS_KALODA_KESKENY      => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
+    EGYUTAS_KALODA_NORMAL       => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
     EGYUTAS_KALODA_NAGY         => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
     VISSZAVALTHATO_KALODA_KICSI => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 2],
     VISSZAVALTHATO_KALODA_NAGY  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 4],
-    POSCH_HALOS                 => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 5, CS_RAKLAP => 1, CS_KALODA  => 0],
-    POSCH_HALOS_FOLIAS          => [CS_TAKARO => 4, CS_SZTRECCS => 0, CS_HALO => 5, CS_RAKLAP => 1, CS_KALODA  => 0],
+    POSCH_HALOS                 => [CS_TAKARO => 0, CS_SZTRECCS => 1, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
+    POSCH_HALOS_FOLIAS          => [CS_TAKARO => 4, CS_SZTRECCS => 1, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
     OMLESZTETT                  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0]
 ];
 
@@ -497,20 +510,20 @@ const NEDVESSEG = [N_SZARAZ => [1, 'száraz'], N_FELSZARAZ => [2,'félszáraz'],
 // gyartasi idok (napban)
 const GYARTASI_IDO = [
   M_EXPORT => [
-    N_FRISS => 4*7,
+    N_FRISS => 2*7,
     N_FELSZARAZ => 10*7,
-    N_SZARAZ => 16*7,
+    N_SZARAZ => 15*7,
   ],
   M_LAKOSSAGI => [
-    N_FRISS => 10,
+    N_FRISS => 2*7,
     N_FELSZARAZ => 10*7,
-    N_SZARAZ => 16*7,
+    N_SZARAZ => 15*7,
   ],
 ];
 
 // varhato szallitasi ido
 const SZALLITASI_IDO = [
-  M_EXPORT => 10,
-  M_LAKOSSAGI => 7
+  M_EXPORT => 2*7,
+  M_LAKOSSAGI => 2*7
 ]
 ?>
