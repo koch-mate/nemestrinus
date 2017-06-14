@@ -180,7 +180,7 @@ else {
             <?php
         }
         ?>
-                <div class="container">
+                <div class="container" style="min-width:90%;">
                     <div class="bodyContainer">
 
                         <div class="starter-template">

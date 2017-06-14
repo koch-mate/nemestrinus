@@ -372,7 +372,7 @@ include('lib/popups.php');
                                 <div class="col-md-4">
                                     <?php
                                     $ni = 0;
-                                    foreach(array_keys(NEDVESSEG) as $nedv){?>
+                                    foreach([N_FRISS] as $nedv){?>
                                     <div class="radio">
                                         <label for="nedvesseg-<?=$ni?>">
                                             <input type="radio" name="nedvesseg" id="nedvesseg-<?=$ni?>" value="<?=$nedv?>" <?=$ni == 0?'checked="checked"' : ''?></input> <span style="display:inline-block;width: 5em;"><?=NEDVESSEG[$nedv][1]?></span> <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>', NEDVESSEG[$nedv][0])?>
