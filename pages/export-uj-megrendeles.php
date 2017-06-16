@@ -37,10 +37,24 @@ include('lib/popups.php');
         }
 
         document.nedvesseg = {
-            'szaraz': 1,
-            'felszaraz': 2,
-            'nedves': 3
+          <?php
+          $n_arr = [];
+          foreach (NEDVESSEG as $nk => $nv) {
+            $n_arr[]= "'".$nk."' : ".$nv[0];
+          }
+          print implode(",", $n_arr);
+           ?>
         }
+        document.nedvNev = [
+          <?php
+          $n_arr = [];
+          foreach (NEDVESSEG as $nk => $nv) {
+             $n_arr[]= "'".$nv[1]."'";
+          }
+          print implode(",", $n_arr);
+
+           ?>
+        ]
 
         function addOrder() {
             if (($("input[name=csomagolas_r]:checked")).length == 0) {
@@ -65,7 +79,17 @@ include('lib/popups.php');
                 'ar': $("#ar").val(),
             };
             document.order_db[document.order_db_id++] = order;
-            document.megrendelt_tabla.row.add([order.id, document.fatipusok[order.fafaj], order.hossz, order.atm, document.csomtip[order.csom], order.menny + ' ' + order.mennyme, Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint"></span>'), order.ar+"&nbsp;<span class='penznem'>EUR</span>", '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
+            document.megrendelt_tabla.row.add([
+              order.id,
+              document.fatipusok[order.fafaj],
+              order.hossz,
+              order.atm,
+              document.csomtip[order.csom],
+              order.menny + ' ' + order.mennyme,
+              Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint" title="'+document.nedvNev[order.nedvszam-1]+'"></span>'),
+              order.ar+"&nbsp;<span class='penznem'>EUR</span>",
+              '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>'
+              ]).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
 
             updateVegosszeg();
@@ -299,7 +323,7 @@ include('lib/popups.php');
                                 foreach(array_keys(NEDVESSEG) as $nedv){?>
                                 <div class="radio">
                                     <label for="nedvesseg-<?=$ni?>">
-                                        <input type="radio" name="nedvesseg" id="nedvesseg-<?=$ni?>" value="<?=$nedv?>" <?=$ni == 0?'checked="checked"' : ''?></input> <span style="display:inline-block;width: 5em;"><?=NEDVESSEG[$nedv][1]?></span> <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>', NEDVESSEG[$nedv][0])?>
+                                        <input type="radio" name="nedvesseg" id="nedvesseg-<?=$ni?>" value="<?=$nedv?>" <?=$ni == 0?'checked="checked"' : ''?></input> <span style="display:inline-block;width: 5em;"><?=NEDVESSEG[$nedv][1]?></span> <?=csepp($nedv)?>
                                     </label>
                                 </div>
                                 <?php $ni++; }?>

@@ -9,6 +9,7 @@ require_once("../lib/db.php");
 require_once("../lib/order.php");
 require_once("../lib/export_customers.php");
 require_once("../lib/units.php");
+require_once("../lib/utility.php");
 require_once("../lib/wood.php");
 require_once("../lib/messages.php");
 
@@ -96,7 +97,7 @@ else {
                                             <?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][1]?>
                                     </td>
                                     <td style="padding-right:0.8em;">
-                                        <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
+                                        <?=csepp($oi['Nedvesseg'])?>
                                     </td>
                                     <td>
                                       <?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?></span><br />
