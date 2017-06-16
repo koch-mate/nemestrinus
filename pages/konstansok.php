@@ -64,7 +64,7 @@
         ?>
         <tr>
           <th>
-            <span style="display:inline-block;width:7em;"><?=mb_ucfirst($nedv[1])?></span>&nbsp;<?=str_repeat('<span class="glyphicon glyphicon-tint"></span>', $nedv[0])?>
+            <span style="display:inline-block;width:7em;"><?=mb_ucfirst($nedv[1])?></span>&nbsp;<?=csepp($nk)?>
           </th>
           <td>
             <?=rnd(GYARTASI_IDO[M_LAKOSSAGI][$nk]/7)?>&nbsp;hét&nbsp;(<?=GYARTASI_IDO[M_LAKOSSAGI][$nk]?>&nbsp;nap)

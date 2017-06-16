@@ -259,7 +259,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                                     </td>
 <?php } ?>
                                     <td style="padding-right:0.8em;">
-                                        <?=str_repeat('<span class="glyphicon glyphicon-tint"></span>',NEDVESSEG[$oi['Nedvesseg']][0])?>
+                                        <?=csepp($oi['Nedvesseg'])?>
                                     </td>
                                     <td></td>
                                     <td><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span></td>

@@ -42,12 +42,13 @@ function colourBrightness($hex, $percent) {
 	return $hash.$hex;
 }
 
-
+// utf8 capitalize
 function mb_ucfirst($str) {
     $fc = mb_strtoupper(mb_substr($str, 0, 1));
     return $fc.mb_substr($str, 1);
 }
 
+// make colored spans, depending on the stock
 function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1]){
     if($x!=0){
     ?>
@@ -61,6 +62,7 @@ function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1]){
     }
 }
 
+// thousands separator
 function ezres($x)
 {
 	$y = "".$x;
@@ -68,8 +70,13 @@ function ezres($x)
 	return substr($y,	0, -3).'.'.substr($y, -3,3);
 }
 
+// link to the github issues on the main page
 function issueLink($url, $title){
 	?><a href="<?=$url?>" target="_blank"><?=$title?></a><?
 }
 
+// water drops for the humidity
+function csepp($x){
+	return str_repeat('<span class="glyphicon glyphicon-tint" title="'.NEDVESSEG[$x][1].'"></span>',NEDVESSEG[$x][0]);
+}
 ?>
