@@ -4,7 +4,7 @@
 
 function getExportCustomersWithData(){
     global $db;
-    return $db->select('megrendelo',['ID','MegrendeloNev','Kepviselo','Adoszam','Telefonszam','Fax','Email','SzallitasiCim','SzamlazasiCim','Jelszo','RegisztraltDatum','UtolsoBelepes','Aktiv'],['Deleted'=>0]);
+    return $db->select('megrendelo',['ID','MegrendeloNev','Kepviselo','Adoszam','Telefonszam','Fax','Email','SzallitasiCim','SzamlazasiCim','Jelszo','RegisztraltDatum','UtolsoBelepes','Aktiv'],['Deleted'=>0, 'ORDER'=>['MegrendeloNev']]);
 }
 
 function exportCustomerAdd(
@@ -85,7 +85,7 @@ function exportCustomerUpdate(
 
 function getExportCustomerDataById($uid){
     global $db;
-    return $db->select('megrendelo', ['ID', 'MegrendeloNev', 'Kepviselo', 'Adoszam', 'Telefonszam', 'Fax', 'Email', 'SzamlazasiCim','SzallitasiCim','Jelszo','Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);    
+    return $db->select('megrendelo', ['ID', 'MegrendeloNev', 'Kepviselo', 'Adoszam', 'Telefonszam', 'Fax', 'Email', 'SzamlazasiCim','SzallitasiCim','Jelszo','Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);
 }
 
 function exportCustomerGetNameById($id){
