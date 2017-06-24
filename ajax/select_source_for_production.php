@@ -67,7 +67,13 @@ $(document).ready(function () {
         <span class="label label-<?=($_POST['RendeltMennyiseg']==0?'success':'warninig')?>" id="kulSzam">-<?=$_POST['RendeltMennyiseg']?>&nbsp;<?=U_NAMES[U_STD][0]?></span>
     </div>
 </div>
+<div class="form-group">
+  <label class="col-md-4 control-label">&nbsp; </label>
+  <div class="col-md-4" >
+    <button type="button" id="selectSubmit" class="btn btn-primary">Mentés</button>
+  </div>
 </div>
+
 <form name="select" id="selectForm">
 <table class="table table-striped table-hover display" id="selectTable">
     <thead>
