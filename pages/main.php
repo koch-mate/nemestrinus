@@ -16,6 +16,9 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 06. 24.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/38','FONTOS! Alapanyag felhasználás')?>
+    </p>
     <p><span class="label label-default">2017. 06. 16.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/17','Piktogram')?>
     </p>

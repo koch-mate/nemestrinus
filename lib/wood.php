@@ -61,10 +61,15 @@ function woodGetUsedForOrder($id){
     return $db->select('faanyag', ['ID','Mennyiseg','Beszallito','Fatipus', 'Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND" => ['MegrendelesTetelID'=>$id, 'Deleted'=>0]]);
 }
 
+function woodGetUsedForOrderSum($id){
+    global $db;
+    return $db->sum('faanyag', 'Mennyiseg', ["AND" => ['MegrendelesTetelID'=>$id, 'Deleted'=>0]]);
+}
+
+
 function woodGetStock(){
     global $db;
-    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>[FORGALOM_BEVETEL,FORGALOM_KORREKCIO], 'Mennyiseg[>]'=>0]]);
-    //FIXME - le kell vonni a felhasznalast
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Fatipus','Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>[ 'Deleted'=>0, 'Forgalom'=>[FORGALOM_BEVETEL], 'Mennyiseg[>]'=>0]]);
 }
 
 function woodGetMaxQty($type){
@@ -158,7 +163,7 @@ if(!sizeof($dat)){
     </tfoot>
 </table>
 <?php
-
+$osszesenMennyiseg = rnd(-$sum);
 }
 
 function woodIsThereUse($id){
