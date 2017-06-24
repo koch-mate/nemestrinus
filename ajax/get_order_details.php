@@ -161,7 +161,10 @@ else {
                                                     <?php
                                                         woodGetUsedForOrder($oi['ID']);
                                                         $marLegyartottMennyiseg = -rnd(woodGetUsedForOrderSum($oi['ID']));
+
+                                                        // FIXME: van itt egy bug, ha kitorolnek egy sort, akkor a Hozzaad gomb altal kuldott adat nem valtozik
                                                     ?>
+
                                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorSmWin" data-id="<?=$oi['ID']?>" data-keyboard="false"  data-fatipus="<?=$oi['Fafaj']?>" data-rendeltmennyiseg="<?=$atszamitottMennyiseg-$marLegyartottMennyiseg?>">Hozzáadás</button>
                                               </div>
 
