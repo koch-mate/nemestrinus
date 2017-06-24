@@ -179,6 +179,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                             <?php
                             foreach(M_S_STATUSZOK as $ms){
                                 if($ms == $og['Statusz']){continue;}
+                                if($ms == M_S_TELJESITVE && $og['SzallitasStatusza'] != SZ_S_LESZALLITVA){continue;} // ne lehessen lezarni, ha meg nincs leszallitva
                                 ?>
                                 <p>
                                     <button type='button' class='btn btn-xs btn-primary' style='background:<?=M_S_SZINEK[$ms][0]?>;border-color:<?=M_S_SZINEK[$ms][0]?>;font-weight:bold;width:100%;' onclick='if(confirm("Státusz módosítása erre: <?=$ms?>")){saveStatus(<?=$og['ID']?>,"<?=$ms?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>
