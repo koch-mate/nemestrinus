@@ -183,6 +183,9 @@ function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
 function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
     global $db;
     $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
+    if($st == SZ_S_LESZALLITVA){
+       orderStatusUpdate($id, M_S_TELJESITVE);
+    }
 }
 
 

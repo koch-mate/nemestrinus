@@ -153,9 +153,16 @@ else {
 
                                                 <div class="col-md-8">
                                                     <p>Megrendelt mennyiség: <span class="label label-default"><?=$oi['Mennyiseg']?>&nbsp;<?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][1]?>&nbsp;<?=CSOMAGOLASTIPUSOK[$oi['Csomagolas']][0]?> = <?=rnd(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']).'&nbsp'.U_NAMES[CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3]][0]?></span></p>
-                                                    <p>Átszámított mennyiség: <span class="label label-primary"><?=rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg'])).'&nbsp'.U_NAMES[U_STD][0]?></span></p>
+                                                    <?php
+                                                    $atszamitottMennyiseg = rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']));
+                                                    ?>
+                                                    <p>Átszámított mennyiség: <span class="label label-primary"><?=$atszamitottMennyiseg.'&nbsp'.U_NAMES[U_STD][0]?></span></p>
                                                     <div id="felhasznaltTabla_<?=$oi['ID']?>"><?=woodUsageTable($oi['ID'])?></div>
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorSmWin" data-id="<?=$oi['ID']?>" data-keyboard="false"  data-fatipus="<?=$oi['Fafaj']?>" data-rendeltmennyiseg="<?=rnd(unitChange(CSOMAGOLASTIPUSOK[$oi['Csomagolas']][3], U_STD, CSOMAGOLASTIPUSOK[$oi['Csomagolas']][2]*$oi['Mennyiseg']))?>">Hozzáadás</button>
+                                                    <?php
+                                                        woodGetUsedForOrder($oi['ID']);
+                                                        $marLegyartottMennyiseg = -rnd(woodGetUsedForOrderSum($oi['ID']));
+                                                    ?>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static"  data-target="#editorSmWin" data-id="<?=$oi['ID']?>" data-keyboard="false"  data-fatipus="<?=$oi['Fafaj']?>" data-rendeltmennyiseg="<?=$atszamitottMennyiseg-$marLegyartottMennyiseg?>">Hozzáadás</button>
                                               </div>
 
                                         </div>

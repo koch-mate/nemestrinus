@@ -12,7 +12,7 @@ require_once("../lib/wood.php");
 
 
 if(empty($_SESSION['activeLogin']) || empty($_POST['ID'])){
-    
+
 }
 else {
 ?>
@@ -40,7 +40,7 @@ $(document).ready(function () {
                         $('#selectForm')[0].reset();
                     } );
 });
-    
+
 </script>
 <div class="form-group">
     <label class="col-md-4 control-label">ID: </label>
@@ -52,13 +52,19 @@ $(document).ready(function () {
 <div class="form-group">
     <label class="col-md-4 control-label">Rendelt mennyiség: </label>
     <div class="col-md-4">
-        <span class="label label-default"><?=$_POST['RendeltMennyiseg']?>&nbsp<?=U_NAMES[U_STD][0]?></span>
+        <span class="label label-default"><?=$_POST['RendeltMennyiseg']?>&nbsp;<?=U_NAMES[U_STD][0]?></span>
     </div>
 </div>
 <div class="form-group">
     <label class="col-md-4 control-label">Kiválasztott mennyiség: </label>
     <div class="col-md-4" >
-        <span class="label label-primary" id="sumSzam">0&nbsp<?=U_NAMES[U_STD][0]?></span>
+        <span class="label label-primary" id="sumSzam">0&nbsp;<?=U_NAMES[U_STD][0]?></span>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">Külünbözet: </label>
+    <div class="col-md-4" >
+        <span class="label label-<?=($_POST['RendeltMennyiseg']==0?'success':'warninig')?>" id="kulSzam">-<?=$_POST['RendeltMennyiseg']?>&nbsp;<?=U_NAMES[U_STD][0]?></span>
     </div>
 </div>
 </div>
@@ -76,12 +82,19 @@ $(document).ready(function () {
     </thead>
     <tbody>
         <?php
-        foreach(woodGetStock() as $w){
+          foreach(woodGetStock() as $w){
+            $ossz = $w['Mennyiseg'];
+            $felh = woodGetUsedPortion($w['ID']);
+            $maradek = $ossz-$felh;
+
+            if( $maradek<=0){continue;}
+
+
         ?>
         <tr>
             <td><?=$w['ID']?></td>
             <td data-filter="<?=$w['Fatipus']?>"><?=FATIPUSOK[$w['Fatipus']][0]?></td>
-            <td><?=$w['Mennyiseg']?>&nbsp;<?=U_NAMES[U_STD][1]?></td>
+            <td><?=rnd($maradek)?>&nbsp;<?=U_NAMES[U_STD][1]?></td>
             <td><?=$w['Datum']?></td>
             <td><?=$w['Beszallito']?></td>
             <td><input name="menny_<?=$w['ID']?>" data-id="<?=$w['ID']?>" class="form-control mennySum" value="0" style="width:5em;" onkeyup="$(this).change()" onchange="updateSum();" required type="number"></td>
@@ -92,6 +105,8 @@ $(document).ready(function () {
     </tbody>
 </table>
 </form>
+
+
 <script>
     $("#selectForm").validate();
     $("#selectSubmit").unbind();
@@ -135,12 +150,23 @@ $(document).ready(function () {
             s+= parseFloat($(this).val());
         });
         $("#sumSzam").html((Math.round(s*100)/100)+"&nbsp;<?=U_NAMES[U_STD][0]?>");
+        $("#kulSzam").html((Math.round((s-<?=$_POST['RendeltMennyiseg']?>)*100)/100)+"&nbsp;<?=U_NAMES[U_STD][0]?>");
+        if(s == <?=$_POST['RendeltMennyiseg']?>)
+        {
+          $("#kulSzam").removeClass('label-warning');
+          $("#kulSzam").addClass('label-success');
+        }
+        else
+        {
+          $("#kulSzam").removeClass('label-success');
+          $("#kulSzam").addClass('label-warning');
+        }
     }
-    
+
     $(document).ready(function () {
         updateSum();
         document.selectDataTable = $('#selectTable').DataTable({
-            
+
             "info": true,
             "paging": false,
             "language": {
@@ -163,8 +189,8 @@ $(document).ready(function () {
                     "previous": "Előző"
                 },
             },
-            
-    
+
+
             "columns" : [
                 null,
                 null,
