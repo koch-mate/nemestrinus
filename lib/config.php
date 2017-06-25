@@ -85,7 +85,8 @@ const IMPLEMENTED_PAGES = [
     'keszlet-osszesito',
     'beszallitas-fuggo',
     'arlista',
-
+    'megrendeles-lakossagi',
+    'megrendeles-export',
     'kimutatas-fafelhasznalas',
 
 ];
@@ -100,13 +101,14 @@ const MENU_STRUCT = [
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-keszletmozgas', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio']
     ],
     'gyartas'           => [
-        'gyartas-fuggo', 'gyartas-lezart', // 'termekgyartas',
+        'gyartas-fuggo', 'gyartas-lezart',
     ],
     'megrendeles'       => [
-        'megrendelesek' => ['megrendeles-osszesites', /* 'megrendeles-lezart' FIXME */],
-        'lakossagi' => ['lakossagi-uj-megrendeles'],
+        'megrendelesek' => ['megrendeles-osszesites', ],
+        'lakossagi' => ['lakossagi-uj-megrendeles','megrendeles-lakossagi'],
         'export' => [
             'export-uj-megrendeles',
+            'megrendeles-export',
             'export-megrendelok',
         ],
     ],
@@ -116,8 +118,6 @@ const MENU_STRUCT = [
     ],
     'kimutatas'         => [
       'kimutatas-fafelhasznalas',
-//        'leltar',
-//        'fizetesek',
     ],
     'adminisztracio'    => [
         'felhasznalok',
@@ -130,27 +130,25 @@ const MENU_STRUCT = [
 ];
 
 // jogosultsagok
-const R_MAIN            = 'main';
-const R_BESZALLITAS     = 'beszallitas';
-const R_ALAPANYAG       = 'alapanyag';
-const R_GYARTAS         = 'gyartas';
-//const R_MEGRENDELES     = 'megrendeles';
+const R_MAIN                = 'main';
+const R_BESZALLITAS         = 'beszallitas';
+const R_ALAPANYAG           = 'alapanyag';
+const R_GYARTAS             = 'gyartas';
 const R_LAK_MEGRENDELES     = 'lakossagi_megrendeles';
 const R_EXP_MEGRENDELES     = 'export_megrendeles';
-const R_SZALLITAS       = 'szallitas';
-const R_KIMUTATAS       = 'kimutatas';
-const R_ADMINISZTRACIO  = 'adminisztracio';
+const R_SZALLITAS           = 'szallitas';
+const R_KIMUTATAS           = 'kimutatas';
+const R_ADMINISZTRACIO      = 'adminisztracio';
 
 const RIGHTS = [
-    R_BESZALLITAS   => ['Bsz', 'Beszállítás'],
-    R_ALAPANYAG     => ['Al', 'Alapanyag'],
-    R_GYARTAS       => ['Gy', 'Gyártás'],
-//    R_MEGRENDELES   => ['M', 'Megrendelés'],
+    R_BESZALLITAS       => ['Bsz','Beszállítás'],
+    R_ALAPANYAG         => ['Al', 'Alapanyag'],
+    R_GYARTAS           => ['Gy', 'Gyártás'],
     R_LAK_MEGRENDELES   => ['LM', 'Lakossági megrendelés'],
     R_EXP_MEGRENDELES   => ['EM', 'Export megrendelés'],
-    R_SZALLITAS     => ['Sz', 'Szállītás'],
-    R_KIMUTATAS     => ['K', 'Kimutatás'],
-    R_ADMINISZTRACIO=> ['Ad', 'Adminisztráció']
+    R_SZALLITAS         => ['Sz', 'Szállītás'],
+    R_KIMUTATAS         => ['K',  'Kimutatás'],
+    R_ADMINISZTRACIO    => ['Ad', 'Adminisztráció']
 ];
 
 const PAGE_RIGHTS = [
@@ -177,7 +175,9 @@ const PAGE_RIGHTS = [
     'megrendeles'               => R_LAK_MEGRENDELES,
     'megrendelesek'             => R_EXP_MEGRENDELES,
     'megrendeles-osszesites'    => R_EXP_MEGRENDELES,
+    'megrendeles-export'        => R_EXP_MEGRENDELES,
     'megrendeles-lezart'        => R_EXP_MEGRENDELES,
+    'megrendeles-lakossagi'     => R_LAK_MEGRENDELES,
     'lakossagi-uj-megrendeles'  => R_LAK_MEGRENDELES,
     'export-uj-megrendeles'     => R_EXP_MEGRENDELES,
     'szallitas'                 => R_SZALLITAS,
@@ -221,6 +221,8 @@ const MENU_ICONS = [
 
     'megrendeles-osszesites' => 'glyphicon-shopping-cart',
     'megrendeles-lezart' => 'glyphicon-check',
+    'megrendeles-lakossagi' => 'glyphicon-home',
+    'megrendeles-export' => 'glyphicon-globe',
 
     'felhasznalok' => 'fa-users',
     'fatipus' => 'glyphicon-tree-deciduous',
@@ -265,6 +267,8 @@ const MENU_NAMES = [
     'megrendelesek'=> 'Összesítés',
     'megrendeles-osszesites' => 'Összes megrendelés',
     'megrendeles-lezart' => 'Lezárt megrendelések',
+    'megrendeles-lakossagi' => 'Felvett megrendelések listája',
+    'megrendeles-export' => 'Felvett megrendelések kezelése',
     'lakossagi-uj-megrendeles' => 'Új megrendelés',
     'export-uj-megrendeles' => 'Új megrendelés',
     'szallitas' => 'Szállítás',

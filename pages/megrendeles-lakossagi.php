@@ -1,7 +1,7 @@
-<h2>Megrendelések</h2>
+<h2>Lakossági megrendelések</h2>
 
 <form method="get"  >
-    <input type="hidden" name="mode" value="megrendeles-osszesites">
+    <input type="hidden" name="mode" value="megrendeles-lakossagi">
     <fieldset>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
@@ -51,30 +51,6 @@
                         -ig
                     </div>
                     <?php } ?>
-                    <div class="form-group">
-                        <input type="checkbox" name="tip" id="tip_picker" value="on" data-size="mini" <?=(isset($_GET['tip']) && $_GET['tip']=='on'?'checked':'')?> >
-                        <script>
-                        $(function() {
-                            $('#tip_picker').bootstrapToggle({
-                                off: '<span class="glyphicon glyphicon-minus"></span>',
-                                on: '<span class="glyphicon glyphicon-plus"></span>',
-                                onstyle: 'success',
-                                offstyle: 'warning',
-                            });
-                        })
-                        </script>
-                        <label style="width: 15em;">Típus</label>
-                            <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default <?=((isset($_GET['lak']) && $_GET['lak']) || empty($_GET['tip'])=='on'?'active':'')?>">
-                                <input type="checkbox" autocomplete="off" name="lak" value="on" <?=($_GET['lak']=='on' || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-home"></span> Lakossági
-                              </label>
-                              <label class="btn btn-default <?=((isset($_GET['ex']) && $_GET['ex']) || empty($_GET['tip'])=='on'?'active':'')?>">
-                                <input type="checkbox" autocomplete="off" name="ex" value="on" <?=((isset($_GET['ex']) && $_GET['ex']=='on') || empty($_GET['tip'])?'checked':'')?>><span class="glyphicon glyphicon-globe"></span> Export
-                              </label>
-                            </div>
-                        </div>
-
-
 
                       <div class="form-group">
                         <input type="checkbox" name="idp" id="id_picker" value="on" data-size="mini" onchange="if(!$(this).prop('checked')){$('#idinput').val('');}" <?=(!empty($_GET['id'])?'checked':'')?> >
@@ -112,48 +88,18 @@
 require("lib/order_table.php");
 
 $f = [];
+$f['Tipus'][] = M_LAKOSSAGI;
 if(isset($_GET['md'] ) && $_GET['md'] == 'on'){
     $f['RogzitesDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['mdm1'],1, $_GET['mdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['mdm2'])+1,0, $_GET['mdy2']))];
 }
 if(isset($_GET['td']) && $_GET['td'] == 'on'){
     $f['KertDatum'] = [date("Y-m-d", mktime(0,0,0,$_GET['tdm1'],1, $_GET['tdy1'])), date("Y-m-d", mktime(0,0,0,intval($_GET['tdm2'])+1,0, $_GET['tdy2']))];
 }
-if(isset($_GET['tip']) && $_GET['tip'] == 'on'){
-    $f['Tipus'] = [];
-    if($_GET['lak'] == 'on'){
-        $f['Tipus'][] = M_LAKOSSAGI;
-    }
-    if($_GET['ex'] == 'on'){
-        $f['Tipus'][] = M_EXPORT;
-    }
-}
 if(!empty($_GET['id'])){
     $f['ID'] = $_GET['id'];
 }
 
-orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = true, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = true, $editButtonON = false, $trashButtonON = true);
+orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = false, $editButtonON = false, $trashButtonON = false);
 
 
 ?>
-
-<script>
-
-function deleteOrder( oid ){
-    if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_order.php",
-                data: ({'ID':oid}),
-                success: function(data){
-                    location.reload();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert("Hiba!");
-                }
-            });
-
-    };
-}
-
-</script>

@@ -17,7 +17,9 @@
 <div>
     <h3>Frissítések</h3>
     <p><span class="label label-default">2017. 06. 25.</span> <span class="label label-warning">Hibajavítások</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/22','Ures megjegyzes')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/22','Ures megjegyzes')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/36','S:O:S!!! Lakossági megrendelések')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/32','lakossági megrendelés')?>,
     </p>
     <p><span class="label label-default">2017. 06. 24.</span> <span class="label label-warning">Hibajavítások</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/30','Kimutatás (Zsolt kérés)')?>,
