@@ -17,6 +17,7 @@
 <div>
     <h3>Frissítések</h3>
     <p><span class="label label-default">2017. 06. 25.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/9','Hiba, ha a belepes utan a Felhasznalok oldalra iranyit a rendszer')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/14','Export fuvar')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/22','Ures megjegyzes')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/36','S:O:S!!! Lakossági megrendelések')?>,
