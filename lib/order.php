@@ -184,9 +184,9 @@ function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum, 'FizetesiHatarido'=>$hatarido], ['ID'=>$id]);
 }
 
-function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
+function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $szsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
     global $db;
-    $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
+    $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'SzamlaSzam' => $szsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
     if($st == SZ_S_LESZALLITVA){
        orderStatusUpdate($id, M_S_TELJESITVE);
     }

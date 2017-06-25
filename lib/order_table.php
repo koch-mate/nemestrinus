@@ -284,9 +284,11 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                             </tr>
                             <tr>
                                 <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?><br />
-                                <b>Szlsz:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
-                                <b>CMR/EKAER:&nbsp;</b><?=$og['CMR']?>/<?=$og['EKAER']?><br />
-                                <b>Fuvarozó:&nbsp;</b><?=$og['Fuvarozo']?></td>
+                                  <b title="szállítólevél szám">Szálllsz.:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
+                                  <b title="számlaszám">Számlasz.:&nbsp;</b><?=$og['Szamlaszam']?><br />
+                                  <b>CMR:&nbsp;</b><?=$og['CMR']?><br />
+                                  <b>EKAER:&nbsp;</b><?=$og['EKAER']?><br />
+                                  <b>Fuvarozó:&nbsp;</b><?=$og['Fuvarozo']?>
                             </tr>
                         </table>
                     </td>
@@ -338,6 +340,12 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                               </div>
                             </div>
                             <div class="form-group">
+                              <label class="control-label" style="color:#000;">Számlaszám:</label>
+                                <div style="width:10em;">
+                                  <input class="form-control input-md" name="szsz_<?=$og['ID']?>" id="szsz_<?=$og['ID']?>"   value="<?=$og['Szamlaszam']?>" >
+                                </div>
+                              </div>
+                            <div class="form-group">
                               <label style="color:#000;">CMR:</label>
                                 <div  style="width:10em;">
                                   <input class="form-control input-md" name="szcmr_<?=$og['ID']?>" id="szcmr_<?=$og['ID']?>"  value="<?=$og['CMR']?>" >
@@ -379,8 +387,10 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                             <tr>
                                 <td style="padding-left:0.5em;"><b>T:</b>&nbsp;<?=$og['SzallitasTenylegesDatuma']?>
                                   <br />
-                                  <b>Szlsz.:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
-                                  <b>CMR/EKAER:&nbsp;</b><?=$og['CMR']?>/<?=$og['EKAER']?><br />
+                                  <b title="szállítólevél szám">Szálllsz.:&nbsp;</b><?=$og['SzallitolevelSzam']?><br />
+                                  <b title="számlaszám">Számlasz.:&nbsp;</b><?=$og['Szamlaszam']?><br />
+                                  <b>CMR:&nbsp;</b><?=$og['CMR']?><br />
+                                  <b>EKAER:&nbsp;</b><?=$og['EKAER']?><br />
                                   <b>Fuvarozó:&nbsp;</b><?=$og['Fuvarozo']?>
                                 </td>
                             </tr>
@@ -557,6 +567,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
             'Datum': $("#szidatum_"+lid).val(  ),
             'Hatarido': $("#szihatarido_"+lid).val( ),
             'Szlev': $("#szszlev_"+lid).val(),
+            'Szsz': $("#szsz_"+lid).val(),
             'CMR': $("#szcmr_"+lid).val(),
             'EKAER': $("#szekaer_"+lid).val(),
             'Fuvarozo': $("#szfuvarozo_"+lid).val()
