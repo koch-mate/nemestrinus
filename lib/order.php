@@ -2,11 +2,13 @@
 
 function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
-    $cmsg = [[
-        'u' => $_SESSION['userName'],
-        'd' => date('Y-m-d H:i:s'),
-        'm' => $megjegyzes
-    ]];
+    if(strlen(trim($megjegyzes)) > 0){
+      $cmsg = [[
+          'u' => $_SESSION['userName'],
+          'd' => date('Y-m-d H:i:s'),
+          'm' => $megjegyzes
+      ]];
+    }
 
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
@@ -53,11 +55,13 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
 
 function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
-    $cmsg = [[
-        'u' => $_SESSION['userName'],
-        'd' => date('Y-m-d H:i:s'),
-        'm' => $megjegyzes
-    ]];
+    if(strlen(trim($megjegyzes)) > 0){
+      $cmsg = [[
+          'u' => $_SESSION['userName'],
+          'd' => date('Y-m-d H:i:s'),
+          'm' => $megjegyzes
+      ]];
+    }
 
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,

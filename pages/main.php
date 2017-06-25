@@ -16,12 +16,15 @@
 
 <div>
     <h3>Frissítések</h3>
-    <p><span class="label label-default">2017. 06. 24.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/30','Kimutatás (Zsolt kérés)')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/27','Export rendelés')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/25','Export rendelés teljesítés')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/38','FONTOS! Alapanyag felhasználás')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/39','teljes képernyő')?>
+    <p><span class="label label-default">2017. 06. 25.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/22','Ures megjegyzes')?>
+    </p>
+    <p><span class="label label-default">2017. 06. 24.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/30','Kimutatás (Zsolt kérés)')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/27','Export rendelés')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/25','Export rendelés teljesítés')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/38','FONTOS! Alapanyag felhasználás')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/39','teljes képernyő')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/24','Gyártás, szükséges alapanyag felhasználás 1.)')?>
     </p>
     <p><span class="label label-default">2017. 06. 16.</span> <span class="label label-warning">Hibajavítás</span>
