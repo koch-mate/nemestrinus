@@ -1,7 +1,5 @@
 <?php
 
-// TODO send notification mail
-
 if(isset($_GET['deluser'])){
     // delete user
     $user = $_GET['deluser'];
@@ -30,10 +28,10 @@ if(isset($_GET['jelszoemelezteto'])){
   $succMessage = 'A(z) <em>'.$d['userName'].'</em> felhasználó számára emlékeztetőt küdtünk.';
 
 }
-if(!empty($_POST['user'])){
+if(!empty($_POST['fuser'])){
     if(!empty($_POST['uid'])){
         // update existing user
-            $user = $_POST['user'];
+            $user = $_POST['fuser'];
             $tn = $_POST['teljes'];
             $pass = $_POST['pass'];
             $email = $_POST['email'];
@@ -56,11 +54,11 @@ if(!empty($_POST['user'])){
             $succMessage = "A(z) <em>".$user."</em> felhasználó adatai frissültek.";
     }
     else {
-        if(userExists($_POST['user'])){
+        if(userExists($_POST['fuser'])){
             $failMessage = "Már van ilyen nevű felhasználó a rendszerben.";
         }
         else {
-            $user = $_POST['user'];
+            $user = $_POST['fuser'];
             $tn = $_POST['teljes'];
             $pass = $_POST['pass'];
             $email = $_POST['email'];
@@ -216,12 +214,12 @@ if(!empty($ud)){
                         <?=($EDIT_MODE?'Felhasználó szerkesztése':'Új felhasználó felvétele')?>
                     </legend>
                     <?=($EDIT_MODE?'<input name="uid" id="uid" type="hidden" value="'.$_GET['szerk'].'">':'')?>
-                        <?=($EDIT_MODE?'<input name="user" id="user" type="hidden" value="'.$ud['UserName'].'">':'')?>
+                        <?=($EDIT_MODE?'<input name="fuser" id="user" type="hidden" value="'.$ud['UserName'].'">':'')?>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="textinput">Felhasználónév</label>
                                 <div class="col-md-5">
-                                    <input id="user" name="user" <?=($EDIT_MODE ? ' value="'.$ud[ 'UserName']. '" disabled ': '')?> type="text" placeholder="jancsi" class="form-control input-md" required minlength="4">
+                                    <input id="user" name="fuser" <?=($EDIT_MODE ? ' value="'.$ud[ 'UserName']. '" disabled ': '')?> type="text" placeholder="jancsi" class="form-control input-md" required minlength="4">
                                 </div>
                             </div>
                             <div class="form-group">

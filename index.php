@@ -32,7 +32,12 @@ $mode = '';
 $sessionTimeout = ((time()-$_SESSION['lastActivity']) > SESSION_TIMEOUT) ? 1 : 0;
 if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && $sessionTimeout)){
     session_destroy();
-    $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login&redirect=' . $_GET['mode'].($sessionTimeout ? '&timeout=true':'');
+    if($_mode == 'logout'){
+      $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login' . ($sessionTimeout ? '&timeout=true':'');
+    }
+    else {
+      $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login&redirect=' . $_GET['mode'].($sessionTimeout ? '&timeout=true':'');
+    }
     if($sessionTimeout){
       logEv(LOG_EVENT['timeout'].':',null,"User: ".$_SESSION['userName']);
     }
@@ -46,7 +51,12 @@ if(empty($_SESSION['activeLogin'])){
     // not logged in, redirect to login
     if($_mode != 'login')
     {
-        $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
+        if($_GET['mode'] == 'logout'){
+          $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=' . $mode;
+        }
+        else {
+          $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=' . $mode . '&redirect=' . $_GET['mode'];
+        }
         header('Location: ' . $loginUrl);
         die('login redirection failed');
     }
@@ -59,11 +69,9 @@ if(empty($_SESSION['activeLogin'])){
             // login with username and password
 
             if(authenticate($_POST['user'], $_POST['password'])){
-                // TODO - do proper authentication
                 $_SESSION['activeLogin'] = True;
                 $_SESSION['lastActivity'] = time();
-                $_SESSION['userName'] = $_POST['user']; // FIXME - protect, check, etc.
-                // TODO - reject if incorrect credentials, set $loginError
+                $_SESSION['userName'] = $_POST['user'];
                 $_mode = empty($_GET['redirect']) ? 'main' : $_GET['redirect'];
                 // log the login event
                 logEv(LOG_EVENT['login'].':',null,"User: ".$_SESSION['userName']);
@@ -78,7 +86,7 @@ if(empty($_SESSION['activeLogin'])){
         }
     }
 }
-// TODO if redirect=logout, error occures
+
 if(!empty($_SESSION['activeLogin'])) {
     // get user data
     $_SESSION['realName'] = getUserFullName($_SESSION['userName']);
@@ -95,7 +103,6 @@ if(!empty($_SESSION['activeLogin'])) {
     if(in_array($_mode, IMPLEMENTED_PAGES))
     {
         // find rootNode
-
         if(!in_array('', $_SESSION['userRights'])) {}  //TODO!!!!!
         $mode = $_mode;
         // TODO - check for privileges
