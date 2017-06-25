@@ -26,6 +26,7 @@
   <tbody>
     <?php
 foreach(ordersGetAllData() as $o){
+  if($o['Statusz'] == M_S_FELDOLGOZAS_ALATT){continue;}
     ?>
     <tr>
       <td>

@@ -2,11 +2,13 @@
 
 function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
-    $cmsg = [[
-        'u' => $_SESSION['userName'],
-        'd' => date('Y-m-d H:i:s'),
-        'm' => $megjegyzes
-    ]];
+    if(strlen(trim($megjegyzes)) > 0){
+      $cmsg = [[
+          'u' => $_SESSION['userName'],
+          'd' => date('Y-m-d H:i:s'),
+          'm' => $megjegyzes
+      ]];
+    }
 
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
@@ -53,11 +55,13 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
 
 function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
     global $db;
-    $cmsg = [[
-        'u' => $_SESSION['userName'],
-        'd' => date('Y-m-d H:i:s'),
-        'm' => $megjegyzes
-    ]];
+    if(strlen(trim($megjegyzes)) > 0){
+      $cmsg = [[
+          'u' => $_SESSION['userName'],
+          'd' => date('Y-m-d H:i:s'),
+          'm' => $megjegyzes
+      ]];
+    }
 
     $new_id = $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
@@ -173,6 +177,11 @@ function orderStatusUpdate($id, $st){
     $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
 }
 
+function orderShippingPriceUpdate($id, $price){
+    global $db;
+    $db->update('megrendeles', ['Fuvardij'=>$price], ['ID'=>$id]);
+}
+
 function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     global $db;
     if($datum == ''){$datum = null;}
@@ -180,9 +189,9 @@ function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum, 'FizetesiHatarido'=>$hatarido], ['ID'=>$id]);
 }
 
-function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
+function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $szsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
     global $db;
-    $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
+    $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'SzamlaSzam' => $szsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
     if($st == SZ_S_LESZALLITVA){
        orderStatusUpdate($id, M_S_TELJESITVE);
     }
