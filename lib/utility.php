@@ -72,7 +72,7 @@ function ezres($x)
 
 // link to the github issues on the main page
 function issueLink($url, $title){
-	?><a href="<?=$url?>" target="_blank"><?=$title?></a><?
+	?><a href="<?=$url?>" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> #<?=explode('/',$url)[count(explode('/',$url))-1]?></a> - <?=$title?><?
 }
 
 // water drops for the humidity
