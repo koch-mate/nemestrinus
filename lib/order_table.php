@@ -1,5 +1,5 @@
 <?php
-function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false){
+function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false){
 ?>
 <style>
     div.dataTables_scrollBody {
@@ -415,7 +415,40 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 <?php if($priceON){ ?>
                     <td style="white-space: nowrap;">
                         <b><?=(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
+<?php if($shippingPriceEditON && $og['Tipus']==M_EXPORT){ ?>
+    <template id="div_se_<?=$og['ID']?>" style="color:#000;">
+      <label class="col-md-5 control-label" style="white-space:nowrap;color:#000;" for="szallitasiktsg">Szállítási díj: </label>
+      <div class="col-md-8">
+          <div class="input-group">
+              <input class="form-control"style="width:10em;" name="szallktsg_<?=$og['ID']?>" id="szallktsg_<?=$og['ID']?>" type="number" required  value="<?=$og['Fuvardij']?>">
+              <span class="input-group-addon" id="szk-penznem"><?=$og['Penznem']?></span>
+          </div>
+
+      </div>
+      <div style="clear:both;text-align:right;padding-top:1em;">
+        <button class="btn btn-sm btn-success" onclick='if(confirm("Menti a változásokat?")){saveShippingPrice(<?=$og['ID']?>)};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>Mentés</button>
+        <button class="btn btn-sm btn-danger" onclick='$("#tr_<?=$og['ID']?>").removeClass("highlight");$(".popover").popover("hide");'>Mégsem</button>
+      </div>
+
+    </template>
+    <a tabindex="1" data-toggle="popover" style="color:#000;cursor:pointer;text-decoration:none;" id="se_<?=$og['ID']?>"  title="<span style='color:#000'>Szállítási díj módosítása</span>"  onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
                         <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
+    </a>
+    <script>
+        $("#se_<?=$og['ID']?>").popover({
+            html: true,
+            placement: 'bottom',
+            trigger: 'click',
+            content: function () {
+                return $('#div_se_<?=$og['ID']?>').html();
+            }
+        }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
+
+    </script>
+
+<?php } else {?>
+                        <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
+<?php } ?>
                     </td>
 <?php } ?>
 <?php if($paymentON){ ?>
@@ -521,7 +554,6 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
   <span class="glyphicon glyphicon-trash" ></span>
 </button>
 <?php } ?>
-
                     </td>
 <?php } ?>
                 </tr>
@@ -557,6 +589,34 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
             }
         });
     }
+    function isNumeric(n){
+      return ! isNaN(parseFloat(n)) && isFinite(n);
+    }
+    function saveShippingPrice(lid){
+        var aData = (
+          {
+            'ID':lid,
+            'SzallitasiDij': $("#szallktsg_"+lid).val( )
+          }
+        );
+        if(! isNumeric(aData['SzallitasiDij']))
+        {
+          alert('Hibás szállítási díj');
+          return;
+        }
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_shipping_price.php",
+            data: aData,
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
 
 
     function saveShippingStatus(lid){
@@ -573,7 +633,6 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
             'Fuvarozo': $("#szfuvarozo_"+lid).val()
           }
         );
-        console.log(aData);
         $.ajax({
             type: "POST",
             dataType: "html",

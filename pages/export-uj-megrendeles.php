@@ -402,7 +402,7 @@ include('lib/popups.php');
                 <label class="col-md-4 control-label" for="szallitasiktsg">Szállítási díj</label>
                 <div class="col-md-4">
                     <div class="input-group">
-                        <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" step="any" value="" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()"  required>
+                        <input id="szallitasiktsg" name="szallitasiktsg" class="form-control" placeholder="-" type="number" step="any" value="" onchange="updateVegosszeg()" onkeyup="updateVegosszeg()" >
                         <span class="input-group-addon" id="szk-penznem">EUR</span>
                     </div>
 

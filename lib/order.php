@@ -177,6 +177,11 @@ function orderStatusUpdate($id, $st){
     $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
 }
 
+function orderShippingPriceUpdate($id, $price){
+    global $db;
+    $db->update('megrendeles', ['Fuvardij'=>$price], ['ID'=>$id]);
+}
+
 function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     global $db;
     if($datum == ''){$datum = null;}

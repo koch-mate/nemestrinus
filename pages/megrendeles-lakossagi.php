@@ -99,7 +99,7 @@ if(!empty($_GET['id'])){
     $f['ID'] = $_GET['id'];
 }
 
-orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = false, $editButtonON = false, $trashButtonON = false);
+orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false);
 
 
 ?>
