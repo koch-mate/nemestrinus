@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav">
                 <?php
                 foreach(array_keys(MENU_STRUCT) as $topMenu) {
-                    if(!in_array(PAGE_RIGHTS[$topMenu], $_SESSION['userRights'])){
+                    if(count(array_intersect(PAGE_RIGHTS[$topMenu], $_SESSION['userRights'])) == 0){
                         continue;
                     }
                 ?>
@@ -24,13 +24,13 @@
                             <?php
                             foreach(array_keys(MENU_STRUCT[$topMenu]) as $separator){
 
-                                if(!is_numeric($separator) && in_array(PAGE_RIGHTS[$separator], $_SESSION['userRights'])){?>
+                                if(!is_numeric($separator) && count(array_intersect(PAGE_RIGHTS[$separator], $_SESSION['userRights'])) > 0 ){?>
                                 <li class="dropdown-header">
                                     <?=MENU_NAMES[$separator]?>
                                 </li>
                                 <?php }
                                 foreach((is_numeric($separator) ? MENU_STRUCT[$topMenu] : MENU_STRUCT[$topMenu][$separator]) as $menuItem){
-                                    if(!in_array(PAGE_RIGHTS[$menuItem], $_SESSION['userRights'])){
+                                    if(count(array_intersect(PAGE_RIGHTS[$menuItem], $_SESSION['userRights'])) == 0){
                                         continue;
                                     }
                                     ?>
