@@ -16,8 +16,9 @@
 
 <div>
     <h3>Frissítések</h3>
-    <p><span class="label label-default">2017. 06. 26.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/23','Szállítások')?>
+    <p><span class="label label-default">2017. 06. 26.</span> <span class="label label-warning">Hibajavítások</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/23','Szállítások')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/33','Claudio')?>
     </p>
     <p><span class="label label-default">2017. 06. 25.</span> <span class="label label-warning">Hibajavítások</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/9','Hiba, ha a belepes utan a Felhasznalok oldalra iranyit a rendszer')?>,
