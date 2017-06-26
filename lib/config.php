@@ -54,6 +54,9 @@ const MONTHS = [
     12 => 'december',
 ];
 
+// allowed minimum to be cut to zero
+const EPSILON = 0.01;
+
 const IMPLEMENTED_PAGES = [
     'sajat-profil',
     'main',
@@ -213,7 +216,7 @@ const PAGE_RIGHTS = [
     'fatipus'                   => [R_ADMINISZTRACIO],
     'konstansok'                => [R_ADMINISZTRACIO],
     'arlista'                   => [R_ADMINISZTRACIO],
-    'kimutatas-fafelhasznalas'    => [R_KIMUTATAS],
+    'kimutatas-fafelhasznalas'  => [R_KIMUTATAS],
 ];
 
 const MENU_ICONS = [

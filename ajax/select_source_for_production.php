@@ -93,7 +93,7 @@ $(document).ready(function () {
             $felh = woodGetUsedPortion($w['ID']);
             $maradek = $ossz-$felh;
 
-            if( $maradek<=0){continue;}
+            if( $maradek<=EPSILON){continue;}
 
 
         ?>
