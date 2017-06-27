@@ -79,4 +79,15 @@ function issueLink($url, $title){
 function csepp($x){
 	return str_repeat('<span class="glyphicon glyphicon-tint" title="'.NEDVESSEG[$x][1].'"></span>',NEDVESSEG[$x][0]);
 }
+
+// remove special chars from a string
+function removeSpecialChars($string) {
+//   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+   $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+   return $string;
+//	 return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+}
+
+
+
 ?>

@@ -151,10 +151,10 @@ if(!empty($_POST['cegnev'])){
                     </td>
                     <td>
                         <button type="button" class="btn btn-xs btn-primary" onclick="window.location.href='?mode=export-megrendelok&szerk=<?=$i['ID']?>#szerkesztes'">Szerkesztés</button>
-                        <button type="button" class="btn btn-xs btn-warning" onclick="if(confirm('Biztosan módosítani akarja a(z) <?=$i['MegrendeloNev']?>  státuszát?')){window.location.href='?mode=export-megrendelok&actuser=<?=$i['ID']?>';}">
+                        <button type="button" class="btn btn-xs btn-warning" onclick="if(confirm('Biztosan módosítani akarja a(z) <?=removeSpecialChars($i['MegrendeloNev'])?>  státuszát?')){window.location.href='?mode=export-megrendelok&actuser=<?=$i['ID']?>';}">
                             <?=($i['Aktiv']?'Felfüggesztés':'Engedélyezés')?>
                         </button>
-                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja a(z) <?=$i['MegrendeloNev']?> megrendelőt?')){window.location.href='?mode=export-megrendelok&deluser=<?=$i['ID']?>';}">Törlés</button>
+                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja a(z) <?=removeSpecialChars($i['MegrendeloNev'])?> megrendelőt?')){window.location.href='?mode=export-megrendelok&deluser=<?=$i['ID']?>';}">Törlés</button>
                     </td>
                 </tr>
                 <?php } ?>
