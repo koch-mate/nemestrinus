@@ -393,6 +393,7 @@ const F_EGYEB_LAGY      = 'egyeb_lagy';
 const F_NYIR            = 'nyir';
 const F_JUHAR           = 'juhar';
 const F_CSERESZNYE      = 'cseresznye';
+const F_EGER            = 'eger';
 
 const FATIPUSOK = [
     F_AKAC => ['akác',F_KEMENY],
@@ -403,6 +404,7 @@ const FATIPUSOK = [
     F_TOLGY => ['tölgy',F_KEMENY],
     F_JUHAR => ['juhar',F_KEMENY],
     F_CSERESZNYE => ['cseresznye',F_KEMENY],
+    F_EGER => ['éger', F_LAGY],
     F_NYIR => ['nyír',F_LAGY],
     F_FENYO => ['fenyő',F_FENYOFELE],
     F_EGYEB_KEMENY => ['egyéb kemény lombos',F_KEMENY],

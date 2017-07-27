@@ -22,7 +22,7 @@ include("lib/popups.php");
 foreach(array_keys(FATIPUSOK) as $p){
     ?>
             <li role="presentation" <?=($p==array_keys(FATIPUSOK)[0]? 'class="active"': '')?> style="text-align:center;max-width:8em;">
-                <a href="#<?=$p?>" role="tab" data-toggle="tab"><span style="display:table-cell;height:100%;vertical-align:bottom;color:black;"><img src="/img/<?=$p?>.png" style="height:2em;margin-bottom:0.4em;"><br><?=ucfirst(FATIPUSOK[$p][0])?></span>
+                <a href="#<?=$p?>" role="tab" data-toggle="tab"><span style="display:table-cell;height:100%;vertical-align:bottom;color:black;"><img src="/img/<?=$p?>.png" style="height:2em;margin-bottom:0.4em;"><br><?=mb_ucfirst(FATIPUSOK[$p][0])?></span>
 
                 </a>
             </li>
