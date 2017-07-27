@@ -414,7 +414,8 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 
 <?php if($priceON){ ?>
                     <td style="white-space: nowrap;">
-                        <b><?=(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
+                        <b><?=rnd(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
+                        <span style="font-size:75%;"><span class="glyphicon glyphicon-tree-deciduous"></span><b><?=rnd(orderFullPrice($og['ID']))?>&nbsp;<?=$og['Penznem']?></span></b><br>
 <?php if($shippingPriceEditON && $og['Tipus']==M_EXPORT){ ?>
     <template id="div_se_<?=$og['ID']?>" style="color:#000;">
       <label class="col-md-5 control-label" style="white-space:nowrap;color:#000;" for="szallitasiktsg">Szállítási díj: </label>
@@ -432,7 +433,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 
     </template>
     <a tabindex="1" data-toggle="popover" style="color:#000;cursor:pointer;text-decoration:none;" id="se_<?=$og['ID']?>"  title="<span style='color:#000'>Szállítási díj módosítása</span>"  onclick="$('#tr_<?=$og['ID']?>').addClass('highlight');">
-                        <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
+                        <span class="label label-default"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=rnd($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></span>
     </a>
     <script>
         $("#se_<?=$og['ID']?>").popover({
@@ -447,7 +448,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
     </script>
 
 <?php } else {?>
-                        <i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?>
+                        <span style="font-size:75%;"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;<?=rnd($og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></span>
 <?php } ?>
                     </td>
 <?php } ?>
@@ -520,7 +521,7 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 
 <?php } ?>
                     <td>
-                        <div style="overflow:auto; font-size:80%; display:none;" class="megj" id="megj_div_<?=$og['ID']?>" data-toggle="popover">
+                        <div style="overflow:auto; font-size:80%;min-width:35em; display:none;" class="megj" id="megj_div_<?=$og['ID']?>" data-toggle="popover">
                             <?=renderMessages($og['Megjegyzes'], $desc = false)?>
                         </div>
                         <template id="megj_templ_<?=$og['ID']?>" >
@@ -530,12 +531,12 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
                         <script>
                             $("#megj_div_<?=$og['ID']?>").popover({
                                 html: true,
-                                placement: 'bottom',
+                                placement: 'left',
                                 trigger: 'click',
                                 content: function () {
                                     return $('#megj_templ_<?=$og['ID']?>').html();
                                 }
-                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide');});
+                            }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");}).on('show.bs.popover',function (){$('.popover').popover('hide'); });
 
                         </script>
 

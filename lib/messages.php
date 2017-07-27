@@ -39,11 +39,13 @@ function renderMessages($_m, $desc = false){
 
 function newMessage($tabla, $id, $msgDivID="renderMessages", $callback = ''){
     ?>
-        <button type="button" class="btn btn-primary " onclick="$(this).hide();$('#msg_new').fadeIn()">Új üzenet</button>
+        <div style="min-width:40em;">
+          <button type="button" class="btn btn-primary " onclick="$(this).hide();$('#msg_new').fadeIn()">Új üzenet</button>
+        </div>
         <div id="msg_new" style="display:none;">
             <b><?=date('Y-m-d H:i:s')?> - <?=getUserFullName($_SESSION['userName'])?>:</b>
-            <table style="width:100%;">
-                <tr>
+            <table >
+                  <tr>
                     <td>
                         <textarea class="form-control" id="new_msg_text" style="height:4em;border-radius:4px 0 0 4px;"></textarea>
                     </td>
