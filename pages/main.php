@@ -16,6 +16,11 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 07. 27.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/43','Megrendelesek teljes ara nincs kerekitve')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/42','Szallitasi ktsg es faar kulon jelenjen meg')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/45','A megjegyzes mezok legyenek szelesebb fix hosszusaguak')?>
+    </p>
     <p><span class="label label-default">2017. 06. 27.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/41','Exp.megrendelők kezelése')?>,
     </p>
