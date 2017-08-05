@@ -1,4 +1,4 @@
-<h1>Kiszállított lakossági megrendelések</h1>
+<h1>Kiszállított vagy visszautasított/visszamondott lakossági megrendelések</h1>
 
 <?php
 

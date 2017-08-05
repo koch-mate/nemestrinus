@@ -1,4 +1,4 @@
-<h1>Kiszállított export megrendelések</h1>
+<h1>Kiszállított vagy visszautasított/visszamondott export megrendelések</h1>
 
 <?php
 
