@@ -557,5 +557,28 @@ const GYARTASI_IDO = [
 const SZALLITASI_IDO = [
   M_EXPORT => 2*7,
   M_LAKOSSAGI => 2*7
-]
+];
+
+// gyartok
+const GYARTO_IHARTU = 'Ihartü';
+const GYARTO_BELSO = [GYARTO_IHARTU];
+
+// kulso gyartas statusza
+const K_GY_S_GYARTASRA_VAR            = 'gyártásra vár';
+const K_GY_S_LEGYARTVA                = 'legyártva';
+const K_GY_S_VISSZAUTASITVA           = 'visszautasítva';
+
+const K_GY_S_STATUSZOK = [K_GY_S_GYARTASRA_VAR, K_GY_S_LEGYARTVA, K_GY_S_VISSZAUTASITVA];
+
+const K_GY_S_SZINEK = [
+    K_GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog', 'gyv'],
+    K_GY_S_LEGYARTVA              => ['#0B630E', 'check', 'l'],
+    K_GY_S_VISSZAUTASITVA         => ['#B63620', 'close', 'v'],
+];
+
+const K_GY_S_AKTIV = [
+    K_GY_S_GYARTASRA_VAR,
+];
+
+
 ?>

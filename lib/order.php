@@ -1,6 +1,6 @@
 <?php
 
-function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $order_json){
+function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $gyarto, $order_json){
     global $db;
     if(strlen(trim($megjegyzes)) > 0){
       $cmsg = [[
@@ -29,7 +29,8 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'SzallitasiCim' => $szall_cim,
         'FizetesStatusza' => F_S_FIZETESRE_VAR,
         'FizetesiHatarido' => $fizhat,
-        'KapcsolattartoTel' => $kapcs_tel
+        'KapcsolattartoTel' => $kapcs_tel,
+        'Gyarto' => $gyarto
     ]);
 
     foreach(json_decode($order_json) as $o){
@@ -53,7 +54,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
     return $new_id;
 }
 
-function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $order_json){
+function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $gyarto, $order_json){
     global $db;
     if(strlen(trim($megjegyzes)) > 0){
       $cmsg = [[
@@ -78,6 +79,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
         'FizetesiHatarido' => $fizhat,
         'Fuvardij' => $szall_ktsg,
         'Megjegyzes' => $cmsg,
+        'Gyarto' => $gyarto
     ]);
 
     foreach(json_decode($order_json) as $o){
@@ -133,7 +135,7 @@ function ordersGetAllData($filters = []){
         $where = [ 'ID' => $filters['ID'] ];
     }
 
-    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas','SzallitolevelSzam','CMR','EKAER','Fuvarozo'], ['AND' =>$where]));
+    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas','SzallitolevelSzam','CMR','EKAER','Fuvarozo', 'Gyarto', 'KulsoGyartasStatusza'], ['AND' =>$where]));
 }
 
 function orderGetIDByOrderLineID($id){
@@ -177,6 +179,16 @@ function orderStatusUpdate($id, $st){
     $db->update('megrendeles', ['Statusz'=>$st], ['ID'=>$id]);
 }
 
+function orderExtMfStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles', ['KulsoGyartasStatusza'=>$st], ['ID'=>$id]);
+}
+
+function orderManufacturerUpdate($id, $gy){
+    global $db;
+    $db->update('megrendeles', ['Gyarto'=>$gy], ['ID'=>$id]);
+}
+
 function orderShippingPriceUpdate($id, $price){
     global $db;
     $db->update('megrendeles', ['Fuvardij'=>$price], ['ID'=>$id]);
@@ -200,7 +212,7 @@ function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevs
 
 function orderGetFutureSumByType($tipus){
     global $db;
-    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV]]));
+    return rnd($db->sum('megrendeles_tetel', ["[>]megrendeles"=>["MegrendelesID"=>"ID"]],'MennyisegStd', ['AND' => ['megrendeles.Gyarto'=>GYARTO_BELSO,'megrendeles_tetel.Deleted'=>0, 'megrendeles_tetel.Fafaj'=>$tipus, 'megrendeles.Deleted'=>0,'megrendeles_tetel.GyartasStatusza'=>GY_S_AKTIV]]));
 }
 
 function orderGetCompletedSumByType($tipus, $forg){
@@ -210,7 +222,7 @@ function orderGetCompletedSumByType($tipus, $forg){
 
 function orderGetFutureSumByTypeBetweenDates($tipus, $from, $to){
     global $db;
-    return rnd($db->sum('megrendeles_tetel', 'MennyisegStd', ['AND' => ['Deleted'=>0, 'Fafaj'=>$tipus, 'GyartasStatusza'=>GY_S_AKTIV, 'GyartasSzamitottDatuma[<>]'=>[$from,$to]]]));
+    return rnd($db->sum('megrendeles_tetel',["[>]megrendeles"=>["MegrendelesID"=>"ID"]],'MennyisegStd', ['AND' => ['megrendeles.Gyarto'=>GYARTO_BELSO,'megrendeles_tetel.Deleted'=>0, 'megrendeles_tetel.Fafaj'=>$tipus, 'megrendeles.Deleted'=>0, 'megrendeles_tetel.GyartasStatusza'=>GY_S_AKTIV, 'megrendeles_tetel.GyartasSzamitottDatuma[<>]'=>[$from,$to]]]));
     // adott honapig tarto megrendelesek
     // regi, hibas szamolas, mert csak az elvart datumot veszi figyelembe, a szamitott datumot nem
     /*
@@ -233,5 +245,14 @@ function orderDel($id){
     $db->update('faanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
     $db->update('csomagoloanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
 }   // FIXME: megrendelestetelid csomagoloanyag
+
+function orderProductionHasNotStarted($id){
+  global $db;
+  if ($db->count('megrendeles_tetel', ['AND'=>['MegrendelesID'=>$id,'GyartasStatusza[!]'=>[GY_S_VISSZAIGAZOLASRA_VAR,GY_S_VISSZAUTASITVA]]]) == 0){
+    return True;
+  } else {
+    return False;
+  }
+}
 
 ?>

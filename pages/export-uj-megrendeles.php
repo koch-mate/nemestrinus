@@ -3,7 +3,7 @@
 
 if(!empty($_POST['datum'])){
     // store order
-    $oid = orderExportAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelo'], $_POST['prio'], $_POST['penznem'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
+    $oid = orderExportAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelo'], $_POST['prio'], $_POST['penznem'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['gyarto'], $_POST['order_json']);
 
     logEv(LOG_EVENT['order_export_add'].':',null,"ID: ".$oid);
 
@@ -12,9 +12,6 @@ if(!empty($_POST['datum'])){
 
 
 include('lib/popups.php');
-
-
-//TODO - megrendeles statusza
 
 ?>
 
@@ -179,6 +176,12 @@ include('lib/popups.php');
             </div>
 
 
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="gyarto">Gyártó</label>
+                <div class="col-md-4">
+                <input id="rogzitette" name="gyarto" type="text"  value="<?=GYARTO_IHARTU?>" class="form-control input-md">
+                </div>
+            </div>
 
 
             <div class="form-group">

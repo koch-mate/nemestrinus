@@ -9,7 +9,7 @@
 
 require("lib/order_table.php");
 
-orderTable($filters = ['Statuszok'=>'gyarthato'], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false );
+orderTable($filters = ['Statuszok'=>'gyarthato'], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false );
 
 ?>
 <div class="modal fade" id="editorWin"  tabindex="-3" role="dialog" aria-labelledby="modalLabel">

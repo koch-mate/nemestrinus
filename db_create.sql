@@ -162,7 +162,11 @@ ALTER TABLE `megrendeles`
 ALTER TABLE `megrendeles`
   ADD COLUMN `Fuvarozo` VARCHAR(45) NULL AFTER `EKAER`;
 
-ALTER TABLE `faanyag` 
+ALTER TABLE `faanyag`
   ADD COLUMN `CMR` VARCHAR(45) NULL AFTER `MegrendelesTetelID`,
   ADD COLUMN `EKAER` VARCHAR(45) NULL AFTER `CMR`,
   ADD COLUMN `Fuvarozo` VARCHAR(45) NULL AFTER `EKAER`;
+
+ALTER TABLE `nemestrinus`.`megrendeles`
+  ADD COLUMN `Gyarto` VARCHAR(45) NULL DEFAULT 'Ihartü' AFTER `Fuvarozo`,
+  ADD COLUMN `KulsoGyartasStatusza` VARCHAR(45) NULL DEFAULT 'gyártásra vár' AFTER `Gyarto`;
