@@ -3,7 +3,7 @@
 
 if(!empty($_POST['datum'])){
     // store order
-    $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['order_json']);
+    $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['gyarto'], $_POST['order_json']);
 
     logEv(LOG_EVENT['order_residental_add'].':',null,"ID: ".$oid);
 
@@ -88,7 +88,7 @@ include('lib/popups.php');
               document.csomtip[order.csom],
               order.menny + ' ' + order.mennyme,
               Array(order.nedvszam + 1).join('<span class="glyphicon glyphicon-tint" title="'+document.nedvNev[order.nedvszam-1]+'"></span>'),
-              order.ar+"&nbsp;Ft", 
+              order.ar+"&nbsp;Ft",
               '<button type="button" class="btn btn-xs btn-danger" onclick="document.megrendelt_tabla.row($(this).parents(\'tr\')).remove().draw();torles(' + order.id + ')">Törlés</button>']).draw(false);
             $("#order_json").val(JSON.stringify(document.order_db));
 
@@ -210,6 +210,14 @@ include('lib/popups.php');
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="gyarto">Gyártó</label>
+                <div class="col-md-4">
+                <input id="rogzitette" name="gyarto" type="text"  value="<?=GYARTO_IHARTU?>" class="form-control input-md">
+                </div>
+            </div>
+
 
 
             <?php /*
