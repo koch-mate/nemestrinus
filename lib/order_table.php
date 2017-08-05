@@ -443,7 +443,7 @@ function saveExtMfStatus(lid, st){
 
                             <?php
                             foreach(array_keys(SZ_S_SZINEK) as $fs){
-                              if($og['SzallitasStatusza'] == SZ_S_GYARTAS_ALATT && $fs != SZ_S_GYARTAS_ALATT){
+                              if($og['SzallitasStatusza'] == SZ_S_GYARTAS_ALATT && $og['Gyarto'] == GYARTO_IHARTU && $fs != SZ_S_GYARTAS_ALATT){
                                 continue;
                               }
                               if($og['SzallitasStatusza'] != SZ_S_GYARTAS_ALATT && $fs == SZ_S_GYARTAS_ALATT){
