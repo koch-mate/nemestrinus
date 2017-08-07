@@ -16,6 +16,9 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 08. 07.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/46','A gyarto ne lassa a kulso gyartasu megrendeleseket')?>
+    </p>
     <p><span class="label label-default">2017. 08. 05.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/8','Kulso gyarto megrendelesekhez')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/37','Szallitasi adatok szerkeszthetosege teljesites utan')?>

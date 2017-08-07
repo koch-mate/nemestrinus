@@ -1,5 +1,7 @@
 <h2>Függő gyártások</h2>
 
+<div class="alert alert-info" role="alert">A gyártás menü alatt csak a saját telepen gyártott megrendelések jelennek meg.</div>
+
 <style>
 .modal {
   overflow-y:auto;
@@ -9,7 +11,7 @@
 
 require("lib/order_table.php");
 
-orderTable($filters = ['Statuszok'=>'gyarthato'], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false );
+orderTable($filters = ['Statuszok'=>'gyarthato', 'Gyarto'=>GYARTO_IHARTU], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false );
 
 ?>
 <div class="modal fade" id="editorWin"  tabindex="-3" role="dialog" aria-labelledby="modalLabel">
