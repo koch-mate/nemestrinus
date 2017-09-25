@@ -16,6 +16,12 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 09. 25.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/52','Kimutatas: lehessen atkattintani')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/51','Kimutatas: visszamondottnal es visszautasitottnal ne jelezzen pirossal')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/49','Konstansok')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/48','Megnevezesek')?>
+    </p>
     <p><span class="label label-default">2017. 08. 07.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/46','A gyarto ne lassa a kulso gyartasu megrendeleseket')?>
     </p>

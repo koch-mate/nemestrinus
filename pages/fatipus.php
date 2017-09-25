@@ -1,4 +1,4 @@
-<h2>Fatípusok</h2>
+<h2>Fafajok</h2>
 
 
 <table class="table table-striped table-hover display" >

@@ -264,9 +264,9 @@ const MENU_ICONS = [
 ];
 
 const MENU_NAMES = [
-    'beszallitas' => 'Beszállítás',
-    'beszallitas-fuggo' => 'Beszállítás',
-    'alapanyag' => 'Alapanyag',
+    'beszallitas' => 'Alapanyag',
+    'beszallitas-fuggo' => 'Alapanyag',
+    'alapanyag' => 'Készlet',
     'keszlet-osszesito' => 'Készlet összesítő',
     'faanyag' => 'Faanyag',
     'csomagoloanyag' => 'Csomagolóanyag',
@@ -311,7 +311,7 @@ const MENU_NAMES = [
     'lakossagi' => 'Lakossági',
     'export' => 'Export',
     'szemelyes-beallitasok' => 'Személyes beállítások',
-    'fatipus'   => 'Fatípusok',
+    'fatipus'   => 'Fafajok',
     'konstansok'   => 'Konstansok',
     'arlista' => 'Árlista',
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
@@ -325,10 +325,10 @@ const U_RAKOTT_URMETER = 'rur';
 
 
 const U_NAMES = [
-    U_TOMOR_KOBMETER => ['tömör köbméter','t. m<sup>3</sup>'],
+    U_TOMOR_KOBMETER => ['tömör köbméter','m<sup>3</sup>'],
 //    U_ERDESZETI_KOBMETER => ['erdészeti köbméter','e. m<sup>3</sup>'],
-    U_SZORT_URMETER => ['szórt űrméter','sz. űm'],
-    U_RAKOTT_URMETER => ['rakott űrméter','r. űm'],
+    U_SZORT_URMETER => ['szórt űrméter','szűrm'],
+    U_RAKOTT_URMETER => ['rakott űrméter','rűrm'],
 ];
 
 // 1 tomor kobmeter hany _____-nak felel meg?
@@ -431,7 +431,7 @@ const CSOMAGOLASTIPUSOK = [
     VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
     POSCH_HALOS                 => ['Posch hálós', 'db', 2.24, U_SZORT_URMETER],
     POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.24, U_SZORT_URMETER],
-    OMLESZTETT                  => ['Ömlesztett', 'm<sup>3</sup>', 1, U_SZORT_URMETER]
+    OMLESZTETT                  => ['Ömlesztett', 'szűrm', 1, U_SZORT_URMETER]
 ];
 
 const CS_FELHASZNALAS = [
