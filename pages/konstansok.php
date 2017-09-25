@@ -23,6 +23,13 @@
 <?php }?>
         </tr>
         <tr>
+            <th>Egy csomagolási egységben lévő mennyiség</th>
+<?php foreach(array_keys(CSOMAGOLASTIPUSOK) as $cst2) { ?>
+            <td><?=CSOMAGOLASTIPUSOK[$cst2][2]?> <?=U_NAMES[CSOMAGOLASTIPUSOK[$cst2][3]][1]?></td>
+<?php }?>
+        </tr>
+
+        <tr>
         <th colspan="<?=count(CSOMAGOLASTIPUSOK)+1?>" style="text-align:center;">Átváltások (1 egység = X)</th>
         </tr>
 <?php foreach(array_keys(U_NAMES) as $us) { ?>

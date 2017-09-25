@@ -73,7 +73,7 @@ foreach(array_keys(FATIPUSOK) as $rk){
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-            <th>Fatípus</th>
+            <th>Csomagolóanyag</th>
             <th style="text-align:center;">Aktuális készlet</th>
             <th></th>
             <th style="text-align:center;">Gyártásra váró<br />megrendelések szükséglete</th>

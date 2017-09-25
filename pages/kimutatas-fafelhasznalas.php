@@ -46,7 +46,7 @@ foreach(ordersGetAllData() as $o){
             ?>
             <tr>
               <td>
-                <b>ID:&nbsp;</b><?=$oi['ID']?>&nbsp;
+                <b><a href="?mode=megrendeles-osszesites&id=<?=$o['ID']?>">MID:&nbsp;</b><?=$oi['ID']?></a>&nbsp;
               </td>
               <td>
                 <span class="label" title="<?=$oi['GyartasStatusza']?>" style="background:<?=GY_S_SZINEK[$oi['GyartasStatusza']][0]?>;"><i class="fa fa-<?=GY_S_SZINEK[$oi['GyartasStatusza']][1]?> fa-fw"></i></span>&nbsp;
@@ -75,8 +75,16 @@ foreach(ordersGetAllData() as $o){
                  ?>
                  &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;<?=rnd($ossz).U_NAMES[U_STD][1]?>&nbsp;<?php }?>
               </td>
-              <?php $delta = $ossz-$oi['MennyisegStd']; ?>
-              <td style="color:<?=abs($delta/$oi['MennyisegStd'])>0.1? ($delta < 0?'#c00;':'#00c;'): 'inherit'?>">
+              <?php $delta = $ossz-$oi['MennyisegStd'];
+              $szin = 'inherit';
+              if(in_array($o['Statusz'], [M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT] )){
+                $szin = $ossz > 0.1 ? '#c00': 'inherit';
+              }
+              else {
+                $szin = abs($delta/$oi['MennyisegStd'])>0.1? ($delta < 0?'#c00;':'#00c;'): 'inherit';
+              }
+              ?>
+              <td style="color:<?=$szin?>">
                 <b>&Delta;:</b>&nbsp;<?=rnd($delta).U_NAMES[U_STD][1]?>
               </td>
             </tr>
