@@ -103,7 +103,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
 }
 
 function orderCalculateManufacturingDate($type, $moist, $expDate){
-  return date("Y-m-d", strtotime(date("Y-m-d")." -".(GYARTASI_IDO[$type][$moist]+SZALLITASI_IDO[$type])." days"));
+  return date("Y-m-d", strtotime($expDate." -".(GYARTASI_IDO[$type][$moist]+SZALLITASI_IDO[$type])." days"));
 }
 
 function ordersGetAllData($filters = []){
