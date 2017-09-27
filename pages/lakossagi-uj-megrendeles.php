@@ -192,7 +192,7 @@ include('lib/popups.php');
                 <label class="col-md-4 control-label" for="idatum">Ígért teljesítési határidő</label>
                 <div class="col-md-4">
                     <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd">
-                        <input class="form-control" name="idatum" id="idatum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d', time()+(7*24*3600))?>">
+                        <input class="form-control" name="idatum" id="idatum" type="dateISO" required placeholder="éééé-hh-nn" value="<?=date('Y-m-d', time()+(SZALLITASI_IDO[M_LAKOSSAGI]*24*3600))?>">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>

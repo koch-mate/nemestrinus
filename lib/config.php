@@ -93,7 +93,7 @@ const IMPLEMENTED_PAGES = [
     'megrendeles-lakossagi',
     'megrendeles-export',
     'kimutatas-fafelhasznalas',
-
+    'help',
 ];
 
 const MENU_STRUCT = [
@@ -217,6 +217,7 @@ const PAGE_RIGHTS = [
     'konstansok'                => [R_ADMINISZTRACIO],
     'arlista'                   => [R_ADMINISZTRACIO],
     'kimutatas-fafelhasznalas'  => [R_KIMUTATAS],
+    'help'                      => [R_BESZALLITAS, R_ALAPANYAG, R_GYARTAS, R_LAK_MEGRENDELES, R_EXP_MEGRENDELES, R_LAK_SZALLITAS, R_EXP_SZALLITAS, R_KIMUTATAS, R_ADMINISZTRACIO],
 ];
 
 const MENU_ICONS = [
