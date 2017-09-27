@@ -16,7 +16,7 @@
 
 <div>
     <h3>Frissítések</h3>
-    <p><span class="label label-default">2017. 09. 27.</span> <span class="label label-success">Új modul</span> <a href="?mode=kimutatas-fafelhasznalas">Súgó</a></p>
+    <p><span class="label label-default">2017. 09. 27.</span> <span class="label label-success">Új modul</span> <a href="?mode=help">Súgó</a></p>
     <p><span class="label label-default">2017. 09. 26.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/54','Beszallitas hibas')?>
     </p>
