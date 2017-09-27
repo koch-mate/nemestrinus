@@ -62,7 +62,7 @@ foreach(array_keys(FATIPUSOK) as $p){
                           $felh = woodGetUsedPortion($ip['ID']);
                           $maradek = ($ossz-$felh)/$ossz*100;
 
-                          if($raktarKeszlet == true && ($ip['Forgalom']!=FORGALOM_BEVETEL || rnd($maradek<=0))){continue;}?>
+                          if($raktarKeszlet == true && ($ip['Forgalom']!=FORGALOM_BEVETEL || rnd($maradek)<=0)){continue;}?>
                             <tr>
                                 <td>
                                     <?=$ip['ID']?>

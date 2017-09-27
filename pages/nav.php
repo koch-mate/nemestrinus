@@ -64,9 +64,13 @@
                                     </a>
                                 </p>
                             </li>
+                            <li>
+                              <a href="/?mode=help"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;Súgó</a>
+                            </li>
                             <li >
                                 <a style="color:orange;" href="https://github.com/koch-mate/nemestrinus/issues/new" target="_blank">Hibabejelentés</a>
                             </li>
+
                             <li><a href="/?mode=logout">Kilépés</a></li>
                         </ul>
         </div>
