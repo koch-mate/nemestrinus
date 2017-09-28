@@ -201,6 +201,54 @@ Válasszuk ki a korrigálni kívánt csomagolóanyag típust, majd adjuk meg a m
 
 ### Gyártás
 
+A gyártás modult elsősorban a gyártási folyamatokat irányító személy használja. A gyártásra váró, gyártás alatt álló megrendeléseket a Függő gyártások menüben, az elkészült, korábbi megrendeléseket a Lezárult gyártások menüben érheti el.
+
+#### Gyártás - Függő gyártások
+
+Táblázatos formában látható minden függőben lévő megrendelés. A táblázat kereshető, az oszlopok szerint rendezhető, és a képernyő alján lapozható.
+
+A táblázat oszlopai a következő adatokat tartalmazzák:
+ 1. ID: a megrendelés egyedi azonosítója
+ 2. Státusz színnel és ikonnal
+ 3. T.: megrendelés típusa
+ 4. P.: prioritás, amennyiben van
+ 5. Megrendelés dátuma
+ 6. Ígért teljesítés dátuma
+ 7. Megrendelés státusza
+ 8. Gyártó
+ 9. Tételek
+    1. Megrendelési tétel gyártásának állapota
+    2. ID: a tétel egyedi azonosítója
+    3. Fafaj ikon és név
+    4. Hosszúság
+    5. Átmérő
+    6. Csomagolástípus ikonja
+    7. Megrendelt mennyiség
+    8. Nedvességtartalom ikonja
+    9. Számított gyártási idő
+    10. Várható gyártási idő
+    11. Tényleges gyártási idő
+ 10. Szállítási adatok
+    1. Szállítás állapota
+    2. Várható szállítási határidő
+    3. Tényleges szállítási határidő
+    4. Szállítólevél szám, számlaszám, CMR, EKÁER, Fuvarozó Nedve
+ 11. Megjegyzések
+ 12. Művelet
+
+A megrednelésekkel dolgozni a művelet oszlopban lévő ikonra kattintva lehet. Ide kattintva megjelennek a kiválasztott rendelés adatai, valamit a megrendelésben szereplő tételek. Minden egyes tételt külön le kell gyártani.
+
+A tételek kezdetben Visszaigazolára vár státuszban vannak. A tételre kattintva megjelennek a további státuszok, melyek közül választani lehet. Elsőként a gyártásért felelős személynek vissza kell igazolnia a gyártás lehetségességét, vagy megtagadni azt. Megtagadni a visszautasítva státusszal lehet. Ha a gyártásra vár státusszal visszaigazoltuk a rendelést, a program kérni fogja a várható gyártási határidőt. Segítségül láthatjuk a számított határidőt, amit a program úgy számol ki, hogy az ígért szállítási határidőből visszaszámolja a megadott száradási, gyártási és szállítási időket.
+A gyártás során a készletként felvitt alapanyagok még rendelkezésre álló mennyiségéből kell a megrendelésben elvárt mennyiséget levonni. Ehhez kattintsunk a Hozzáadás ikonra, majd a megjelenő lista elemeiből vonjuk le a felhasznált mennyiséget.
+A program a csomagolási eszközöket autómatikusan levonja a készletből.
+Ha a gyártás befejeződött, be kell állítani a tényleges gyártási dátumot.
+Ha az összes tétel legyártásra került, a megrendelés eltűnik a listából, és átkerül a legyártott megrendelések menü alá.
+
+
+
+
+
+
 ### Megrendelés
 
 ### Szállítás

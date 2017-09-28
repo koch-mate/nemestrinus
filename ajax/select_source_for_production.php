@@ -117,8 +117,7 @@ $(document).ready(function () {
     $("#selectForm").validate();
     $("#selectSubmit").unbind();
     $("#selectSubmit").click(function(){
-        if( $("#selectForm" )
-           .valid()
+        if( $("#selectForm" ).valid()
           ){
             var vals = {};
             var ni = 0;

@@ -132,11 +132,11 @@ function ordersGetAllData($filters = []){
     }
 
     if(array_key_exists('ID', $filters)){
-        $where = [ 'ID' => $filters['ID'] ];
+        $where['ID'] = $filters['ID'];
     }
 
     if(array_key_exists('Gyarto', $filters)){
-        $where = [ 'Gyarto' => $filters['Gyarto'] ];
+        $where['Gyarto'] = $filters['Gyarto'];
     }
 
     return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas','SzallitolevelSzam','CMR','EKAER','Fuvarozo', 'Gyarto', 'KulsoGyartasStatusza'], ['AND' =>$where]));
