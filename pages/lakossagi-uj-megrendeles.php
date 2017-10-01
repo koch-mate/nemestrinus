@@ -139,10 +139,9 @@ include('lib/popups.php');
               destinations : szc
             }
           }).done(function(data){
-            console.log(data);
             $('#tavKm').html(data.rows[0].elements[0].distance.text);
           }).fail(function(jqXHR, textStatus, errorThrown){
-            console.log(textStatus,errorThrown);
+            console.log(textStatus);
             $('#tavKm').html('-- km');
           });
         }
@@ -256,7 +255,7 @@ include('lib/popups.php');
                 <div class="form-group">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-default" onclick="$('#kapcsnev').val($('#megrendelonev').val());$('#szallcim').val($('#megrendelocim').val());$('#kapcstel').val($('#megrendelotel').val());$('#megr').valid();calcDist();" type="button">Megrendelő adatainak másolása</button>
+                        <button id="singlebutton" name="singlebutton" class="btn btn-default" onclick="$('#kapcsnev').val($('#megrendelonev').val());$('#szallcim').val($('#megrendelocim').val());$('#kapcstel').val($('#megrendelotel').val());$('#megr').valid();distCalc();" type="button">Megrendelő adatainak másolása</button>
                     </div>
                 </div>
 
