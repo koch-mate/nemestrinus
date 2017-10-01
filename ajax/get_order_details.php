@@ -137,7 +137,7 @@ else {
 
                                           </div>
 
-                                          <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_LEGYARTVA ? ' in active':''?>"  id="tab_l_<?=$oi['ID']?>">
+                                          <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_GYARTAS_ALATT ? ' in active':''?>"  id="tab_gya_<?=$oi['ID']?>">
                                           <div class="form-group" >
                                                 <label class="col-md-4 control-label" >Gyártás tényleges dátuma: </label>
                                                 <div class="col-md-8">
@@ -172,8 +172,9 @@ else {
 
 
 
+                                        <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_GYARTASRA_VAR ? ' in active':''?>"  id="tab_l_<?=$oi['ID']?>"></div>
 
-                                          <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_VISSZAUTASITVA ? ' in active':''?>" id="tab_v_<?=$oi['ID']?>"></div>
+                                        <div role="tabpanel" class="tab-pane fade<?=$oi['GyartasStatusza'] == GY_S_VISSZAUTASITVA ? ' in active':''?>" id="tab_v_<?=$oi['ID']?>"></div>
 
 
 

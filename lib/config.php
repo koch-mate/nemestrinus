@@ -491,14 +491,16 @@ const M_S_LEZART = [
 // gyartas statusza
 const GY_S_VISSZAIGAZOLASRA_VAR     = 'visszaigazolásra vár';
 const GY_S_GYARTASRA_VAR            = 'gyártásra vár';
+const GY_S_GYARTAS_ALATT            = 'gyártás alatt';
 const GY_S_LEGYARTVA                = 'legyártva';
 const GY_S_VISSZAUTASITVA           = 'visszautasítva';
 
-const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
+const GY_S_STATUSZOK = [GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR, GY_S_GYARTAS_ALATT, GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA];
 
 const GY_S_SZINEK = [
     GY_S_VISSZAIGAZOLASRA_VAR   => ['#FF8139', 'question', 'vv'],
-    GY_S_GYARTASRA_VAR          => ['#F7D52F', 'cog', 'gyv'],
+    GY_S_GYARTASRA_VAR          => ['#F7D52F', 'hourglass-half', 'gyv'],
+    GY_S_GYARTAS_ALATT          => ['#9cea06', 'cog', 'gya'],
     GY_S_LEGYARTVA              => ['#0B630E', 'check', 'l'],
     GY_S_VISSZAUTASITVA         => ['#B63620', 'close', 'v'],
 ];
@@ -506,6 +508,7 @@ const GY_S_SZINEK = [
 const GY_S_AKTIV = [
     GY_S_VISSZAIGAZOLASRA_VAR,
     GY_S_GYARTASRA_VAR,
+    GY_S_GYARTAS_ALATT,
 ];
 
 // szallitas statusza
