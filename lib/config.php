@@ -430,8 +430,8 @@ const CSOMAGOLASTIPUSOK = [
     EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.8, U_RAKOTT_URMETER ],
     VISSZAVALTHATO_KALODA_KICSI => ['Visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
     VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
-    POSCH_HALOS                 => ['Posch hálós', 'db', 2.24, U_SZORT_URMETER],
-    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.24, U_SZORT_URMETER],
+    POSCH_HALOS                 => ['Posch hálós', 'db', 2.1, U_SZORT_URMETER],
+    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.1, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'szűrm', 1, U_SZORT_URMETER]
 ];
 
@@ -457,7 +457,7 @@ const M_S_ELFOGADVA             = 'elfogadva';
 const M_S_TELJESITVE            = 'teljesítve';
 const M_S_VISSZAUTASITVA        = 'visszautasítva';
 const M_S_VARAKOZIK             = 'várakozik';
-const M_S_VISSZAMONDOTT         = 'visszamondott';
+const M_S_VISSZAMONDOTT         = 'visszamondva';
 
 //const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VARAKOZIK, M_S_VISSZAMONDOTT];
 const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];

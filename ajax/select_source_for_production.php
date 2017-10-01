@@ -116,7 +116,7 @@ $(document).ready(function () {
 <script>
     $("#selectForm").validate();
     $("#selectSubmit").unbind();
-    $("#selectSubmit").click(function(){
+    $("#selectSubmit,#selectSubmit2").click(function(){
         if( $("#selectForm" ).valid()
           ){
             var vals = {};
@@ -147,6 +147,8 @@ $(document).ready(function () {
                 });
             }
         }
+        else {
+          alert("Invalid adat.");        }
     }
                             );
     function updateSum(){
@@ -155,7 +157,7 @@ $(document).ready(function () {
             s+= parseFloat($(this).val());
         });
         $("#sumSzam").html((Math.round(s*100)/100)+"&nbsp;<?=U_NAMES[U_STD][0]?>");
-        $("#kulSzam").html((Math.round((s-<?=$_POST['RendeltMennyiseg']?>)*100)/100)+"&nbsp;<?=U_NAMES[U_STD][0]?>");
+        $("#kulSzam").html((Math.round((s-(<?=$_POST['RendeltMennyiseg']?>))*100)/100)+"&nbsp;<?=U_NAMES[U_STD][0]?>");
         if(s == <?=$_POST['RendeltMennyiseg']?>)
         {
           $("#kulSzam").removeClass('label-warning');

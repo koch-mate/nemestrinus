@@ -242,17 +242,244 @@ A tételek kezdetben Visszaigazolára vár státuszban vannak. A tételre kattin
 A gyártás során a készletként felvitt alapanyagok még rendelkezésre álló mennyiségéből kell a megrendelésben elvárt mennyiséget levonni. Ehhez kattintsunk a Hozzáadás ikonra, majd a megjelenő lista elemeiből vonjuk le a felhasznált mennyiséget.
 A program a csomagolási eszközöket autómatikusan levonja a készletből.
 Ha a gyártás befejeződött, be kell állítani a tényleges gyártási dátumot.
-Ha az összes tétel legyártásra került, a megrendelés eltűnik a listából, és átkerül a legyártott megrendelések menü alá.
+Ha az összes tétel legyártásra került, autómatikusan átállítódik a szállítási státusza szállítható allapotúra.
 
+#### Gyártás - Lezárult gyártások
 
+A már lezárult rendelések látszanak, csak olvasható módban. A megjelenített adatok megegyeznek a függő gyátrás menüpontban leírtakkal.
 
-
-
+Megjegyzést már lezárult megrendelésekhez is lehet fűzni.
 
 ### Megrendelés
 
+A megrendelések menüben új lakossági és export megrendeléseket lehet felvenni, illetve a rögzített megrendelések adatait, állapotait lehet megtekinteni, módosítani.
+
+#### Megrendelés - Öszesítés - Összes megrendelés
+
+A megjelenített táblázat az összes a rendszerben rögzített megrendelést listázza. A táblázat rendezhető, kereshető, és szűrhető.
+
+Szűrők: kattintsunk a Szűről feliratra, vagy a kis tölcsér ikonra. Lenyílik a szűrők panel, ahol egy, vagy több szűrő állítható be. Amennyiben egynél több szűrőt állítunk be, közöttük ÉS kapcsolat fog fennállni, vagyis azok a tételek jelennek csak meg, melyekre minden beállított szűrő egyszerre teljesül.
+Az egyes szűrőket a sor elején lévő kapcsolóval lehet ki-be kapcsolni. Alapesetben minden szűrés ki van kapcsolva.
+A következő szűrőfeltételek definiálhatók:
+ - Megrendelés dátuma: két megadott hónap között leadott megrendelések
+ - Ígért teljesítés dátuma: két megadott hónap közötti teljesítési dátumú megrendelések
+ - Típus: lakossági és/vagy export
+ - ID: megrendelés egyedi azonosítója
+
+A megrendeléseket tartalmazó táblázat oszlopai a következő adatokat tartalmazzák:
+ - ID: egyedi azonosító
+ - A megrendelés állapota színnel és ikonnal jelezve. Lehetséges értékek:
+    - feldolgozás alatt
+    - elfogadva
+    - teljseítve
+    - visszautasítva
+    - visszamondva
+ - Prioritás
+ - Megrendelő: a megrendelő nevére kattintva kis ablakban megjelenik az összes többi adata (cím, telefonszám, kapcsolattartó, stb.)
+ - Megrendelés dátuma
+ - Ígért teljesítés dátuma
+ - Megrendelés státusza névvel. A névre kattintva megjelenik egy kis ablak, melyből másik státuszt választhatunk ki.
+ - Gyártó: alapesetben a gyártó az Ihartü Kft., de bizonyos megrendeléseket külső cég végez el. A belső gyártás megkezdéséig a gyártó cég szabadon módosítható. Amennyiben külső cég végzi a gyártást, annak státuszát a cégnév alatti kis fogaskerék ikonnal lehet beállítani:
+    - gyártásra vár
+    - legyártva
+    - visszautasítva
+ - Tételek: ebben a cellában egy táblázat van, ami a megrendelés egyes tételeit listázza. Egy tétel két sorban szerepel, a következő adatokkal:
+    - Tétel gyártásának állapota (csak Ihartü gyártás esetén)
+    - ID: egyedi azonosító
+    - Fafaj
+    - Hossz
+    - Átmérő
+    - Csomagolási egység és darabszám
+    - Ár
+    - Nedvesség
+    - Számított gyártási határidő
+    - Vállalt gyártási határidő
+    - Tényleges gyártás dátuma
+ - Szállítás: a szállítás állapota és adatai:
+    - Szállítás állapot ikonnal:
+      - Gyártás alatt (még nem szállítható)
+      - Szállíásra vár
+      - Kiszállítva
+    - V: Várható szállítási dátum
+    - T: Tényleges kiszállítás dátuma
+    - Szállítólevélszám
+    - Számlaszám
+    - CMR, EKÁER
+    - Fuvarozó
+ - Ár: teljes ár, a faanyag ára és a szállítási díj. Export rendelés esetén a szállítási díj utólag módosítható. Ehhez kattintsunk a szürke hátterű gombra, és adjuk meg az új árat
+ - Fizetés állapota és adatai. Az adatokat módosíthatjuk, ha a fizetés státusza ikonra kattintunk. A megjelenő kis ablakban átállíthatjuk a státuszt, a határidőt és a fizetés dátumát
+    - Fizetés állapota:
+       - Fizetésre vár
+       - Fizetve
+    - H: Fizetési határidő
+    - T: Tényleges fizetés dátuma
+ - Megjegyzések: korábbi megjegyzések, üzenetek dátummal és feladóval. Új üzenethez kattintson a megjegyzésekre, vagy a _Nincs még üzenet_ feliratra
+
+#### Megrendelés - Lakossági - Új megrendelés
+
+Lakossági megrendelések felvétele. A megrendelés rögzítője az aktuálisan bejelentkezett felhasználó. Ha a megrendelést paríton vagy más formában vette fel egy harmadik személy, akkor a Rendelést felvette pipa bekapcsolása után beírható az eredeti felvevő neve.
+A következő adatokat kell megadni:
+ - Dátum: a rendelés felvételének időpontja, alapértelmezetten mindig az aktuális dátum
+ - Ígért teljesítési határidő
+ - Fizetési határidő
+ - Gyártó (alapértelmezetten az Ihartü)
+ - Megrendelő neve
+ - Megrendelő címe (számlázási)
+ - Megrendelő telefonszáma
+ - Kapcsolattartó neve, szállítási cím, kapcsolattartó telefonszáma (amennyiben ezek az adatok azonosak a megrendelő adataival, a Megrendelő adatainak másolása gomb segítségével másolhatók)
+ - Tételek
+    - A fafajok táblázat mutatja a készleten lévő alapanyagot, a már felvett, gyártásra váró megrendeléseket, és a maradékot. Ez az információ közvetlen rendelésfelvétel esetén lehet hasznos, ha a megrendelő által kért fafaj nincs készleten, könnyen ajánlhatunk mást, amiből van
+    - Hossz: a kék csúszkával beállíthatjuk a kívánt hosszt
+    - Átmérő: két csúszkával tól-ig paramétereket állíthatunk be
+    - Csomagolás: válasszunk az alaprtelmezett csomagolási típusokból, vagy az Egyéb típusok alatt bármely csomagolástípusból. A rögzített érték a kiválasztott mennyiség köbméterre átszámított mennyiségét mutatja.
+    - Ár: amennyiben a fafaj és a csomagolási típus szerepel az árlistán, a listaár autómatikusan kitöltődik. Ez az érték kézzel is szerkeszthető.
+    Ha minden paramétert kiválasztottunk, a Hozzáadás a megrendeléshez gombbal lehet rögzíteni. Egy megrendeléshez tetszőleges számú tételt adhatunk.
+    A tételek soronként jelennek meg a táblázatban, és a Művelet alatti szemetes ikonnal törölhetők.
+    - Szállítási díj: kézzel szerkeszthető mező. A Szentgáltól mért távolságot a program autómatikusan kijelzi, amennyiben a szállítási cím úgy lett megadva, hogy azt a google útvonaltervezője felismeri
+    - Végösszeg: a tételek összege, plusz a szállítási díj
+    - Megjegyzés
+
+#### Megrendelés - Lakossági - Felvett megrendelések listája
+
+Az Összes megrendeléssel azonos, azzal a különbséggel, hogy kizárólag a lakossági megrendeléseket jeleníti meg.
+
+#### Megrendelés - Export - Új megrendelés
+
+Export megrendelések felvétele. A megrendelés rögzítője az aktuálisan bejelentkezett felhasználó. Ha a megrendelést papíron vagy más formában vette fel egy harmadik személy, akkor a Rendelést felvette pipa bekapcsolása után beírható az eredeti felvevő neve.
+A következő adatokat kell megadni:
+ - Dátum: a rendelés felvételének időpontja, alapértelmezetten mindig az aktuális dátum
+ - Ígért teljesítési határidő
+ - Fizetési határidő
+ - Gyártó (alapértelmezetten az Ihartü)
+ - Megrendelő: az export megrendelők adatai külön kezelődnek. Amennyiben a megrendelő már létezik, válasszuk ki a listából. Ha még nem, az Üj export megrendelő hozzáadása menüben fel kell venni.
+ - Prioritás: export megrendeléseknél lehetőség van prioritás beállítására. Ez a gyártónak, szállítónak szóló információ, ha több gyártás egyszerre aktuális, akkor a magasabb prioritásúval kell kezdeni.
+ - Tételek
+    - A fafajok táblázat mutatja a készleten lévő alapanyagot, a már felvett, gyártásra váró megrendeléseket, és a maradékot. Ez az információ közvetlen rendelésfelvétel esetén lehet hasznos, ha a megrendelő által kért fafaj nincs készleten, könnyen ajánlhatunk mást, amiből van
+    - Hossz: a kék csúszkával beállíthatjuk a kívánt hosszt
+    - Átmérő: két csúszkával tól-ig paramétereket állíthatunk be
+    - Csomagolás: válasszunk az alaprtelmezett csomagolási típusokból, vagy az Egyéb típusok alatt bármely csomagolástípusból. A rögzített érték a kiválasztott mennyiség köbméterre átszámított mennyiségét mutatja.
+    - Ár
+    - Pénznem
+    Ha minden paramétert kiválasztottunk, a Hozzáadás a megrendeléshez gombbal lehet rögzíteni. Egy megrendeléshez tetszőleges számú tételt adhatunk.
+    A tételek soronként jelennek meg a táblázatban, és a Művelet alatti szemetes ikonnal törölhetők.
+    - Szállítási díj
+    - Végösszeg: a tételek összege, plusz a szállítási díj
+    - Megjegyzés
+
+#### Megrendelés - Export - Felvett megrendelések listája
+
+Az Összes megrendeléssel azonos, azzal a különbséggel, hogy kizárólag az export megrendeléseket jeleníti meg.
+
+#### Megrendelés - Export - Export megrendelők
+
+Ebben a menüpontban kezelhetjük az export megrendelőket. A táblázat az összes megrendelőt listázza minden adattal. Az emlékeztető küldése gombra kattintva e-mail emlékeztetőt küldhetünk a jelszavukról. A műveletek alatt 3 gomb található:
+ - Szerkesztés: a megrendelő adatainak szerkesztése
+ - Felfüggesztés vagy Engedélyezés: ezzel a gombbal tilthatja le, vagy engedélyezheti újra a megrendelő belépését
+ - Törlés: a megrendelő törlése a rendszerből (csak akkor használjuk, ha megrendelést nem rögzített)
+
+A táblázat alatt új megrendelőt vehetünk fel.
+
 ### Szállítás
 
-### Kimutatások
+A szállítás menü alatt a lakossági és export megrendelések kiszállításával foglalkozó felhasználók láthatják, módosíthatják a számukra fontos adatokat.
+
+#### Szállítás - Lakossági - Szállításra váró megrendelések
+
+A lakossági megrendelések listája látszik itt. A lista tartalmazza a már szállításra kész megrendeléseket, de ahhoz, hogy a szállítást végző személy megfelelően tudjon előre tervezni, a még nem szállítható, gyártás alatt lévő rendelések is megjelennek. A szállításra kész tételek mindig a táblázat tetején jelennek meg az alapértelmezett rendezés szerint.
+
+A megjelenő táblázat azonos a Megrendelés összesítőben leírt táblázattal, azzal a különbséggel, hogy nem jelennek meg a szállítás számára nem fontos információk (például az árak), és a szállítás állapota, valamint adatai szerkeszthetők. A szállítás állapotának ikonjára kattintva kis ablakban megnyílik a szerkeszthető nézet, beállíthatjuk a szállítás várható és tényleges állapotát, valamint a következő adatokat:
+ - Szállítólevél szám
+ - Számlaszám
+ - CMR
+ - ERÁER
+ - Fuvarozó
+
+ A teljesített szállítások átkerülnek a Lezárt megrendelések alá.
+
+#### Szállítás - Lakossági - Lezárt megrendelések
+
+A már kiszállított, teljesített megrendelések látszanak itt, az adatok már nem szerkeszthetők.
+
+#### Szállítás - Export - Szállításra váró megrendelések
+
+Az export megrendelések listája látszik itt. A lista tartalmazza a már szállításra kész megrendeléseket, de ahhoz, hogy a szállítást végző személy megfelelően tudjon előre tervezni, a még nem szállítható, gyártás alatt lévő rendelések is megjelennek. A szállításra kész tételek mindig a táblázat tetején jelennek meg az alapértelmezett rendezés szerint.
+
+A megjelenő táblázat azonos a Megrendelés összesítőben leírt táblázattal, azzal a különbséggel, hogy nem jelennek meg a szállítás számára nem fontos információk (például az árak), és a szállítás állapota, valamint adatai szerkeszthetők. A szállítás állapotának ikonjára kattintva kis ablakban megnyílik a szerkeszthető nézet, beállíthatjuk a szállítás várható és tényleges állapotát, valamint a következő adatokat:
+ - Szállítólevél szám
+ - Számlaszám
+ - CMR
+ - ERÁER
+ - Fuvarozó
+
+ A teljesített szállítások átkerülnek a Lezárt megrendelések alá.
+
+#### Szállítás - Export - Lezárt megrendelések
+
+A már kiszállított, teljesített megrendelések látszanak itt, az adatok már nem szerkeszthetők.
+
+### Kimutatás
+
+A kimutatások a programban lévő adatok alapján generált riportok. Csak olvasható formátumúak.
+
+#### Kimutatás - Faanyag felhasználás
+
+A táblázat a gyártás során felhasznált tényleges alapanyagok mennyiségét mutatja.
+
+M: a megrendelt fatípust és átszámított mennyiséget mutatja, F: pedig a ténylegesen felhasznált tételeket. Ezek külünbsége a Δ.
+
+Ha a gyártás során a felhasznált mennyiség több, mint 10%-kal eltér a megrendelttől, akkor az érték színezve jelenik meg. Piros szín esetén a gyártás kevesebb anyagot használt fel az elvártnál, kék szín esetén a gyártás több anyagot használt fel, mint az elvárt.
 
 ### Adminisztráció
+
+#### Adminisztráció - Felhasználók
+
+A program használatára jogosult felhasználók kezelése. A táblázat tartalmazza az összes felhasználót, és a következő adataikat:
+ - ID: egyedi azonosító
+ - Felhasználónév
+ - Teljes név
+ - Jogosultságok: a felhasználó a kékkel jelölt jogosultságokkal rendelkezik
+    - Bsz: Beszállítás
+    - Al: Alapanyag
+    - Gy: Gyártás
+    - LM: Lakossági megrendelés
+    - EM: Export megrendelés
+    - LSz: Lakossági szállītás
+    - ESz: Export szállītás
+    - K: Kimutatás
+    - Ad: Adminisztráció
+ - Jelszó emlékeztető
+ - E-mail cím
+ - Utolsó belépés dátuma
+ - Művelet
+    - Szerkesztés: a felhasználó adatainak szerkesztése
+    - Felfüggesztés vagy Engedélyezés: ezzel a gombbal tilthatja le, vagy engedélyezheti újra a felhasználó belépését
+    - Törlés: a felhasználó törlése a rendszerből (Csak akkor használjuk, ha hibásan vettünk fel felhasználót, de még sosem lépett be. Minden egyéb esetben a felfüggesztést használjuk.)
+
+Új felhasználót a táblázat alatt tudunk  felvenni.
+
+#### Adminisztráció - Fafajok
+
+A programban szereplő fafajok listája, ikonjai.
+
+A program meg tud különböztetni kemény lombos, lágy lombos és fenyőféléket. Ezt például a kimutatásoknál lehet felhasználni.
+
+#### Adminisztráció - Konstansok
+
+A programban található konstansok listája. A felső táblázat a különböző csomagolási formák, mértékegységek, és a csomgolások egyes csomagolóanyag szükségletét mutatja.
+
+Az alapértelmezett gyártási idő a száradási idővel növelt gyártási időt, a szállítási idő a kiszállítás átlagos idejét jelenti.
+
+#### Adminisztráció - Árlista
+
+A lakossági árak csomagolási modonként és fafajonként lebontva.
+
+#### Adminisztráció - Napló
+
+A rendszer használata során minden bejelentkezési kísérletről, és a programban végzett tevékenységről naplóbejegyzés készül.
+ - Dátum: az esemény dátuma és pontos időpontja
+ - Felhasználó: a bejelentkezett felhasználó
+ - Esemény: az esemény leírása, bizonyos esetekben adatai
+
+#### Adminisztráció - Saját profil
+
+A felhasználó saját adatainak megjelenítése. Itt lehet jelszót változtatni is.
