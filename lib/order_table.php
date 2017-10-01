@@ -67,9 +67,9 @@ function saveExtMfStatus(lid, st){
 <?php if($customerON){ ?>
                 <th style="vertical-align:bottom;">Megrendelő</th>
 <?php } ?>
-                <th style="vertical-align:bottom;">Megrendelés dátuma</th>
+                <th style="vertical-align:bottom;">Megr. dátuma</th>
                 <th style="vertical-align:bottom;">Ígért teljesítés dátuma</th>
-                <th style="vertical-align:bottom;">Megrendelés státusza</th>
+                <th style="vertical-align:bottom;">Megr. státusza</th>
                 <th style="vertical-align:bottom;">Gyártó</th>
                 <th style="vertical-align:bottom;">Tétel(ek)</th>
 <?php if($shippingON || $shippingEditON){ ?>
@@ -366,7 +366,7 @@ function saveExtMfStatus(lid, st){
                         <table class="orderItems"  >
                             <?php foreach(ordersGetItemsByID($og['ID']) as $oi){ ?>
                                 <tr >
-                                    <td class="gyartasStatusz">
+                                    <td class="gyartasStatusz" rowspan="2">
                                       <?php if(!in_array($og['Gyarto'], GYARTO_BELSO)){
                                         // kulso gyarts, nincs kulon visszajelzes ?>
 
@@ -403,12 +403,13 @@ function saveExtMfStatus(lid, st){
                                     <td style="padding-right:0.8em;">
                                         <?=csepp($oi['Nedvesseg'])?>
                                     </td>
-                                    <td></td>
-                                    <?php if(in_array($og['Gyarto'], GYARTO_BELSO)){?>
-                                    <td><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span></td>
-                                    <td><?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span></td>
-                                    <td>&nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
-                                    <?php }?>
+                                    <tr>
+                                      <?php if(in_array($og['Gyarto'], GYARTO_BELSO)){?>
+                                      <td colspan="8"><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span>
+                                      <?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span>
+                                      &nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
+                                      <?php }?>
+                                    </tr>
                                 </tr>
                                 <?php } ?>
                         </table>
