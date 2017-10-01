@@ -128,11 +128,12 @@ include('lib/popups.php');
         }
         function distCalc(){
           var szc = $('#szallcim').val();
+          if(szc == "")return;
           $('#tavKm').html('<i class="fa fa-cog  fa-spin fa-fw"></i>');
           // https://maps.googleapis.com/maps/api/distancematrix/json?origins=8444%20Szentgál,%20Magyarország&destinations=7451%20Kaposvár%20Margaréta%20u.%201/d&key=AIzaSyCNgpxoeDSu7tMM5SoTo0d-Gh3JZHrrXAY
 
           $.ajax({
-            method:'POST',
+            method:'GET',
             url:'<?=SERVER_PROTOCOL.SERVER_URL?>ajax/getDistance.php',
             data: {
               origins : '8444%20Szentgál,%20Magyarország',
