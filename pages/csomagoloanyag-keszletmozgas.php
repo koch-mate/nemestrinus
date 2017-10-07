@@ -36,7 +36,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
     $pq = packagingGetSumByType($p);
     ?>
             <div role="tabpanel" class="tab-pane fade <?=($p==array_keys(CSOMAGOLOANYAGOK)[0]?'in active':'')?>" id="<?=$p?>" style="padding:2em;background:#fff;border-radius:0 0 5px 5px">
-                <h4>Teljes készleten lévő mennyiség: <span class="label label-<?=($pq>10?'success':($pq<=0?'danger':'warning'))?>"><?=$pq.' '.rnd(CSOMAGOLOANYAGOK[$p][1]*10)/10?></span></h4>
+                <h4>Teljes készleten lévő mennyiség: <span class="label label-<?=($pq>10?'success':($pq<=0?'danger':'warning'))?>"><?=rnd($pq*10)/10.' '.CSOMAGOLOANYAGOK[$p][1]?></span></h4>
                 <table class="table table-striped table-hover display" id="t_<?=$p?>" style="min-width:90%;">
                     <thead>
                         <tr>
