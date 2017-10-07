@@ -352,7 +352,7 @@ const CS_KALODA   = 'kaloda';
 
 const CSOMAGOLOANYAGOK = [
     CS_TAKARO    =>  ['Takarófólia','db'],
-    CS_SZTRECCS  =>  ['Sztreccsfólia','db'],
+    CS_SZTRECCS  =>  ['Sztreccsfólia','m'],
     CS_HALO      =>  ['Háló','m'],
     CS_RAKLAP    =>  ['Raklap','db'],
     CS_KALODA    =>  ['Kaloda keret','db'],
@@ -442,8 +442,8 @@ const CS_FELHASZNALAS = [
     EGYUTAS_KALODA_NAGY         => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0],
     VISSZAVALTHATO_KALODA_KICSI => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 2],
     VISSZAVALTHATO_KALODA_NAGY  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 1, CS_KALODA  => 4],
-    POSCH_HALOS                 => [CS_TAKARO => 0, CS_SZTRECCS => 1, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
-    POSCH_HALOS_FOLIAS          => [CS_TAKARO => 4, CS_SZTRECCS => 1, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
+    POSCH_HALOS                 => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
+    POSCH_HALOS_FOLIAS          => [CS_TAKARO => 1, CS_SZTRECCS => 11.3, CS_HALO => 42, CS_RAKLAP => 1, CS_KALODA  => 0],
     OMLESZTETT                  => [CS_TAKARO => 0, CS_SZTRECCS => 0, CS_HALO => 0, CS_RAKLAP => 0, CS_KALODA  => 0]
 ];
 

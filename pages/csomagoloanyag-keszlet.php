@@ -9,7 +9,7 @@ foreach (array_keys(CSOMAGOLOANYAGOK) as $rk) {
     $me  = packagingGetSumByType($rk); ?>
         <div style="margin-top:1em;">
           <span style="width: 6em; display:inline-block;"><img src="/img/<?=$rk?>.png" title="<?=CSOMAGOLOANYAGOK[$rk][0]?>" style="height:3em;" /></span>
-          <b><?=CSOMAGOLOANYAGOK[$rk][0]?></b> <span class="label label-<?=($me>10?'success':($me<0?'danger':'warning'))?>"><?=$me?>&nbsp;<?=CSOMAGOLOANYAGOK[$rk][1]?></span>
+          <b><?=CSOMAGOLOANYAGOK[$rk][0]?></b> <span class="label label-<?=($me>10?'success':($me<0?'danger':'warning'))?>"><?=$me?>&nbsp;<?=rnd(CSOMAGOLOANYAGOK[$rk][1]*10)/10?></span>
         </div>
 <?php
 }
