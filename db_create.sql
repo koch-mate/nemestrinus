@@ -170,3 +170,14 @@ ALTER TABLE `faanyag`
 ALTER TABLE `nemestrinus`.`megrendeles`
   ADD COLUMN `Gyarto` VARCHAR(45) NULL DEFAULT 'Ihartü' AFTER `Fuvarozo`,
   ADD COLUMN `KulsoGyartasStatusza` VARCHAR(45) NULL DEFAULT 'gyártásra vár' AFTER `Gyarto`;
+
+CREATE TABLE `nemestrinus`.`arlista` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Fafaj` VARCHAR(45) NULL,
+  `Csomagolas` VARCHAR(45) NULL,
+  `Ar` FLOAT NULL,
+  `Penznem` VARCHAR(45) NULL DEFAULT 'HUF',
+  PRIMARY KEY (`ID`));
+
+ALTER TABLE `nemestrinus`.`arlista`
+  ADD COLUMN `Tipus` VARCHAR(45) NULL DEFAULT 'lakossagi' AFTER `Penznem`;

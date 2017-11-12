@@ -117,7 +117,7 @@ include('lib/popups.php');
           priceCal();
         }
         function priceCal(){
-          var pt = <?=json_encode(ARLISTA[M_LAKOSSAGI])?>;
+          var pt = <?=json_encode($ARLISTA[M_LAKOSSAGI])?>;
           document.Ccsomagolas = $('input[name=csomagolas_r]:checked').val();
           try{
             $("#ar").val(Math.round(document.oval*pt[document.Ccsomagolas][document.Cfatipus]*100)/100);
