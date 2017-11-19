@@ -263,6 +263,7 @@ const MENU_ICONS = [
     'exp-kiszallitas-lezart' => 'glyphicon-check',
 
     'kimutatas-fafelhasznalas' => 'fa-tree',
+    'kimutatas-lakossagi-gyartas' => 'fa-print',
 
     'beszallitas-fuggo' => 'fa-truck',
 ];
