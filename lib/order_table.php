@@ -90,7 +90,23 @@ function saveExtMfStatus(lid, st){
         <tbody>
             <?php
 
-                foreach(ordersGetAllData($filters=$filters) as $og){?>
+                foreach(ordersGetAllData($filters=$filters) as $og){
+
+                  if(array_key_exists('Statuszok', $filters)){
+                    if($filters['Statuszok'] == 'gyarthato'){
+                      // hide orders with all items manufactured
+                      $jump = true;
+                      foreach( ordersGetItemsByID($og['ID']) as $oii ){
+                        if( in_array($oii['GyartasStatusza'], GY_S_AKTIV)){
+                          $jump = false;
+                        }
+                      }
+                      if($jump){
+                        continue;
+                      }
+                    }
+                  }
+                      ?>
                 <tr id="tr_<?=$og['ID']?>">
                     <td>
                         <?=$og['ID']?>
@@ -210,6 +226,7 @@ function saveExtMfStatus(lid, st){
                         <?=($og['KertDatum'] <= date('Y-m-d') && in_array($og['Statusz'], M_S_AKTIV) ? '<span style="color:red;"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span>').$og['KertDatum']?></span>
                     </td>
                     <td>
+                      <span style="display:none;"><?=array_search($og['Statusz'], M_S_STATUSZOK_SORREND)?></span>
 <?php if($globStatusEditON){?>
                         <div id="div_po_<?=$og['ID']?>" style="display:none">
                             <?php
