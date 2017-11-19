@@ -90,7 +90,23 @@ function saveExtMfStatus(lid, st){
         <tbody>
             <?php
 
-                foreach(ordersGetAllData($filters=$filters) as $og){?>
+                foreach(ordersGetAllData($filters=$filters) as $og){
+
+                  if(array_key_exists('Statuszok', $filters)){
+                    if($filters['Statuszok'] == 'gyarthato'){
+                      // hide orders with all items manufactured
+                      $jump = true;
+                      foreach( ordersGetItemsByID($og['ID']) as $oii ){
+                        if( in_array($oii['GyartasStatusza'], GY_S_AKTIV)){
+                          $jump = false;
+                        }
+                      }
+                      if($jump){
+                        continue;
+                      }
+                    }
+                  }
+                      ?>
                 <tr id="tr_<?=$og['ID']?>">
                     <td>
                         <?=$og['ID']?>
