@@ -226,6 +226,7 @@ function saveExtMfStatus(lid, st){
                         <?=($og['KertDatum'] <= date('Y-m-d') && in_array($og['Statusz'], M_S_AKTIV) ? '<span style="color:red;"><i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span>').$og['KertDatum']?></span>
                     </td>
                     <td>
+                      <span style="display:none;"><?=array_search($og['Statusz'], M_S_STATUSZOK_SORREND)?></span>
 <?php if($globStatusEditON){?>
                         <div id="div_po_<?=$og['ID']?>" style="display:none">
                             <?php

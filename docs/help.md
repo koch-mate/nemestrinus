@@ -273,7 +273,7 @@ A megrendeléseket tartalmazó táblázat oszlopai a következő adatokat tartal
     - elfogadva
     - teljseítve
     - visszautasítva
-    - visszamondva
+    - visszamondott
  - Prioritás
  - Megrendelő: a megrendelő nevére kattintva kis ablakban megjelenik az összes többi adata (cím, telefonszám, kapcsolattartó, stb.)
  - Megrendelés dátuma
@@ -394,9 +394,9 @@ A megjelenő táblázat azonos a Megrendelés összesítőben leírt táblázatt
  - ERÁER
  - Fuvarozó
 
- A teljesített szállítások átkerülnek a Lezárt megrendelések alá.
+ A teljesített szállítások átkerülnek a Leszállított megrendelések alá.
 
-#### Szállítás - Lakossági - Lezárt megrendelések
+#### Szállítás - Lakossági - Leszállított megrendelések
 
 A már kiszállított, teljesített megrendelések látszanak itt, az adatok már nem szerkeszthetők.
 
@@ -411,9 +411,9 @@ A megjelenő táblázat azonos a Megrendelés összesítőben leírt táblázatt
  - ERÁER
  - Fuvarozó
 
- A teljesített szállítások átkerülnek a Lezárt megrendelések alá.
+ A teljesített szállítások átkerülnek a Leszállított megrendelések alá.
 
-#### Szállítás - Export - Lezárt megrendelések
+#### Szállítás - Export - Leszállított megrendelések
 
 A már kiszállított, teljesített megrendelések látszanak itt, az adatok már nem szerkeszthetők.
 

@@ -101,5 +101,12 @@ if(!empty($_GET['id'])){
 
 orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = true, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false);
 
-
 ?>
+
+
+<script>
+$(document).ready(function() {
+    dataTable = $('#megrendelt_tetelek').DataTable();
+    dataTable.order([7,'asc'],[0,'asc']).draw();
+} );
+</script>

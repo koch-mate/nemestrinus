@@ -126,3 +126,10 @@ function deleteOrder( oid ){
 }
 
 </script>
+
+<script>
+$(document).ready(function() {
+    dataTable = $('#megrendelt_tetelek').DataTable();
+    dataTable.order([7,'asc'],[0,'asc']).draw();
+} );
+</script>

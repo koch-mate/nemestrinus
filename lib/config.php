@@ -457,10 +457,12 @@ const M_S_ELFOGADVA             = 'elfogadva';
 const M_S_TELJESITVE            = 'teljesítve';
 const M_S_VISSZAUTASITVA        = 'visszautasítva';
 const M_S_VARAKOZIK             = 'várakozik';
-const M_S_VISSZAMONDOTT         = 'visszamondva';
+const M_S_VISSZAMONDOTT         = 'visszamondott';
 
 //const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VARAKOZIK, M_S_VISSZAMONDOTT];
 const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];
+
+const M_S_STATUSZOK_SORREND = [M_S_ELFOGADVA, M_S_FELDOLGOZAS_ALATT, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];
 
 const M_S_SZINEK = [
     M_S_FELDOLGOZAS_ALATT     => ['#FFB03B', 'question' ],
