@@ -94,6 +94,7 @@ const IMPLEMENTED_PAGES = [
     'megrendeles-export',
     'kimutatas-fafelhasznalas',
     'help',
+    'kimutatas-lakossagi-gyartas',
 ];
 
 const MENU_STRUCT = [
@@ -129,6 +130,7 @@ const MENU_STRUCT = [
     ],
     'kimutatas'         => [
       'kimutatas-fafelhasznalas',
+      'kimutatas-lakossagi-gyartas',
     ],
     'adminisztracio'    => [
         'felhasznalok',
@@ -203,8 +205,9 @@ const PAGE_RIGHTS = [
     'lak-kiszallitas-fuggo'     => [R_LAK_SZALLITAS],
     'lak-kiszallitas-lezart'    => [R_LAK_SZALLITAS],
     'kimutatas'                 => [R_KIMUTATAS],
-    'leltar'                    => [R_KIMUTATAS],
-    'fizetesek'                 => [R_KIMUTATAS],
+//    'leltar'                    => [R_KIMUTATAS],
+//    'fizetesek'                 => [R_KIMUTATAS],
+    'kimutatas-lakossagi-gyartas' => [R_KIMUTATAS],
     'adminisztracio'            => [R_ADMINISZTRACIO],
     'felhasznalok'              => [R_ADMINISZTRACIO],
     'export-megrendelok'        => [R_EXP_MEGRENDELES],
@@ -316,6 +319,7 @@ const MENU_NAMES = [
     'konstansok'   => 'Konstansok',
     'arlista' => 'Árlista',
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
+    'kimutatas-lakossagi-gyartas' => 'Lakossági megrendelések',
 ];
 
 

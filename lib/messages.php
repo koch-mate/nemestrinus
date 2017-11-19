@@ -37,6 +37,19 @@ function renderMessages($_m, $desc = false){
     }
 }
 
+function messageSimpleRender($_m){
+  if (trim($_m) == ''){
+    return '';
+  }
+  $msg = unserialize($_m);
+  foreach($msg as $m){
+    ?>
+    <?=$m['m']?><br />
+    <?php
+  }
+
+}
+
 function newMessage($tabla, $id, $msgDivID="renderMessages", $callback = ''){
     ?>
         <div style="min-width:40em;">
