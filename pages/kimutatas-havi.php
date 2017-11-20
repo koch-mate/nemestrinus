@@ -2,7 +2,15 @@
 
 <style>
 .table tbody tr td,  .table tbody tr th, .table thead tr th {
-  padding:2px;
+  padding:2px 5px 2px 5px;
+  vertical-align: middle;
+}
+.table {
+  border: 0;
+}
+p.light {
+  margin:0;
+  padding: 0;
 }
 </style>
 <?php
@@ -96,7 +104,7 @@ foreach(MONTHS as $mi => $mn){
       <th>Megrendelés</th>
       <th>Ár</th>
       <th>Fuvardíj</th>
-      <th>Fizetési határidő</th>
+      <th>Fizetési<br />határidő</th>
       <th>Fizetés</th>
       <th>Gyártó</th>
       <th>Megjegyzés</th>
@@ -112,7 +120,7 @@ $filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', 
       $oin = count($ois);
       $even = 1-$even;
     ?>
-    <tr style="background:<?=colourBrightness(M_S_SZINEK[$i['Statusz']][0],0.15 + 0.03*$even)?>;">
+    <tr style="background:<?=colourBrightness(M_S_SZINEK[$i['Statusz']][0],0.35 + 0.05*$even)?>;">
       <th>
         <?=$ii++?>
       </th>
@@ -128,19 +136,19 @@ $filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', 
       <td><?=$i[SzallitasTenylegesDatuma]?></td>
       <td>
         <?php foreach($ois as $oi){ ?>
-          <p>
+          <p class="light">
             <?=FATIPUSOK[$oi[Fafaj]][0]?>,&nbsp;<?=$oi[Hossz]?>&nbsp;cm,&nbsp;<?=$oi[Mennyiseg]?>&nbsp;<?=CSOMAGOLASTIPUSOK[$oi[Csomagolas]][1]?>&nbsp;<?=mb_strtolower(CSOMAGOLASTIPUSOK[$oi[Csomagolas]][0])?>
           </p>
         <?php } ?>
       </td>
       <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
-      <td><?=$i[FizetesiHatarido]?></td>
+      <td <?=($i[FizetesStatusza]!=F_S_FIZETVE && date("Y-m-d")>$i[FizetesiHatarido] ? 'style="background:#a33;" ' : '')?>><?=$i[FizetesiHatarido]?></td>
       <td><?=$i[FizetesStatusza]?><?php
       if($i[FizetesStatusza]==F_S_FIZETVE){
         ?>
-        <br />
-        <?=$i[FizetesDatuma]?>
+        <br /><span <?=($i[FizetesDatuma]>$i[FizetesiHatarido]?'style="color:#a00;"':'')?>>
+        <?=$i[FizetesDatuma]?></span>
         <?php
       }?></td>
       <td><?=$i[Gyarto]?></td>
