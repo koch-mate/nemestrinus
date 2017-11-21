@@ -119,7 +119,6 @@ function ordersGetAllData($filters = []){
       if($filters['Statuszok'] == 'lezart'){
           $where['Statusz'] = M_S_LEZART;
       }
-
     }
     if(array_key_exists('RogzitesDatum', $filters)){
         $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];
@@ -139,7 +138,46 @@ function ordersGetAllData($filters = []){
         $where['Gyarto'] = $filters['Gyarto'];
     }
 
-    return    ($db->select('megrendeles', ['ID','RogzitesDatum', 'Felvette', 'RogzitetteID','Tipus','MegrendeloID','Statusz','SzallitasStatusza','SzallitasVarhatoDatuma', 'SzallitasTenylegesDatuma','Vegosszeg','Penznem', 'FizetesiHatarido', 'FizetesDatuma', 'FizetesStatusza', 'Szamlaszam', 'Fuvardij','Megjegyzes','KertDatum', 'MegrendeloNev', 'MegrendeloCim', 'MegrendeloTel', 'KapcsolattartoNev', 'KapcsolattartoTel','SzallitasiCim','Prioritas','SzallitolevelSzam','CMR','EKAER','Fuvarozo', 'Gyarto', 'KulsoGyartasStatusza'], ['AND' =>$where]));
+    $fields = [
+      'ID',
+      'RogzitesDatum',
+      'Felvette',
+      'RogzitetteID',
+      'Tipus',
+      'MegrendeloID',
+      'Statusz',
+      'SzallitasStatusza',
+      'SzallitasVarhatoDatuma',
+      'SzallitasTenylegesDatuma',
+      'Vegosszeg',
+      'Penznem',
+      'FizetesiHatarido',
+      'FizetesDatuma',
+      'FizetesStatusza',
+      'Szamlaszam',
+      'Fuvardij',
+      'Megjegyzes',
+      'KertDatum',
+      'MegrendeloNev',
+      'MegrendeloCim',
+      'MegrendeloTel',
+      'KapcsolattartoNev',
+      'KapcsolattartoTel',
+      'SzallitasiCim',
+      'Prioritas',
+      'SzallitolevelSzam',
+      'CMR',
+      'EKAER',
+      'Fuvarozo',
+      'Gyarto',
+      'KulsoGyartasStatusza'
+    ];
+    if(array_key_exists('OrderBy', $filters)){
+      return    ($db->select('megrendeles', $fields, ['AND' =>$where, 'ORDER'=>$filters['OrderBy']]));
+    }
+    else {
+      return    ($db->select('megrendeles', $fields, ['AND' =>$where]));
+    }
 }
 
 function orderGetIDByOrderLineID($id){
