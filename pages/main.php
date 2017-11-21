@@ -16,6 +16,12 @@
 
 <div>
     <h3>Frissítések</h3>
+
+    <p><span class="label label-default">2017. 11. 21.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/64','Lakossági megrendelések')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/65','Megrendelések havi nézete')?>
+    </p>
+
     <p><span class="label label-default">2017. 11. 20.</span> <span class="label label-success">Új fejlesztés</span> <a href="?mode=kimutatas-havi">Havi kimutatás</a></p>
     <p><span class="label label-default">2017. 11. 19.</span> <span class="label label-success">Új fejlesztés</span> <a href="?mode=kimutatas-lakossagi-gyartas">Nyomtatható kimutatás az aktív lakossági megrendelésekről</a></p>
 

@@ -48,14 +48,14 @@ if(isset($_GET[ev]) && $_GET[ev]>2015 && $_GET[ev]<2100){
 </p>
 
 <p>
-  Hónap: <?php
+  Hónapra ugrás: <?php
   foreach(MONTHS as $mi => $mn){ ?>
     <a href="#hodiv<?=$mi?>" onclick="toggle(this, $('#hodiv<?=$mi?>'));"><?=$mn?></a><?=$mi<12?', ':''?>
     <?php } ?>
 </p>
 <script>
 function toggle(link, div){
-  div.toggle();
+  //div.toggle();
 }
 
 $(function() {
@@ -87,7 +87,7 @@ foreach(MONTHS as $mi => $mn){
   $ii = 1;
    ?>
 
-<div id="hodiv<?=$mi?>" <?=($mi == date('m') ? '':'style="display:none;"')?>>
+<div id="hodiv<?=$mi?>" <?=($mi == date('m') ? '':'style=""')?>>
 <h3><?=$ev.". ".$mn?></h3>
 
 <table class="table"   style="font-size:80%;padding:2px;">
@@ -95,7 +95,7 @@ foreach(MONTHS as $mi => $mn){
     <tr>
       <th>#</th>
       <th>ID</th>
-      <th>Tipus</th>
+      <th title="Típus">T.</th>
       <th>Státusz</th>
       <th>Megrendelő</th>
       <th>Rögzítés<br>dátuma</th>
@@ -114,7 +114,7 @@ foreach(MONTHS as $mi => $mn){
 
     <?php
     $even = 0;
-$filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))]];
+$filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))], 'OrderBy'=>['Tipus'=>'DESC']];
     foreach (ordersGetAllData($filters) as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $oin = count($ois);
@@ -125,7 +125,7 @@ $filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', 
         <?=$ii++?>
       </th>
       <th><a href="?mode=megrendeles-osszesites&id=<?=$i[ID]?>"><?=$i[ID]?></a></th>
-      <td><?=['lakossagi'=>'LAK.','export'=>'EXP.'][$i[Tipus]]?></td>
+      <td><?=['lakossagi'=>'<i class="fa fa-home" title="Lakossági" aria-hidden="true"></i>','export'=>'<i title="Export" class="fa fa-globe" aria-hidden="true"></i>'][$i[Tipus]]?></td>
       <td>
         <span class="btn btn-xs btn-primary " style="cursor:default;background:<?=M_S_SZINEK[$i['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$i['Statusz']][0]?>;font-weight:bold;" >
             <?=$i['Statusz']?>
@@ -143,7 +143,7 @@ $filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', 
       </td>
       <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
-      <td <?=($i[FizetesStatusza]!=F_S_FIZETVE && date("Y-m-d")>$i[FizetesiHatarido] ? 'style="background:#a33;" ' : '')?>><?=$i[FizetesiHatarido]?></td>
+      <td <?=($i[FizetesStatusza]!=F_S_FIZETVE && date("Y-m-d")>$i[FizetesiHatarido] && $i[Statusz]!=M_S_VISSZAUTASITVA && $i[Statusz] != M_S_VISSZAMONDOTT ? 'style="background:#933;color:#fff;" ' : '')?>><?=$i[FizetesiHatarido]?></td>
       <td><?=$i[FizetesStatusza]?><?php
       if($i[FizetesStatusza]==F_S_FIZETVE){
         ?>
