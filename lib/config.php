@@ -95,7 +95,8 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-fafelhasznalas',
     'help',
     'kimutatas-lakossagi-gyartas',
-    'kimutatas-havi'
+    'kimutatas-havi',
+    'kimutatas-attekintes',
 ];
 
 const MENU_STRUCT = [
@@ -130,6 +131,7 @@ const MENU_STRUCT = [
       ],
     ],
     'kimutatas'         => [
+      'kimutatas-attekintes',
       'kimutatas-fafelhasznalas',
       'kimutatas-lakossagi-gyartas',
       'kimutatas-havi',
@@ -210,7 +212,8 @@ const PAGE_RIGHTS = [
 //    'leltar'                    => [R_KIMUTATAS],
 //    'fizetesek'                 => [R_KIMUTATAS],
     'kimutatas-lakossagi-gyartas' => [R_KIMUTATAS],
-    'kimutatas-havi' => [R_KIMUTATAS],
+    'kimutatas-havi'            => [R_KIMUTATAS],
+    'kimutatas-attekintes'      => [R_KIMUTATAS],
     'adminisztracio'            => [R_ADMINISZTRACIO],
     'felhasznalok'              => [R_ADMINISZTRACIO],
     'export-megrendelok'        => [R_EXP_MEGRENDELES],
@@ -268,6 +271,7 @@ const MENU_ICONS = [
     'kimutatas-fafelhasznalas' => 'fa-tree',
     'kimutatas-lakossagi-gyartas' => 'fa-print',
     'kimutatas-havi' => 'fa-moon-o',
+    'kimutatas-attekintes' => 'fa-pie-chart',
 
     'beszallitas-fuggo' => 'fa-truck',
 ];
@@ -326,6 +330,7 @@ const MENU_NAMES = [
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
     'kimutatas-lakossagi-gyartas' => 'Lakossági megrendelések',
     'kimutatas-havi' => 'Megrendelések havonta',
+    'kimutatas-attekintes' => 'Áttekintés',
 ];
 
 
@@ -472,7 +477,7 @@ const M_S_VISSZAMONDOTT         = 'visszamondott';
 //const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VARAKOZIK, M_S_VISSZAMONDOTT];
 const M_S_STATUSZOK = [M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];
 
-const M_S_STATUSZOK_SORREND = [M_S_ELFOGADVA, M_S_FELDOLGOZAS_ALATT, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];
+const M_S_STATUSZOK_SORREND = [ M_S_FELDOLGOZAS_ALATT, M_S_ELFOGADVA, M_S_TELJESITVE, M_S_VISSZAUTASITVA, M_S_VISSZAMONDOTT];
 
 const M_S_SZINEK = [
     M_S_FELDOLGOZAS_ALATT     => ['#FFB03B', 'question' ],
@@ -535,9 +540,13 @@ const SZ_S_SZINEK = [
 
 ];
 
+const SZ_S_STATUSZOK_SORREND = [SZ_S_GYARTAS_ALATT, SZ_S_SZALLITASRA_VAR, SZ_S_LESZALLITVA];
+
 // fizetes statusza
 const F_S_FIZETESRE_VAR = 'fizetésre vár';
 const F_S_FIZETVE = 'fizetve';
+
+const F_S_STATUSZOK_SORREND = [F_S_FIZETESRE_VAR, F_S_FIZETVE];
 
 const F_S_SZINEK = [
     F_S_FIZETESRE_VAR => ['#B63620', 'close'],
