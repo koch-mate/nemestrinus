@@ -31,7 +31,7 @@ foreach([P_EURO, P_FORINT] as $p){ ?>
           FHT - Határidőn túl kifizetett megrendelések a tárgyévben: <?=ezres($fht)?>&nbsp;<?=$p?>
         </li>
         <li>
-          NF - Határidőn belüli, fizetésre váró megrendelések: <?=ezres($nf)?>&nbsp;<?=$p?>
+          NF - Határidőn belüli, fizetésre váró megrendelések: <?=ezres($nfh)?>&nbsp;<?=$p?>
         </li>
         <li>
           NFHT - Lejárt határidejű, befizetetlen megrendelések: <?=ezres($nfht)?>&nbsp;<?=$p?>
