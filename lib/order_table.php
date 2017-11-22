@@ -884,9 +884,9 @@ function saveExtMfStatus(lid, st){
             });
 
             // ugly hack to fix column headers
-          /*  setTimeout(function () {
+            setTimeout(function () {
                 $("#megrendelt_tetelek").dataTable().fnAdjustColumnSizing();
-            }, 500);*/
+            }, 500);
             $('.megj').each(function (i, obj) {
                 $(obj).css('max-height', $(obj).parent().height() + 'px').css('display', 'block');
             });
