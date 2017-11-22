@@ -2,7 +2,9 @@
 
 // database connection
 
-$db = new medoo(DB_DATA);
+use Medoo\Medoo;
+
+$db = new Medoo(DB_DATA);
 
 
 ?>

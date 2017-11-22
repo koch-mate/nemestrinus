@@ -65,7 +65,8 @@ function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1]){
 // thousands separator
 function ezres($x)
 {
-	$y = "".$x;
+	return number_format ( $x , 0 , "," , "." );
+	$y = "".rnd($x);
 	if(strlen($y)<=3){ return $y; }
 	return substr($y,	0, -3).'.'.substr($y, -3,3);
 }

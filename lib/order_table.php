@@ -432,7 +432,7 @@ function saveExtMfStatus(lid, st){
                         </table>
                     </td>
 <?php if($shippingON){ ?>
-                    <td data-order="<?=array_search($og['SzallitasStatusza'], array_keys(SZ_S_SZINEK))?>">
+                    <td data-order="<?=array_search($og['SzallitasStatusza'], SZ_S_STATUSZOK_SORREND)?>">
                       <table style="font-size:80%;">
                             <tr>
                                 <td rowspan="2">
@@ -455,7 +455,7 @@ function saveExtMfStatus(lid, st){
                     </td>
 <?php } ?>
 <?php if($shippingEditON){ ?>
-                    <td data-order="array_search(<?=$og['SzallitasStatusza']?>, array_keys(SZ_S_SZINEK))"  style="white-space: nowrap; width:20em;">
+                    <td data-order="<?=array_search($og['SzallitasStatusza'],SZ_S_STATUSZOK_SORREND)?>" style="white-space: nowrap; width:20em;">
                         <template id="div_szs_<?=$og['ID']?>" style="color:#000;">
                           <div style="width:20em;">
 
@@ -574,7 +574,7 @@ function saveExtMfStatus(lid, st){
 <?php  } ?>
 
 <?php if($priceON){ ?>
-                    <td style="white-space: nowrap;">
+                    <td style="white-space: nowrap;"  >
                         <b><?=rnd(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
                         <span style="font-size:75%;"><span class="glyphicon glyphicon-tree-deciduous"></span>:&nbsp;<b><?=rnd(orderFullPrice($og['ID']))?>&nbsp;<?=$og['Penznem']?></span></b><br>
 <?php if($shippingPriceEditON && $og['Tipus']==M_EXPORT){ ?>
@@ -614,7 +614,7 @@ function saveExtMfStatus(lid, st){
                     </td>
 <?php } ?>
 <?php if($paymentON){ ?>
-                    <td data-order="array_search(<?=$og['FizetesStatusza']?>, array_keys(SZ_S_SZINEK))"  style="white-space: nowrap;">
+                    <td data-order="<?=array_search($og['FizetesStatusza'], F_S_STATUSZOK_SORREND)?>"  style="white-space: nowrap;">
 
 
                         <template id="div_fs_<?=$og['ID']?>" style="color:#000;">
@@ -835,7 +835,6 @@ function saveExtMfStatus(lid, st){
                     },
                 },
                 "info": true,
-                "stateSave": true,
                 "columns": [
                     null,   // ID
                     {
@@ -885,9 +884,9 @@ function saveExtMfStatus(lid, st){
             });
 
             // ugly hack to fix column headers
-            setTimeout(function () {
+          /*  setTimeout(function () {
                 $("#megrendelt_tetelek").dataTable().fnAdjustColumnSizing();
-            }, 500);
+            }, 500);*/
             $('.megj').each(function (i, obj) {
                 $(obj).css('max-height', $(obj).parent().height() + 'px').css('display', 'block');
             });
