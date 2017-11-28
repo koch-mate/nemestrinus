@@ -2,6 +2,8 @@
 
 function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendelo_nev, $megrendelo_cim, $megrendelo_tel, $kapcs_nev, $szall_cim, $kapcs_tel, $ar, $szall_ktsg, $megjegyzes, $gyarto, $order_json){
     global $db;
+
+    $cmsg = '';
     if(strlen(trim($megjegyzes)) > 0){
       $cmsg = [[
           'u' => $_SESSION['userName'],
@@ -10,7 +12,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
       ]];
     }
 
-    $new_id = $db->insert('megrendeles', [
+    $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
         'KertDatum' => $teljesitesDatum,
         'Felvette' => $felvette,
@@ -32,6 +34,7 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
         'KapcsolattartoTel' => $kapcs_tel,
         'Gyarto' => $gyarto
     ]);
+    $new_id = $db->id();
 
     foreach(json_decode($order_json) as $o){
         $db->insert('megrendeles_tetel', [
@@ -64,7 +67,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
       ]];
     }
 
-    $new_id = $db->insert('megrendeles', [
+    $db->insert('megrendeles', [
         'RogzitesDatum' => $datum,
         'KertDatum' => $teljesitesDatum,
         'Felvette' => $felvette,
@@ -81,7 +84,7 @@ function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizha
         'Megjegyzes' => $cmsg,
         'Gyarto' => $gyarto
     ]);
-
+    $new_id = $db->id();
     foreach(json_decode($order_json) as $o){
         $db->insert('megrendeles_tetel', [
             'MegrendelesID' => $new_id,

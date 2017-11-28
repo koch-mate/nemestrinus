@@ -682,7 +682,7 @@ function saveExtMfStatus(lid, st){
 
 <?php } ?>
                     <td>
-                        <div style="overflow:auto; font-size:80%;min-width:35em; display:none;" class="megj" id="megj_div_<?=$og['ID']?>" data-toggle="popover">
+                        <div style="overflow:auto; font-size:80%;min-width:35em;" class="megj" id="megj_div_<?=$og['ID']?>" data-toggle="popover">
                             <?=renderMessages($og['Megjegyzes'], $desc = false)?>
                         </div>
                         <template id="megj_templ_<?=$og['ID']?>" >
@@ -885,11 +885,12 @@ function saveExtMfStatus(lid, st){
 
             // ugly hack to fix column headers
             setTimeout(function () {
+                $('.megj').each(function (i, obj) {
+                    $(obj).css('max-height', $(obj).parent().height() + 'px').css('display', 'block');
+                });
                 $("#megrendelt_tetelek").dataTable().fnAdjustColumnSizing();
+
             }, 500);
-            $('.megj').each(function (i, obj) {
-                $(obj).css('max-height', $(obj).parent().height() + 'px').css('display', 'block');
-            });
 
         });
     </script>

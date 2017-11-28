@@ -114,7 +114,7 @@ foreach(MONTHS as $mi => $mn){
 
     <?php
     $even = 0;
-$filters=['RogzitesDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))], 'OrderBy'=>['Tipus'=>'DESC']];
+$filters=['KertDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))], 'OrderBy'=>['Tipus'=>'DESC','KertDatum'=>'ASC']];
     foreach (ordersGetAllData($filters) as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $oin = count($ois);
