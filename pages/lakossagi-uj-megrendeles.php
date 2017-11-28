@@ -3,7 +3,9 @@
 
 if(!empty($_POST['datum'])){
     // store order
-    $oid = orderResidentialAdd($_POST['felvette'], $_POST['rogzitette'], $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['gyarto'], $_POST['order_json']);
+    $rogzitette = isset($_POST['rogzitette']) ? $_POST['rogzitette'] : $_SESSION['userID'];
+    $felvette = isset($_POST['felvette']) ? $_POST['felvette'] : $_SESSION['userID'];
+    $oid = orderResidentialAdd($felvette, $rogzitette, $_POST['datum'], $_POST['idatum'], $_POST['fizhat'], $_POST['megrendelonev'], $_POST['megrendelocim'], $_POST['megrendelotel'], $_POST['kapcsnev'], $_POST['szallcim'], $_POST['kapcstel'], $_POST['ar'], $_POST['szallitasiktsg'], $_POST['megjegyzes'], $_POST['gyarto'], $_POST['order_json']);
 
     logEv(LOG_EVENT['order_residental_add'].':',null,"ID: ".$oid);
 
@@ -382,7 +384,7 @@ include('lib/popups.php');
 
                                 function recalc(xr, nm) {
                                     if ($("#menny_" + nm).val() == "") {
-                                        $("#menny_" + nm).val('1');
+                                        $("#menny_" + nm).val('0');
                                     }
                                     document.nval = xr * $("#menny_" + nm).val();
                                     document.oval = $("#menny_" + nm).val();
