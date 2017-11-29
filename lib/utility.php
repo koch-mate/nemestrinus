@@ -89,6 +89,13 @@ function removeSpecialChars($string) {
 //	 return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
 }
 
+function daysToToday($date){
+	$now = time(); // or your date as well
+	$your_date = strtotime($date);
+	$datediff = $now - $your_date;
 
+	return floor($datediff / (60 * 60 * 24));
+
+}
 
 ?>
