@@ -1,4 +1,14 @@
 <script src="js/Chart.min.js"></script>
+
+<script>
+function toInt(n){ return Math.round(Number(n)); };
+const numberWithCommas = (x) => {
+  x=toInt(x);
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+
+</script>
 <h1>Áttekintés</h1>
 
 <?php $ev = date('Y'); ?>
@@ -10,9 +20,13 @@
 use Medoo\Medoo;
 
 foreach([P_EURO, P_FORINT] as $p){ ?>
-  <div class="col-md-4 clearfix">
+  <div class="col-md-4 clearfix" style="background:rgba(255, 255, 255, 0.9);margin:2em;padding:1em;">
 
   <h3>Lejárt határidejű, befizetetlen, teljesített megrendelések - <?=$p?></h3>
+  <p>
+    Minden adat a tárgyévben (<?=$ev?>) <i>rögzített</i> megrendelésekre vonatkozik.
+  </p>
+<div style="max-height:300px;overflow:auto;">
 
   <table class="table">
     <thead>
@@ -43,6 +57,7 @@ foreach([P_EURO, P_FORINT] as $p){ ?>
    ?>
  </tbody>
 </table>
+</div>
 
   <?php
 
@@ -54,44 +69,69 @@ foreach([P_EURO, P_FORINT] as $p){ ?>
 
    ?>
 
-    <p>
-      Minden adat a tárgyévben (<?=$ev?>) <i>rögzített</i> megrendelésekre vonatkozik.
-      <ul>
-        <li>
-          F - Határidőig kifizetett megrendelések a tárgyévben: <?=ezres($fh)?>&nbsp;<?=$p?>
-        </li>
-        <li>
-          FHT - Határidőn túl kifizetett megrendelések a tárgyévben: <?=ezres($fht)?>&nbsp;<?=$p?>
-        </li>
-        <li>
-          NF - Határidőn belüli, fizetésre váró megrendelések: <?=ezres($nfh)?>&nbsp;<?=$p?>
-        </li>
-        <li>
-          NFHT - Lejárt határidejű, kifizetetlen, még nem kiszállított megrendelések: <?=ezres($nfht)?>&nbsp;<?=$p?>
-        </li>
-        <li>
-          NFHTK - Lejárt határidejű, kifizetetlen, kiszállított megrendelések: <?=ezres($nfhtk)?>&nbsp;<?=$p?>
-        </li>
-      </ul>
-    </p>
+
+
+<table class="table">
+  <tr>
+    <td>F</td>
+    <td>Határidőig kifizetett megrendelések a tárgyévben: </td>
+    <td><span class="badge badge-pill " style="background:rgb(2 , 124, 0);"><?=ezres($fh)?>&nbsp;<?=$p?></span></td>
+  </tr>
+  <tr>
+    <td>FHT  </td>
+    <td>Határidőn túl kifizetett megrendelések a tárgyévben:  </td>
+    <td><span class="badge badge-pill "  style="background:rgb(125, 189, 48)"><?=ezres($fht)?>&nbsp;<?=$p?></span></td>
+  </tr>
+  <tr>
+    <td>NF  </td>
+    <td>Határidőn belüli, fizetésre váró megrendelések:  </td>
+    <td>  <span class="badge badge-pill "  style="background:rgb(120, 150, 19)"><?=ezres($nfh)?>&nbsp;<?=$p?></span></td>
+  </tr>
+  <tr>
+    <td>NFHT  </td>
+    <td>Lejárt határidejű, kifizetetlen, még nem kiszállított megrendelések:  </td>
+    <td>  <span class="badge badge-pill "  style="background:rgb(169, 3, 6)"><?=ezres($nfht)?>&nbsp;<?=$p?></span></td>
+  </tr>
+  <tr>
+    <td>NFHTK  </td>
+    <td>Lejárt határidejű, kifizetetlen, kiszállított megrendelések:  </td>
+    <td><span class="badge badge-pill "  style="background:rgb(249, 3, 6)"><?=ezres($nfhtk)?>&nbsp;<?=$p?></span></td>
+  </tr>
+</table>
+
     <canvas id="fiz_<?=$p?>" width="400" height="400"></canvas>
 
     <script type="text/javascript">
-
     new Chart(
       document.getElementById("fiz_<?=$p?>"),
       {
         "type" : "doughnut",
+        "options" : {
+          "responsive" : true,
+          "tooltips": {
+            "mode": 'index',
+            "callbacks": {
+              label: function(tooltipItems, data) {
+                return (data.labels[tooltipItems.index])+" "+numberWithCommas(data.datasets[0].data[tooltipItems.index])+" "+ '<?=$p?>';
+              },
+            },
+            "footerFontStyle": 'normal'
+          },
+          "hover": {
+            "mode": 'index',
+            "intersect": true
+          },
+        },
         "data": {
-          "labels" : ["F","FHT","NF","NFHT","NFHTK"],
+          "labels" : ["F: fizetve határidőig","FHT: fizetve határidőn túl","NF: nincs fizetve, határidőn belül","NFHT: nincs fizetve, határidőn túl, nincs kiszállítva","NFHTK: nincs fizetve, határidőn túl, kiszállítva"],
           "datasets" : [
             {
               "label" : "<?=$p?>",
               "data" : [<?=rnd($fh)?>,<?=rnd($fht)?>,<?=rnd($nfh)?>,<?=rnd($nfht)?>,<?=rnd($nfhtk)?>],
               "backgroundColor" : [
                 "rgb(2 , 54, 0)",
-                "rgb(205, 239, 48)",
-                "rgb(90, 150, 19)",
+                "rgb(125, 189, 48)",
+                "rgb(120, 150, 19)",
                 "rgb(169, 3, 6)",
                 "rgb(249, 3, 6)"
               ]
