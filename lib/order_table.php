@@ -528,7 +528,7 @@ function saveExtMfStatus(lid, st){
                           </div>
 
                               <div style="margin-top:0.5em;">
-                                <button class="btn btn-sm btn-success" onclick='if(confirm("Menti a változásokat?")){saveShippingStatus(<?=$og['ID']?>)};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>Mentés</button>
+                                <button class="btn btn-sm btn-success" onclick='if(confirm("Menti a változásokat?")){saveShippingStatus(<?=$og['ID']?>, "<?=$og['Tipus']?>")};$("#tr_<?=$og['ID']?>").removeClass("highlight");'>Mentés</button>
                                 <button class="btn btn-sm btn-danger" onclick='$("#tr_<?=$og['ID']?>").removeClass("highlight");$(".popover").popover("hide");'>Mégsem</button>
                               </div>
                             </div>
@@ -728,16 +728,28 @@ function saveExtMfStatus(lid, st){
       $("#"+popid).popover('hide');
       $("#"+popid).animate({scrollTop: $("#"+popid).prop('scrollHeight')},1000);
     }
-    function savePaidStatus(lid){
-        var aData = (
-          {
+    function savePaidStatus(lid, ext = false, st = '', datum = '', hatarido = ''){
+        var aData;
+        if(ext == false){
+          aData = (
+            {
+              'ID':lid,
+              'Statusz':$("input[name=fizst_rad_"+lid+"]:checked").val(),
+              'Datum': $("#fidatum_"+lid).val(  ),
+              'Hatarido': $("#fihatarido_"+lid).val( ),
+              'Ext':false
+            }
+          );
+        }
+        else {
+          aData = {
             'ID':lid,
-            'Statusz':$("input[name=fizst_rad_"+lid+"]:checked").val(),
-            'Datum': $("#fidatum_"+lid).val(  ),
-            'Hatarido': $("#fihatarido_"+lid).val( )
+            'Statusz': st,
+            'Datum': datum,
+            'Hatarido': hatarido,
+            'Ext':true
           }
-        );
-        console.log(aData);
+        }
         $.ajax({
             type: "POST",
             dataType: "html",
@@ -781,7 +793,7 @@ function saveExtMfStatus(lid, st){
     }
 
 
-    function saveShippingStatus(lid){
+    function saveShippingStatus(lid, rtip){
         var aData = (
           {
             'ID':lid,
@@ -807,6 +819,10 @@ function saveExtMfStatus(lid, st){
                 alert("Hiba!")
             }
         });
+        // ha lakossagi es kiszallitva, akkor legyen fizetve is
+        if(rtip == '<?=M_LAKOSSAGI?>' && $("input[name=szst_rad_"+lid+"]:checked").val() == '<?=SZ_S_LESZALLITVA?>'){
+          savePaidStatus(lid, ext = true, st = '<?=F_S_FIZETVE?>', datum = $("#szidatum_"+lid).val(  ), hatarido = '');
+        }
     }
 
 
