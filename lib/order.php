@@ -207,6 +207,11 @@ function orderFullPrice($id){
     return $s;
 }
 
+function orderGetPayDueDate($id){
+  global $db;
+  return $db->get('megrendeles', 'FizetesiHatarido', ['ID'=>$id]);
+}
+
 function orderLineStatusUpdate($id, $st){
     global $db;
     $db->update('megrendeles_tetel', ['GyartasStatusza'=>$st], ['ID'=>$id]);

@@ -16,6 +16,11 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 12. 02.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/70','Áttekintés - Szamlaszam')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/69','Lakossagi megrendelesek kifizetettsege')?>
+    </p>
+
     <p><span class="label label-default">2017. 11. 28.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/66','Lakossági megrendelés')?>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/67','Kimutatás/Megrendelések havonta')?>

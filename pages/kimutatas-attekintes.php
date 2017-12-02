@@ -34,13 +34,14 @@ foreach([P_EURO, P_FORINT] as $p){ ?>
         <th>ID</th>
         <th>T</th>
         <th>Megrendelő</th>
-        <th>Összeg</th>
-        <th>Fizetési határidő lejárt</th>
+        <th style="text-align:right;">Számlaszám</th>
+        <th style="text-align:right;">Összeg</th>
+        <th style="text-align:right;">Fizetési<br />határidő<br />lejárt</th>
       </tr>
     </thead>
     <tbody>
       <?php
-    $d= $db->select('megrendeles', ['ID', 'Tipus', 'MegrendeloID', 'MegrendeloNev', 'FizetesiHatarido', 'Vegosszeg', 'Penznem', 'FizetesiHatarido'], ['AND'=>['Deleted'=>0, 'Penznem'=>$p, 'Statusz'=>M_S_TELJESITVE, 'SzallitasStatusza'=>SZ_S_LESZALLITVA, 'FizetesStatusza'=>F_S_FIZETESRE_VAR, 'FizetesiHatarido[<]'=>date('Y-m-d')], 'ORDER'=>['FizetesiHatarido'=>'ASC']]);
+    $d= $db->select('megrendeles', ['ID', 'Tipus', 'MegrendeloID', 'SzamlaSzam', 'MegrendeloNev', 'FizetesiHatarido', 'Vegosszeg', 'Penznem', 'FizetesiHatarido'], ['AND'=>['Deleted'=>0, 'Penznem'=>$p, 'Statusz'=>M_S_TELJESITVE, 'SzallitasStatusza'=>SZ_S_LESZALLITVA, 'FizetesStatusza'=>F_S_FIZETESRE_VAR, 'FizetesiHatarido[<]'=>date('Y-m-d')], 'ORDER'=>['FizetesiHatarido'=>'ASC']]);
 
     foreach($d as $di){
 ?>
@@ -48,6 +49,7 @@ foreach([P_EURO, P_FORINT] as $p){ ?>
         <th><a href="?mode=megrendeles-osszesites&id=<?=$di[ID]?>"><?=$di[ID]?></a></th>
         <td><span class="glyphicon glyphicon-<?=($di['Tipus']==M_LAKOSSAGI ? 'home" title="lakossági':'globe" title="export')?>" aria-hidden="true"></span></td>
         <td><?=($di['Tipus']==M_LAKOSSAGI ? $di['MegrendeloNev'] : exportCustomerGetNameById($di['MegrendeloID']))?></td>
+        <td style="text-align:right;"><?=$di['SzamlaSzam']?></td>
         <td style="text-align:right;"><?=$di['Vegosszeg']?>&nbsp;<?=$di['Penznem']?></td>
         <td style="text-align:right;"><?=daysToToday($di['FizetesiHatarido'])?>&nbsp;napja</td>
       </tr>
