@@ -22,12 +22,12 @@ Hibás autentikáció.
 }
 else {
     $hatarido = '';
-    if($_POST['Ext']){
+    if($_POST['Ext'] == 1){
       // lakossagi megrendeles eseten fizetett statuszu lesz kiszallitaskor automatikusan
       $hatarido = orderGetPayDueDate($_POST['ID']);
     }
     else{
-      $hatarido = $_POST['hatarido'];
+      $hatarido = $_POST['Hatarido'];
     }
 
     logEv(LOG_EVENT['order_paid_status_update'].':',null,implode(',', ['ID: '.$_POST['ID'],$_POST['Statusz'],'Fizetési dátum: '.$_POST['Datum'],'Fizetési határidő: '.$hatarido ]));

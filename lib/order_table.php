@@ -737,7 +737,7 @@ function saveExtMfStatus(lid, st){
               'Statusz':$("input[name=fizst_rad_"+lid+"]:checked").val(),
               'Datum': $("#fidatum_"+lid).val(  ),
               'Hatarido': $("#fihatarido_"+lid).val( ),
-              'Ext':false
+              'Ext':0
             }
           );
         }
@@ -747,7 +747,7 @@ function saveExtMfStatus(lid, st){
             'Statusz': st,
             'Datum': datum,
             'Hatarido': hatarido,
-            'Ext':true
+            'Ext':1
           }
         }
         $.ajax({
