@@ -74,11 +74,11 @@ if(empty($d)){
 
   <?php
 
-  $fh   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>)"));
-  $fht  = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido>)"));
-  $nfh  = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido>)"));
-  $nfht = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND(<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
-  $nfhtk = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND <SzallitasStatusza> = '".SZ_S_LESZALLITVA."' AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
+  $fh    = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>)"));
+  $fht   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido>)"));
+  $nfh   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido>)"));
+  $nfht  = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
+  $nfhtk = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
 
    ?>
 
@@ -108,7 +108,7 @@ if(empty($d)){
 
   <tr>
     <td>NF  </td>
-    <td>Határidőn belüli, <?=($p==P_EURO?'fizetésre':'szállításra')?> váró megrendelésel  </td>
+    <td>Határidőn belüli, <?=($p==P_EURO?'fizetésre':'szállításra')?> váró megrendelések  </td>
     <td>  <span class="badge badge-pill "  style="background:orange"><?=ezres($nfh)?>&nbsp;<?=$p?></span></td>
   </tr>
   <tr>
@@ -129,30 +129,36 @@ if(empty($d)){
     new Chart(
       document.getElementById("fiz_<?=$p?>"),
       {
-        "type" : "doughnut",
-        "options" : {
-          "responsive" : true,
-          "tooltips": {
-            "mode": 'index',
-            "callbacks": {
+        type : "doughnut",
+        options : {
+          responsive : true,
+          tooltips: {
+            mode: 'index',
+            callbacks: {
               label: function(tooltipItems, data) {
                 return (data.labels[tooltipItems.index])+" "+numberWithCommas(data.datasets[0].data[tooltipItems.index])+" "+ '<?=$p?>';
               },
             },
-            "footerFontStyle": 'normal'
+            footerFontStyle: 'normal'
           },
-          "hover": {
-            "mode": 'index',
-            "intersect": true
+          hover: {
+            mode: 'index',
+            intersect: true
           },
         },
-        "data": {
-          "labels" : ["F: <?=($p==P_EURO?'fizetve':'szállítva')?> határidőig","FHT: <?=($p==P_EURO?'fizetve':'szállítva')?> határidőn túl","NF: nincs <?=($p==P_EURO?'fizetve':'szállítva')?>, határidőn belül","NFHT: nincs fizetve, határidőn túl, nincs kiszállítva","NFHTK: nincs fizetve, határidőn túl, kiszállítva"],
-          "datasets" : [
+        data: {
+          labels : [
+            "F: <?=($p==P_EURO?'fizetve':'szállítva')?> határidőig",
+            "FHT: <?=($p==P_EURO?'fizetve':'szállítva')?> határidőn túl",
+            "NF: nincs <?=($p==P_EURO?'fizetve':'szállítva')?>, határidőn belül",
+            "NFHT: nincs fizetve, határidőn túl, nincs kiszállítva",
+            "NFHTK: nincs fizetve, határidőn túl, kiszállítva"
+          ],
+          datasets : [
             {
-              "label" : "<?=$p?>",
-              "data" : [<?=rnd($fh)?>,<?=rnd($fht)?>,<?=rnd($nfh)?>,<?=rnd($nfht)?>,<?=rnd($nfhtk)?>],
-              "backgroundColor" : [
+              label : "<?=$p?>",
+              data : [<?=rnd($fh)?>,<?=rnd($fht)?>,<?=rnd($nfh)?>,<?=rnd($nfht)?>,<?=rnd($nfhtk)?>],
+              backgroundColor : [
                 "rgb(2 , 54, 0)",
                 "rgb(125, 189, 48)",
                 "rgb(255, 165, 0)",
@@ -166,6 +172,86 @@ if(empty($d)){
     );
 
     </script>
+
+
+<div>
+  <h3>Havi bontás - <?=$p?></h3>
+  <canvas id="fizhavi_<?=$p?>" width="400" height="600"></canvas>
+  <script>
+    var myBarChart = new Chart($('#fizhavi_<?=$p?>'), {
+      type: 'horizontalBar',
+      data: {
+        labels: ["<?=implode('", "', array_values(MONTHS))?>"],
+        datasets: [
+
+<?php
+
+$labels = [
+    "F: ".($p==P_EURO?'fizetve':'szállítva')." határidőig",
+    "FHT: ".($p==P_EURO?'fizetve':'szállítva')." határidőn túl",
+    "NF: nincs ".($p==P_EURO?'fizetve':'szállítva').", határidőn belül",
+    "NFHT: nincs fizetve, határidőn túl, nincs kiszállítva",
+    "NFHTK: nincs fizetve, határidőn túl, kiszállítva"
+];
+$bgs = [
+  "rgb(2 , 54, 0)",
+  "rgb(125, 189, 48)",
+  "rgb(255, 165, 0)",
+  "rgb(169, 3, 6)",
+  "rgb(249, 3, 6)"
+];
+$sql= [
+"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>)",
+"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido>)",
+"' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido>)",
+"' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)",
+"' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"
+];
+
+for($i = 0; $i<5; $i ++){
+    echo "{".PHP_EOL;
+    echo "label: '".$labels[$i]."',".PHP_EOL;
+    echo "backgroundColor: '".$bgs[$i]."',".PHP_EOL;
+    echo "data: [".PHP_EOL;
+    for($m = 1; $m<=12; $m ++){
+      $fromDate = $ev."-".$m."-01";
+      $toDate = date("Y-m-t", strtotime($fromDate));
+
+      $fh   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$fromDate."' AND '".$toDate."') AND <Penznem> = '".$p.$sql[$i]));
+      echo rnd($fh).",".PHP_EOL;
+    }
+    echo "]},".PHP_EOL;
+  }
+?>
+
+]},
+      options: {
+          scales: {
+              xAxes: [{
+                  stacked: true
+              }],
+              yAxes: [{
+                  stacked: true
+              }]
+          },
+          legend: false,
+          responsive : true,
+          hover: {
+            mode: 'index',
+            intersect: true
+          },
+
+        }
+
+
+    });
+
+    function randomScalingFactor () {
+		return Math.round(Math.random()*100);
+	};
+  </script>
+</div>
+
 </div>
 
 <?php }
