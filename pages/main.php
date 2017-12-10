@@ -16,6 +16,12 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2017. 12. 10.</span> <span class="label label-warning">Új fejlesztés</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/73','Csomagoloanyag levonasa')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/74','Kimutatas, attekintes - visszamondott/visszautasitott')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/75','Lezart gyartasok modositasa')?>
+    </p>
+
     <p><span class="label label-default">2017. 12. 05.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/72','Lejárt határidejű, befizetetlen, teljesített megrendelések - Ft')?>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/71','fizetési határidő')?>

@@ -74,11 +74,12 @@ if(empty($d)){
 
   <?php
 
-  $fh    = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>)"));
-  $fht   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido>)"));
-  $nfh   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido>)"));
-  $nfht  = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
-  $nfhtk = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"));
+  $fh    = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
+  $fht   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
+  $nfh   = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
+  $nfht  = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
+  $nfhtk = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
+  $vv    = 0+$db->sum('megrendeles', 'Vegosszeg', Medoo::raw("WHERE (<Deleted> = 0 AND (<KertDatum> BETWEEN '".$ev."-01-01' AND '".$ev."-12-31') AND <Penznem> = '".$p."' AND <Statusz> IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))"));
 
    ?>
 
@@ -121,6 +122,12 @@ if(empty($d)){
     <td>Lejárt határidejű, kifizetetlen, kiszállított megrendelések  </td>
     <td><span class="badge badge-pill "  style="background:rgb(249, 3, 6)"><?=ezres($nfhtk)?>&nbsp;<?=$p?></span></td>
   </tr>
+  <tr>
+    <th>VV</th>
+    <th>Visszamondott és visszautasított rendelések </th>
+    <th><span class="badge badge-pill " ><?=ezres($vv)?>&nbsp;<?=$p?></span></th>
+  </tr>
+
 </table>
 
     <canvas id="fiz_<?=$p?>" width="400" height="400"></canvas>
@@ -152,18 +159,20 @@ if(empty($d)){
             "FHT: <?=($p==P_EURO?'fizetve':'szállítva')?> határidőn túl",
             "NF: nincs <?=($p==P_EURO?'fizetve':'szállítva')?>, határidőn belül",
             "NFHT: nincs fizetve, határidőn túl, nincs kiszállítva",
-            "NFHTK: nincs fizetve, határidőn túl, kiszállítva"
+            "NFHTK: nincs fizetve, határidőn túl, kiszállítva",
+            "VV: visszamondott és visszautasított"
           ],
           datasets : [
             {
               label : "<?=$p?>",
-              data : [<?=rnd($fh)?>,<?=rnd($fht)?>,<?=rnd($nfh)?>,<?=rnd($nfht)?>,<?=rnd($nfhtk)?>],
+              data : [<?=rnd($fh)?>,<?=rnd($fht)?>,<?=rnd($nfh)?>,<?=rnd($nfht)?>,<?=rnd($nfhtk)?>,<?=rnd($vv)?>],
               backgroundColor : [
                 "rgb(2 , 54, 0)",
                 "rgb(125, 189, 48)",
                 "rgb(255, 165, 0)",
                 "rgb(169, 3, 6)",
-                "rgb(249, 3, 6)"
+                "rgb(249, 3, 6)",
+                "rgb(90,70,70)"
               ]
             }
           ]
@@ -191,24 +200,27 @@ $labels = [
     "FHT: ".($p==P_EURO?'fizetve':'szállítva')." határidőn túl",
     "NF: nincs ".($p==P_EURO?'fizetve':'szállítva').", határidőn belül",
     "NFHT: nincs fizetve, határidőn túl, nincs kiszállítva",
-    "NFHTK: nincs fizetve, határidőn túl, kiszállítva"
+    "NFHTK: nincs fizetve, határidőn túl, kiszállítva",
+    "VV: visszamondott és visszautasított"
 ];
 $bgs = [
   "rgb(2 , 54, 0)",
   "rgb(125, 189, 48)",
   "rgb(255, 165, 0)",
   "rgb(169, 3, 6)",
-  "rgb(249, 3, 6)"
+  "rgb(249, 3, 6)",
+  "rgb(90,70,70)"
 ];
 $sql= [
-"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>)",
-"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido>)",
-"' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido>)",
-"' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)",
-"' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido>)"
+"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> <= <FizetesiHatarido>  AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))",
+"' AND <FizetesStatusza> = '".F_S_FIZETVE."' AND <FizetesDatuma> > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))",
+"' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' <= <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))",
+"' AND <SzallitasStatusza> != '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))",
+"' AND <SzallitasStatusza> =  '".SZ_S_LESZALLITVA."' AND <FizetesStatusza> = '".F_S_FIZETESRE_VAR."' AND '".date('Y-m-d')."' > <FizetesiHatarido> AND <Statusz> NOT IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'))",
+"' AND <Statusz> IN ('".M_S_VISSZAUTASITVA."', '".M_S_VISSZAMONDOTT."'));"
 ];
 
-for($i = 0; $i<5; $i ++){
+for($i = 0; $i<6; $i ++){
     echo "{".PHP_EOL;
     echo "label: '".$labels[$i]."',".PHP_EOL;
     echo "backgroundColor: '".$bgs[$i]."',".PHP_EOL;

@@ -81,8 +81,8 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                                     </div>
                                 </td>
                                 <td>
-                                    <?php if($ip['Forgalom'] != FORGALOM_FELHASZNALAS){?>
-                                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszlet&del=<?=$ip['ID']?>';}">Törlés</button>
+                                    <?php if($ip['Forgalom'] != FORGALOM_FELHASZNALAS || in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){?>
+                                        <button type="button" class="btn btn-xs btn-danger" onclick="if(confirm('Biztosan törölni akarja az ID = <?=$ip['ID']?> sort?')){window.location.href='?mode=csomagoloanyag-keszletmozgas&del=<?=$ip['ID']?>';}">Törlés</button>
                                     <?php } ?>
                                 </td>
                             </tr>

@@ -122,6 +122,9 @@ function ordersGetAllData($filters = []){
       if($filters['Statuszok'] == 'lezart'){
           $where['Statusz'] = M_S_LEZART;
       }
+      if($filters['Statuszok'] == 'legyartott'){
+          $where['OR']= ['Statusz' => M_S_LEZART, 'SzallitasStatusza'=>SZ_S_SZALLITASRA_VAR];
+      }
     }
     if(array_key_exists('RogzitesDatum', $filters)){
         $where[ 'RogzitesDatum[<>]' ] = $filters['RogzitesDatum'];

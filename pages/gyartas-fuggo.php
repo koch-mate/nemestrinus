@@ -1,4 +1,4 @@
-<h2>Függő gyártások</h2>
+<h2><?=(isset($lezart)?'Lezárt':'Függő')?> gyártások</h2>
 
 <div class="alert alert-info" role="alert">A gyártás menü alatt csak a saját telepen gyártott megrendelések jelennek meg.</div>
 
@@ -11,7 +11,12 @@
 
 require("lib/order_table.php");
 
-orderTable($filters = ['Statuszok'=>'gyarthato', 'Gyarto'=>GYARTO_IHARTU], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false );
+if(isset($lezart)){
+    orderTable($filters = ['Statuszok'=>'legyartott', 'Gyarto'=>GYARTO_IHARTU], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = (in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])? true : false), $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false);
+}
+else{
+  orderTable($filters = ['Statuszok'=>'gyarthato', 'Gyarto'=>GYARTO_IHARTU], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = true, $priceON = false, $paymentON = false, $editButtonON = true, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false );
+}
 
 ?>
 <div class="modal fade" id="editorWin"  tabindex="-3" role="dialog" aria-labelledby="modalLabel">
