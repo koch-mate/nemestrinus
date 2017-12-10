@@ -179,7 +179,7 @@ A részletező táblázat a következő adatokat tartalmazza:
  5. Számlaszám
  6. Megjegyzés: a bevételezéskor rögzített megjegyzés
  7. Művelet
-    1. Törlés: amennyiben még nem volt felhasználás a tételből, úgy az törölhető. Ha már tortént felhasználás, akkor elsőként azokat kell törölni.
+    1. Törlés: amennyiben még nem volt felhasználás a tételből, úgy az törölhető. Ha már tortént felhasználás, akkor elsőként azokat kell törölni. Ez alól kivételt képeznek az adminisztrátori jogkörrel rendelkező felhasználók, ők megrendelés során felhasznált tételt is törölhetnek. Ez például akkor lehet szükséges, ha a gyártás egyszer már lezárult, de utólag újra módosítani kellett, majd újra lezárni. Ilyenkor a program mindkétszer levonja a csomagolóanyagot. Ha a valóságban a korábbi csomagolóanyagot (pl kalodaelem) újrahasznosítottuk, akkor az egyik levonás törölhető.
     2. Eladás: közvetlen faanyag értékesítés esetén
     3. Korrekció: leltári korrekció
 
@@ -249,6 +249,8 @@ Ha az összes tétel legyártásra került, autómatikusan átállítódik a sz�
 A már lezárult rendelések látszanak, csak olvasható módban. A megjelenített adatok megegyeznek a függő gyátrás menüpontban leírtakkal.
 
 Megjegyzést már lezárult megrendelésekhez is lehet fűzni.
+
+Az adminisztrátori jogkörrel rendelkező felhasználók a lezárult gyártások anyagfelhasználását utólag is módosíthatják.
 
 ### Megrendelés
 
