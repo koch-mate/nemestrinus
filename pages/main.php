@@ -17,6 +17,9 @@
 <div>
     <h3>Frissítések</h3>
 
+    <p><span class="label label-default">2017. 12. 21.</span> <span class="label label-success">Új fejlesztés</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/76','Alapanyag')?>
+    </p>
 
     <p><span class="label label-default">2017. 12. 21.</span> <span class="label label-success">Új modul</span>
       <a href="?mode=kimutatas-fafelhasznalas-attekintes">Faanyag áttekintés</a>
