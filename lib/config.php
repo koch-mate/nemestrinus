@@ -105,7 +105,7 @@ const MENU_STRUCT = [
         'beszallitas-fuggo'
     ],
     'alapanyag'         => [
-        'alapanyag'=>[ 'keszlet-osszesito' ],
+        'alapanyag'=>[ 'keszlet-osszesito', 'kimutatas-fafelhasznalas', ],
         'faanyag' => [ 'faanyag-keszlet','faanyag-keszletmozgas', 'faanyag-bevitel', 'faanyag-kiadas', 'faanyag-korrekcio'],
         'csomagoloanyag' => [ 'csomagoloanyag-keszlet', 'csomagoloanyag-keszletmozgas', 'csomagoloanyag-bevitel', 'csomagoloanyag-kiadas', 'csomagoloanyag-korrekcio']
     ],
@@ -134,7 +134,6 @@ const MENU_STRUCT = [
     'kimutatas'         => [
       'kimutatas-penzugyi-attekintes',
       'kimutatas-fafelhasznalas-attekintes',
-      'kimutatas-fafelhasznalas',
       'kimutatas-lakossagi-gyartas',
       'kimutatas-havi',
     ],
@@ -282,7 +281,7 @@ const MENU_ICONS = [
 
 const MENU_NAMES = [
     'beszallitas' => 'Alapanyag',
-    'beszallitas-fuggo' => 'Alapanyag',
+    'beszallitas-fuggo' => 'Alapanyag beszállítás',
     'alapanyag' => 'Készlet',
     'keszlet-osszesito' => 'Készlet összesítő',
     'faanyag' => 'Faanyag',

@@ -49,10 +49,10 @@ function mb_ucfirst($str) {
 }
 
 // make colored spans, depending on the stock
-function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1]){
+function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1], $neg = false){
     if($x!=0){
     ?>
-    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=$x?>&nbsp;<?=$u?></span>
+    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=($neg ? abs($x) : $x)?>&nbsp;<?=$u?></span>
 <?php
     }
     else {

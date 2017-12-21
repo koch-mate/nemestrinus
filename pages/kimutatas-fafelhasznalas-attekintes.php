@@ -232,7 +232,7 @@ var myChart = new Chart(ctx, {
           animationDuration: 0, // duration of animations when hovering an item
       },
       responsiveAnimationDuration: 0, // animation duration after a resize
-    
+
       elements: {
         point: {
           //radius: 0,
