@@ -46,6 +46,11 @@ function woodGetSumByType($type){
     return rnd($db->sum('faanyag', 'Mennyiseg', ["AND"=> ['Fatipus'=>$type, 'Deleted'=>0]]));
 }
 
+function woodGetAllByTrafficAndDate($forg, $sd, $ed){
+    global $db;
+    return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Fatipus','Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>['Deleted'=>0,'Forgalom'=>$forg, 'Datum[<>]'=>[$sd,$ed]]]);
+}
+
 function woodGetDetailsByType($type){
     global $db;
     return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'Szamlaszam', 'Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID'], ["AND"=>['Fatipus'=>$type, 'Deleted'=>0]]);

@@ -1,4 +1,12 @@
-<h1>Megrendelések havi nézete</h1>
+<?
+
+use Medoo\Medoo;
+require("lib/report_temp.php");
+
+function haviNezet(){
+
+  global $db, $mode, $ev;
+?>
 
 <style>
 .table tbody tr td,  .table tbody tr th, .table thead tr th {
@@ -13,46 +21,10 @@ p.light {
   padding: 0;
 }
 </style>
-<?php
-$ev = date('Y');
-if(isset($_GET[ev]) && $_GET[ev]>2015 && $_GET[ev]<2100){
-  $ev = $_GET[ev];
-}
-?>
-<h2>Tárgyév: <?=$ev?></h2>
 
-<p>Év váltása:
-  <?php for($i=2017; $i<2027; $i++){
-    if($ev != $i){
-    ?>
-    <a href="?mode=kimutatas-havi&ev=<?=$i?>"><?=$i?></a>,
-  <?php }
-    else {
-      ?>
-      <?=$i?>,
-      <?php
-    }
-  }
-  if($ev == $i){
-    ?>
-    <?=$i?>
-    <?php
-  }
-  else {
-    ?>
-    <a href="?mode=kimutatas-havi&ev=<?=$i?>"><?=$i?></a>
-    <?php
-  }
-  ?>
+<div class="row" style="margin:2em;">
 
-</p>
 
-<p>
-  Hónapra ugrás: <?php
-  foreach(MONTHS as $mi => $mn){ ?>
-    <a href="#hodiv<?=$mi?>" onclick="toggle(this, $('#hodiv<?=$mi?>'));"><?=$mn?></a><?=$mi<12?', ':''?>
-    <?php } ?>
-</p>
 <script>
 function toggle(link, div){
   //div.toggle();
@@ -173,3 +145,10 @@ $(
   }
 );
 </script>
+
+</div>
+
+
+<?php } //func: haviNezet()?>
+
+<?=kimutatasTemplate("Megrendelések havi nézete", 'haviNezet', $honapraugras=true)?>

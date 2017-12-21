@@ -93,6 +93,16 @@ function exportCustomerGetNameById($id){
     return $db->get('megrendelo', 'MegrendeloNev', ['ID'=>$id]);
 }
 
+function exportCustomerGetAddressById($id){
+    global $db;
+    return $db->get('megrendelo', 'SzamlazasiCim', ['ID'=>$id]);
+}
+
+function exportCustomerGetTaxNrById($id){
+    global $db;
+    return $db->get('megrendelo', 'Adoszam', ['ID'=>$id]);
+}
+
 function exportCustomerDelete($u){
     global $db;
     $db->update('megrendelo', ['Deleted'=>1], ['ID'=>$u]);

@@ -98,6 +98,8 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-havi',
     'kimutatas-penzugyi-attekintes',
     'kimutatas-fafelhasznalas-attekintes',
+    'kimutatas-faanyagforgalom-beszallitas',
+    'kimutatas-faanyagforgalom-kiszallitas',
 ];
 
 const MENU_STRUCT = [
@@ -136,6 +138,8 @@ const MENU_STRUCT = [
       'kimutatas-fafelhasznalas-attekintes',
       'kimutatas-lakossagi-gyartas',
       'kimutatas-havi',
+      'kimutatas-faanyagforgalom-beszallitas',
+      'kimutatas-faanyagforgalom-kiszallitas',
     ],
     'adminisztracio'    => [
         'felhasznalok',
@@ -228,6 +232,8 @@ const PAGE_RIGHTS = [
     'konstansok'                => [R_ADMINISZTRACIO],
     'arlista'                   => [R_ADMINISZTRACIO],
     'kimutatas-fafelhasznalas'  => [R_KIMUTATAS],
+    'kimutatas-faanyagforgalom-beszallitas'  => [R_KIMUTATAS],
+    'kimutatas-faanyagforgalom-kiszallitas'  => [R_KIMUTATAS],
     'help'                      => [R_BESZALLITAS, R_ALAPANYAG, R_GYARTAS, R_LAK_MEGRENDELES, R_EXP_MEGRENDELES, R_LAK_SZALLITAS, R_EXP_SZALLITAS, R_KIMUTATAS, R_ADMINISZTRACIO],
 ];
 
@@ -275,6 +281,8 @@ const MENU_ICONS = [
     'kimutatas-havi' => 'fa-moon-o',
     'kimutatas-penzugyi-attekintes' => 'fa-pie-chart',
     'kimutatas-fafelhasznalas-attekintes' => 'fa-pagelines',
+    'kimutatas-faanyagforgalom-beszallitas'  => 'fa-table',
+    'kimutatas-faanyagforgalom-kiszallitas'  => 'fa-table',
 
     'beszallitas-fuggo' => 'fa-truck',
 ];
@@ -331,10 +339,13 @@ const MENU_NAMES = [
     'konstansok'   => 'Konstansok',
     'arlista' => 'Árlista',
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
-    'kimutatas-lakossagi-gyartas' => 'Lakossági megrendelések',
-    'kimutatas-havi' => 'Megrendelések havonta',
+    'kimutatas-lakossagi-gyartas' => 'Lakossági megrendelések (nyomtatható)',
+    'kimutatas-havi' => 'Megrendelések: havi nézet',
     'kimutatas-penzugyi-attekintes' => 'Pénzügyi áttekintés',
     'kimutatas-fafelhasznalas-attekintes' => 'Faanyag áttekintés',
+    'kimutatas-faanyagforgalom-beszallitas'  => 'Faanyag forgalom - Beszállítás',
+    'kimutatas-faanyagforgalom-kiszallitas'  => 'Faanyag forgalom - Kiszállítás',
+
 ];
 
 
