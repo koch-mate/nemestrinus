@@ -1,26 +1,14 @@
-<script src="js/Chart.min.js"></script>
-
-<script>
-function toInt(n){ return Math.round(Number(n)); };
-const numberWithCommas = (x) => {
-  x=toInt(x);
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
-
-</script>
-<h1>Áttekintés</h1>
-
-<?php $ev = date('Y'); ?>
-
-<div class="row">
-
 <?php
 
 use Medoo\Medoo;
+require("lib/report_temp.php");
+
+function penzugyiAttekintes(){
+
+  global $db, $mode, $ev;
 
 foreach([P_EURO, P_FORINT] as $p){ ?>
-  <div class="col-md-4 clearfix" style="background:rgba(255, 255, 255, 0.9);margin:2em;padding:1em;">
+  <div class=" col-md-4" style="background:rgba(255, 255, 255, 0.9);margin:2em;padding:1em;">
 
   <h3>Lejárt határidejű, befizetetlen, teljesített megrendelések - <?=$p?></h3>
 <div style="max-height:300px;overflow:auto;">
@@ -67,9 +55,10 @@ if(empty($d)){
 </table>
 <?php } ?>
 </div>
-<p style="margin-top:2em;">
-  A tárgyévben (<?=$ev?>) <i>teljesített/teljesítendő</i> megrendelések:
-</p>
+
+<h3 >
+  A tárgyévben (<?=$ev?>) <i>teljesített/teljesítendő</i> megrendelések (<?=$p?>)
+</h3>
 
 
   <?php
@@ -269,4 +258,6 @@ for($i = 0; $i<6; $i ++){
 <?php }
 ?>
 
-</div>
+<?php } //func: penzugyiAttekintes()?>
+
+<?=kimutatasTemplate("Pénzügyi áttekintés", 'penzugyiAttekintes')?>
