@@ -1,7 +1,7 @@
 <?php
 use Medoo\Medoo;
 
-function kimutatasTemplate($cim = "", $cnt = ""){
+function kimutatasTemplate($cim = "", $cnt = "", $honapraugras=false){
   global $db, $mode, $ev;
 
 ?>
@@ -32,6 +32,14 @@ const numberWithCommas = (x) => {
     <?php
     }?>
   </p>
+<?php if($honapraugras){?>
+  <p>
+    Hónapra ugrás: <?php
+    foreach(MONTHS as $mi => $mn){ ?>
+      <a href="#hodiv<?=$mi?>" onclick="toggle(this, $('#hodiv<?=$mi?>'));"><?=$mn?></a><?=$mi<12?', ':''?>
+      <?php } ?>
+  </p>
+<?php } ?>
 </div>
 
 
