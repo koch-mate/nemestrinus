@@ -17,8 +17,14 @@
 <div>
     <h3>Frissítések</h3>
 
-    <p><span class="label label-default">2017. 12. 21.</span> <span class="label label-success">Új modul</span>
-      <a href="?mode=kimutatas-faanyagforgalom-beszallitas">Faanyag forgalom - Beszállítás</a>, 
+    <p><span class="label label-default">2017. 12. 29.</span> <span class="label label-success">Új modulok</span>
+      <a href="?mode=kimutatas-fafaj">Fafaj szerinti kimutatás</a>,
+      <a href="?mode=kimutatas-megrendelo-lakossagi">Megrendelő szerinti kimutatás - Lakossági megrendelések</a>,
+      <a href="?mode=kimutatas-megrendelo-export">Megrendelő szerinti kimutatás - Export megrendelések</a>
+    </p>
+
+    <p><span class="label label-default">2017. 12. 21.</span> <span class="label label-success">Új modulok</span>
+      <a href="?mode=kimutatas-faanyagforgalom-beszallitas">Faanyag forgalom - Beszállítás</a>,
       <a href="?mode=kimutatas-faanyagforgalom-kiszallitas">Faanyag forgalom - Kiszállítás</a>
     </p>
 

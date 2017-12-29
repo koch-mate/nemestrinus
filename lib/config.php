@@ -101,7 +101,8 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-faanyagforgalom-beszallitas',
     'kimutatas-faanyagforgalom-kiszallitas',
     'kimutatas-fafaj',
-    'kimutatas-megrendelo',
+    'kimutatas-megrendelo-lakossagi',
+    'kimutatas-megrendelo-export',
 ];
 
 const MENU_STRUCT = [
@@ -141,7 +142,8 @@ const MENU_STRUCT = [
       'kimutatas-lakossagi-gyartas',
       'kimutatas-havi',
       'kimutatas-fafaj',
-      'kimutatas-megrendelo',
+      'kimutatas-megrendelo-lakossagi',
+      'kimutatas-megrendelo-export',
       'kimutatas-faanyagforgalom-beszallitas',
       'kimutatas-faanyagforgalom-kiszallitas',
     ],
@@ -225,7 +227,8 @@ const PAGE_RIGHTS = [
     'kimutatas-fafelhasznalas-attekintes' => [R_KIMUTATAS],
     'kimutatas-penzugyi-attekintes'      => [R_KIMUTATAS],
     'kimutatas-fafaj'           => [R_KIMUTATAS],
-    'kimutatas-megrendelo'      => [R_KIMUTATAS],
+    'kimutatas-megrendelo-lakossagi'      => [R_KIMUTATAS],
+    'kimutatas-megrendelo-export'      => [R_KIMUTATAS],
     'adminisztracio'            => [R_ADMINISZTRACIO],
     'felhasznalok'              => [R_ADMINISZTRACIO],
     'export-megrendelok'        => [R_EXP_MEGRENDELES],
@@ -290,7 +293,8 @@ const MENU_ICONS = [
     'kimutatas-faanyagforgalom-beszallitas'  => 'fa-table',
     'kimutatas-faanyagforgalom-kiszallitas'  => 'fa-table',
     'kimutatas-fafaj'           => 'fa-bar-chart',
-    'kimutatas-megrendelo'      => 'fa-users',
+    'kimutatas-megrendelo-lakossagi'      => 'fa-users',
+    'kimutatas-megrendelo-export'      => 'fa-users',
     'beszallitas-fuggo' => 'fa-truck',
 ];
 
@@ -353,7 +357,8 @@ const MENU_NAMES = [
     'kimutatas-faanyagforgalom-beszallitas'  => 'Faanyag forgalom - Beszállítás',
     'kimutatas-faanyagforgalom-kiszallitas'  => 'Faanyag forgalom - Kiszállítás',
     'kimutatas-fafaj'           => 'Fafajonkénti kimutatás',
-    'kimutatas-megrendelo'      => 'Megrendelőnkénti kimutatás',
+    'kimutatas-megrendelo-lakossagi'      => 'Megrendelőnkénti kimutatás - Lakossági',
+    'kimutatas-megrendelo-export'      => 'Megrendelőnkénti kimutatás - Export',
 
 ];
 
