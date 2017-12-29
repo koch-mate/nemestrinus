@@ -100,6 +100,9 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-fafelhasznalas-attekintes',
     'kimutatas-faanyagforgalom-beszallitas',
     'kimutatas-faanyagforgalom-kiszallitas',
+    'kimutatas-fafaj',
+    'kimutatas-megrendelo-lakossagi',
+    'kimutatas-megrendelo-export',
 ];
 
 const MENU_STRUCT = [
@@ -138,6 +141,9 @@ const MENU_STRUCT = [
       'kimutatas-fafelhasznalas-attekintes',
       'kimutatas-lakossagi-gyartas',
       'kimutatas-havi',
+      'kimutatas-fafaj',
+      'kimutatas-megrendelo-lakossagi',
+      'kimutatas-megrendelo-export',
       'kimutatas-faanyagforgalom-beszallitas',
       'kimutatas-faanyagforgalom-kiszallitas',
     ],
@@ -220,6 +226,9 @@ const PAGE_RIGHTS = [
     'kimutatas-havi'            => [R_KIMUTATAS],
     'kimutatas-fafelhasznalas-attekintes' => [R_KIMUTATAS],
     'kimutatas-penzugyi-attekintes'      => [R_KIMUTATAS],
+    'kimutatas-fafaj'           => [R_KIMUTATAS],
+    'kimutatas-megrendelo-lakossagi'      => [R_KIMUTATAS],
+    'kimutatas-megrendelo-export'      => [R_KIMUTATAS],
     'adminisztracio'            => [R_ADMINISZTRACIO],
     'felhasznalok'              => [R_ADMINISZTRACIO],
     'export-megrendelok'        => [R_EXP_MEGRENDELES],
@@ -283,7 +292,9 @@ const MENU_ICONS = [
     'kimutatas-fafelhasznalas-attekintes' => 'fa-pagelines',
     'kimutatas-faanyagforgalom-beszallitas'  => 'fa-table',
     'kimutatas-faanyagforgalom-kiszallitas'  => 'fa-table',
-
+    'kimutatas-fafaj'           => 'fa-bar-chart',
+    'kimutatas-megrendelo-lakossagi'      => 'fa-users',
+    'kimutatas-megrendelo-export'      => 'fa-users',
     'beszallitas-fuggo' => 'fa-truck',
 ];
 
@@ -339,12 +350,15 @@ const MENU_NAMES = [
     'konstansok'   => 'Konstansok',
     'arlista' => 'Árlista',
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
-    'kimutatas-lakossagi-gyartas' => 'Lakossági megrendelések (nyomtatható)',
-    'kimutatas-havi' => 'Megrendelések: havi nézet',
+    'kimutatas-lakossagi-gyartas' => 'Gyártásra váró lakossági megrendelések (nyomtatható)',
+    'kimutatas-havi' => 'Havi megrendelés összesítő',
     'kimutatas-penzugyi-attekintes' => 'Pénzügyi áttekintés',
     'kimutatas-fafelhasznalas-attekintes' => 'Faanyag áttekintés',
     'kimutatas-faanyagforgalom-beszallitas'  => 'Faanyag forgalom - Beszállítás',
     'kimutatas-faanyagforgalom-kiszallitas'  => 'Faanyag forgalom - Kiszállítás',
+    'kimutatas-fafaj'           => 'Fafajonkénti kimutatás',
+    'kimutatas-megrendelo-lakossagi'      => 'Megrendelőnkénti kimutatás - Lakossági',
+    'kimutatas-megrendelo-export'      => 'Megrendelőnkénti kimutatás - Export',
 
 ];
 
@@ -482,6 +496,11 @@ const CS_FELHASZNALAS = [
 const M_LAKOSSAGI = 'lakossagi';
 const M_EXPORT = 'export';
 
+const MEGRENDELES_TIPUS_NEVEK = [
+  M_LAKOSSAGI => 'lakossági',
+  M_EXPORT => 'export'
+];
+
 const M_S_FELDOLGOZAS_ALATT     = 'feldolgozás alatt';
 const M_S_ELFOGADVA             = 'elfogadva';
 const M_S_TELJESITVE            = 'teljesítve';
@@ -518,6 +537,13 @@ const M_S_LEZART = [
     M_S_TELJESITVE,
     M_S_VISSZAUTASITVA,
     M_S_VISSZAMONDOTT
+];
+
+const M_S_NEMTOROLT = [
+  M_S_FELDOLGOZAS_ALATT,
+  M_S_ELFOGADVA,
+  M_S_VARAKOZIK,
+  M_S_TELJESITVE
 ];
 
 // gyartas statusza

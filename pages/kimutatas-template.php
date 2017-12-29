@@ -3,7 +3,7 @@
 use Medoo\Medoo;
 require("lib/report_temp.php");
 
-kimutatasTemplate("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 'cnt');
+kimutatasTemplate("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 'cnt', $honapraugras=true);
 
 function label($cnt, $style){
     return "<span class='label label-$style'>$cnt</span>";
