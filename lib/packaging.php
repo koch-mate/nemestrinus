@@ -70,5 +70,9 @@ function packagingGetPastSumByType($tipus, $forg){
   return -1.0*$db->sum('csomagoloanyag', 'Mennyiseg', ["AND"=> ['Tipus'=>$tipus, 'Deleted'=>0, 'Forgalom'=>$forg]]);
 }
 
+function packagingGetUsedOnOrderItem($id){
+  global $db;
+  return $db->select('csomagoloanyag', ['Tipus','Mennyiseg','ID'], ['Deleted'=>0, 'MegrendelesTetelID'=>$id]);
+}
 
 ?>
