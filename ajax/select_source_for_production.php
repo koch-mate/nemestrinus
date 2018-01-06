@@ -103,7 +103,7 @@ $(document).ready(function () {
             <td><?=rnd($maradek)?>&nbsp;<?=U_NAMES[U_STD][1]?></td>
             <td><?=$w['Datum']?></td>
             <td><?=$w['Beszallito']?></td>
-            <td><input name="menny_<?=$w['ID']?>" data-id="<?=$w['ID']?>" class="form-control mennySum" value="0" style="width:5em;" onkeyup="$(this).change()" onchange="updateSum();" required type="number"></td>
+            <td><input name="menny_<?=$w['ID']?>" data-id="<?=$w['ID']?>" class="form-control mennySum" value="0" style="width:5em;" onkeyup="$(this).change()" onchange="updateSum();" required max="<?=rnd($maradek)?>" min="0" type="number"></td>
         </tr>
         <?php
         }
@@ -148,7 +148,7 @@ $(document).ready(function () {
             }
         }
         else {
-          alert("Invalid adat.");        }
+          alert("Hibás adat.");        }
     }
                             );
     function updateSum(){

@@ -48,8 +48,6 @@ else{
           <i class="fa fa-cog fa-spin fa-fw"></i> Betöltés...
         </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
-        <button type="button" id="selectSubmit2" class="btn btn-primary">Mentés</button>
       </div>
     </div>
   </div>
