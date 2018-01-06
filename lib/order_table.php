@@ -1,5 +1,12 @@
 <?php
 function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false){
+
+$orderItemsDetalis = false;
+
+if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
+  $orderItemsDetalis = true;
+}
+
 ?>
 <style>
     div.dataTables_scrollBody {
@@ -24,6 +31,9 @@ function orderTable($filters=[], $customerON = false, $customerDetailsON = false
 
 <script>
 
+function reszletek(oid){
+  $("#megrendeles_reszletek_"+oid).load('/ajax/order_items_details.php?id='+oid);
+}
 function saveNewManufacturer(lid, gy){
     $.ajax({
         type: "POST",
@@ -430,6 +440,11 @@ function saveExtMfStatus(lid, st){
                                 </tr>
                                 <?php } ?>
                         </table>
+<?php if($orderItemsDetalis){ ?>
+                        <div id="megrendeles_reszletek_<?=$og['ID']?>">
+                          <button type="button" class="btn btn-xs btn-default" onclick="reszletek(<?=$og['ID']?>);">Részletek</button>
+                        </div>
+<?php } ?>
                     </td>
 <?php if($shippingON){ ?>
                     <td data-order="<?=array_search($og['SzallitasStatusza'], SZ_S_STATUSZOK_SORREND)?>">

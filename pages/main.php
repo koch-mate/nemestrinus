@@ -16,6 +16,9 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2018. 01. 06.</span> <span class="label label-success">Új fejlesztés</span>
+      Fafelhasználás részletei a Készletmozgás és a Megrendelések alatt is.
+    </p>
 
     <p><span class="label label-default">2017. 12. 29.</span> <span class="label label-success">Új modulok</span>
       <a href="?mode=kimutatas-fafaj">Fafaj szerinti kimutatás</a>,

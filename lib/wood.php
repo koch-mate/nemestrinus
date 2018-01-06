@@ -41,6 +41,11 @@ function woodGetSuppliers(){
     return $db->select('faanyag', 'Beszallito', ['GROUP'=>'Beszallito']);
 }
 
+function woodGetUsageByWoodID($wid){
+  global $db;
+  return $db->select('faanyag', ['ID', 'Mennyiseg', 'MegrendelesTetelID', 'Forgalom'], ['Deleted'=>0, 'FaanyagID'=>$wid]);
+}
+
 function woodGetSumByType($type){
     global $db;
     return rnd($db->sum('faanyag', 'Mennyiseg', ["AND"=> ['Fatipus'=>$type, 'Deleted'=>0]]));

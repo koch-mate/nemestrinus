@@ -111,7 +111,7 @@ foreach(array_keys(CSOMAGOLOANYAGOK) as $p){
                             "info": true,
                             "columns": [
                                 {
-                                    "searchable": false
+                                    "searchable": true
             },
                                 null,
                                 {

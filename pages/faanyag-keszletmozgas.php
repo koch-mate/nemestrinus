@@ -83,6 +83,9 @@ foreach(array_keys(FATIPUSOK) as $p){
                                       <div class="progress-bar progress-bar-warning" style="width: <?=100-$maradek?>%">
                                       </div>
                                     </div>
+                                    <div id="reszletek_<?=$ip['ID']?>">
+                                      <button type="button" class="btn btn-xs btn-default" onclick="reszletek(<?=$ip['ID']?>);">Részletek</button>
+                                    </div>
                                     <?php
                                   } else {?>
                                     <?=$ip['Mennyiseg'].' '.U_NAMES[U_STD][1]?>
@@ -160,7 +163,7 @@ foreach(array_keys(FATIPUSOK) as $p){
                             "info": true,
                             "columns": [
                                 {
-                                    "searchable": false
+                                    "searchable": true
                                 },
                                 null,
                                 {
@@ -204,6 +207,9 @@ foreach(array_keys(FATIPUSOK) as $p){
                 $("#t_"+e.target.href.substring(e.target.href.indexOf("#")+1)).dataTable().fnAdjustColumnSizing();
             })
         });
+        function reszletek(faid){
+          $('#reszletek_'+faid).load('/ajax/wood_usage_details.php?id='+faid);
+        }
     </script>
 <?php }
 if($mode == 'faanyag-keszletmozgas'){
