@@ -16,6 +16,11 @@
 
 <div>
     <h3>Frissítések</h3>
+
+    <p><span class="label label-default">2018. 01. 06.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/79','többet vesz le az alapanyagból')?>
+    </p>
+
     <p><span class="label label-default">2018. 01. 06.</span> <span class="label label-success">Új fejlesztés</span>
       Fafelhasználás részletei a Készletmozgás és a Megrendelések alatt is.
     </p>
