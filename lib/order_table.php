@@ -27,12 +27,18 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
         font-size:80%;
         white-space: nowrap;
     }
+    .hand {
+      cursor:pointer;
+    }
 </style>
 
 <script>
 
 function reszletek(oid){
+  var rdiv = $("#megrendeles_reszletek_"+oid);
+  var rdivcnt = rdiv.html();
   $("#megrendeles_reszletek_"+oid).load('/ajax/order_items_details.php?id='+oid);
+  rdiv.click(function (){rdiv.html(rdivcnt);});
 }
 function saveNewManufacturer(lid, gy){
     $.ajax({

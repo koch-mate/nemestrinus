@@ -26,13 +26,14 @@ $faid = $_GET['id'];
 $dd = woodGetUsageByWoodID($faid);
 if(count($dd)==0){
   ?>
-  <p>
+  <p class="hand">
     <em>Nincs felhasználás</em>
   </p>
   <?
 }
 else {
   ?>
+<div class="hand">
 
   <table class="table">
     <thead>
@@ -73,6 +74,7 @@ foreach($dd as $d){
 }
 ?>
 </table>
+</div>
 <?php
 }
 }
