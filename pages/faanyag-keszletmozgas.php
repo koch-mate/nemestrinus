@@ -10,7 +10,11 @@ if(isset($_GET['del'])){
 }
 include("lib/popups.php");
 ?>
-
+<style>
+.hand {
+  cursor: pointer;
+}
+</style>
 
     <h1><?=$cim?></h1>
 
@@ -208,7 +212,10 @@ foreach(array_keys(FATIPUSOK) as $p){
             })
         });
         function reszletek(faid){
-          $('#reszletek_'+faid).load('/ajax/wood_usage_details.php?id='+faid);
+          var rdiv = $('#reszletek_'+faid);
+          var rdivcnt = rdiv.html();
+          rdiv.load('/ajax/wood_usage_details.php?id='+faid);
+          rdiv.click(function(){rdiv.html(rdivcnt)});
         }
     </script>
 <?php }

@@ -28,16 +28,18 @@ $dd = ordersGetItemsByID($mid);
   if(count($dd)==0)
   {
     ?>
-    <p>
-      <em>Nincsenek tételek</em>
-    </p>
+    <div class="hand">
+      <p>
+        <em>Nincsenek tételek</em>
+      </p>
+    </div>
     <?
   }
   else
   {
     foreach($dd as $tetel){
       ?>
-      <div style="width:100%;height:100%;background:#ddd;border-radius:5px;padding:5px;">
+      <div class="hand" style="width:100%;height:100%;background:#ddd;border-radius:5px;padding:5px;">
       <div>
         <p >
           <b>Tétel ID: <?=$tetel['ID']?></b> <br />Rendelt: <?=rnd($tetel['MennyisegStd'])."&nbsp".U_NAMES[U_STD][1]?> <?=FATIPUSOK[$tetel['Fafaj']][0]?>&nbsp;<span style="display:inline-block;width:2em;"><img src="/img/<?=$tetel['Fafaj']?>.png" class="zoom" style="height:1em;"></span>
