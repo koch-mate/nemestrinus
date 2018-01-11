@@ -70,6 +70,20 @@ function saveExtMfStatus(lid, st){
     });
 }
 
+function saveStatus(lid, nst){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_order.php",
+        data: ({'ID':lid, 'Statusz':nst}),
+        success: function(data){
+            location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert("Hiba!")
+        }
+    });
+}
 
 </script>
 
@@ -279,20 +293,6 @@ function saveExtMfStatus(lid, st){
                                     return $('#div_po_<?=$og['ID']?>').html()
                                 }
                             }).on('hidden.bs.popover', function (){$("#tr_<?=$og['ID']?>").removeClass("highlight");});
-                            function saveStatus(lid, nst){
-                                $.ajax({
-                                    type: "POST",
-                                    dataType: "html",
-                                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_order.php",
-                                    data: ({'ID':lid, 'Statusz':nst}),
-                                    success: function(data){
-                                        location.reload();
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                        alert("Hiba!")
-                                    }
-                                });
-                            }
                         </script>
 <?php } ?>
                     </td>
@@ -848,7 +848,7 @@ function saveExtMfStatus(lid, st){
 
 
         $(document).ready(function () {
-            $('#megrendelt_tetelek').DataTable({
+            document.dtab  = $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,
                 "lengthMenu": [[50, 100, 250, 500, -1], [50, 100, 250, 500, "minden"]],
                 "language": {

@@ -138,6 +138,10 @@ orderTable($filters=$f, $customerON = true, $customerDetailsON = true, $globStat
 
 <script>
 
+$( function() {
+  document.dtab.order([7,'asc']).draw();
+}
+);
 function deleteOrder( oid ){
     if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
             $.ajax({

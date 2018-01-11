@@ -39,16 +39,44 @@ function cnt(){
         Összesen
       </th>
     </tr>
+    <tr style="background:#ccc;">
+      <th>
+        Összesen
+      </th>
+      <?php
+      $sum = 0;
+      foreach(array_keys(MONTHS) as $month){
+        $sd = $ev.'-'.$month.'-01';
+        $ed = date('Y-m-t', strtotime($sd));
+        $s = $db->sum('megrendeles_tetel', ['[>]megrendeles'=>['MegrendelesID'=>'ID']],'megrendeles_tetel.MennyisegStd', ['megrendeles.Deleted'=>0, 'megrendeles.Statusz'=>M_S_NEMTOROLT, 'megrendeles.Tipus'=>M_EXPORT, 'megrendeles.KertDatum[<>]'=>[$sd,$ed], 'megrendeles_tetel.Deleted'=>0 ] );
+        $sum += $s;
+        ?>
+        <th>
+          <span title="<?=MONTHS[$month]?>"><?=spanify(rnd($s))?></span>
+        </th>
+        <?php
+      }?>
+      <th>
+        <?=spanify(rnd($sum))?>
+      </th>
+    </tr>
+
   </thead>
   <tbody>
 <?php
 
-$lak = $db->select('megrendelo',['ID','MegrendeloNev'], ['Deleted'=>0 ]);
+$exp = $db->select('megrendelo',['ID','MegrendeloNev'], ['Deleted'=>0 ]);
 $mossz = [];
 foreach(array_keys(MONTHS) as $i){
   $mossz[$i]=0;
 }
-foreach($lak as $mn){
+foreach($exp as $mn){
+  $sd = $ev.'-01-01';
+  $ed = $ev.'-12-31';
+  $s = $db->sum('megrendeles_tetel', ['[>]megrendeles'=>['MegrendelesID'=>'ID']],'megrendeles_tetel.MennyisegStd', ['megrendeles.Deleted'=>0, 'megrendeles.Statusz'=>M_S_NEMTOROLT, 'megrendeles.Tipus'=>M_EXPORT, 'megrendeles.KertDatum[<>]'=>[$sd,$ed], 'megrendeles_tetel.Deleted'=>0, 'megrendeles.MegrendeloID'=>$mn['ID'] ] );
+  if($s == 0){
+    continue;
+  }
   $ossz=0;
  ?>
     <tr>
@@ -70,20 +98,6 @@ foreach($lak as $mn){
     </tr>
   <?php } ?>
   </tbody>
-  <tfoot>
-    <tr>
-      <th>
-        Összesen
-      </th>
-      <?php foreach(array_keys(MONTHS) as $month){
-        ?>
-        <td>
-          <span title="<?=MONTHS[$month]?>"><?=spanify(rnd($mossz[$month]))?></span>
-        </td>
-        <?php
-      }?>
-    </tr>
-  </tfoot>
 </table>
   </div>
 <script>
