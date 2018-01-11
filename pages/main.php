@@ -16,6 +16,10 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2018. 01. 11.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/81','Megrendelések')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/82','Kimutatás')?>
+    </p>
 
     <p><span class="label label-default">2018. 01. 06.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/79','többet vesz le az alapanyagból')?>
