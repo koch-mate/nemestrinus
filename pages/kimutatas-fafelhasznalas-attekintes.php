@@ -18,6 +18,7 @@ function label($cnt, $style){
 
 function faanyagAttekintes(){
   global $ev, $db;
+  $athozatal=[];
 ?>
 <div class="row">
 
@@ -30,6 +31,7 @@ function faanyagAttekintes(){
       <thead>
         <tr>
           <th>Fafaj</th>
+          <th>Áthozatal (előző évből)</th>
           <th>Bevétel</th>
           <th>Korrekció</th>
           <th>Felhasználás</th>
@@ -39,6 +41,8 @@ function faanyagAttekintes(){
       <tbody>
         <?php
         foreach(array_keys(FATIPUSOK) as $f){
+          $atv = $db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$f,  'Datum[<>]'=>['1990-01-01', ($ev-1).'-12-31']]]);
+          $athozatal[$f]=$atv;
           $bev = $db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$f, 'Forgalom'=>FORGALOM_BEVETEL, 'Datum[<>]'=>[$ev.'-01-01', $ev.'-12-31']]]);
           $kor = $db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$f, 'Forgalom'=>FORGALOM_KORREKCIO, 'Datum[<>]'=>[$ev.'-01-01', $ev.'-12-31']]]);
           $felh = -$db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$f, 'Forgalom'=>FORGALOM_FELHASZNALAS, 'Datum[<>]'=>[$ev.'-01-01', $ev.'-12-31']]]);
@@ -46,6 +50,7 @@ function faanyagAttekintes(){
         ?>
         <tr>
           <th><span style="display:inline-block;width:2em;"><img src="/img/<?=$f?>.png" class="zoom" style="height:1em;"></span><?=FATIPUSOK[$f][0]?></td>
+          <td style="text-align:right;"><?=label(rnd(0+$atv),'default')?></td>
           <td style="text-align:right;"><?=label(rnd(0+$bev),'success')?></td>
           <td style="text-align:right;"><?=label(rnd(0+$kor),'info')?></td>
           <td style="text-align:right;"><?=label(rnd(0+$felh),'warning')?></td>
@@ -72,6 +77,9 @@ function faanyagAttekintes(){
       <thead>
         <tr>
           <th>Fafaj</th>
+          <th>
+            Áthozatal<br />(előző évből)
+          </th>
           <th> </th>
           <?php
           foreach(MONTHS as $month){ ?>
@@ -85,6 +93,9 @@ function faanyagAttekintes(){
         ?>
         <tr>
           <th><span style="display:inline-block;width:2em;"><img src="/img/<?=$f?>.png" class="zoom" style="height:1em;"></span><?=FATIPUSOK[$f][0]?></th>
+          <td style="text-aling:right;">
+            <?=rnd(0+$athozatal[$f])?>
+          </td>
           <td>
             <?=label('B', 'success')?><br />
             <?=label('K', 'info')?><br />
@@ -133,7 +144,7 @@ foreach(array_keys(FATIPUSOK) as $f){
 
 <?php
 $date = $ev.'-01-01';
-$be = 0;
+$be = $athozatal[$f];
 $ki = 0;
 $er = 0;
 $bes = "";
