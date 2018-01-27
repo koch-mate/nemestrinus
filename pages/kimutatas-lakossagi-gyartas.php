@@ -22,6 +22,7 @@
       <th>#</th>
       <th>ID</th>
       <th>Dátum</th>
+      <th>Ígért telj. dátum</th>
       <th>Név</th>
       <th>Megrendelés</th>
       <th>Ár</th>
@@ -51,7 +52,8 @@
     <tr>
       <th><?=$num++?></th>
       <th><?=$i[ID]?></th>
-      <td><?=$i[RogzitesDatum]?></td>
+      <td style="white-space:nowrap;"><?=$i[RogzitesDatum]?></td>
+      <td style="white-space:nowrap;"><?=$i[KertDatum]?></td>
       <td><?=$i[MegrendeloNev]?></td>
       <td>
         <?php foreach($ois as $oi){ ?>
