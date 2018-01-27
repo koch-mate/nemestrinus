@@ -1,3 +1,25 @@
+<?php
+
+// Uj megrendeles-tetel hozzaadasa
+
+if(isset($_POST['addNewItem']) and $_POST['add_mid']>0){
+  $mid = $_POST['add_mid'];
+  $kertdatum = $_POST['add_kertdatum'];
+  $fafaj = $_POST['add_fafaj'];
+  $hossz = $_POST['add_hossz'];
+  $ha = $_POST['add_huratmero'];
+  $cs = $_POST['add_csomagolas'];
+  $menny = $_POST['add_mennyiseg'];
+  $nedv = $_POST['add_nedvesseg'];
+  $ar = $_POST['add_ar'];
+  addOrderItem($mid, $fafaj, $hossz, $ha, $cs, $menny, $nedv, $ar, $kertdatum);
+  logEv(LOG_EVENT['order_item_add'].':',null,'Megr. ID: '.$mid.", ($fafaj, hossz: $hossz cm, átmérő: $ha cm, csomagolás: $cs, mennyiség: $menny, nedvesség: $nedv, ár: $ar)");
+  $succMessage = "A $mid. ID-jű megrendeléshez az új tétel rögzíttésre került.";
+  include('lib/popups.php');
+
+}
+ ?>
+
 <h2>Megrendelések</h2>
 
 <form method="get"  >
@@ -142,22 +164,5 @@ $( function() {
   document.dtab.order([7,'asc']).draw();
 }
 );
-function deleteOrder( oid ){
-    if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
-            $.ajax({
-                type: "POST",
-                dataType: "html",
-                url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_order.php",
-                data: ({'ID':oid}),
-                success: function(data){
-                    location.reload();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert("Hiba!");
-                }
-            });
-
-    };
-}
 
 </script>

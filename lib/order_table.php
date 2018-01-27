@@ -20,9 +20,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
         padding:3px;
         text-align: center;
     }
-    table.orderItems tr:hover {
-        background: #fff;
-    }
+
     table.orderItems {
         font-size:80%;
         white-space: nowrap;
@@ -31,61 +29,6 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
       cursor:pointer;
     }
 </style>
-
-<script>
-
-function reszletek(oid){
-  var rdiv = $("#megrendeles_reszletek_"+oid);
-  var rdivcnt = rdiv.html();
-  $("#megrendeles_reszletek_"+oid).load('/ajax/order_items_details.php?id='+oid);
-  rdiv.click(function (){rdiv.html(rdivcnt);});
-}
-function saveNewManufacturer(lid, gy){
-    $.ajax({
-        type: "POST",
-        dataType: "html",
-        url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_new_manufacturer.php",
-        data: ({'ID':lid, 'Gyarto': gy}),
-        success: function(data){
-            location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Hiba!")
-        }
-    });
-}
-
-function saveExtMfStatus(lid, st){
-    $.ajax({
-        type: "POST",
-        dataType: "html",
-        url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_ext_mf_status.php",
-        data: ({'ID':lid, 'Status': st}),
-        success: function(data){
-            location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Hiba!")
-        }
-    });
-}
-
-function saveStatus(lid, nst){
-    $.ajax({
-        type: "POST",
-        dataType: "html",
-        url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_order.php",
-        data: ({'ID':lid, 'Statusz':nst}),
-        success: function(data){
-            location.reload();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Hiba!")
-        }
-    });
-}
-
-</script>
 
 <table class="table table-striped table-hover display" id="megrendelt_tetelek" style="min-width:100%;font-size:90%;">
         <thead style="font-weight:bold">
@@ -151,97 +94,7 @@ function saveStatus(lid, nst){
 <?php if($customerON){ ?>
                     <td>
 <?php if($customerDetailsON){?>
-                        <a tabindex="0" data-toggle="popover" title="Adatok" data-content="<?php if($og['Tipus']==M_LAKOSSAGI){?><table class='table table-striped table-hover' style='font-size:80%'>
-                            <tbody>
-                                <tr>
-                                    <th>Megrendelő neve</th>
-                                    <td>
-                                        <?=htmlentities($og['MegrendeloNev'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Számlázási cím</th>
-                                    <td>
-                                        <?=htmlentities($og['MegrendeloCim'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Telefonszám</th>
-                                    <td>
-                                        <?=htmlentities($og['MegrendeloTel'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Kapcsolattartó neve</th>
-                                    <td>
-                                        <?=htmlentities($og['KapcsolattartoNev'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Szállítási cím</th>
-                                    <td>
-                                        <?=htmlentities($og['SzallitasiCim'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Telefonszám</th>
-                                    <td>
-                                        <?=htmlentities($og['KapcsolattartoTel'])?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table><?} else{ $ec = getExportCustomerDataById($og['MegrendeloID'])[0];?> <table class='table table-striped table-hover' style='font-size:80%'>
-                            <tbody>
-                                <tr>
-                                    <th>Cégnév</th>
-                                    <td>
-                                        <?=htmlentities($ec['MegrendeloNev'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Képviselő</th>
-                                    <td>
-                                        <?=htmlentities($ec['Kepviselo'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Adószám</th>
-                                    <td>
-                                        <?=htmlentities($ec['Adoszam'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Telefon</th>
-                                    <td>
-                                        <?=htmlentities($ec['Telefonszam'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Fax</th>
-                                    <td>
-                                        <?=htmlentities($ec['Fax'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>E-mail cím</th>
-                                    <td>
-                                      <a href='mailto:<?=htmlentities($ec['Email'])?>'><?=htmlentities($ec['Email'])?></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Szállításdi cím</th>
-                                    <td>
-                                        <?=htmlentities($ec['SzallitasiCim'])?>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Számlázási cím</th>
-                                    <td>
-                                        <?=htmlentities($ec['SzamlazasiCim'])?>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table><?php }?>" style="cursor:pointer;">
+                        <a role="button" tabindex="1" customer-id="<?=$og['ID']?>"  title="Adatok" style="cursor:pointer;">
                             <?=($og['Tipus']==M_LAKOSSAGI ? $og['MegrendeloNev'] : exportCustomerGetNameById($og['MegrendeloID']))?>
                         </a>
 <?php } else { // customerDetailsON ?>
@@ -437,18 +290,34 @@ function saveStatus(lid, nst){
                                         <?=csepp($oi['Nedvesseg'])?>
                                     </td>
                                     <tr>
+                                      <td colspan="8">
                                       <?php if(in_array($og['Gyarto'], GYARTO_BELSO)){?>
-                                      <td colspan="8"><?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span>
+                                      <?=($oi['GyartasSzamitottDatuma'] < $oi['GyartasVarhatoDatuma'] && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>Sz:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>Sz:</b>&nbsp;').$oi['GyartasSzamitottDatuma']?>&nbsp;</span>
                                       <?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span>
-                                      &nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;</td>
+                                      &nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;
                                       <?php }?>
+                                      <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) ){?>
+                                          <div style="float:right;">
+                                            <a href="#" class="label label-danger" title="Törlés" onclick="delItem(<?=$oi['ID']?>)" >
+                                              <span class="glyphicon glyphicon-trash" ></span>
+                                            </a>
+                                          </div>
+                                      <?php } ?>
+                                      </td>
                                     </tr>
                                 </tr>
                                 <?php } ?>
+
                         </table>
 <?php if($orderItemsDetalis){ ?>
-                        <div id="megrendeles_reszletek_<?=$og['ID']?>">
-                          <button type="button" class="btn btn-xs btn-default" onclick="reszletek(<?=$og['ID']?>);">Részletek</button>
+                        <div id="megrendeles_reszletek_<?=$og['ID']?>" style="margin-top:0.5em;">
+                          <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) ){?>
+                            <button type="button" class="btn btn-xs btn-success" title="Új tétel" onclick="addItem(<?=$og['ID']?>, '<?=$og['Penznem']?>', '<?=$og['KertDatum']?>')"  >
+                              <b>+</b> Új tétel
+                            </button>
+                          <?php } ?>
+                          <button type="button" class="btn btn-xs btn-info" onclick="reszletek(<?=$og['ID']?>);">Részletek</button>
+
                         </div>
 <?php } ?>
                     </td>
@@ -737,6 +606,8 @@ function saveStatus(lid, nst){
   <span class="glyphicon glyphicon-trash" ></span>
 </button>
 <?php } ?>
+
+
                     </td>
 <?php } ?>
                 </tr>
@@ -744,7 +615,181 @@ function saveStatus(lid, nst){
         </tbody>
     </table>
 
+
+<template id="itemAddForm">
+<div style="background:#fff;border-radius:2em;padding:1em;">
+  <form id="newItemForm" action="?<?=$_SERVER['QUERY_STRING']?>" method="post">
+    <p>
+      <label style="width:9em;">Fafaj: </label><select name="add_fafaj"><?php foreach(array_keys(FATIPUSOK) as $ft){
+      echo "<option value='".$ft."'>".FATIPUSOK[$ft][0]."</option>";
+    }?></select>
+    </p>
+    <p>
+      <label style="width:9em;">Hossz: </label><select name="add_hossz"><?php foreach([10,25,33,50,100] as $ha){
+      echo "<option value='".$ha."'>".$ha." cm</option>";
+    }?></select>
+    </p>
+    <p>
+      <label style="width:9em;">Húrátmérő: </label><select name="add_huratmero"><?php foreach(['5-8','8-16','16-40'] as $ha){
+      echo "<option value='".$ha."'>".$ha." cm</option>";
+    }?></select>
+    </p>
+    <p>
+      <label style="width:9em;">Csomagolás: </label><select name="add_csomagolas" onchange="$('#add_me').html($(this).find(':selected').attr('data-me'))"><?php foreach(array_keys(CSOMAGOLASTIPUSOK) as $cst){
+      echo "<option value='".$cst."' data-me='".CSOMAGOLASTIPUSOK[$cst][1]."'>".CSOMAGOLASTIPUSOK[$cst][0]."</option>";
+    }?></select>
+    </p>
+    <p>
+      <label style="width:9em;">Mennyiség: </label><input name="add_mennyiseg" value="0" type="number" minx="0" />&nbsp;<span id="add_me"><?=CSOMAGOLASTIPUSOK[array_keys(CSOMAGOLASTIPUSOK)[0]][1]?></span>
+    </p>
+    <p>
+      <label style="width:9em;">Nedvesség: </label><select name="add_nedvesseg"><?php foreach(array_keys(NEDVESSEG) as $cst){
+      echo "<option value='".$cst."' >".NEDVESSEG[$cst][1]."</option>";
+    }?></select>
+    </p>
+    <p>
+      <label style="width:9em;">Ár: </label><input name="add_ar" value="0" type="number" minx="0" />
+    </p>
+    <p>
+      <label style="width:9em;">Pénznem: </label><span id="add_curr" class="label label-default">--</span>
+    </p>
+    <p>
+      <input type="hidden" name="addNewItem" value="1" />
+      <input type="hidden" id="add_kertdatum" name="add_kertdatum" value="--" />
+      <input type="hidden" id="add_mid" name="add_mid" value="0" />
+      <input class="btn btn-sm btn-success" type="submit" value="Mentés"/>
+      <button class="btn btn-sm btn-danger" type="button" onclick="restoreItemDiv()">Mégsem</button>
+    </p>
+  </form>
+</div>
+</template>
     <script>
+    document.rdivid = -1;
+    document.rdivcnt = '';
+
+    $.validator.addMethod('minx', function (value, el, param) {
+        return value > param;
+    }, function(params, element) {
+        return params + '-nál nagyobb érték szükséges.'
+    });
+
+    function deleteOrder( oid ){
+        if(confirm("Biztosan törli a rendelést? (ID: "+oid+") Visszamondás esetén használja a 'visszamondott' státuszt!")){
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_order.php",
+                    data: ({'ID':oid}),
+                    success: function(data){
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Hiba!");
+                    }
+                });
+
+        };
+    }
+
+
+    function saveNewManufacturer(lid, gy){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_new_manufacturer.php",
+            data: ({'ID':lid, 'Gyarto': gy}),
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+
+    function saveExtMfStatus(lid, st){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_ext_mf_status.php",
+            data: ({'ID':lid, 'Status': st}),
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+
+    function saveStatus(lid, nst){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/save_state_order.php",
+            data: ({'ID':lid, 'Statusz':nst}),
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!")
+            }
+        });
+    }
+    function addItem(orderID, currency, expDate){
+      if(document.rdivid != -1){
+        alert("Mentse el vagy zárja be a már megnyitott szerkesztőablakot, mielőtt újat nyitna.");
+        return;
+      };
+
+      $("#newItemForm").trigger('reset');
+      var rdiv = $('#megrendeles_reszletek_'+orderID);
+      document.rdivcnt = rdiv.html();
+      document.rdivid = orderID;
+      rdiv.off('click');
+      $('#megrendeles_reszletek_'+orderID).html($('#itemAddForm').html());
+      $('#add_kertdatum').val(expDate);
+      $('#add_mid').val(orderID);
+      $('#add_curr').html(currency);
+      $('#newItemForm').validate();
+
+    }
+
+    function restoreItemDiv(){
+        if(!document.rdivcnt){
+          return;
+        }
+        var rdiv = $('#megrendeles_reszletek_'+document.rdivid);
+        rdiv.html(document.rdivcnt);
+        rdiv.on('click');
+        document.rdivid = -1;
+        document.rdivcnt = '';
+
+    }
+
+    function reszletek(oid){
+      var rdiv = $("#megrendeles_reszletek_"+oid);
+      var rdivcnt = rdiv.html();
+      $("#megrendeles_reszletek_"+oid).load('/ajax/order_items_details.php?id='+oid);
+      rdiv.click(function (){rdiv.html(rdivcnt);});
+    }
+
+    function delItem(itemID){
+      if(confirm('Biztosan törli a tételt (ID: '+itemID+')?')){
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/delete_order_item.php",
+            data: ({'ID':itemID}),
+            success: function(data){
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Hiba!");
+            }
+        });
+      }
+    }
     function newMsgDone(popid){
       $("#"+popid).popover('hide');
       $("#"+popid).animate({scrollTop: $("#"+popid).prop('scrollHeight')},1000);
@@ -912,13 +957,14 @@ function saveStatus(lid, nst){
                     },
 <?php } ?>
             ],
-            });
-            $('[data-toggle="popover"]').popover({
-                'html': true,
-                'placement': 'bottom',
-                //                'container': 'body',
-                'trigger': 'focus'
-            });
+            }
+          );
+
+
+
+
+
+
 
             // ugly hack to fix column headers
             setTimeout(function () {
@@ -927,9 +973,29 @@ function saveStatus(lid, nst){
                 });
                 $("#megrendelt_tetelek").dataTable().fnAdjustColumnSizing();
 
+                $('*[customer-id]').click(function(){
+                  var e = $(this);
+                  //e.off('hover');
+                  $.get('/ajax/getCustomerData.php?id='+e.attr('customer-id'), function(data){
+                    e.popover({
+                      content: data,
+                      html:true,
+                      placement:'bottom',
+                      trigger:'focus',
+                    }).popover('show');
+                  })
+
+                });
             }, 500);
 
         });
+        function getCustomerDetails(){
+          var el = $(this);
+          var i = el.attr('customer-id');
+          $.get('/ajax/getCustomerData.php?id='+i, function(data){
+            el.popover({content: data})
+          });
+        }
     </script>
 
 <?php } ?>
