@@ -613,7 +613,7 @@ const GYARTASI_IDO = [
     N_SZARAZ => 15*7,
   ],
   M_LAKOSSAGI => [
-    N_FRISS => 2*7,
+    N_FRISS => 4*7,
     N_FELSZARAZ => 10*7,
     N_SZARAZ => 15*7,
   ],
