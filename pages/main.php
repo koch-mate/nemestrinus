@@ -16,6 +16,16 @@
 
 <div>
     <h3>Frissítések</h3>
+
+    <p><span class="label label-default">2018. 01. 27.</span> <span class="label label-success">Új fejlesztés</span>
+      A megrendelések tételei a jóváhagyásig módosíthatóak adminisztrátor jogosutságú felhasználók által (<?=issueLink('https://github.com/koch-mate/nemestrinus/issues/85','Export megrendelés módosítása')?>).
+    </p>
+
+    <p><span class="label label-default">2018. 01. 27.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/87','Lakossági megrendelés')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/88','Gyártásra váró lakossági megrendelések (nyomtatható verzió)')?>
+    </p>
+
     <p><span class="label label-default">2018. 01. 11.</span> <span class="label label-warning">Hibajavítás</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/78','Faanyag áttekintés')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/81','Megrendelések')?>,

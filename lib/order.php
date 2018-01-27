@@ -57,6 +57,27 @@ function orderResidentialAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $
     return $new_id;
 }
 
+function addOrderItem($mid, $fafaj, $hossz, $atm, $csom, $menny, $nedv, $ar, $teljesitesDatum){
+  global $db;
+  $db->insert('megrendeles_tetel', [
+      'MegrendelesID' => $mid,
+      'Fafaj' => $fafaj,
+      'Hossz' => $hossz,
+      'Huratmero' => $atm,
+      'Csomagolas' => $csom,
+      'Mennyiseg' => $menny,
+      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$csom][2]),
+      'Nedvesseg' => $nedv,
+      'Ar' => $ar,
+      'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
+      'GyartasDatuma' => null,
+      'GyartasVarhatoDatuma' => null,
+      'GyartasSzamitottDatuma' => orderCalculateManufacturingDate(M_LAKOSSAGI, $nedv, $teljesitesDatum)
+
+  ]);
+
+}
+
 function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $gyarto, $order_json){
     global $db;
     if(strlen(trim($megjegyzes)) > 0){
@@ -298,6 +319,11 @@ function orderDel($id){
     $db->update('faanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
     $db->update('csomagoloanyag', ['Deleted'=>1], ['MegrendelesTetelID' => $mlids]);
 }   // FIXME: megrendelestetelid csomagoloanyag
+
+function orderItemDel($id){
+    global $db;
+    $db->update('megrendeles_tetel', ['Deleted'=>1], ['ID'=>$id]);
+}
 
 function orderProductionHasNotStarted($id){
   global $db;
