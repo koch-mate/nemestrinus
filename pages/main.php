@@ -16,6 +16,9 @@
 
 <div>
     <h3>Frissítések</h3>
+    <p><span class="label label-default">2018. 02. 11.</span> <span class="label label-success">Új fejlesztés</span>
+      Megrendelések tételeinek szerkeszthetősége: megrendelések tételei szerkeszthetőek az Összes megrendelés oldalon, adminisztrátor jogkörrel rendelkező felhasználók által
+    </p>
     <p><span class="label label-default">2018. 02. 11.</span> <span class="label label-success">Új modul</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/92','Export rendeles nyomtathato')?>
     </p>

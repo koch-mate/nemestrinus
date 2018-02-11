@@ -39,6 +39,7 @@ const LOG_EVENT = [
     'order_delete' => 'Megrendelés törlése',
     'order_item_delete' => 'Megrendelés tétel törlése',
     'order_item_add' => 'Megrendelés tétel hozzáadása',
+    'order_item_edit' => 'Megrendelés tétel módosítása',
     'order_paid_status_update' => 'Megrendelés fizetési adatai',
     'order_shipping_status_update' => 'Megrendelés szállítási adatai',
     'order_shipping_price_update' => 'Megrendelés szállítási díjának frissítése',

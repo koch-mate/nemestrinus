@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+    <div class="container" style="width:75%;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Menü</span>
@@ -58,8 +58,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <p class="navbar-text">
-                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                    <a href="/?mode=sajat-profil">
+                                  <a href="/?mode=sajat-profil">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
                                         <?=$_SESSION['realName']?>
                                     </a>
                                 </p>
@@ -68,10 +68,10 @@
                               <a href="/?mode=help"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;Súgó</a>
                             </li>
                             <li >
-                                <a style="color:orange;" href="https://github.com/koch-mate/nemestrinus/issues/new" target="_blank">Hibabejelentés</a>
+                                <a style="color:orange;" href="https://github.com/koch-mate/nemestrinus/issues/new" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;Hibabejelentés</a>
                             </li>
 
-                            <li><a href="/?mode=logout">Kilépés</a></li>
+                            <li><a href="/?mode=logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Kilépés</a></li>
                         </ul>
         </div>
         <!--/.nav-collapse -->

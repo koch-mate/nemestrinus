@@ -250,7 +250,13 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 <?php // megrendelt tetelek ?>
                     <td>
                         <table class="orderItems"  >
-                            <?php foreach(ordersGetItemsByID($og['ID']) as $oi){ ?>
+                            <?php
+                            $nemTeljesenLezart = false;
+                            foreach(ordersGetItemsByID($og['ID']) as $oi){
+                              if(in_array($oi['GyartasStatusza'], SZERKESZTHETO_GYARTAS_STATUSZOK)){
+                                $nemTeljesenLezart = true;
+                              }
+                              ?>
                                 <tr >
                                     <td class="gyartasStatusz" rowspan="2">
                                       <?php if(!in_array($og['Gyarto'], GYARTO_BELSO)){
@@ -296,11 +302,14 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                                       <?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span>
                                       &nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;
                                       <?php }?>
-                                      <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) ){?>
+                                      <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && in_array($oi['GyartasStatusza'], SZERKESZTHETO_GYARTAS_STATUSZOK) ){?>
                                           <div style="float:right;">
-                                            <a href="#" class="label label-danger" title="Törlés" onclick="delItem(<?=$oi['ID']?>)" >
+                                            <button type="button" class="btn btn-xs btn-danger" style="height:1em;" title="Törlés" onclick="delItem(<?=$oi['ID']?>)" >
                                               <span class="glyphicon glyphicon-trash" ></span>
-                                            </a>
+                                            </button>&nbsp;
+                                            <button type="button" class="btn btn-xs btn-warning" style="height:1em;" title="Szerkesztés" onclick="editItem(<?=$og['ID']?>,<?=$oi['ID']?>,'<?=$og['Penznem']?>', '<?=$og['KertDatum']?>','<?=$oi['Fafaj']?>','<?=$oi['Hossz']?>', '<?=$oi['Huratmero']?>', '<?=$oi['Csomagolas']?>', '<?=$oi['Mennyiseg']?>', '<?=$oi['Nedvesseg']?>',  '<?=$oi['Ar']?>' )" >
+                                              <span class="glyphicon glyphicon-cog" ></span>
+                                            </button>
                                           </div>
                                       <?php } ?>
                                       </td>
@@ -311,7 +320,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                         </table>
 <?php if($orderItemsDetalis){ ?>
                         <div id="megrendeles_reszletek_<?=$og['ID']?>" style="margin-top:0.5em;">
-                          <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) ){?>
+                          <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && $nemTeljesenLezart ){?>
                             <button type="button" class="btn btn-xs btn-success" title="Új tétel" onclick="addItem(<?=$og['ID']?>, '<?=$og['Penznem']?>', '<?=$og['KertDatum']?>')"  >
                               <b>+</b> Új tétel
                             </button>
@@ -351,10 +360,10 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
                             <?php
                             foreach(array_keys(SZ_S_SZINEK) as $fs){
-                              if($og['SzallitasStatusza'] == SZ_S_GYARTAS_ALATT && $og['Gyarto'] == GYARTO_IHARTU && $fs != SZ_S_GYARTAS_ALATT){
+                              if($og['SzallitasStatusza'] == SZ_S_GYARTAS_ALATT && $og['Gyarto'] == GYARTO_IHARTU && $fs != SZ_S_GYARTAS_ALATT && !in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                                 continue;
                               }
-                              if($og['SzallitasStatusza'] != SZ_S_GYARTAS_ALATT && $fs == SZ_S_GYARTAS_ALATT){
+                              if($og['SzallitasStatusza'] != SZ_S_GYARTAS_ALATT && $fs == SZ_S_GYARTAS_ALATT && !in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                                 continue;
                               }
 
@@ -618,43 +627,48 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
 <template id="itemAddForm">
 <div style="background:#fff;border-radius:2em;padding:1em;">
+  <div style="font-weight:bold; font-size:150%;" id="add_cim">--</div>
   <form id="newItemForm" action="?<?=$_SERVER['QUERY_STRING']?>" method="post">
     <p>
-      <label style="width:9em;">Fafaj: </label><select name="add_fafaj"><?php foreach(array_keys(FATIPUSOK) as $ft){
+      <label style="width:9em;">ID: </label><input name="add_mtid2" id="add_mtid2" value="-" disabled="disabled" />
+    </p>
+    <p>
+      <label style="width:9em;">Fafaj: </label><select name="add_fafaj" id="add_fafaj"><?php foreach(array_keys(FATIPUSOK) as $ft){
       echo "<option value='".$ft."'>".FATIPUSOK[$ft][0]."</option>";
     }?></select>
     </p>
     <p>
-      <label style="width:9em;">Hossz: </label><select name="add_hossz"><?php foreach([10,25,33,50,100] as $ha){
+      <label style="width:9em;">Hossz: </label><select name="add_hossz" id="add_hossz"><?php foreach(orderGetHosszak() as $ha){
       echo "<option value='".$ha."'>".$ha." cm</option>";
     }?></select>
     </p>
     <p>
-      <label style="width:9em;">Húrátmérő: </label><select name="add_huratmero"><?php foreach(['5-8','8-16','16-40'] as $ha){
+      <label style="width:9em;">Húrátmérő: </label><select name="add_huratmero" id="add_huratmero"><?php foreach(orderGetHuratmerok() as $ha){
       echo "<option value='".$ha."'>".$ha." cm</option>";
     }?></select>
     </p>
     <p>
-      <label style="width:9em;">Csomagolás: </label><select name="add_csomagolas" onchange="$('#add_me').html($(this).find(':selected').attr('data-me'))"><?php foreach(array_keys(CSOMAGOLASTIPUSOK) as $cst){
+      <label style="width:9em;">Csomagolás: </label><select name="add_csomagolas" id="add_csomagolas" onchange="$('#add_me').html($(this).find(':selected').attr('data-me'))"><?php foreach(array_keys(CSOMAGOLASTIPUSOK) as $cst){
       echo "<option value='".$cst."' data-me='".CSOMAGOLASTIPUSOK[$cst][1]."'>".CSOMAGOLASTIPUSOK[$cst][0]."</option>";
     }?></select>
     </p>
     <p>
-      <label style="width:9em;">Mennyiség: </label><input name="add_mennyiseg" value="0" type="number" minx="0" />&nbsp;<span id="add_me"><?=CSOMAGOLASTIPUSOK[array_keys(CSOMAGOLASTIPUSOK)[0]][1]?></span>
+      <label style="width:9em;">Mennyiség: </label><input name="add_mennyiseg" id="add_mennyiseg" value="0" type="number" minx="0" />&nbsp;<span id="add_me"><?=CSOMAGOLASTIPUSOK[array_keys(CSOMAGOLASTIPUSOK)[0]][1]?></span>
     </p>
     <p>
-      <label style="width:9em;">Nedvesség: </label><select name="add_nedvesseg"><?php foreach(array_keys(NEDVESSEG) as $cst){
+      <label style="width:9em;">Nedvesség: </label><select name="add_nedvesseg" id="add_nedvesseg"><?php foreach(array_keys(NEDVESSEG) as $cst){
       echo "<option value='".$cst."' >".NEDVESSEG[$cst][1]."</option>";
     }?></select>
     </p>
     <p>
-      <label style="width:9em;">Ár: </label><input name="add_ar" value="0" type="number" minx="0" />
+      <label style="width:9em;">Ár: </label><input name="add_ar" id="add_ar" value="0" type="number" minx="0" />
     </p>
     <p>
-      <label style="width:9em;">Pénznem: </label><span id="add_curr" class="label label-default">--</span>
+      <label style="width:9em;">Pénznem: </label><span id="add_curr"  class="label label-default">--</span>
     </p>
     <p>
       <input type="hidden" name="addNewItem" value="1" />
+      <input type="hidden" name="add_mtid" id="add_mtid" value="0" />
       <input type="hidden" id="add_kertdatum" name="add_kertdatum" value="--" />
       <input type="hidden" id="add_mid" name="add_mid" value="0" />
       <input class="btn btn-sm btn-success" type="submit" value="Mentés"/>
@@ -748,9 +762,40 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
       document.rdivid = orderID;
       rdiv.off('click');
       $('#megrendeles_reszletek_'+orderID).html($('#itemAddForm').html());
+      $('#add_cim').html('Új tétel');
       $('#add_kertdatum').val(expDate);
       $('#add_mid').val(orderID);
       $('#add_curr').html(currency);
+      $('#newItemForm').validate();
+
+    }
+
+    function editItem(orderID,orderLineID,currency, expDate, fafaj,hossz,huratmero,csomagolas,mennyiseg,nedvesseg,ar){
+      if(document.rdivid != -1){
+        alert("Mentse el vagy zárja be a már megnyitott szerkesztőablakot, mielőtt újat nyitna.");
+        return;
+      };
+
+      $("#newItemForm").trigger('reset');
+      var rdiv = $('#megrendeles_reszletek_'+orderID);
+      document.rdivcnt = rdiv.html();
+      document.rdivid = orderID;
+      rdiv.off('click');
+      $('#megrendeles_reszletek_'+orderID).html($('#itemAddForm').html());
+      $('#add_cim').html('Tétel szerkesztése');
+      $('#add_kertdatum').val(expDate);
+      $('#add_mid').val(orderID);
+      $('#add_curr').html(currency);
+      $('#add_mtid').val(orderLineID);
+      $('#add_mtid2').val(orderLineID);
+
+      $('#add_ar').val(ar);
+      $('#add_mennyiseg').val(mennyiseg);
+      $('#add_fafaj option[value="'+fafaj+'"]').prop('selected', true);
+      $('#add_hossz option[value="'+hossz+'"]').prop('selected', true);
+      $('#add_huratmero option[value="'+huratmero+'"]').prop('selected', true);
+      $('#add_csomagolas option[value="'+csomagolas+'"]').prop('selected', true);
+      $('#add_nedvesseg option[value="'+nedvesseg+'"]').prop('selected', true);
       $('#newItemForm').validate();
 
     }
