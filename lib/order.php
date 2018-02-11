@@ -242,9 +242,12 @@ function orderLineStatusUpdate($id, $st){
     $rid = $db->get('megrendeles_tetel', 'MegrendelesID', ['ID'=>$id]);
     // if all order lines completed ( GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA )-> update shipping status
     // active status: GY_S_AKTIV = [ GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR ]
-    if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
+    if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'Deleted'=> 0, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
     {
         orderShippingStatusUpdate($rid, SZ_S_SZALLITASRA_VAR);
+    }
+    else {
+        orderShippingStatusUpdate($rid, SZ_S_GYARTAS_ALATT);
     }
 }
 
