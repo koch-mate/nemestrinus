@@ -103,6 +103,7 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-fafaj',
     'kimutatas-megrendelo-lakossagi',
     'kimutatas-megrendelo-export',
+    'kimutatas-export-gyartas',
 ];
 
 const MENU_STRUCT = [
@@ -140,6 +141,7 @@ const MENU_STRUCT = [
       'kimutatas-penzugyi-attekintes',
       'kimutatas-fafelhasznalas-attekintes',
       'kimutatas-lakossagi-gyartas',
+      'kimutatas-export-gyartas',
       'kimutatas-havi',
       'kimutatas-fafaj',
       'kimutatas-megrendelo-lakossagi',
@@ -223,6 +225,7 @@ const PAGE_RIGHTS = [
 //    'leltar'                    => [R_KIMUTATAS],
 //    'fizetesek'                 => [R_KIMUTATAS],
     'kimutatas-lakossagi-gyartas' => [R_KIMUTATAS],
+    'kimutatas-export-gyartas' => [R_KIMUTATAS],
     'kimutatas-havi'            => [R_KIMUTATAS],
     'kimutatas-fafelhasznalas-attekintes' => [R_KIMUTATAS],
     'kimutatas-penzugyi-attekintes'      => [R_KIMUTATAS],
@@ -287,6 +290,7 @@ const MENU_ICONS = [
 
     'kimutatas-fafelhasznalas' => 'fa-tree',
     'kimutatas-lakossagi-gyartas' => 'fa-print',
+    'kimutatas-export-gyartas' => 'fa-print',
     'kimutatas-havi' => 'fa-moon-o',
     'kimutatas-penzugyi-attekintes' => 'fa-pie-chart',
     'kimutatas-fafelhasznalas-attekintes' => 'fa-pagelines',
@@ -351,6 +355,7 @@ const MENU_NAMES = [
     'arlista' => 'Árlista',
     'kimutatas-fafelhasznalas' => 'Faanyag felhasználás',
     'kimutatas-lakossagi-gyartas' => 'Gyártásra váró lakossági megrendelések (nyomtatható)',
+    'kimutatas-export-gyartas' => 'Gyártásra váró export megrendelések (nyomtatható)',
     'kimutatas-havi' => 'Havi megrendelés összesítő',
     'kimutatas-penzugyi-attekintes' => 'Pénzügyi áttekintés',
     'kimutatas-fafelhasznalas-attekintes' => 'Faanyag áttekintés',

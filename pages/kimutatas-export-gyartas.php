@@ -1,7 +1,7 @@
-<h1>Lakossági megrendelések</h1>
+<h1>Export megrendelések</h1>
 <p>Dátum: <?=date("Y-m-d H:i:s")?></p>
 <p>
-  Az alábbi táblázat azokat az éppen aktuálisan a rendszerben lévő lakossági megrendeléseket mutatja, melyek már elfogadott státuszban vannak, de még van olyan tételük, ami nincs legyártva.
+  Az alábbi táblázat azokat az éppen aktuálisan a rendszerben lévő export megrendeléseket mutatja, melyek már elfogadott státuszban vannak, de még van olyan tételük, ami nincs legyártva.
 </p>
 <style>
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
@@ -23,11 +23,8 @@
       <th>ID</th>
       <th>Dátum</th>
       <th>Ígért telj. dátum</th>
-      <th>Név</th>
-      <th>Megrendelés</th>
-      <th>Ár</th>
-      <th>Fuvardíj</th>
-      <th>Telefon</th>
+      <th>Megrendelő</th>
+      <th>Rendelés</th>
       <th>Cím</th>
       <th>Megjegyzés</th>
     </tr>
@@ -36,7 +33,7 @@
     <?php
 
       $num = 1;
-      foreach (ordersGetAllData($filters=['Tipus'=>M_LAKOSSAGI, 'Statuszok'=>  'gyarthato']) as $i) {
+      foreach (ordersGetAllData($filters=['Tipus'=>M_EXPORT, 'Statuszok'=>  'gyarthato']) as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $mindLegyartva = 1;
       foreach($ois as $iois){
@@ -54,7 +51,7 @@
       <th><?=$i[ID]?></th>
       <td style="white-space:nowrap;"><?=$i[RogzitesDatum]?></td>
       <td style="white-space:nowrap;"><?=$i[KertDatum]?></td>
-      <td><?=$i[MegrendeloNev]?></td>
+      <td><?=exportCustomerGetNameById($i[MegrendeloID])?></td>
       <td>
         <?php foreach($ois as $oi){ ?>
           <p>
@@ -62,10 +59,7 @@
           </p>
         <?php } ?>
       </td>
-      <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
-      <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
-      <td><?=$i[MegrendeloTel]?></td>
-      <td><?=$i[MegrendeloCim]?></td>
+      <td><?=exportCustomerGetAddressById($i[MegrendeloID])?></td>
       <td><?=messageSimpleRender($i[Megjegyzes])?></td>
     </tr>
       <?php
