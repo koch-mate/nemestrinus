@@ -36,7 +36,7 @@ if($_mode == 'logout' || (!empty($_SESSION['activeLogin']) && $sessionTimeout)){
       $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login' . ($sessionTimeout ? '&timeout=true':'');
     }
     else {
-      $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login&redirect=' . $_GET['mode'].($sessionTimeout ? '&timeout=true':'');
+      $loginUrl = SERVER_PROTOCOL . SERVER_URL . '?mode=login' . ($sessionTimeout ? '&timeout=true':'');
     }
     if($sessionTimeout){
       logEv(LOG_EVENT['timeout'].':',null,"User: ".$_SESSION['userName']);

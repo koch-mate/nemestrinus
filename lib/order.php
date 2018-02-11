@@ -77,6 +77,24 @@ function addOrderItem($mid, $fafaj, $hossz, $atm, $csom, $menny, $nedv, $ar, $te
   ]);
 
 }
+function editOrderItem($mid, $mtid, $fafaj, $hossz, $atm, $csom, $menny, $nedv, $ar, $teljesitesDatum){
+  global $db;
+  $db->update('megrendeles_tetel', [
+      'Fafaj' => $fafaj,
+      'Hossz' => $hossz,
+      'Huratmero' => $atm,
+      'Csomagolas' => $csom,
+      'Mennyiseg' => $menny,
+      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$csom][2]),
+      'Nedvesseg' => $nedv,
+      'Ar' => $ar,
+      'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
+      'GyartasDatuma' => null,
+      'GyartasVarhatoDatuma' => null,
+      'GyartasSzamitottDatuma' => orderCalculateManufacturingDate(M_LAKOSSAGI, $nedv, $teljesitesDatum)
+  ], ['ID'=>$mtid]);
+
+}
 
 function orderExportAdd($felvette, $rogzitette, $datum, $teljesitesDatum, $fizhat, $megrendeloID, $prioritas, $penznem, $ar, $szall_ktsg, $megjegyzes, $gyarto, $order_json){
     global $db;
@@ -242,9 +260,12 @@ function orderLineStatusUpdate($id, $st){
     $rid = $db->get('megrendeles_tetel', 'MegrendelesID', ['ID'=>$id]);
     // if all order lines completed ( GY_S_LEGYARTVA, GY_S_VISSZAUTASITVA )-> update shipping status
     // active status: GY_S_AKTIV = [ GY_S_VISSZAIGAZOLASRA_VAR, GY_S_GYARTASRA_VAR ]
-    if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
+    if( $db->count('megrendeles_tetel', ['AND' => ['MegrendelesID' => $rid, 'Deleted'=> 0, 'GyartasStatusza' => GY_S_AKTIV ]]) == 0 )
     {
         orderShippingStatusUpdate($rid, SZ_S_SZALLITASRA_VAR);
+    }
+    else {
+        orderShippingStatusUpdate($rid, SZ_S_GYARTAS_ALATT);
     }
 }
 
@@ -332,6 +353,16 @@ function orderProductionHasNotStarted($id){
   } else {
     return False;
   }
+}
+
+function orderGetHuratmerok(){
+  global $db;
+  return $db->select('megrendeles_tetel', 'Huratmero', ['GROUP'=>'Huratmero','ORDER'=>'Huratmero']);
+}
+
+function orderGetHosszak(){
+  global $db;
+  return $db->select('megrendeles_tetel', 'Hossz', ['GROUP'=>'Hossz','ORDER'=>'Hossz']);
 }
 
 ?>
