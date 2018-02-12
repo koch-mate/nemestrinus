@@ -655,5 +655,7 @@ const K_GY_S_AKTIV = [
     K_GY_S_GYARTASRA_VAR,
 ];
 
+// oldalak, ahol admin userek szerkeszthetik a teteleket a gyartas kezdeteig
+const TETEL_SZERKESZTHETO = ['megrendeles-export', 'megrendeles-lakossagi', 'megrendeles-osszesites'];
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 function orderTable($filters=[], $customerON = false, $customerDetailsON = false, $globStatusEditON = false, $orderStatusEdit = false, $shippingON = false, $priceON = false, $paymentON = false, $editButtonON = false, $trashButtonON = false, $shippingEditON = false, $shippingPriceEditON = false, $manufacturerEdit = false){
-
+global $mode;
 $orderItemsDetalis = false;
 
 if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
@@ -252,7 +252,9 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                         <table class="orderItems"  >
                             <?php
                             $nemTeljesenLezart = false;
+                            $tetelekSzama = 0;
                             foreach(ordersGetItemsByID($og['ID']) as $oi){
+                              $tetelekSzama += 1;
                               if(in_array($oi['GyartasStatusza'], SZERKESZTHETO_GYARTAS_STATUSZOK)){
                                 $nemTeljesenLezart = true;
                               }
@@ -302,7 +304,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                                       <?=($oi['GyartasVarhatoDatuma'] <= date('Y-m-d') && in_array($oi['GyartasStatusza'], GY_S_AKTIV) ? '<span style="color:red;"><b>V:</b>&nbsp;<i class="fa fa-exclamation" aria-hidden="true"></i>&nbsp;':'<span><b>V:</b>&nbsp;').$oi['GyartasVarhatoDatuma']?></span>
                                       &nbsp;<b>T:</b> <?=$oi['GyartasDatuma']?>&nbsp;
                                       <?php }?>
-                                      <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && in_array($oi['GyartasStatusza'], SZERKESZTHETO_GYARTAS_STATUSZOK) ){?>
+                                      <?php if(in_array($mode, TETEL_SZERKESZTHETO) && in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && in_array($oi['GyartasStatusza'], SZERKESZTHETO_GYARTAS_STATUSZOK) ){?>
                                           <div style="float:right;">
                                             <button type="button" class="btn btn-xs btn-danger" style="height:1em;" title="Törlés" onclick="delItem(<?=$oi['ID']?>)" >
                                               <span class="glyphicon glyphicon-trash" ></span>
@@ -315,12 +317,17 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                                       </td>
                                     </tr>
                                 </tr>
-                                <?php } ?>
+                                <?php }
+                                if($tetelekSzama == 0){
+                                  $nemTeljesenLezart = true;
+                                }
+
+                                ?>
 
                         </table>
 <?php if($orderItemsDetalis){ ?>
                         <div id="megrendeles_reszletek_<?=$og['ID']?>" style="margin-top:0.5em;">
-                          <?php if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && $nemTeljesenLezart ){?>
+                          <?php if(in_array($mode, TETEL_SZERKESZTHETO) && in_array(R_ADMINISZTRACIO, $_SESSION['userRights']) && in_array($og['Statusz'], SZERKESZTHETO_MEGRENDELES_STATUSZOK) && $nemTeljesenLezart ){?>
                             <button type="button" class="btn btn-xs btn-success" title="Új tétel" onclick="addItem(<?=$og['ID']?>, '<?=$og['Penznem']?>', '<?=$og['KertDatum']?>')"  >
                               <b>+</b> Új tétel
                             </button>
