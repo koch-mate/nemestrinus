@@ -757,6 +757,25 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
             }
         });
     }
+
+    function prepareAjaxForm(){
+      $("#newItemForm").submit(function(e) {
+        var url = "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/add_edit_order_item.php";
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: $("#newItemForm").serialize(),
+               success: function(data)
+               {
+                   alert("Rögzítve!");
+                   location.reload();
+               }
+             });
+        e.preventDefault();
+      });
+    }
+
+
     function addItem(orderID, currency, expDate){
       if(document.rdivid != -1){
         alert("Mentse el vagy zárja be a már megnyitott szerkesztőablakot, mielőtt újat nyitna.");
@@ -774,7 +793,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
       $('#add_mid').val(orderID);
       $('#add_curr').html(currency);
       $('#newItemForm').validate();
-
+      prepareAjaxForm();
     }
 
     function editItem(orderID,orderLineID,currency, expDate, fafaj,hossz,huratmero,csomagolas,mennyiseg,nedvesseg,ar){
@@ -804,7 +823,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
       $('#add_csomagolas option[value="'+csomagolas+'"]').prop('selected', true);
       $('#add_nedvesseg option[value="'+nedvesseg+'"]').prop('selected', true);
       $('#newItemForm').validate();
-
+      prepareAjaxForm();
     }
 
     function restoreItemDiv(){
