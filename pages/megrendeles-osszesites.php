@@ -1,5 +1,3 @@
-<?php require('lib/edit_item.php');?>
-
 <h2>Megrendelések</h2>
 
 <form method="get"  >

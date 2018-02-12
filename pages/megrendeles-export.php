@@ -1,5 +1,3 @@
-<?php require('lib/edit_item.php');?>
-
 <h2>Export megrendelések</h2>
 
 <form method="get"  >

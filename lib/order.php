@@ -66,7 +66,7 @@ function addOrderItem($mid, $fafaj, $hossz, $atm, $csom, $menny, $nedv, $ar, $te
       'Huratmero' => $atm,
       'Csomagolas' => $csom,
       'Mennyiseg' => $menny,
-      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$csom][2]),
+      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $menny * CSOMAGOLASTIPUSOK[$csom][2]),
       'Nedvesseg' => $nedv,
       'Ar' => $ar,
       'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
@@ -85,7 +85,7 @@ function editOrderItem($mid, $mtid, $fafaj, $hossz, $atm, $csom, $menny, $nedv, 
       'Huratmero' => $atm,
       'Csomagolas' => $csom,
       'Mennyiseg' => $menny,
-      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $o->menny * CSOMAGOLASTIPUSOK[$csom][2]),
+      'MennyisegStd' =>unitChange(CSOMAGOLASTIPUSOK[$csom][3], U_STD, $menny * CSOMAGOLASTIPUSOK[$csom][2]),
       'Nedvesseg' => $nedv,
       'Ar' => $ar,
       'GyartasStatusza' => GY_S_VISSZAIGAZOLASRA_VAR,
@@ -296,7 +296,16 @@ function orderPaidStatusUpdate($id, $st, $datum, $hatarido){
     $db->update('megrendeles', ['FizetesStatusza'=>$st, 'FizetesDatuma'=>$datum, 'FizetesiHatarido'=>$hatarido], ['ID'=>$id]);
 }
 
-function orderShippingStatusUpdate($id, $st, $datum=NULL, $varhato=NULL, $szlevsz=NULL, $szsz=NULL, $cmr=NULL, $ekaer=NULL, $fuvarozo=NULL){
+function orderShippingStatusUpdate($id, $st){
+    global $db;
+    $db->update('megrendeles', ['SzallitasStatusza'=>$st], ['ID'=>$id]);
+    if($st == SZ_S_LESZALLITVA){
+       orderStatusUpdate($id, M_S_TELJESITVE);
+    }
+}
+
+
+function orderShippingDataUpdate($id, $st, $datum, $varhato, $szlevsz, $szsz, $cmr, $ekaer, $fuvarozo){
     global $db;
     $db->update('megrendeles', ['SzallitasStatusza'=>$st, 'SzallitasVarhatoDatuma'=>$varhato, 'SzallitasTenylegesDatuma'=>$datum, 'SzallitolevelSzam'=>$szlevsz, 'SzamlaSzam' => $szsz, 'CMR'=>$cmr, 'EKAER'=>$ekaer, 'Fuvarozo'=>$fuvarozo], ['ID'=>$id]);
     if($st == SZ_S_LESZALLITVA){
