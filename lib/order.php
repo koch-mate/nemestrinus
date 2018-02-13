@@ -374,4 +374,10 @@ function orderGetHosszak(){
   return $db->select('megrendeles_tetel', 'Hossz', ['GROUP'=>'Hossz','ORDER'=>'Hossz']);
 }
 
+function orderUpdateCustomerData( $id, $mnev, $mcim, $mtel, $knev, $szc, $ktel){
+  global $db;
+  return $db->update('megrendeles', ['MegrendeloNev'=>$mnev, 'MegrendeloCim'=>$mcim, 'MegrendeloTel'=>$mtel, 'KapcsolattartoNev'=>$knev, 'SzallitasiCim'=>$szc, 'KapcsolattartoTel'=>$ktel], ['ID'=>$id]);
+
+}
+
 ?>

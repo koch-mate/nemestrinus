@@ -1046,27 +1046,29 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
                 $('*[customer-id]').click(function(){
                   var e = $(this);
-                  //e.off('hover');
-                  $.get('/ajax/getCustomerData.php?id='+e.attr('customer-id'), function(data){
+                  $('.popover').popover('hide');
+                  e.off('click');
+
+                  $.get('/ajax/<?=(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])?'editCustomerData':'getCustomerData')?>.php?id='+e.attr('customer-id'), function(data){
                     e.popover({
                       content: data,
                       html:true,
                       placement:'bottom',
-                      trigger:'focus',
-                    }).popover('show');
+                      trigger:'click',
+                    }).popover('toggle');
                   })
 
                 });
             }, 500);
 
         });
-        function getCustomerDetails(){
+      /*  function getCustomerDetails(){
           var el = $(this);
           var i = el.attr('customer-id');
           $.get('/ajax/getCustomerData.php?id='+i, function(data){
             el.popover({content: data})
           });
-        }
+        }*/
     </script>
 
 <?php } ?>

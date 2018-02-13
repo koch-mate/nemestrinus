@@ -36,6 +36,7 @@ const LOG_EVENT = [
     'order_add_message' => 'Új üzenet a megrendeléshez',
 
     'order_status_update' => 'Megrendelés státusza',
+    'order_customer_update' => 'Megrendelő adatainak frissitése',
     'order_delete' => 'Megrendelés törlése',
     'order_item_delete' => 'Megrendelés tétel törlése',
     'order_item_add' => 'Megrendelés tétel hozzáadása',
