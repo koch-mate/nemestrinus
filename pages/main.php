@@ -1,21 +1,38 @@
-<div class="jumbotron">
-    <img src="img/logo.png" style="float:left;height:10em;margin-right:3em;" />
-    <h1>IHARTÜ 2000 Kft.</h1>
-    <p>Tűzifa megrendelés, gyártás és szállítás nyilvántartó program</p>
+
+
+<div class="row">
+  <div style="background:#fff; border-radius: 1em; margin:2em; padding:1em;">
+    <img src="img/logo.png" style="height:10em;margin:3em;">
+    <div style="display:inline-block;">
+      <h1>IHARTÜ 2000 Kft.</h1>
+      <p>Tűzifa megrendelés, gyártás és szállítás nyilvántartó program</p>
+    </div>
+
+  </div>
 </div>
 
-<div>
-    <h3>Utolsó üzenetek</h3>
+<div class="row">
+<div class="col-md-6">
+
+<div style="background:#fff; border-radius: 1em; margin:1em; padding:1em;">
+    <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-envelope"></i>&nbsp;Utolsó üzenetek</h3>
+    <hr style="height:2px;background:#000;" />
     <?php
 
-    messagesGetLast(20);
+    messagesGetLast(25);
 
     ?>
-
 </div>
+</div>
+  <div class="col-md-6">
+    <div style="background:#fff; border-radius: 1em; margin:1em; padding:1em;max-height:1000px;overflow-y:auto;">
+        <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
+        <hr style="height:2px;background:#000;" />
+    <p><span class="label label-default">2018. 02. 13.</span> <span class="label label-warning">Hibajavítás</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/96','Gyártásra váró nyomtatható export')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/89','Lakossági megrendelés')?>
+    </p>
 
-<div>
-    <h3>Frissítések</h3>
     <p><span class="label label-default">2018. 02. 11.</span> <span class="label label-success">Új fejlesztés</span>
       Megrendelések tételeinek szerkeszthetősége: megrendelések tételei szerkeszthetőek az Összes megrendelés oldalon, adminisztrátor jogkörrel rendelkező felhasználók által
     </p>
@@ -66,28 +83,28 @@
     </p>
 
     <p><span class="label label-default">2017. 12. 10.</span> <span class="label label-success">Új fejlesztés</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/73','Csomagoloanyag levonasa')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/74','Kimutatas, attekintes - visszamondott/visszautasitott')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/73','Csomagoloanyag levonasa')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/74','Kimutatas, attekintes - visszamondott/visszautasitott')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/75','Lezart gyartasok modositasa')?>
     </p>
 
     <p><span class="label label-default">2017. 12. 05.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/72','Lejárt határidejű, befizetetlen, teljesített megrendelések - Ft')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/72','Lejárt határidejű, befizetetlen, teljesített megrendelések - Ft')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/71','fizetési határidő')?>
     </p>
 
     <p><span class="label label-default">2017. 12. 02.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/70','Áttekintés - Szamlaszam')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/70','Áttekintés - Szamlaszam')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/69','Lakossagi megrendelesek kifizetettsege')?>
     </p>
 
     <p><span class="label label-default">2017. 11. 28.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/66','Lakossági megrendelés')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/66','Lakossági megrendelés')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/67','Kimutatás/Megrendelések havonta')?>
     </p>
 
     <p><span class="label label-default">2017. 11. 21.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/64','Lakossági megrendelések')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/64','Lakossági megrendelések')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/65','Megrendelések havi nézete')?>
     </p>
 
@@ -95,8 +112,8 @@
     <p><span class="label label-default">2017. 11. 19.</span> <span class="label label-success">Új modul</span> <a href="?mode=kimutatas-lakossagi-gyartas">Nyomtatható kimutatás az aktív lakossági megrendelésekről</a></p>
 
     <p><span class="label label-default">2017. 11. 19.</span> <span class="label label-warning">Hibajavítás</span>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/62','Megrendelés/Felvett megrendelések kezelése')?>
-      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/60','Szállítás/Lezárt megrendelések')?>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/62','Megrendelés/Felvett megrendelések kezelése')?>,
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/60','Szállítás/Lezárt megrendelések')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/59','Szállítás/Szállításra váró megrendelések')?>
     </p>
 
@@ -106,7 +123,7 @@
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/55','Felkesz gyartas statusza')?>
     </p>
     <p><span class="label label-default">2017. 09. 27.</span> <span class="label label-success">Új modul</span> <a href="?mode=help">Súgó</a></p>
-    <p><span class="label label-default">2017. 09. 26.</span> <span class="label label-warning">Hibajavítás</span>
+    <p><span class="label label-default">2017. 09. 26.</span> <span class="label label-warning">Hibajavítás</span>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/54','Beszallitas hibas')?>
     </p>
     <p><span class="label label-default">2017. 09. 25.</span> <span class="label label-warning">Hibajavítás</span>
@@ -191,4 +208,6 @@
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modul</span> Csomagolóanyag <a href="?mode=csomagoloanyag-keszlet">készlet</a></p>
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modul</span> Csomagolóanyag <a href="?mode=csomagoloanyag-bevitel">bevétel</a></p>
     <p><span class="label label-default">2017. 01. 28.</span> <span class="label label-success">Új modulok</span> <a href="?mode=naplo">Napló</a>, <a href="?mode=export-megrendelok">Export megrendelők kezelése</a></p>
+</div>
+</div>
 </div>
