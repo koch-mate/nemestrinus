@@ -98,6 +98,11 @@ function exportCustomerGetAddressById($id){
     return $db->get('megrendelo', 'SzamlazasiCim', ['ID'=>$id]);
 }
 
+function exportCustomerGetShipAddressById($id){
+    global $db;
+    return $db->get('megrendelo', 'SzallitasiCim', ['ID'=>$id]);
+}
+
 function exportCustomerGetTaxNrById($id){
     global $db;
     return $db->get('megrendelo', 'Adoszam', ['ID'=>$id]);

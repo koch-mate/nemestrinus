@@ -59,7 +59,7 @@
           </p>
         <?php } ?>
       </td>
-      <td><?=exportCustomerGetAddressById($i[MegrendeloID])?></td>
+      <td><?=exportCustomerGetShipAddressById($i[MegrendeloID])?></td>
       <td><?=messageSimpleRender($i[Megjegyzes])?></td>
     </tr>
       <?php
