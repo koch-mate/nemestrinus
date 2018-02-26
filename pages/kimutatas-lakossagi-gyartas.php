@@ -25,11 +25,11 @@
       <th>Ígért telj. dátum</th>
       <th>Név</th>
       <th>Megrendelés</th>
+      <th>Megjegyzés</th>
       <th>Ár</th>
       <th>Fuvardíj</th>
       <th>Telefon</th>
       <th>Cím</th>
-      <th>Megjegyzés</th>
     </tr>
   </thead>
   <tbody>
@@ -62,11 +62,11 @@
           </p>
         <?php } ?>
       </td>
+      <td><?=messageSimpleRender($i[Megjegyzes])?></td>
       <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=$i[MegrendeloTel]?></td>
       <td><?=$i[MegrendeloCim]?></td>
-      <td><?=messageSimpleRender($i[Megjegyzes])?></td>
     </tr>
       <?php
     }
