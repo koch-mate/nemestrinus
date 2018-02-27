@@ -33,7 +33,7 @@
     <?php
 
       $num = 1;
-      foreach (ordersGetAllData($filters=['Tipus'=>M_EXPORT, 'Statuszok'=>  'gyarthato']) as $i) {
+      foreach (ordersGetAllData($filters=['Tipus'=>M_EXPORT, 'Statuszok'=>  'gyarthato', 'OrderBy'=>['KertDatum'=>'ASC']]) as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $mindLegyartva = 1;
       foreach($ois as $iois){

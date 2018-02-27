@@ -28,6 +28,10 @@
     <div style="background:#fff; border-radius: 1em; margin:1em; padding:1em;max-height:1000px;overflow-y:auto;">
         <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
         <hr style="height:2px;background:#000;" />
+
+    <p><span class="label label-default">2018. 02. 27.</span> <span class="label label-success">Új fejlesztés</span>
+      <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/103','Nyomtatható export')?>
+    </p>
     <p><span class="label label-default">2018. 02. 26.</span> <span class="label label-success">Új fejlesztés</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/99','Lakossági megrendelések nyomtatható verzió')?>,
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/100','Export nyomtatható verzió')?>
