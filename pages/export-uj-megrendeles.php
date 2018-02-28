@@ -99,10 +99,11 @@ include('lib/popups.php');
                 s += parseFloat( val.ar);
             });
             sz = parseFloat($("#szallitasiktsg").val());
-            if(!isNaN(sz)){
-                s += sz;
+            if(isNaN(sz)){
+                sz=0;
             }
             $("#vegosszeg").html('Végösszeg:&nbsp;'+s+'&nbsp;<span class="penznem">EUR</span>');
+            $("#vegosszeg-szall").html('Szállítási díj nélkül:&nbsp;'+(s-sz)+'&nbsp;<span class="penznem">EUR</span>');
             penznemUpd();
         }
 
@@ -412,14 +413,23 @@ include('lib/popups.php');
                 </div>
             </div>
 
-                <div class="form-group" style="padding-top:1em;">
-                    <label class="col-md-4 control-label" for="vegosszeg"></label>
-                    <div class="col-md-4">
-                        <div>
-                            <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - <span class="penznem">EUR</span> </span>
-                        </div>
+            <div class="form-group" style="padding-top:1em;">
+                <label class="col-md-4 control-label" for="vegosszeg"></label>
+                <div class="col-md-4">
+                    <div>
+                        <span  id="vegosszeg" class="label label-default" style="font-size:120%">Végösszeg: - <span class="penznem">EUR</span> </span>
                     </div>
                 </div>
+            </div>
+
+            <div class="form-group" style="padding-top:1em;">
+                <label class="col-md-4 control-label" for="vegosszeg-szall"></label>
+                <div class="col-md-4">
+                    <div>
+                        <span  id="vegosszeg-szall" class="label label-default" style="font-size:120%">Szállítási díj nélkül: - <span class="penznem">EUR</span> </span>
+                    </div>
+                </div>
+            </div>
 
 
             <div class="form-group" style="padding-top:1em;">
