@@ -1,7 +1,7 @@
 <h2>Export megrendelések</h2>
 
 <form method="get"  >
-    <input type="hidden" name="mode" value="megrendeles-lakossagi">
+    <input type="hidden" name="mode" value="megrendeles-export">
     <fieldset>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
