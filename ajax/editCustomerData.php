@@ -151,6 +151,7 @@ else
     </tbody>
 </table>
 <a role="button" href="/?mode=export-megrendelok&szerk=<?=$og['MegrendeloID']?>#szerkesztes" class="btn btn-xs btn-primary">Szerkesztés</a>
+<button class="btn btn-danger btn-xs" type="button" onclick="$('.popover').popover('hide');">Mégsem</button>
 
 <?php }
 }

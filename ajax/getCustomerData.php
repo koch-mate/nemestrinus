@@ -66,6 +66,8 @@ $og = ordersGetAllData(['ID'=>$mid])[0];
         </tr>
     </tbody>
 </table>
+<button class="btn btn-danger btn-xs" type="button" onclick="$('.popover').popover('hide');">Bezár</button>
+
 <?}
 else
 {
@@ -123,6 +125,7 @@ else
         </tr>
     </tbody>
 </table>
+<button class="btn btn-danger btn-xs" type="button" onclick="$('.popover').popover('hide');">Bezár</button>
 
 <?php }
 }

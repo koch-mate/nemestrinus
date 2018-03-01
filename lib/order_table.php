@@ -962,28 +962,9 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
         }
     }
 
-    function initCustomerPopovers(){
-      console.log('initCustomerPopovers called');
-      $('*[customer-id]').click(function(){
-        var e = $(this);
-        $('.popover').popover('hide');
-        e.off('click');
-
-        $.get('/ajax/<?=(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])?'editCustomerData':'getCustomerData')?>.php?id='+e.attr('customer-id'), function(data){
-          e.popover({
-            content: data,
-            html:true,
-            placement:'bottom',
-            trigger:'click',
-          }).popover('toggle');
-        })
-
-      });
-    }
 
 
-
-        $(document).on('draw.dt', function(){initCustomerPopovers()}).ready(function () {
+        $(function () {
             document.dtab  = $('#megrendelt_tetelek').DataTable({
                 "scrollX": true,
                 "stateSave": true,
@@ -1066,6 +1047,27 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
                 //initCustomerPopovers();
             }, 500);
+
+           $('#megrendelt_tetelek').on("click", '*[customer-id]',
+            function(){
+              var e = $(this);
+
+              $('.popover').popover('hide');
+              //e.off('click');
+
+              $.get('/ajax/<?=(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])?'editCustomerData':'getCustomerData')?>.php?id='+e.attr('customer-id'), function(data){
+                e.popover({
+                  content: data,
+                  html:true,
+                  placement:'bottom',
+                  trigger:'click',
+                }).popover('toggle');
+              })
+
+            }
+          );
+
+
 
         });
       /*  function getCustomerDetails(){
