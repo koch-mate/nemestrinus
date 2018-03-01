@@ -26,8 +26,12 @@
 </div>
   <div class="col-md-6">
     <div style="background:#fff; border-radius: 1em; margin:1em; padding:1em;max-height:1000px;overflow-y:auto;">
-        <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
-        <hr style="height:2px;background:#000;" />
+      <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
+      <hr style="height:2px;background:#000;" />
+
+      <p><span class="label label-default">2018. 03. 01.</span> <span class="label label-warning">Hibajavítás</span>
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/104','Összes megrendelésben vagyok')?>
+      </p>
 
     <p><span class="label label-default">2018. 02. 27.</span> <span class="label label-success">Új fejlesztés</span>
       <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/103','Nyomtatható export')?>
