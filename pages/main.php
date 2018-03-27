@@ -29,6 +29,12 @@
       <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
       <hr style="height:2px;background:#000;" />
 
+      <p><span class="label label-default">2018. 03. 27.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/109','export megrendelések')?>,
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/107','Export nyomtatható (hasítási méret)')?>,
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/106','Összes megrendelés / ár kalkuláció')?>
+      </p>
+
       <p><span class="label label-default">2018. 03. 01.</span> <span class="label label-warning">Hibajavítás</span>
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/104','Összes megrendelésben vagyok')?>
       </p>

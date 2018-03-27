@@ -109,7 +109,7 @@ li.smallpills a {
     padding-bottom:2px;
 }
 
-li.newsel.active>a, 
+li.newsel.active>a,
 li.newsel.active>a:hover {
     background: #f0ad4e;
 }
