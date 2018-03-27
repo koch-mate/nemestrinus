@@ -153,7 +153,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 <?php // gyarto / kulso gyartas statusza ?>
 
 <?php if( $manufacturerEdit == false){?>
-                    <td>
+                    <td data-order="<?=$og['Gyarto']?>">
                       <?php if($og['Gyarto'] == GYARTO_IHARTU){?>
                         <img style="height:1em;" class="zoom" src="/img/ihartu_logo.png" />&nbsp;
                         <?php } else {?>
@@ -168,7 +168,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                       }?>
                     </td>
 <?php } else {?>
-                      <td>
+                      <td data-order="<?=$og['Gyarto']?>">
 
                         <?php
                         //csak akkor, ha meg nem kezdodott meg a gyartas, vagy ha kulso gyarto
@@ -479,11 +479,18 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
 <?php  } ?>
 
-<?php if($priceON){ ?>
+<?php if($priceON){
+  if($og['Tipus']==M_EXPORT){ ?>
                     <td style="white-space: nowrap;"  >
-                        <b><?=rnd(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
-                        <span style="font-size:75%;"><span class="glyphicon glyphicon-tree-deciduous"></span>:&nbsp;<b><?=rnd(orderFullPrice($og['ID']))?>&nbsp;<?=$og['Penznem']?></span></b><br>
-<?php if($shippingPriceEditON && $og['Tipus']==M_EXPORT){ ?>
+                        <b><?=rnd(orderFullPrice($og['ID']))?>&nbsp;<?=$og['Penznem']?></b><br>
+                        <span style="font-size:75%;"><span class="glyphicon glyphicon-tree-deciduous"></span>:&nbsp;<b><?=rnd(orderFullPrice($og['ID'])-$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></span></b><br>
+<?php } else { ?>
+  <td style="white-space: nowrap;"  >
+      <b><?=rnd(orderFullPrice($og['ID'])+$og['Fuvardij'])?>&nbsp;<?=$og['Penznem']?></b><br>
+      <span style="font-size:75%;"><span class="glyphicon glyphicon-tree-deciduous"></span>:&nbsp;<b><?=rnd(orderFullPrice($og['ID']))?>&nbsp;<?=$og['Penznem']?></span></b><br>
+<?php }
+
+  if($shippingPriceEditON && $og['Tipus']==M_EXPORT){ ?>
     <template id="div_se_<?=$og['ID']?>" style="color:#000;">
       <label class="col-md-5 control-label" style="white-space:nowrap;color:#000;" for="szallitasiktsg">Szállítási díj: </label>
       <div class="col-md-8">
