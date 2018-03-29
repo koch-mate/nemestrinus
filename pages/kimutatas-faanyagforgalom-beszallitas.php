@@ -82,7 +82,7 @@ foreach(MONTHS as $m){
             <td><?=$d['Szallitolevelszam']?></td>
             <td><?=$d['Szamlaszam']?></td>
             <td><?=FATIPUSOK[$d['Fatipus']][0]?></td>
-            <td style="text-align:right;"><?=rnd($d['Mennyiseg'])?></td>
+            <td style="text-align:right;"><?=number_format(rnd($d['Mennyiseg']), 2, '.', ' ' )?></td>
             <td><?=U_NAMES[U_STD][1]?></td>
             <td><?php //TODO ?></td>
             <td><?php //TODO ?></td>

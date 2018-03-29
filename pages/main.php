@@ -30,7 +30,9 @@
       <hr style="height:2px;background:#000;" />
 
       <p><span class="label label-default">2018. 03. 29.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>
-        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/111','0 arral utolag felvett tetel')?>
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/111','0 arral utolag felvett tetel')?>,
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/101','kerekítés')?>,
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/95','-0!')?>, 
       </p>
 
       <p><span class="label label-default">2018. 03. 27.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>

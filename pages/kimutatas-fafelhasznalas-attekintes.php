@@ -50,11 +50,11 @@ function faanyagAttekintes(){
         ?>
         <tr>
           <th><span style="display:inline-block;width:2em;"><img src="/img/<?=$f?>.png" class="zoom" style="height:1em;"></span><?=FATIPUSOK[$f][0]?></td>
-          <td style="text-align:right;"><?=label(rnd(0+$atv),'default')?></td>
-          <td style="text-align:right;"><?=label(rnd(0+$bev),'success')?></td>
-          <td style="text-align:right;"><?=label(rnd(0+$kor),'info')?></td>
-          <td style="text-align:right;"><?=label(rnd(0+$felh),'warning')?></td>
-          <td style="text-align:right;"><?=label(rnd(0+$ert),'primary')?></td>
+          <td style="text-align:right;"><?=label(number_format(rnd(0+$atv), 2, '.', ' ' ),'default')?></td>
+          <td style="text-align:right;"><?=label(number_format(rnd(0+$bev), 2, '.', ' ' ),'success')?></td>
+          <td style="text-align:right;"><?=label(number_format(rnd(0+$kor), 2, '.', ' ' ),'info')?></td>
+          <td style="text-align:right;"><?=label(number_format(rnd(0+$felh), 2, '.', ' ' ),'warning')?></td>
+          <td style="text-align:right;"><?=label(number_format(rnd(0+$ert), 2, '.', ' ' ),'primary')?></td>
         </tr>
 
         <?php } ?>
@@ -112,10 +112,10 @@ function faanyagAttekintes(){
             $ert  = -$db->sum('faanyag', 'Mennyiseg', ['AND'=> ['Deleted'=>0, 'Fatipus'=>$f, 'Forgalom'=>FORGALOM_KIADAS, 'Datum[<>]'=>[$ev.'-'.$mn.'-01', date("Y-m-t", strtotime($ev.'-'.$mn.'-01'))]]]);
             ?>
           <td style="text-align:right;">
-            <?=rnd(0+$bev)?><br />
-            <?=rnd(0+$kor)?><br />
-            <?=rnd(0+$felh)?><br />
-            <?=rnd(0+$ert)?>
+            <?=number_format(rnd(0+$bev), 2, '.', ' ' )?><br />
+            <?=number_format(rnd(0+$kor), 2, '.', ' ' )?><br />
+            <?=number_format(rnd(0+$felh), 2, '.', ' ' )?><br />
+            <?=number_format(rnd(0+$ert), 2, '.', ' ' )?>
           </td>
           <?php } ?>
         </tr>
