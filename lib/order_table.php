@@ -767,6 +767,9 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
 
     function prepareAjaxForm(){
       $("#newItemForm").submit(function(e) {
+        if(!$("#newItemForm").valid()){
+          return;
+        }
         var url = "<?=SERVER_PROTOCOL.SERVER_URL?>ajax/add_edit_order_item.php";
         $.ajax({
                type: "POST",

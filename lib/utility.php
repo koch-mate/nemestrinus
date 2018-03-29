@@ -52,7 +52,7 @@ function mb_ucfirst($str) {
 function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1], $neg = false){
     if($x!=0){
     ?>
-    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=($neg ? abs($x) : $x)?>&nbsp;<?=$u?></span>
+    <span class="label label-<?=($x>$max?'success':($x<$min?'danger':'default'))?>"><?=($neg ? number_format(abs($x), 2, '.', ' ' ) : number_format($x, 2, '.', ' ' ))?>&nbsp;<?=$u?></span>
 <?php
     }
     else {

@@ -68,9 +68,9 @@ foreach(array_keys(FATIPUSOK) as $f){
  ?>
     <tr>
       <td><img src="img/<?=$f?>.png" class="zoom" style="height:1em;" title="<?=FATIPUSOK[$f][0]?>">&nbsp;<?=mb_ucfirst(FATIPUSOK[$f][0])?></td>
-      <td style="text-align:right;"><?=spanify(rnd($m))?></td>
-      <td style="text-align:right;"><?=spanify(rnd(-$l))?></td>
-      <td style="text-align:right;"><?=spanify(rnd($m+$l))?></td>
+      <td style="text-align:right;"><?=spanify(number_format(rnd($m), 2, '.', ' ' ))?></td>
+      <td style="text-align:right;"><?=spanify(number_format(rnd(-$l), 2, '.', ' ' ))?></td>
+      <td style="text-align:right;"><?=spanify(number_format(rnd($m+$l), 2, '.', ' ' ))?></td>
     </tr>
   <?php } ?>
   </tbody>
@@ -85,13 +85,13 @@ $(function() {
             labels: [<?=implode(', ', $fa)?>],
             datasets: [{
                 label: 'Megrendelt',
-                backgroundColor: 'rgba(100,100,200, 0.6)',
+                backgroundColor: 'rgba(25,25,200, 0.6)',
                 data: [
                   <?=implode(', ', $ma)?>
                 ]
             }, {
                 label: 'Legyártott',
-                backgroundColor: 'rgba(100,200,100, 0.6)',
+                backgroundColor: 'rgba(25,200,25, 0.6)',
                 data: [
                   <?=implode(', ', $la)?>
                 ]

@@ -52,12 +52,12 @@ function cnt(){
         $sum += $s;
         ?>
         <th>
-          <span title="<?=MONTHS[$month]?>"><?=spanify(rnd($s))?></span>
+          <span title="<?=MONTHS[$month]?>"><?=spanify(number_format(rnd($s), 2, '.', ' ' ))?></span>
         </th>
         <?php
       }?>
       <th>
-        <?=spanify(rnd($sum))?>
+        <?=spanify(number_format(rnd($sum), 2, '.', ' ' ))?>
       </th>
     </tr>
 

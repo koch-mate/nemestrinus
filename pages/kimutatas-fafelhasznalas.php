@@ -53,7 +53,7 @@ foreach(ordersGetAllData() as $o){
               </td>
               <td>
                 <b title="megrendelt">M:</b>&nbsp;<img src="img/<?=$oi['Fafaj']?>.png" class="zoom" style="height:1em;" title="<?=FATIPUSOK[$oi['Fafaj']][0]?>">
-                &nbsp;<?=rnd($oi['MennyisegStd']).U_NAMES[U_STD][1]?>&nbsp;
+                &nbsp;<?=number_format(rnd($oi['MennyisegStd']), 2, '.', ' ' ).U_NAMES[U_STD][1]?>&nbsp;
               </td>
               <td>
                 <b title="felhasznált">F:</b><?php
@@ -62,18 +62,18 @@ foreach(ordersGetAllData() as $o){
                   foreach(woodGetUsedForOrder($oi['ID']) as $ii){
                     //print '&nbsp;<b>ID:</b>&nbsp'.$ii['ID'];
                     $ossz += -$ii['Mennyiseg'];
-                    $elemek[]='&nbsp;<img  title="'.FATIPUSOK[$ii['Fatipus']][0].'" src="img/'.$ii['Fatipus'].'.png" class="zoom" style="height:1em;">&nbsp;'.(-rnd($ii['Mennyiseg']).U_NAMES[U_STD][1]).'&nbsp;';
+                    $elemek[]='&nbsp;<img  title="'.FATIPUSOK[$ii['Fatipus']][0].'" src="img/'.$ii['Fatipus'].'.png" class="zoom" style="height:1em;">&nbsp;'.(number_format(-rnd($ii['Mennyiseg']), 2, '.', ' ' ).U_NAMES[U_STD][1]).'&nbsp;';
                   }
                   if(count($elemek)){
                     print implode('<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;', $elemek);
                   }
                   else {
-                    print '&nbsp;0&nbsp;'.U_NAMES[U_STD][1].'&nbsp;';
+                    print '&nbsp;0.00&nbsp;'.U_NAMES[U_STD][1].'&nbsp;';
                   }
 
                  if(count($elemek)>1){
                  ?>
-                 &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;<?=rnd($ossz).U_NAMES[U_STD][1]?>&nbsp;<?php }?>
+                 &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;<?=number_format(rnd($ossz), 2, '.', ' ' ).U_NAMES[U_STD][1]?>&nbsp;<?php }?>
               </td>
               <?php $delta = $ossz-$oi['MennyisegStd'];
               $szin = 'inherit';
@@ -85,7 +85,7 @@ foreach(ordersGetAllData() as $o){
               }
               ?>
               <td style="color:<?=$szin?>">
-                <b>&Delta;:</b>&nbsp;<?=rnd($delta).U_NAMES[U_STD][1]?>
+                <b>&Delta;:</b>&nbsp;<?=number_format(rnd($delta), 2, '.', ' ' ).U_NAMES[U_STD][1]?>
               </td>
             </tr>
             <?php
