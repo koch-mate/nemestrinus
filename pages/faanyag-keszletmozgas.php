@@ -51,9 +51,13 @@ foreach(array_keys(FATIPUSOK) as $p){
                             <th>Dátum</th>
                             <th>Számlaszám</th>
                             <th>Száll. Lev. Szám</th>
+                            <th>Beszállító</th>
                             <th>CMR Szám</th>
                             <th>EKÁER szám</th>
                             <th>Fuvarozó</th>
+                            <th>KN kód</th>
+                            <th>Kitermeles helye</th>
+                            <th>Import dok. az.</th>
                             <th>Megjegyzés</th>
                             <th>Művelet</th>
                         </tr>
@@ -108,9 +112,13 @@ foreach(array_keys(FATIPUSOK) as $p){
                                     <?=$ip['Szamlaszam']?>
                                 </td>
                                 <td><?=$ip['Szallitolevelszam']?></td>
+                                <td><?=getSupplierNameById($ip['BeszallitoID'])?></td>
                                 <td><?=$ip['CMR']?></td>
                                 <td><?=$ip['EKAER']?></td>
                                 <td><?=$ip['Fuvarozo']?></td>
+                                <td><?=$ip['KNkod']?></td>
+                                <td><?=$ip['KitermelesHelye']?></td>
+                                <td><?=$ip['ImportSzarmazas']?></td>
 
                                 <td>
                                     <div style="max-height:4em; overflow:auto; font-size:80%;">

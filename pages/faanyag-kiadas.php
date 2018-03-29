@@ -1,8 +1,24 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['fatipus'], -$_POST['cmennyiseg'], null, $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_KIADAS, $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'],$faanyagID=$_POST['refID']);
-    logEv(LOG_EVENT['wood_sell'].':',null,implode(', ',['RefID: '.$_POST['refID'],FATIPUSOK[$_POST['fatipus']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['szlaszam'], $_POST['datum']]));
+    woodAdd(
+      $_POST['fatipus'],
+      -$_POST['cmennyiseg'],
+      0,
+      $_POST['szlaszam'],
+      $_POST['szallitolevel'],
+      $_POST['datum'],
+      $_POST['megj'],
+      FORGALOM_KIADAS,
+      $_POST['ekaer'],
+      $_POST['cmr'],
+      $_POST['fuvarozo'],
+      $knkod=null,
+      $import=null,
+      $kitermeles=null,
+      $faanyagID=$_POST['refID'],
+      $megrendelesTetelID=null);
+    logEv(LOG_EVENT['wood_sell'].':',null,implode(', ',['RefID: '.$_POST['refID'],FATIPUSOK[$_POST['fatipus']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], $_POST['szlaszam'], $_POST['datum'], $_POST['megj'], $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo']]));
     $succMessage = "Rögzítve.";
 }
 
@@ -26,7 +42,7 @@ woodJsUnitConversion($maxVal =( isset($_POST['mennyiseg']) ? $_POST['mennyiseg']
                       <p> <b>ID:</b> <?=$dat['ID']?> </p>
                       <p> <b>Eredeti mennyiség:</b> <?=rnd($dat['Mennyiseg']).' '.U_NAMES[U_STD][0]?> </p>
                       <p> <b>Fel nem használt mennyiség:</b> <?=rnd($_POST['mennyiseg']).' '.U_NAMES[U_STD][0]?> </p>
-                      <p> <b>Beszállító:</b> <?=$dat['Beszallito']?> </p>
+                      <p> <b>Beszállító:</b> <?=getSupplierNameById($dat['BeszallitoID'])?> </p>
                       <p> <b>Fatípus:</b> <?=FATIPUSOK[$dat['Fatipus']][0]?> <span style="display:inline-block;width:2em;"><img src="/img/<?=$dat['Fatipus']?>.png" class="zoom" style="height:1em;"></span> </p>
                       <p> <b>Dátum:</b> <?=$dat['Datum']?> </p>
                       <p> <b>Számlaszám:</b> <?=$dat['Szamlaszam']?>  </p>

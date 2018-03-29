@@ -24,7 +24,7 @@ function cnt(){
           Cég neve, EUTR azonosítója
         </th>
         <td>
-          IHARTÜ-2000 Erdészeti és Faipari Kft. []
+          IHARTÜ-2000 Erdészeti és Faipari Kft.
         </td>
       </tr>
       <tr>
@@ -63,8 +63,6 @@ foreach(MONTHS as $m){
             <th>Fafaj / áru megnevezés</th>
             <th>Mennyiség</th>
             <th>Mértékegység</th>
-            <th>KN kód szerinti választék</th>
-            <th>Kitermelés helye</th>
           </tr>
         </thead>
         <tbody>
@@ -78,6 +76,8 @@ foreach(MONTHS as $m){
                 $szlsz = $order['Szamlaszam'];
                 $eaker = $order['EAKER'];
                 $szall = $order['SzallitolevelSzam'];
+                $eutr  = $order['Tipus'] == M_EXPORT ? exportCustomerGetEUTRById($order['MegrendeloID']) : '-';
+
             }
             else {
                 $vevo = '';
@@ -85,6 +85,7 @@ foreach(MONTHS as $m){
                 $szlsz = $d['Szamlaszam'];
                 $eaker = $d['EAKER'];
                 $szall = $d['Szallitolevelszam'];
+                $eutr  = '-';
             }
            ?>
           <tr>
@@ -92,7 +93,7 @@ foreach(MONTHS as $m){
             <td style="white-space: nowrap;"><?=$d['Datum']?></td>
             <td><?=$vevo?></td>
             <td><?=$cim?> </td>
-            <td><?php //TODO ?></td>
+            <td><?=$eutr?></td>
             <td><?=$adoszam?></td>
             <td><?=$eaker?></td>
             <td><?=$szall?></td>
@@ -100,8 +101,6 @@ foreach(MONTHS as $m){
             <td><?=FATIPUSOK[$d['Fatipus']][0]?></td>
             <td style="text-align:right;"><?=number_format(-rnd($d['Mennyiseg']), 2, '.', ' ' )?></td>
             <td><?=U_NAMES[U_STD][1]?></td>
-            <td><?php //TODO ?></td>
-            <td><?php //TODO ?></td>
           </tr>
         <?php } ?>
         </tbody>
