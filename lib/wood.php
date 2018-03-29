@@ -9,7 +9,7 @@ function woodTypesRadioButtons($supply=true, $callback=""){
             <input type="radio" name="r_cs" id="r_cs_<?=$rk?>" value="<?=$rk?>" onchange="<?=$callback?>" <?=($rk==array_keys(FATIPUSOK)[0]? ' checked="checked"': '')?> >
             <span style="width: 3em; display:inline-block;"><img src="/img/<?=$rk?>.png" class="zoom" title="<?=FATIPUSOK[$rk][0]?>" style="height:2em;" /></span>
             <b><?=FATIPUSOK[$rk][0]?></b>
-            <?php if($supply){?> <span class="label label-<?=($me>10?'success':($me<0?'danger':'warning'))?>"><?=$me?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
+            <?php if($supply){?> <span class="label label-<?=($me>10?'success':($me<0?'danger':'warning'))?>"><?=number_format(rnd($me), 2, '.', ' ' )?>&nbsp;<?=U_NAMES[U_STD][1]?></span>
                 <?php }?>
         </label>
     </div>

@@ -7,7 +7,7 @@ function unitChange($form, $to, $x){
 
 function rnd($x){
     $v = round($x * (10 ** ROUND_DIGITS))/(10 ** ROUND_DIGITS);
-    if(abs($v)<EPSZILON){
+    if(abs($v)<EPSILON){
       $v = 0;
     }
     return $v;
