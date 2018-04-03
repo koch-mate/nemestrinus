@@ -4,7 +4,7 @@
 
 function getExportCustomersWithData(){
     global $db;
-    return $db->select('megrendelo',['ID','MegrendeloNev','Kepviselo','Adoszam','Telefonszam','Fax','Email','SzallitasiCim','SzamlazasiCim','Jelszo','RegisztraltDatum','UtolsoBelepes','Aktiv'],['Deleted'=>0, 'ORDER'=>['MegrendeloNev']]);
+    return $db->select('megrendelo',['ID','MegrendeloNev','Kepviselo','Adoszam','Telefonszam','Fax','Email','SzallitasiCim','SzamlazasiCim','Jelszo','RegisztraltDatum','UtolsoBelepes','Aktiv', 'EUTR'],['Deleted'=>0, 'ORDER'=>['MegrendeloNev']]);
 }
 
 function exportCustomerAdd(
@@ -17,6 +17,7 @@ function exportCustomerAdd(
             $pass,
             $bill_address,
             $ship_address,
+            $eutr,
             $state
     ){
     global $db;
@@ -32,6 +33,7 @@ function exportCustomerAdd(
         'SzallitasiCim' => $ship_address,
         'Jelszo' => $pass,
         'RegisztraltDatum' => date('Y-m-d H:i:s'),
+        'EUTR'=>$eutr,
         'Aktiv' => $state
     ]);
 }
@@ -47,6 +49,7 @@ function exportCustomerUpdate(
             $pass,
             $bill_address,
             $ship_address,
+            $eutr,
             $state
     ){
     global $db;
@@ -62,6 +65,7 @@ function exportCustomerUpdate(
             'SzamlazasiCim' => $bill_address,
             'SzallitasiCim' => $ship_address,
             'Jelszo' => $pass,
+            'EUTR'=>$eutr,
             'Aktiv' => $state
         ], ['ID' => $id]
         );
@@ -77,6 +81,7 @@ function exportCustomerUpdate(
             'Email' =>$email,
             'SzamlazasiCim' => $bill_address,
             'SzallitasiCim' => $ship_address,
+            'EUTR'=>$eutr,
             'Aktiv' => $state
         ], ['ID' => $id]
         );
@@ -85,7 +90,7 @@ function exportCustomerUpdate(
 
 function getExportCustomerDataById($uid){
     global $db;
-    return $db->select('megrendelo', ['ID', 'MegrendeloNev', 'Kepviselo', 'Adoszam', 'Telefonszam', 'Fax', 'Email', 'SzamlazasiCim','SzallitasiCim','Jelszo','Aktiv'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);
+    return $db->select('megrendelo', ['ID', 'MegrendeloNev', 'Kepviselo', 'Adoszam', 'Telefonszam', 'Fax', 'Email', 'SzamlazasiCim','SzallitasiCim','Jelszo','Aktiv', 'EUTR'], ['AND' =>['ID'=>$uid, 'Deleted'=> 0]]);
 }
 
 function exportCustomerGetNameById($id){
@@ -106,6 +111,11 @@ function exportCustomerGetShipAddressById($id){
 function exportCustomerGetTaxNrById($id){
     global $db;
     return $db->get('megrendelo', 'Adoszam', ['ID'=>$id]);
+}
+
+function exportCustomerGetEUTRById($id){
+  global $db;
+  return $db->get('megrendelo', 'EUTR', ['ID'=>$id]);
 }
 
 function exportCustomerDelete($u){

@@ -44,6 +44,7 @@ if(!empty($_POST['cegnev'])){
             $_POST['pass'],
             $_POST['bill_address'],
             $_POST['ship_address'],
+            $_POST['eutr'],
             (!empty($_POST['state']) ? 1 : 0)
         );
         logEv(LOG_EVENT['update_export_customer'].' ('.$_POST['cegnev'].'):', null, implode(', ',[$_POST['cegnev'],
@@ -54,7 +55,9 @@ if(!empty($_POST['cegnev'])){
             $_POST['email'],
             $_POST['pass'],
             $_POST['bill_address'],
-            $_POST['ship_address'],($_POST['state'] ? 'aktív':'inaktív')]));
+            $_POST['ship_address'],
+            $_POST['eutr'],
+            ($_POST['state'] ? 'aktív':'inaktív')]));
         $succMessage = "A(z) <em>".$user."</em> megrendelő adatai frissültek.";
     }
     else {
@@ -68,6 +71,7 @@ if(!empty($_POST['cegnev'])){
             $_POST['pass'],
             $_POST['bill_address'],
             $_POST['ship_address'],
+            $_POST['eutr'],
             (!empty($_POST['state']) ? 1 : 0)
         );
         $succMessage = "Az új megrendelő rögzítésre került.";
@@ -79,7 +83,9 @@ if(!empty($_POST['cegnev'])){
             $_POST['email'],
             $_POST['pass'],
             $_POST['bill_address'],
-            $_POST['ship_address'],($_POST['state'] ? 'aktív':'inaktív')]));
+            $_POST['ship_address'],
+            $_POST['eutr'],
+            ($_POST['state'] ? 'aktív':'inaktív')]));
 
     }
 
@@ -101,6 +107,7 @@ if(!empty($_POST['cegnev'])){
                 <th>E-mail</th>
                 <th>Szállítási cím</th>
                 <th>Számlázási cím</th>
+                <th>EUTR szam</th>
                 <th>Jelszó</th>
                 <th>Regisztráció dátuma</th>
                 <th>Utolsó bejelentkezés dátuma</th>
@@ -138,6 +145,9 @@ if(!empty($_POST['cegnev'])){
                     </td>
                     <td>
                         <?=$i['SzamlazasiCim']?>
+                    </td>
+                    <td>
+                        <?=$i['EUTR']?>
                     </td>
                     <td>
                       <a href="?mode=export-megrendelok&jelszoemelezteto=<?=$i['ID']?>" class="btn btn-xs btn-primary">Emlékeztető
@@ -185,6 +195,7 @@ if(!empty($_POST['cegnev'])){
                     {
                         "searchable": false
             },
+                null,
                 null,
                 null,
                 null,
@@ -268,6 +279,12 @@ if(!empty($ud)){
                             <label class="col-md-4 control-label" for="email">E-mail cím</label>
                             <div class="col-md-5">
                                 <input id="email" name="email" type="text" <?=($EDIT_MODE ? ' value="'.$ud[ 'Email']. '"': '')?> placeholder="mail@example.com" class="form-control input-md">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="eutr">EUTR szám</label>
+                            <div class="col-md-5">
+                                <input id="eutr" name="eutr" type="text" <?=($EDIT_MODE ? ' value="'.$ud[ 'EUTR']. '"': '')?> placeholder="12344321" class="form-control input-md">
                             </div>
                         </div>
 

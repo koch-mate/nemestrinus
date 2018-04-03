@@ -24,7 +24,7 @@ function cnt(){
           Cég neve, EUTR azonosítója
         </th>
         <td>
-          IHARTÜ-2000 Erdészeti és Faipari Kft. []
+          IHARTÜ-2000 Erdészeti és Faipari Kft.
         </td>
       </tr>
       <tr>
@@ -74,18 +74,18 @@ foreach(MONTHS as $m){
           <tr>
             <td><?=$d['ID']?></td>
             <td style="white-space: nowrap;"><?=$d['Datum']?></td>
-            <td><?=$d['Beszallito']?></td>
-            <td><?php //TODO ?> </td>
-            <td><?php //TODO ?></td>
-            <td><?php //TODO ?></td>
+            <td><?=getSupplierNameById($d['BeszallitoID'])?></td>
+            <td><?=getSupplierAddressById($d['BeszallitoID'])?> </td>
+            <td><?=getSupplierEUTRById($d['BeszallitoID'])?></td>
+            <td><?=getSupplierTaxById($d['BeszallitoID']) ?></td>
             <td><?=$d['EKAER']?></td>
             <td><?=$d['Szallitolevelszam']?></td>
             <td><?=$d['Szamlaszam']?></td>
             <td><?=FATIPUSOK[$d['Fatipus']][0]?></td>
             <td style="text-align:right;"><?=number_format(rnd($d['Mennyiseg']), 2, '.', ' ' )?></td>
             <td><?=U_NAMES[U_STD][1]?></td>
-            <td><?php //TODO ?></td>
-            <td><?php //TODO ?></td>
+            <td><?=$d['KNkod']?></td>
+            <td><?=$d['KitermelesHelye']?></td>
           </tr>
         <?php } ?>
         </tbody>

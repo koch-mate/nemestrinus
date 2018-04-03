@@ -1,8 +1,8 @@
 <?php
 
 if(!empty($_POST['cmennyiseg'])){
-    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_BEVETEL, $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo']);
-    logEv(LOG_EVENT['wood_add'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], ($_POST['beszallito'] == '__uj__' ? $_POST['ujbeszallito'] : $_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'], $_POST['datum']]));
+    woodAdd($_POST['r_cs'], $_POST['cmennyiseg'], $_POST['beszallito'], $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['datum'], $_POST['megj'], FORGALOM_BEVETEL, $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'], $_POST['knkod'], $_POST['import'], $_POST['kitermeles']);
+    logEv(LOG_EVENT['wood_add'].':',null,implode(', ',[FATIPUSOK[$_POST['r_cs']][0], $_POST['cmennyiseg'].' '.U_NAMES[U_STD][0], getSupplierNameById($_POST['beszallito']), $_POST['szlaszam'], $_POST['szallitolevel'], $_POST['ekaer'], $_POST['cmr'], $_POST['fuvarozo'], $_POST['datum'], $_POST['knkod'], $_POST['import'], $_POST['kitermeles']]));
     $succMessage = "Rögzítve.";
 }
 
@@ -82,33 +82,62 @@ woodJsUnitConversion();
             <div class="form-group">
                 <label class="col-md-4 control-label" for="fuvarozo">Fuvarozó</label>
                 <div class="col-md-5">
-                    <input id="fuvarozo" name="fuvarozo" type="text" placeholder="" class="form-control input-md">
+                    <input id="fuvarozo" name="fuvarozo" type="text" placeholder="Kiss Jónás" class="form-control input-md">
                 </div>
             </div>
             <div class="form-group" id="beszform">
                 <label class="col-md-4 control-label" for="beszallito">Beszállító</label>
                 <div class="col-md-5">
-                    <select name="beszallito" class="selectpicker" id="besz" data-live-search="true" onchange="if($('#besz').val()=='__uj__'){$('#besz').parent().hide();$('#beszUj').show();}">
-                        <optgroup label="Saját kitermelés">
-                            <option value="Ihartü">Ihartü</option>
-                        </optgroup>
-                        <optgroup label="Külső cég">
-                            <?php
-                            foreach(woodGetSuppliers() as $b){
-                                ?>
-                            <option value="<?=$b?>"><?=$b?></option>
-                            <?php
+                    <select name="beszallito" class="selectpicker" id="besz" data-live-search="true" >
+                      <?php
+                      $suppList = suppliersGetList();
+                      $ihartuID = 0;
+                      foreach($suppList as $b){
+                        if($b['Cegnev'] == 'Ihartü'){
+                          $ihartuID = $b['ID'];
+                          break;
+                        }
+                      }
+                      ?>
+
+                      <optgroup label="Saját kitermelés">
+                          <option value="<?=$ihartuID?>">Ihartü</option>
+                      </optgroup>
+                      <optgroup label="Külső cég">
+                          <?php
+                          foreach($suppList as $b){
+                            if($b["ID"]==$ihartuID){
+                              continue;
                             }
-                            ?>
-                            <option data-content="<em>&lt;Új beszállító&gt;</em>" value="__uj__">&lt;Új beszállító&gt;</option>
-                        </optgroup>
+                              ?>
+                          <option value="<?=$b['ID']?>"><?=$b['Cegnev']?></option>
+                          <?php
+                          }
+                          ?>
+                      </optgroup>
                     </select>
-                    <div class="input-group" id="beszUj" style="display:none;">
-                        <input type="text" class="form-control" name="ujbeszallito" placeholder="új beszállító" required>
-                        <span class="input-group-btn"><button class="btn btn-default" type="button" onclick="$('#besz').parent().show();$('#beszUj').hide();$('#besz').selectpicker('val', 'Ihartü');$('#besz').selectpicker('toggle');$('#beszform').removeClass('has-error');$('#ujbeszallito-error').hide()">Mégsem</button></span>
-                    </div>
+
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="knkod">KN kód szerinti választék</label>
+                <div class="col-md-5">
+                    <input id="knkod" name="knkod" type="text" placeholder="12345678" class="form-control input-md">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="kitermeles">Kitermelés helye</label>
+                <div class="col-md-5">
+                    <input id="kitermeles" name="kitermeles" type="text" placeholder="Libickozma" class="form-control input-md">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="import">Import esetén származást igazoló dokumentumok azonosítói</label>
+                <div class="col-md-5">
+                    <input id="import" name="import" type="text" placeholder="12345678" class="form-control input-md">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-md-4 control-label" for="datum">Dátum</label>
                 <div class="col-md-4">
@@ -120,6 +149,7 @@ woodJsUnitConversion();
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-md-4 control-label" for="megj">Megjegyzés</label>
                 <div class="col-md-5">

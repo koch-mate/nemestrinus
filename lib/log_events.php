@@ -11,6 +11,10 @@ const LOG_EVENT = [
     'passwd_notify_user'   => 'Jelszóemlékeztető küldése',
     'del_user'      => 'Felhasználó törlése',
 
+    'new_supplier'          => 'Új beszállító felvétele',
+    'update_supplier'       => 'Beszállító adatainak módosítása',
+    'del_supplier'      => 'Beszállító törlése',
+
     'new_export_customer'      => 'Új export megrendelő létrehozása',
     'update_export_customer'   => 'Export megrendelő adatainak módosítása',
     'status_export_customer'   => 'Export megrendelő státuszának vátloztatása',

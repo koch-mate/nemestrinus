@@ -104,11 +104,13 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-megrendelo-lakossagi',
     'kimutatas-megrendelo-export',
     'kimutatas-export-gyartas',
+    'beszallitok',
 ];
 
 const MENU_STRUCT = [
     'beszallitas' => [
-        'beszallitas-fuggo'
+        'beszallitas-fuggo',
+        'beszallitok'
     ],
     'alapanyag'         => [
         'alapanyag'=>[ 'keszlet-osszesito', 'kimutatas-fafelhasznalas', ],
@@ -187,6 +189,7 @@ const RIGHTS = [
 
 const PAGE_RIGHTS = [
     'beszallitas'               => [R_BESZALLITAS],
+    'beszallitok'               => [R_ADMINISZTRACIO],
     'beszallitas-fuggo'         => [R_BESZALLITAS],
     'alapanyag'                 => [R_ALAPANYAG],
     'keszlet-osszesito'         => [R_ALAPANYAG],
@@ -300,10 +303,12 @@ const MENU_ICONS = [
     'kimutatas-megrendelo-lakossagi'      => 'fa-users',
     'kimutatas-megrendelo-export'      => 'fa-users',
     'beszallitas-fuggo' => 'fa-truck',
+    'beszallitok' => 'fa-users',
 ];
 
 const MENU_NAMES = [
     'beszallitas' => 'Alapanyag',
+    'beszallitok' => 'Beszállítók',
     'beszallitas-fuggo' => 'Alapanyag beszállítás',
     'alapanyag' => 'Készlet',
     'keszlet-osszesito' => 'Készlet összesítő',

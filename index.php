@@ -14,6 +14,7 @@ require_once('lib/log_events.php');
 require_once("lib/utility.php");
 require_once("lib/users.php");
 require_once("lib/export_customers.php");
+require_once("lib/suppliers.php");
 require_once("lib/packaging.php");
 require_once("lib/wood.php");
 require_once("lib/units.php");
@@ -23,7 +24,7 @@ require_once("lib/prices.php");
 require_once("lib/mail.php");
 require_once("core/auth.php");
 
-$_mode = $_GET['mode'];
+$_mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 
 $mode = '';
 

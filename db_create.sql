@@ -181,3 +181,35 @@ CREATE TABLE `nemestrinus`.`arlista` (
 
 ALTER TABLE `nemestrinus`.`arlista`
   ADD COLUMN `Tipus` VARCHAR(45) NULL DEFAULT 'lakossagi' AFTER `Penznem`;
+
+--
+-- Beszallitok kulon kezelese
+--
+
+CREATE TABLE `beszallito` (
+  `ID` int(11) NOT NULL,
+  `Cegnev` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `Szekhely` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `EUTR_EGE` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Adoszam` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Telefonszam` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Fax` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Email` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Kapcsolattarto` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `Deleted` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `beszallito`
+  ADD PRIMARY KEY (`ID`);
+
+ALTER TABLE `beszallito`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `faanyag` ADD `BeszallitoID` INT NOT NULL AFTER `Fuvarozo`;
+
+ALTER TABLE `faanyag`
+  ADD `KNkod` VARCHAR(150) NOT NULL AFTER `BeszallitoID`,
+  ADD `KitermelesHelye` VARCHAR(150) NOT NULL AFTER `KNkod`,
+  ADD `ImportSzarmazas` VARCHAR(500) NOT NULL AFTER `KitermelesHelye`;
+
+ALTER TABLE `megrendelo` ADD `EUTR` VARCHAR(150) NULL AFTER `Deleted`;

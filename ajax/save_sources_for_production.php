@@ -26,7 +26,7 @@ else {
 
         logEv(LOG_EVENT['order_item_add_wood'].':',null,implode(',', ['MID: '.$_POST['ID'], 'FID: '.$d, abs($menny) ]));
 
-        woodAdd($wi['Fatipus'], -1.0*abs($menny), $beszallito=null, $szamlaszam=null, $szallitolevelszam=null, $datum=date('Y-m-d'), $megjegyzes=null, $forgalom=FORGALOM_FELHASZNALAS,$ekaer =null, $cmr=null, $fuvarozo=null, $faanyagID=$d, $megrendelesTetelID=$megrendelesTetelId);
+        woodAdd($wi['Fatipus'], -1.0*abs($menny), $beszallito=null, $szamlaszam=null, $szallitolevelszam=null, $datum=date('Y-m-d'), $megjegyzes=null, $forgalom=FORGALOM_FELHASZNALAS,$ekaer =null, $cmr=null, $fuvarozo=null, $knkod=null, $import=null, $kitermeles=null, $faanyagID=$d, $megrendelesTetelID=$megrendelesTetelId);
 
     }
 ?>
