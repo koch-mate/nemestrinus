@@ -29,6 +29,11 @@
       <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
       <hr style="height:2px;background:#000;" />
 
+      <p><span class="label label-default">2018. 04. 04.</span> <span class="label label-primary">Konstans érték változás</span>
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/108','Konstansok Posch')?>
+      </p>
+
+
       <p><span class="label label-default">2018. 04. 03.</span> <span class="label label-success">Új modul</span>
         <a href="?mode=beszallitok">Beszállítók</a>
       </p>
@@ -36,7 +41,7 @@
       <p><span class="label label-default">2018. 03. 29.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/111','0 arral utolag felvett tetel')?>,
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/101','kerekítés')?>,
-        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/95','-0!')?>,
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/95','-0!')?>
       </p>
 
       <p><span class="label label-default">2018. 03. 27.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>
