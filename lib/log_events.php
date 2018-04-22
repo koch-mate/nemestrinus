@@ -51,10 +51,10 @@ const LOG_EVENT = [
     'order_manufacturer_update' => 'Megrendelés gyártójának frissítése',
     'order_ext_mf_status_update' => 'Megrendelés külső gyártási státuszának frissítése',
 
-    'order_item_status_update' => 'Megrendelés elem státusza',
-    'order_item_prod_date' => 'Megrendelés elem gyártás dátuma',
-    'order_item_add_wood' => 'Megrendelés elem faanyag felhasználás felvétele',
-    'order_item_del_wood' => 'Megrendelés elem faanyag felhasználás törlése',
+    'order_item_status_update' => 'Megrendelés tétel státusza',
+    'order_item_prod_date' => 'Megrendelés tétel gyártás dátuma',
+    'order_item_add_wood' => 'Megrendelés tétel faanyag felhasználás felvétele',
+    'order_item_del_wood' => 'Megrendelés tétel faanyag felhasználás törlése',
 ];
 
 

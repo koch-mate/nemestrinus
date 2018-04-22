@@ -484,8 +484,8 @@ const CSOMAGOLASTIPUSOK = [
     EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.8, U_RAKOTT_URMETER ],
     VISSZAVALTHATO_KALODA_KICSI => ['Visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
     VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
-    POSCH_HALOS                 => ['Posch hálós', 'db', 1.17, U_TOMOR_KOBMETER],
-    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 1.17, U_TOMOR_KOBMETER],
+    POSCH_HALOS                 => ['Posch hálós', 'db', 2.34, U_SZORT_URMETER],
+    POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.34, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'szűrm', 1, U_SZORT_URMETER]
 ];
 
