@@ -205,11 +205,11 @@ ALTER TABLE `beszallito`
 ALTER TABLE `beszallito`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `faanyag` ADD `BeszallitoID` INT NOT NULL AFTER `Fuvarozo`;
+ALTER TABLE `faanyag` ADD `BeszallitoID` INT  NULL AFTER `Fuvarozo`;
 
 ALTER TABLE `faanyag`
-  ADD `KNkod` VARCHAR(150) NOT NULL AFTER `BeszallitoID`,
-  ADD `KitermelesHelye` VARCHAR(150) NOT NULL AFTER `KNkod`,
-  ADD `ImportSzarmazas` VARCHAR(500) NOT NULL AFTER `KitermelesHelye`;
+  ADD `KNkod` VARCHAR(150) NULL AFTER `BeszallitoID`,
+  ADD `KitermelesHelye` VARCHAR(150) NULL AFTER `KNkod`,
+  ADD `ImportSzarmazas` VARCHAR(500) NULL AFTER `KitermelesHelye`;
 
 ALTER TABLE `megrendelo` ADD `EUTR` VARCHAR(150) NULL AFTER `Deleted`;
