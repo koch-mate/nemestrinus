@@ -105,6 +105,8 @@ const IMPLEMENTED_PAGES = [
     'kimutatas-megrendelo-export',
     'kimutatas-export-gyartas',
     'beszallitok',
+    'kimutatas-megrendelo-osszes',
+    'kimutatas-beszallitok',
 ];
 
 const MENU_STRUCT = [
@@ -146,10 +148,12 @@ const MENU_STRUCT = [
       'kimutatas-export-gyartas',
       'kimutatas-havi',
       'kimutatas-fafaj',
+      'kimutatas-megrendelo-osszes',
       'kimutatas-megrendelo-lakossagi',
       'kimutatas-megrendelo-export',
       'kimutatas-faanyagforgalom-beszallitas',
       'kimutatas-faanyagforgalom-kiszallitas',
+      'kimutatas-beszallitok',
     ],
     'adminisztracio'    => [
         'felhasznalok',
@@ -249,6 +253,8 @@ const PAGE_RIGHTS = [
     'kimutatas-fafelhasznalas'  => [R_KIMUTATAS],
     'kimutatas-faanyagforgalom-beszallitas'  => [R_KIMUTATAS],
     'kimutatas-faanyagforgalom-kiszallitas'  => [R_KIMUTATAS],
+    'kimutatas-megrendelo-osszes' => [R_KIMUTATAS],
+    'kimutatas-beszallitok' => [R_KIMUTATAS],
     'help'                      => [R_BESZALLITAS, R_ALAPANYAG, R_GYARTAS, R_LAK_MEGRENDELES, R_EXP_MEGRENDELES, R_LAK_SZALLITAS, R_EXP_SZALLITAS, R_KIMUTATAS, R_ADMINISZTRACIO],
 ];
 
@@ -301,9 +307,11 @@ const MENU_ICONS = [
     'kimutatas-faanyagforgalom-kiszallitas'  => 'fa-table',
     'kimutatas-fafaj'           => 'fa-bar-chart',
     'kimutatas-megrendelo-lakossagi'      => 'fa-users',
+    'kimutatas-megrendelo-osszes'     => 'fa-users',
     'kimutatas-megrendelo-export'      => 'fa-users',
     'beszallitas-fuggo' => 'fa-truck',
     'beszallitok' => 'fa-users',
+    'kimutatas-beszallitok' => 'fa-truck',
 ];
 
 const MENU_NAMES = [
@@ -369,6 +377,8 @@ const MENU_NAMES = [
     'kimutatas-fafaj'           => 'Fafajonkénti kimutatás',
     'kimutatas-megrendelo-lakossagi'      => 'Megrendelőnkénti kimutatás - Lakossági',
     'kimutatas-megrendelo-export'      => 'Megrendelőnkénti kimutatás - Export',
+    'kimutatas-megrendelo-osszes'       => 'Megrendelőnkénti kimutatás - Összes',
+    'kimutatas-beszallitok' => 'Beszállítók',
 
 ];
 

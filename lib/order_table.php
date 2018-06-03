@@ -875,6 +875,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
       $("#"+popid).popover('hide');
       $("#"+popid).animate({scrollTop: $("#"+popid).prop('scrollHeight')},1000);
     }
+
     function savePaidStatus(lid, ext = false, st = '', datum = '', hatarido = ''){
         var aData;
         if(ext == false){
@@ -906,7 +907,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                 location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert("Hiba!")
+                alert("Hiba (fizetés állapota) "+ textStatus + " - "+errorThrown +" !")
             }
         });
     }
@@ -963,7 +964,7 @@ if(in_array(R_ADMINISZTRACIO, $_SESSION['userRights'])){
                 location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert("Hiba!")
+                alert("Hiba (szállítás állapota): "+textStatus+ " - " +errorThrown+" !" )
             }
         });
         // ha lakossagi es kiszallitva, akkor legyen fizetve is

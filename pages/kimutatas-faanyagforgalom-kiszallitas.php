@@ -3,7 +3,7 @@
 use Medoo\Medoo;
 require("lib/report_temp.php");
 
-kimutatasTemplate("Faanyag forgalom - Kiszállítás", 'cnt');
+kimutatasTemplate("Faanyag forgalom - Kiszállítás", 'cnt', $honapraugras=true);
 
 function label($cnt, $style){
     return "<span class='label label-$style'>$cnt</span>";
@@ -74,7 +74,7 @@ foreach(MONTHS as $m){
                 $cim  = $order['Tipus'] == M_EXPORT ? exportCustomerGetAddressById($order['MegrendeloID']) : $order['MegrendeloCim'];
                 $adoszam  = $order['Tipus'] == M_EXPORT ? exportCustomerGetTaxNrById($order['MegrendeloID']) : '';
                 $szlsz = $order['Szamlaszam'];
-                $eaker = $order['EAKER'];
+                $ekaer = $order['EKAER'];
                 $szall = $order['SzallitolevelSzam'];
                 $eutr  = $order['Tipus'] == M_EXPORT ? exportCustomerGetEUTRById($order['MegrendeloID']) : '-';
 
@@ -83,7 +83,7 @@ foreach(MONTHS as $m){
                 $vevo = '';
                 $cim  = '';
                 $szlsz = $d['Szamlaszam'];
-                $eaker = $d['EAKER'];
+                $ekaer = $d['EKAER'];
                 $szall = $d['Szallitolevelszam'];
                 $eutr  = '-';
             }
@@ -95,7 +95,7 @@ foreach(MONTHS as $m){
             <td><?=$cim?> </td>
             <td><?=$eutr?></td>
             <td><?=$adoszam?></td>
-            <td><?=$eaker?></td>
+            <td><?=$ekaer?></td>
             <td><?=$szall?></td>
             <td><?=$szlsz?></td>
             <td><?=FATIPUSOK[$d['Fatipus']][0]?></td>

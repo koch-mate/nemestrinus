@@ -62,6 +62,15 @@ function spanify($x, $min=0, $max=0, $u=U_NAMES[U_STD][1], $neg = false){
     }
 }
 
+function lbl($x, $prefix="", $postfix=U_NAMES[U_STD][1], $style="default"){
+	if(abs($x)>0){
+	?><span class="label label-<?=$style?>"><?=$prefix?><?=(number_format(abs($x), 2, '.', ' ' ))?>&nbsp;<?=$postfix?></span><?php
+	}
+	else {
+	?><span class="label label-<?=$style?>">-</span><?php	
+	}
+}
+
 // thousands separator
 function ezres($x)
 {

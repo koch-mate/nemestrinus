@@ -5,8 +5,9 @@ require("lib/report_temp.php");
 
 function haviNezet(){
 
-  global $db, $mode, $ev;
+  global $db, $mode, $ev, $lak_exp;
 ?>
+
 
 <style>
 .table tbody tr td,  .table tbody tr th, .table thead tr th {
@@ -86,7 +87,14 @@ foreach(MONTHS as $mi => $mn){
 
     <?php
     $even = 0;
-$filters=['KertDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))], 'OrderBy'=>['Tipus'=>'DESC','KertDatum'=>'ASC']];
+    $filters = [
+      'KertDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))],
+      'Tipus'=> [$lak_exp == 'lakossagi' ? M_LAKOSSAGI : ($lak_exp == 'export' ? M_EXPORT : '')],
+      'OrderBy'=>['Tipus'=>'DESC','KertDatum'=>'ASC']
+    ];
+    if($lak_exp =='mind'){
+      unset($filters['Tipus']);
+    }
     foreach (ordersGetAllData($filters) as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $oin = count($ois);
@@ -151,4 +159,4 @@ $(
 
 <?php } //func: haviNezet()?>
 
-<?=kimutatasTemplate("Megrendelések havi nézete", 'haviNezet', $honapraugras=true)?>
+<?=kimutatasTemplate("Megrendelések havi nézete", 'haviNezet', $honapraugras=true, $tipusSzures = true)?>

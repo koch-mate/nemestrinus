@@ -1,4 +1,5 @@
 <?php
+use Medoo\Medoo;
 
 function woodTypesRadioButtons($supply=true, $callback=""){
     foreach(array_keys(FATIPUSOK) as $rk){
@@ -58,6 +59,17 @@ function woodGetAllByTrafficAndDate($forg, $sd, $ed){
     global $db;
     return $db->select('faanyag', ['ID', 'Mennyiseg', 'Beszallito', 'BeszallitoID', 'Szamlaszam', 'Fatipus','Szallitolevelszam', 'EKAER', 'CMR', 'Fuvarozo', 'Datum', 'Megjegyzes','Forgalom','FaanyagID','MegrendelesTetelID', 'KNkod','ImportSzarmazas','KitermelesHelye'], ["AND"=>['Deleted'=>0,'Forgalom'=>$forg, 'Datum[<>]'=>[$sd,$ed]]]);
 }
+
+function woodGetSupplierSumByTrafficAndDate($forg, $sd, $ed,$bid=false){
+    global $db;
+    if($bid){
+      return $db->sum('faanyag', 'Mennyiseg', ['Deleted'=>0,'Forgalom'=>$forg, 'Datum[<>]'=>[$sd,$ed], 'BeszallitoID'=>$bid]);      
+    }
+    else{
+      return $db->select('faanyag', ['Mennyiseg'=>Medoo::raw('SUM(<Mennyiseg>)'), 'BeszallitoID'], ['GROUP'=>'BeszallitoID','Deleted'=>0,'Forgalom'=>$forg, 'Datum[<>]'=>[$sd,$ed], 'ORDER'=>'BeszallitoID']);
+    }
+}
+
 
 function woodGetDetailsByType($type){
     global $db;
