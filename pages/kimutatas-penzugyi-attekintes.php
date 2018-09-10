@@ -1,4 +1,5 @@
 <?php
+// FIXME!!! a Vegosszeg szamitas hibas, orderFullPrice($i[ID]) kene mindenhova!
 
 use Medoo\Medoo;
 require("lib/report_temp.php");

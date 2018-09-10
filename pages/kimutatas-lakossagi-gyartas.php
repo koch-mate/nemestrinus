@@ -63,7 +63,7 @@
         <?php } ?>
       </td>
       <td><?=messageSimpleRender($i[Megjegyzes])?></td>
-      <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
+      <td><?=ezres(orderFullPrice($i[ID]))?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=$i[MegrendeloTel]?></td>
       <td><?=$i[MegrendeloCim]?></td>

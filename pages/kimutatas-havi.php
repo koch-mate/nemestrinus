@@ -121,7 +121,8 @@ foreach(MONTHS as $mi => $mn){
           </p>
         <?php } ?>
       </td>
-      <td><?=ezres($i[Vegosszeg])?>&nbsp;<?=$i[Penznem]?></td>
+
+      <td><?=ezres(orderFullPrice($i[ID]) - ($i[Tipus]==M_EXPORT ? $i[Fuvardij]:0))?>&nbsp;<?=$i[Penznem]?></td>
       <td><?=ezres($i[Fuvardij])?>&nbsp;<?=$i[Penznem]?></td>
       <td <?=($i[FizetesStatusza]!=F_S_FIZETVE && date("Y-m-d")>$i[FizetesiHatarido] && $i[Statusz]!=M_S_VISSZAUTASITVA && $i[Statusz] != M_S_VISSZAMONDOTT ? 'style="background:#933;color:#fff;" ' : '')?>><?=$i[FizetesiHatarido]?></td>
       <td><?=$i[FizetesStatusza]?><?php
