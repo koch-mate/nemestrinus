@@ -29,6 +29,10 @@
       <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
       <hr style="height:2px;background:#000;" />
 
+      <p><span class="label label-default">2018. 09. 10.</span> <span class="label label-warning">Hibajavítás</span>
+        <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/121','Havi kimutatásban hibás export megrendelés ár')?>
+      </p>
+
       <p><span class="label label-default">2018. 06. 02.</span> <span class="label label-warning">Hibajavítások, fejlesztések</span>
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/125','Faanyag forgalom - Kiszállítás')?>,
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/116','Szallitas statusz mentesekor hibat ir')?>,

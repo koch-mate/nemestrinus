@@ -142,7 +142,7 @@ const MENU_STRUCT = [
       ],
     ],
     'kimutatas'         => [
-      'kimutatas-penzugyi-attekintes',
+//      'kimutatas-penzugyi-attekintes',
       'kimutatas-fafelhasznalas-attekintes',
       'kimutatas-lakossagi-gyartas',
       'kimutatas-export-gyartas',
