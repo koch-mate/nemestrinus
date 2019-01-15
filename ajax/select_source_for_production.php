@@ -82,7 +82,7 @@ $(document).ready(function () {
             <th>Fafaj</th>
             <th>Mennyiség</th>
             <th>Beérkezési dátum</th>
-            <th>Beszállító</th>
+            <th>Megjegyzés</th>
             <th>Felhasználás (<?=U_NAMES[U_STD][1]?>)</th>
         </tr>
     </thead>
@@ -102,7 +102,7 @@ $(document).ready(function () {
             <td data-filter="<?=$w['Fatipus']?>"><?=FATIPUSOK[$w['Fatipus']][0]?></td>
             <td><?=rnd($maradek)?>&nbsp;<?=U_NAMES[U_STD][1]?></td>
             <td><?=$w['Datum']?></td>
-            <td><?=$w['Beszallito']?></td>
+            <td><?=$w['Megjegyzes']?></td>
             <td><input name="menny_<?=$w['ID']?>" data-id="<?=$w['ID']?>" class="form-control mennySum" value="0" style="width:5em;" onkeyup="$(this).change()" onchange="updateSum();" required max="<?=rnd($maradek)?>" min="0" type="number"></td>
         </tr>
         <?php
