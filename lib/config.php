@@ -503,12 +503,12 @@ const OMLESZTETT                    = 'omlesztett';
 
 
 const CSOMAGOLASTIPUSOK = [
-    EGYUTAS_KALODA_KICSI        => ['Egyutas kaloda (kicsi)', 'db', 1.0, U_RAKOTT_URMETER ],
-    EGYUTAS_KALODA_KESKENY      => ['Egyutas kaloda (keskeny)', 'db', 1.24, U_RAKOTT_URMETER ],
-    EGYUTAS_KALODA_NORMAL       => ['Egyutas kaloda (normál)', 'db', 1.65, U_RAKOTT_URMETER ],
-    EGYUTAS_KALODA_NAGY         => ['Egyutas kaloda (nagy)', 'db', 1.8, U_RAKOTT_URMETER ],
-    VISSZAVALTHATO_KALODA_KICSI => ['Visszaváltható kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
-    VISSZAVALTHATO_KALODA_NAGY  => ['Visszaváltható kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
+    EGYUTAS_KALODA_KICSI        => ['E.u. kaloda (kicsi)', 'db', 1.0, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_KESKENY      => ['E.u. kaloda (keskeny) + 25 cm púp', 'db', 1.27, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NORMAL       => ['E.u. kaloda (normál) + 15 cm púp', 'db', 1.68, U_RAKOTT_URMETER ],
+    EGYUTAS_KALODA_NAGY         => ['E.u. kaloda (nagy) + 30 cm púp', 'db', 1.835, U_RAKOTT_URMETER ],
+    VISSZAVALTHATO_KALODA_KICSI => ['Vv. kaloda (kicsi)', 'db', 1, U_RAKOTT_URMETER],
+    VISSZAVALTHATO_KALODA_NAGY  => ['Vv. kaloda (nagy)', 'db', 2, U_RAKOTT_URMETER],
     POSCH_HALOS                 => ['Posch hálós', 'db', 2.34, U_SZORT_URMETER],
     POSCH_HALOS_FOLIAS          => ['Posch hálós, fóliázott', 'db', 2.34, U_SZORT_URMETER],
     OMLESZTETT                  => ['Ömlesztett', 'szűrm', 1, U_SZORT_URMETER]
