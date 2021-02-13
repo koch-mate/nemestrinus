@@ -11,7 +11,7 @@ const LOGLEVEL = (DEBUG ? L_INFO : L_WARNING);
 
 const LOCAL_DB = [
     'database_type' => 'mysql',
-    'database_name' => 'nemestrinus',
+    'database_name' => 'legnad_mgmt',
     'server' => 'localhost',
     'username' => 'root',
     'password' => 'root',
@@ -107,6 +107,8 @@ const IMPLEMENTED_PAGES = [
     'beszallitok',
     'kimutatas-megrendelo-osszes',
     'kimutatas-beszallitok',
+    'kimutatas-bulk',
+    'archiv-2021'
 ];
 
 const MENU_STRUCT = [
@@ -154,6 +156,10 @@ const MENU_STRUCT = [
       'kimutatas-faanyagforgalom-beszallitas',
       'kimutatas-faanyagforgalom-kiszallitas',
       'kimutatas-beszallitok',
+      'kimutatas-bulk',
+    ],
+    'archivum'          => [
+      'archiv-2021',
     ],
     'adminisztracio'    => [
         'felhasznalok',
@@ -254,7 +260,10 @@ const PAGE_RIGHTS = [
     'kimutatas-faanyagforgalom-beszallitas'  => [R_KIMUTATAS],
     'kimutatas-faanyagforgalom-kiszallitas'  => [R_KIMUTATAS],
     'kimutatas-megrendelo-osszes' => [R_KIMUTATAS],
-    'kimutatas-beszallitok' => [R_KIMUTATAS],
+    'kimutatas-beszallitok'     => [R_KIMUTATAS],
+    'kimutatas-bulk'            => [R_KIMUTATAS],
+    'archivum'                  => [R_KIMUTATAS],
+    'archiv-2021'               => [R_KIMUTATAS],
     'help'                      => [R_BESZALLITAS, R_ALAPANYAG, R_GYARTAS, R_LAK_MEGRENDELES, R_EXP_MEGRENDELES, R_LAK_SZALLITAS, R_EXP_SZALLITAS, R_KIMUTATAS, R_ADMINISZTRACIO],
 ];
 
@@ -312,6 +321,8 @@ const MENU_ICONS = [
     'beszallitas-fuggo' => 'fa-truck',
     'beszallitok' => 'fa-users',
     'kimutatas-beszallitok' => 'fa-truck',
+    'kimutatas-bulk' => 'fa-table',
+    'archiv-2021' => 'glyphicon-floppy-saved',
 ];
 
 const MENU_NAMES = [
@@ -379,6 +390,10 @@ const MENU_NAMES = [
     'kimutatas-megrendelo-export'      => 'Megrendelőnkénti kimutatás - Export',
     'kimutatas-megrendelo-osszes'       => 'Megrendelőnkénti kimutatás - Összes',
     'kimutatas-beszallitok' => 'Beszállítók',
+    'kimutatas-bulk' => 'Összes megrendelés',
+    'archivum' => 'Archív',
+    'archiv-2021' => '2021. február',
+
 
 ];
 

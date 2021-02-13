@@ -67,7 +67,7 @@ function lbl($x, $prefix="", $postfix=U_NAMES[U_STD][1], $style="default"){
 	?><span class="label label-<?=$style?>"><?=$prefix?><?=(number_format(abs($x), 2, '.', ' ' ))?>&nbsp;<?=$postfix?></span><?php
 	}
 	else {
-	?><span class="label label-<?=$style?>">-</span><?php	
+	?><span class="label label-<?=$style?>">-</span><?php
 	}
 }
 
@@ -82,7 +82,7 @@ function ezres($x)
 
 // link to the github issues on the main page
 function issueLink($url, $title){
-	?><a href="<?=$url?>" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> #<?=explode('/',$url)[count(explode('/',$url))-1]?></a> - <?=$title?><?
+	?><a href="<?=$url?>" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> #<?=explode('/',$url)[count(explode('/',$url))-1]?></a> - <?=$title?><?php
 }
 
 // water drops for the humidity

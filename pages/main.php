@@ -29,6 +29,12 @@
       <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
       <hr style="height:2px;background:#000;" />
 
+
+      <p><span class="label label-default">2021. 02. 13.</span> <span class="label label-success">Új fejlesztés</span>
+        Archívált rendelések
+      </p>
+
+
       <p><span class="label label-default">2019. 01. 15.</span> <span class="label label-success">Új fejlesztés</span>
         <?=issueLink('https://github.com/koch-mate/nemestrinus/issues/131','Beszállító helyett megjegyzés a gyártásnál')?>
       </p>

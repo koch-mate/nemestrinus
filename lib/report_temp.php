@@ -1,7 +1,7 @@
 <?php
 use Medoo\Medoo;
 
-function kimutatasTemplate($cim = "", $cnt = "", $honapraugras=false, $tipusSzures = false){
+function kimutatasTemplate($cim = "", $cnt = "", $honapraugras=false, $tipusSzures = false, $osszesEv = false){
   global $db, $mode, $ev, $lak_exp;
 
 ?>
@@ -28,6 +28,8 @@ if(isset($_GET['tipus'])){
 
 ?>
 
+<?php
+if(!$osszesEv){ ?>
 <div style="font-size:150% clearfix">
   <p>
   Vizsgált év: <span class="label label-primary"><?=$ev?></span>
@@ -41,6 +43,7 @@ if(isset($_GET['tipus'])){
     <?php
     }?>
   </p>
+<?php } ?>
 <?php if($honapraugras){?>
   <p>
     Hónapra ugrás: <?php
@@ -72,8 +75,27 @@ $('#tipusSel input:radio').on('change', function() {
 </div>
 <?php } ?>
 
-<div class="row">
-<?=call_user_func($cnt)?>
-</div>
+<?php
+if($osszesEv){
+  for($iev = 2015;$iev < date('Y')+1;$iev++)
+  {
+
+  $ev = $iev;
+  ?>
+      <div class="row">
+      <?=call_user_func($cnt)?>
+      </div>
+
+  <?php
+  }
+}
+else { ?>
+
+    <div class="row">
+    <?=call_user_func($cnt)?>
+    </div>
+
+<?php
+  } ?>
 
 <?php } //func: kimutatasTemplate() ?>

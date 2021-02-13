@@ -1,4 +1,4 @@
-<?
+<?php
 
 use Medoo\Medoo;
 require("lib/report_temp.php");
@@ -71,6 +71,7 @@ foreach(MONTHS as $mi => $mn){
       <th title="Típus">T.</th>
       <th>Státusz</th>
       <th>Megrendelő</th>
+      <th>Megrendelő adatai</th>
       <th>Rögzítés<br>dátuma</th>
       <th>Ígért<br>teljesítés<br>dátuma</th>
       <th>Szállítás dátuma</th>
@@ -110,7 +111,7 @@ foreach(MONTHS as $mi => $mn){
         <span class="btn btn-xs btn-primary " style="cursor:default;background:<?=M_S_SZINEK[$i['Statusz']][0]?>;border-color:<?=M_S_SZINEK[$i['Statusz']][0]?>;font-weight:bold;" >
             <?=$i['Statusz']?>
         </span></td>
-        <td><?=($i[Tipus]==M_LAKOSSAGI?$i[MegrendeloNev]:exportCustomerGetNameById($i[MegrendeloID]))?></td>
+      <td><?=($i[Tipus]==M_LAKOSSAGI?$i[MegrendeloNev].'<br/>'.$i[MegrendeloCim].'<br/>'.$i[MegrendeloTel]:exportCustomerGetNameById($i[MegrendeloID]))?></td>
       <td><?=$i[RogzitesDatum]?></td>
       <td><?=$i[KertDatum]?></td>
       <td><?=$i[SzallitasTenylegesDatuma]?></td>
