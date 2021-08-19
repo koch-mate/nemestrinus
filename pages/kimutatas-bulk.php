@@ -6,6 +6,7 @@ require("lib/report_temp.php");
 function haviNezet(){
 
   global $db, $mode, $ev, $lak_exp;
+  $dataRowsCnt = 0;
 ?>
 
 
@@ -23,14 +24,32 @@ p.light {
 }
 </style>
 
-<div class="row" style="margin:2em;">
-
+<div class="row" style="margin:0;">
 
 <div id="main_table" >
 
 <?php
 foreach(MONTHS as $mi => $mn){
   $ii = 1;
+
+  $filters = [
+    'KertDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))],
+    'Tipus'=> [$lak_exp == 'lakossagi' ? M_LAKOSSAGI : ($lak_exp == 'export' ? M_EXPORT : '')],
+    'OrderBy'=>['Tipus'=>'DESC','KertDatum'=>'ASC']
+  ];
+  if(isset($_GET['MegrendeloNev']) && trim($_GET['MegrendeloNev']) != ""){
+    $filters['MegrendeloNev']=$_GET['MegrendeloNev'];
+  }
+  if(isset($_GET['MegrendeloID']) && trim($_GET['MegrendeloID']) != ""){
+    $filters['MegrendeloID']=$_GET['MegrendeloID'];
+  }
+  if($lak_exp =='mind'){
+    unset($filters['Tipus']);
+  }
+  $tableDataQuery = ordersGetAllData($filters);
+  if(empty($tableDataQuery)){
+    continue;
+  }
    ?>
 
 <div id="hodiv<?=$mi?>" <?=($mi == date('m') ? '':'style=""')?>>
@@ -60,18 +79,11 @@ foreach(MONTHS as $mi => $mn){
 
     <?php
     $even = 0;
-    $filters = [
-      'KertDatum'=> [$ev.'-'.str_pad($mi,2, '0',STR_PAD_LEFT).'-'.'01', $ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.date('t', strtotime($ev.'-'.str_pad($mi,2,'0',STR_PAD_LEFT).'-'.'01'))],
-      'Tipus'=> [$lak_exp == 'lakossagi' ? M_LAKOSSAGI : ($lak_exp == 'export' ? M_EXPORT : '')],
-      'OrderBy'=>['Tipus'=>'DESC','KertDatum'=>'ASC']
-    ];
-    if($lak_exp =='mind'){
-      unset($filters['Tipus']);
-    }
-    foreach (ordersGetAllData($filters) as $i) {
+    foreach ($tableDataQuery as $i) {
       $ois = ordersGetItemsByID($i['ID']);
       $oin = count($ois);
       $even = 1-$even;
+      $dataRowsCnt += 1;
     ?>
     <tr style="background:<?=colourBrightness(M_S_SZINEK[$i['Statusz']][0],0.35 + 0.05*$even)?>;">
       <th>
@@ -123,4 +135,4 @@ foreach(MONTHS as $mi => $mn){
 
 <?php } //func: haviNezet()?>
 
-<?=kimutatasTemplate("Összes megrendelés", 'haviNezet', $honapraugras=false, $tipusSzures = false, $osszesEv = true)?>
+<?=kimutatasTemplate("Összes megrendelés", 'haviNezet', $honapraugras=false, $tipusSzures = false, $osszesEv = true, $megrendeloNevSzures=true)?>

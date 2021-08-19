@@ -71,7 +71,6 @@ foreach(MONTHS as $mi => $mn){
       <th title="Típus">T.</th>
       <th>Státusz</th>
       <th>Megrendelő</th>
-      <th>Megrendelő adatai</th>
       <th>Rögzítés<br>dátuma</th>
       <th>Ígért<br>teljesítés<br>dátuma</th>
       <th>Szállítás dátuma</th>

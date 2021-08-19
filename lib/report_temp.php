@@ -1,7 +1,7 @@
 <?php
 use Medoo\Medoo;
 
-function kimutatasTemplate($cim = "", $cnt = "", $honapraugras=false, $tipusSzures = false, $osszesEv = false){
+function kimutatasTemplate($cim = "", $cnt = "", $honapraugras=false, $tipusSzures = false, $osszesEv = false, $megrendeloNevSzures = false){
   global $db, $mode, $ev, $lak_exp;
 
 ?>
@@ -17,6 +17,57 @@ const numberWithCommas = (x) => {
 
 <h1><?=$cim?></h1>
 
+<?php
+if($megrendeloNevSzures){
+?>
+<form action="">
+<div class="form-group">
+  <label class="col-md-2 control-label">Szűrés lakossági megrendelő alapján: </label>
+  <div class="col-md-3">
+    <input class="form-control input-md" type="text" name="MegrendeloNev" value="<?=$_GET['MegrendeloNev']?>">
+  </div>
+  <input type="submit" value="Szűrés" class="btn btn-success">
+  <input type="hidden" name="mode" value="<?=$_GET['mode']?>">
+</div>
+</form>
+
+<form action="">
+<div class="form-group">
+  <label class="col-md-2 control-label">Szűrés export megrendelő alapján: </label>
+  <div class="col-md-3">
+        <select class="selectpicker" name="MegrendeloID" data-live-search="true">
+            <option value="">Összes</option>
+            <?php foreach(getExportCustomersWithData() as $ec){?>
+                <option value="<?=$ec['ID']?>">
+                    <?=$ec['MegrendeloNev']?>
+                </option>
+                <?php }?>
+        </select>
+  </div>
+  <input type="submit" value="Szűrés" class="btn btn-success">
+  <input type="hidden" name="mode" value="<?=$_GET['mode']?>">
+</div>
+</form>
+<?php
+}
+
+if(isset($_GET['MegrendeloNev']) && trim($_GET['MegrendeloNev']) != ""){
+  ?>
+  <div class="alert alert-warning">
+    Szűrés <b>lakossági</b> megrendelőkre: "<?=trim($_GET['MegrendeloNev'])?>"
+  </div>
+  <?php
+}
+if(isset($_GET['MegrendeloID']) && trim($_GET['MegrendeloID']) != ""){
+  ?>
+  <div class="alert alert-warning">
+    Szűrés <b>export</b> megrendelőre: "<?=exportCustomerGetNameById($_GET['MegrendeloID'])?>"
+  </div>
+  <?php
+}
+
+
+?>
 <?php
 
 $ev = (isset($_GET['ev']) ? $_GET['ev'] : date('Y'));
@@ -81,9 +132,11 @@ if($osszesEv){
   {
 
   $ev = $iev;
+  $cntRow=call_user_func($cnt);
+
   ?>
       <div class="row">
-      <?=call_user_func($cnt)?>
+      <?=$cntRow?>
       </div>
 
   <?php

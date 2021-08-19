@@ -29,6 +29,14 @@
       <h3 style="text-align: center; margin-bottom:1em;"><i class="fa fa-wrench"></i>&nbsp;Programfrissítések</h3>
       <hr style="height:2px;background:#000;" />
 
+      <p><span class="label label-default">2021. 08. 19.</span> <span class="label label-success">Új fejlesztés</span>
+        Szűrés megrendelő szerint az Összes megrendelés kimutatásban
+      </p>
+
+      <p><span class="label label-default">2021. 08. 19.</span> <span class="label label-warning">Hibajavítás</span>
+        Elcsúszott táblázat fejléc javítása a Havi megrendelés összesítő kimutatásban; Hibás Összeg érték javítása a Megrendelőnkénti kimutatásban
+      </p>
+
       <p><span class="label label-default">2021. 02. 13.</span> <span class="label label-primary">Konstans érték változás</span>
         Egyutas kalodák púppal
       </p>

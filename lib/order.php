@@ -182,6 +182,14 @@ function ordersGetAllData($filters = []){
     if(array_key_exists('Gyarto', $filters)){
         $where['Gyarto'] = $filters['Gyarto'];
     }
+    if(array_key_exists('MegrendeloNev', $filters)){
+        $where['MegrendeloNev[~]'] = $filters['MegrendeloNev'];
+    }
+
+    if(array_key_exists('MegrendeloID', $filters)){
+        $where['MegrendeloID'] = $filters['MegrendeloID'];
+    }
+
 
     $fields = [
       'ID',

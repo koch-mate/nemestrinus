@@ -61,7 +61,7 @@ foreach($lak as $mn){
         $mossz[$month]+= rnd($s);
         ?>
       <td>
-        <span title="<?=MONTHS[$month]?>"><?=($s>0?spanify(number_format(rnd($s), 2, '.', ' ' )):'')?></span>
+        <span title="<?=MONTHS[$month]?>"><?=($s>0?spanify(rnd($s)):'')?></span>
       </td>
     <?php } ?>
       <th>
@@ -78,7 +78,7 @@ foreach($lak as $mn){
       <?php foreach(array_keys(MONTHS) as $month){
         ?>
         <td>
-          <span title="<?=MONTHS[$month]?>"><?=spanify(number_format(rnd($mossz[$month]), 2, '.', ' ' ))?></span>
+          <span title="<?=MONTHS[$month]?>"><?=spanify(rnd($mossz[$month]))?></span>
         </td>
         <?php
       }?>
